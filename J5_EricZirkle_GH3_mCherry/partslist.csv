@@ -1,0 +1,10 @@
+"Part Name","Part Source (Sequence Display ID)","Reverse Compliment?","Start (bp)","End (bp)","Five Prime Internal Preferred Overhangs?","Three Prime Internal Preferred Overhangs?"
+pWL238-pMOD6G-AtGH3-9,pMOD6G_AtGH3_9__,FALSE,1,6911,,
+pWL211-pMOD6G-AtGH3-5,pMOD6G_AtGH3_5__,FALSE,2881,2880,,
+pWL210-pMOD6G-AtGH3-6,pMOD6G_AtGH3_6__,FALSE,1,6992,,
+pWL209-pMOD6G-AtGH3-3,pMOD6G_AtGH3_3,FALSE,2853,2852,,
+pWL240-pMOD6G-AtGH3-4,pMOD6G_AtGH3_4,FALSE,2733,2732,,
+pWL239-pMOD6G-AtGH3-17,pMOD6G_AtGH3_17_,FALSE,1,6983,,
+pWL207-pMOD6G-AtGH3-10,pMOD6G_AtGH3_10,FALSE,2905,2904,,
+pWL208-pMOD6G-AtGH3-11,pMOD6G_AtGH3_11_,FALSE,2834,2833,,
+mCherry-linker,pWL204_pGP4G2_mCherry,FALSE,1,753,,
