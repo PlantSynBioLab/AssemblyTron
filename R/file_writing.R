@@ -1,6 +1,6 @@
 #' Write necessary information for protocols into python feathers made by file_handling.R
 #'
-#' @param path
+#' @param path a path to the feather files made by parse_j5
 #' @param file
 #'
 #' @return updated feather files with the appropriate information needed to perform lab operations
