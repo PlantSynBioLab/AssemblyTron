@@ -43,6 +43,9 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   #Reads the Assembly Pieces portion of the CSV file
   Assembly_Read <- readr::read_csv(file,col_names = c())
 
+  #Join Assembly Pieces
+  assembly_join <- dplyr::full_join(Assembly_Read_Gib, Assembly_Read_GG)
+
   Assembly_Feather <- feather::write_feather(Assembly_Read)#creates feather file for the Assembly Pieces information
 
 }
