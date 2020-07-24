@@ -17,7 +17,6 @@
 parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
 {
   #body
-
   J5Lines <- readLines(file) #reads lines from J5 file to help with parsing
 
   Oligo <- grep(pattern = "Oligo Synthesis",J5Lines) #searches for first set of data needed from J5 file (Oligo Synthesis Data)
@@ -26,11 +25,22 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   PCR <- grep(pattern = "PCR Reactions",J5Lines)#Searches for the title of the next set of data (PCR Reactions)
   #Returns the line number of this pattern
 
+  Pieces <- grep(pattern = "Assembly Pieces",J5Lines)#Searches for the title of next set of data (Assembly Pieces)
+  #returns the line number of this pattern
+
   #Reads the Oligo Synthesis portion of the CSV file
   Oligo_Read <- readr::read_csv(file, col_names = c("ID Number", "Name", "Length", "Tm", "Tm (3' only)", "Cost", "Sequence", "Sequence (3' only)"),skip = Oligo+1,n_max = PCR-Oligo-3)
 
   Oligo_Feather <- feather::write_feather(Oligo_Read)#Creates feather file for Oligo Synthesis information
 
-  return(Oligo_Read)
+  #Reads the PCR Reactions Portion of the CSV file
+  PCR_Read <- readr::read_csv(file, col_names = c())
+
+  PCR_Feather <- feather::write_feather(PCR_Read)#creates feather file for the PCR reaction information
+
+  #Reads the Assembly Pieces portion of the CSV file
+  Assembly_Read <- readr::read_csv(file,col_names = c())
+
+  Assembly_Feather <- feather::write_feather(Assembly_Read)#creates feather file for the Assembly Pieces information
 
 }
