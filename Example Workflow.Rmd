@@ -16,12 +16,42 @@ knitr::opts_chunk$set(echo = TRUE)
 parse_j5(path = "./J5_EricZirkle_GH3_mCherry/")
 ```
 
-## Including Plots
+### Dilute Oligos
 
-You can also embed plots, for example:
+Dilutions Tasks-
+Ask what is being diluted(Which Primer) (Pop up that matches oWL ID in spreadsheet)
+-Check if there is any in stock that is already diluted from OWL or another spreadsheet (Grab
+information from spreadsheet)
+-If no stock (If else statement/loop)
+-Confirm what is being diluted (reconfirm the oWL ID)
+-Calculate appropriate dilution volume to dilute 10x to 10uM (perform 10x dilution into
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+appropriate tube)
+-Else If stock available
+-Check date
+-If less than one month old, use primer (display message: “Primer in stock and
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+fresh” and kick out)
+
+-If greater than one month old, assume no stock assumption and redilute (go
+
+back and assume no stock and perform no stock loop)
+
+Pseudo code:
+Take information from the parsing code
+Compare primers in the file to the oWL spreadsheet (for stock)
+
+If (primer name stock not available):
+pipette.pick_up_tip(tiprack[&#39;A1&#39;])
+pipette.aspirate((amount needed for dilution), plate[&#39;NFW&#39;], rate=2.0)
+pipette.dispense(Amount from aspiration, plate[&#39;Primer&#39;], rate=2.0)
+pipette.blow_out()
+Else (primer available)
+Compare Date
+If date &lt; 30 days
+Perform operation
+Else date &gt;30 days
+No stock option
+
+
+
