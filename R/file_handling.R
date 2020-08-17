@@ -19,47 +19,44 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   #body
   j5lines <- readLines(file) #reads lines from J5 file to help with parsing
 
-  oligo <- grep(pattern = "Oligo Synthesis",J5Lines) #searches for first set of data needed from J5 file (Oligo Synthesis Data)
+  oligo <- grep(pattern = "Oligo Synthesis",j5lines) #searches for first set of data needed from J5 file (Oligo Synthesis Data)
   #returns line number for the Oligo Synthesis
 
-  pcr <- grep(pattern = "PCR Reactions",J5Lines)#Searches for the title of the next set of data (PCR Reactions)
+  pcr <- grep(pattern = "PCR Reactions",j5lines)#Searches for the title of the next set of data (PCR Reactions)
   #Returns the line number of this pattern
 
   gibson <- grep(pattern = "Assembly Pieces (SLIC/Gibson/CPEC)",j5lines,fixed = TRUE)#Searches for the title of next set of data if assembly pieces are gibson
   #returns the line number of this pattern
 
-  golden_gate <- grep(pattern = "Assembly Pieces (Golden Gate",j5lines, fixed = TRUE)#Searches for the next set of data if the assembly is golden gate
+  golden_gate <- grep(pattern = "Assembly Pieces (Golden-gate)",j5lines, fixed = TRUE)#Searches for the next set of data if the assembly is golden gate
   #returns line number for this pattern
 
+  combinations <- grep(pattern = "Combinations of Assembly Pieces",j5lines, fixed = TRUE)
   #Reads the Oligo Synthesis portion of the CSV file
-  oligo_read <- readr::read_csv(file, col_names = c("ID Number", "Name", "Length", "Tm", "Tm (3' only)", "Cost", "Sequence", "Sequence (3' only)"),skip = Oligo+1,n_max = PCR-Oligo-3)
-  return(Oligo_Read)
-
-  oligo_feather <- feather::write_feather(Oligo_Read)#Creates feather file for Oligo Synthesis information
+  oligo_read <- readr::read_csv(file, col_names = c("ID Number", "Name", "Length", "Tm", "Tm (3' only)", "Cost", "Sequence", "Sequence (3' only)"),skip = oligo+1,n_max = pcr-oligo-3)
+  return(oligo_read)
+  #oligo_feather <- feather::write_feather(Oligo_Read)#Creates feather file for Oligo Synthesis information
 
   #Reads the PCR Reactions Portion of the CSV file
-  pcr_read <- readr::read_csv(file, col_names = c("Reaction ID Number", "Primary Template", "Alternate Template", "Forward Oligo ID Number", "Forward Oligo Name", "Reverse Oligo ID Number","Reverse Oligo Name", "Notes", "Mean Oligo Tm", "Delta Oligo Tm", "Mean Oligo Tm (3' Only)", "Delta Oligo Tm (3'Only)", "Length", "Sequence"), skip = PCR+1,n_max = gibson-PCR-3)
-  pcr_feather <- feather::write_feather(PCR_Read)#creates feather file for the PCR reaction information
+  pcr_read <- if (length(gibson) & length(golden_gate) > 0){
+    readr::read_csv(file, col_names = c("Reaction ID Number", "Primary Template", "Alternate Template", "Forward Oligo ID Number", "Forward Oligo Name", "Reverse Oligo ID Number","Reverse Oligo Name", "Notes", "Mean Oligo Tm", "Delta Oligo Tm", "Mean Oligo Tm (3' Only)", "Delta Oligo Tm (3'Only)", "Length", "Sequence"), skip = pcr+1,n_max = golden_gate-pcr-3)
+  } else if (length(golden_gate) > 0){
+    readr::read_csv(file, col_names = c("Reaction ID Number", "Primary Template", "Alternate Template", "Forward Oligo ID Number", "Forward Oligo Name", "Reverse Oligo ID Number","Reverse Oligo Name", "Notes", "Mean Oligo Tm", "Delta Oligo Tm", "Mean Oligo Tm (3' Only)", "Delta Oligo Tm (3'Only)", "Length", "Sequence"), skip = pcr+1,n_max = golden_gate-pcr-3)
+  } else if (length(gibson) > 0){
+    readr::read_csv(file, col_names = c("Reaction ID Number", "Primary Template", "Alternate Template", "Forward Oligo ID Number", "Forward Oligo Name", "Reverse Oligo ID Number","Reverse Oligo Name", "Notes", "Mean Oligo Tm", "Delta Oligo Tm", "Mean Oligo Tm (3' Only)", "Delta Oligo Tm (3'Only)", "Length", "Sequence"), skip = pcr+1,n_max = gibson-pcr-3)
+  }
 
   #Reads the Assembly Pieces portion of the CSV file
-  Assembly_Read <- if (gibson & golden_gate > 0)
-  {
+  assembly_read <- if (length(gibson) & length(golden_gate) > 0){
+    readr::read_csv(file, col_names = c("Reaction ID Number", "Reaction Type", "Type ID Number", "Part(s)" , "Relative Overlap Position", "Extra 5' CPEC bps", "Extra 3' CPEC bps","CPEC Tm Next", "Overlap with next (#bps)", "Overlap with Next (Sequence)", "Overlap with Next (Sequence Reverse Compliment)", "Sequence Length" , "Sequence" ), skip = golden_gate-1,n_max = combinations-golden_gate-3,guess_max = 100)
+  } else if (length(golden_gate) > 0){
+    readr::read_csv(file, col_names = c("Reaction ID Number", "Reaction Type", "Type ID Number", "Part(s)" , "Overhang with Previous", "Overhang with Next", "Relative Overhang Position", "Sequence Length", "Sequence" ), skip = golden_gate+1,n_max = combinations-golden_gate-3, guess_max = 100)
+  } else if (length(gibson) > 0){
+   readr::read_csv(file, col_names = c("Reaction ID Number", "Reaction Type", "Type ID Number", "Part(s)" , "Relative Overlap Position", "Extra 5' CPEC bps", "Extra 3' CPEC bps","CPEC Tm Next", "Overlap with next (#bps)", "Overlap with Next (Sequence)", "Overlap with Next (Sequence Reverse Compliment)", "Sequence Length" , "Sequence" ), skip = gibson+1,n_max = combinations-gibson-3, guess_max = 100)
+   }
+  return(assembly_read)
 
-  }
-  else if (gibson > 0) {
-    readr::read_csv(file, col_names = c("Reaction ID Number", "Primary Template", "Alternate Template", "Forward Oligo ID Number", "Forward Oligo Name", "Reverse Oligo ID Number","Reverse Oligo Name", "Notes", "Mean Oligo Tm", "Delta Oligo Tm", "Mean Oligo Tm (3' Only)", "Delta Oligo Tm (3'Only)", "Length", "Sequence"), skip = gibson+1,n_max = gibson-combinations-3)
-  }
-  else if (golden_gate > 0){
-    readr::read_csv(file, col_names = c("Reaction ID Number", "Primary Template", "Alternate Template", "Forward Oligo ID Number", "Forward Oligo Name", "Reverse Oligo ID Number","Reverse Oligo Name", "Notes", "Mean Oligo Tm", "Delta Oligo Tm", "Mean Oligo Tm (3' Only)", "Delta Oligo Tm (3'Only)", "Length", "Sequence"), skip = PCR+1,n_max = golden_gate-combinations-3)
-  }
+  combinations_read <- readr::read_csv(file, col_names = c("ID Number", "Name","Aseembly Method", "Part(s) Bin 0", "Assembly Piece ID Number Bin 0", "Part(s) Bin 1", "Assembly Piece ID Number Bin 1"),skip = combinations+1)
 
-
-<<<<<<< HEAD
-=======
-  #Join Assembly Pieces
-  assembly_join <- dplyr::full_join(Assembly_Read_Gib, Assembly_Read_GG)
-
-  Assembly_Feather <- feather::write_feather(Assembly_Read)#creates feather file for the Assembly Pieces information
->>>>>>> f25bf57b971d8876ee5fdf05040100320d7e258a
 
 }
