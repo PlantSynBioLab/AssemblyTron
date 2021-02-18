@@ -1,0 +1,56 @@
+## TEST VERSION FROM 2/12/2021
+
+from opentrons import protocol.api
+
+## Meta Data
+
+metadata = {'protocolName': 'RED',
+'author':'Mason Kellinger masonkellinger@vt.edu',
+ 'description': 'Restriction Enzyme Digestion',
+ 'apiLevel': '2.9' ## FIGURE THIS OUT
+}
+
+## Configuration
+def get_config(config_file):
+
+    ## read csv file containing enzyme specific Data
+
+    ## create variable for use in protocol
+    g
+
+
+## protocol
+
+def run(protocol: protocol_api.RED):
+
+    ## Loading labware
+    TempUnit = protocol.load_labware('TempertureUnit','3') ## FIGURE THIS OUT
+    tiprack1 = protocol.load_labware("opentrons_96_tiprack_10ul",'1')
+    tiprack2 = protocol.load_labware("opentrons_96_tiprack_20ul","2")
+    tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap","4")
+
+    ## Loading tools
+    protocol.load_tools('p20_single','left','tip_racks = [tiprack1]')
+    protocol.load_tools('p20_single','right','tip_racks = [tiprack2]'')
+
+    ## Operations
+
+    ## get tip -> get x amount of water to fill to 20uL -> dispense into tube
+
+    ## get 2uL of 10x buffer -> dispense into tube -> get rid of tip
+
+    ## get tip -> get 1uL Enzyme -> dispense into tube -> get rid of tip
+
+    ## get tip -> get y amount of DNA -> dispense into tube -> get rid of tip
+
+    #mix??
+
+    ##incubate in tempunit for time @ temp
+
+    ##heat inactivation at @ temp
+
+    ## collect tube
+
+def main():
+    get_config()
+    run()
