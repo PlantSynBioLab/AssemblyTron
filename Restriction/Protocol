@@ -1,6 +1,8 @@
 ## TEST VERSION FROM 2/12/2021
 
 from opentrons import protocol.api
+import tkinter
+import csv
 
 ## Meta Data
 
@@ -15,7 +17,7 @@ def get_config(config_file):
 
     ## read csv file containing enzyme specific Data
 
-    ## create variable for use in protocol
+    ## create variables for use in protocol
     g
 
 
@@ -40,6 +42,8 @@ def run(protocol: protocol_api.RED):
     pipette_left.aspirate(parameter,location,rate)
     pipette_left.dispense(parameter,tuberack[A1],1) #create function to deteremine amount needed
     pipette_left.drop_tip()  ## goes to trash??
+    pipette_left.blow_out()
+
 
     ## get 2uL of 10x buffer -> dispense into tube -> get rid of tip
 
@@ -47,6 +51,15 @@ def run(protocol: protocol_api.RED):
     pipette_left.aspirate(2,location,rate)
     pipette_left.dispense(2,tuberack[A1],1)
     pipette_left.drop_tip()
+    pipette_left.blow_out()
+
+    ## get tip -> get y amount of DNA -> dispense into tube -> get rid of tip
+
+    pipette_left.pick_up_tip()
+    pipette_left.aspirate(parameter2,location,rate) #create function to determine
+    pipette_left.dispense(parameter2,tuberack[A1],1)
+    pipette_left.drop_tip()
+    ## we don't blow out so we dont aerosolize dna
 
     ## get tip -> get 1uL Enzyme -> dispense into tube -> get rid of tip
 
@@ -55,17 +68,11 @@ def run(protocol: protocol_api.RED):
     pipette_left.dispense(1,tuberack[A1],1)
     pipette_left.drop_tip()
 
-    ## get tip -> get y amount of DNA -> dispense into tube -> get rid of tip
-
-    pipette_left.pick_up_tip()
-    pipette_left.aspirate(parameter2,location,rate) #create function to determine
-    pipette_left.dispense(parameter2,tuberack[A1],1)
-    pipette_left.drop_tip()
-
-    #mix??
+    #mix
 
     pipette_left.pick_up_tip()#pick up a new tip????
     pipette_left.mix(3,20,tuberack[A1])  #repetetions, max volume uL, location
+    #this helps rinse the extra enzyme as well
 
     ##might want to comment when this is done so someone can place it in temp unit
     This would look like
@@ -81,7 +88,8 @@ def run(protocol: protocol_api.RED):
     ## is the temp programmable?
 
     ## collect tube
-    RED.commnet('inactivation @ temp is complete')
+    RED.comment('inactivation @ temp is complete')
+
 def main():
     get_config()
     run()
