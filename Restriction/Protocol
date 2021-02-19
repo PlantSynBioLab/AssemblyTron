@@ -30,27 +30,58 @@ def run(protocol: protocol_api.RED):
     tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap","4")
 
     ## Loading tools
-    protocol.load_tools('p20_single','left','tip_racks = [tiprack1]')
-    protocol.load_tools('p20_single','right','tip_racks = [tiprack2]'')
+    pipette_left = protocol.load_tools('p20_single','left','tip_racks = [tiprack1]')
+    pipette_right = protocol.load_tools('p20_single','right','tip_racks = [tiprack2]'')
 
     ## Operations
 
     ## get tip -> get x amount of water to fill to 20uL -> dispense into tube
+    pipette_left.pick_up_tip(tiprack1['A1'])
+    pipette_left.aspirate(parameter,location,rate)
+    pipette_left.dispense(parameter,tuberack[A1],1) #create function to deteremine amount needed
+    pipette_left.drop_tip()  ## goes to trash??
 
     ## get 2uL of 10x buffer -> dispense into tube -> get rid of tip
 
+    pipette_left.pick_up_tip() #should go the next slot
+    pipette_left.aspirate(2,location,rate)
+    pipette_left.dispense(2,tuberack[A1],1)
+    pipette_left.drop_tip()
+
     ## get tip -> get 1uL Enzyme -> dispense into tube -> get rid of tip
+
+    pipette_left.pick_up_tip()
+    pipette_left.aspirate(1,location,rate)
+    pipette_left.dispense(1,tuberack[A1],1)
+    pipette_left.drop_tip()
 
     ## get tip -> get y amount of DNA -> dispense into tube -> get rid of tip
 
+    pipette_left.pick_up_tip()
+    pipette_left.aspirate(parameter2,location,rate) #create function to determine
+    pipette_left.dispense(parameter2,tuberack[A1],1)
+    pipette_left.drop_tip()
+
     #mix??
 
+    pipette_left.pick_up_tip()#pick up a new tip????
+    pipette_left.mix(3,20,tuberack[A1])  #repetetions, max volume uL, location
+
+    ##might want to comment when this is done so someone can place it in temp unit
+    This would look like
+    RED.comment('Prep is done... Place in TempUnit')
+    Need confimation of being placed
     ##incubate in tempunit for time @ temp
 
+    #function for incubation
+    RED.delay(minutes=time)  #grab from config file
+    RED.comment('Incubation has completed')
     ##heat inactivation at @ temp
 
-    ## collect tube
+    ## is the temp programmable?
 
+    ## collect tube
+    RED.commnet('inactivation @ temp is complete')
 def main():
     get_config()
     run()
