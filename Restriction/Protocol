@@ -41,8 +41,9 @@ def run(protocol: protocol_api.RED):
     pipette_left.pick_up_tip(tiprack1['A1'])
     pipette_left.aspirate(parameter,location,rate)
     pipette_left.dispense(parameter,tuberack[A1],1) #create function to deteremine amount needed
-    pipette_left.drop_tip()  ## goes to trash??
     pipette_left.blow_out()
+    pipette_left.drop_tip()  ## goes to trash??
+
 
 
     ## get 2uL of 10x buffer -> dispense into tube -> get rid of tip
@@ -50,8 +51,9 @@ def run(protocol: protocol_api.RED):
     pipette_left.pick_up_tip() #should go the next slot
     pipette_left.aspirate(2,location,rate)
     pipette_left.dispense(2,tuberack[A1],1)
-    pipette_left.drop_tip()
     pipette_left.blow_out()
+    pipette_left.drop_tip()
+
 
     ## get tip -> get y amount of DNA -> dispense into tube -> get rid of tip
 
@@ -66,6 +68,7 @@ def run(protocol: protocol_api.RED):
     pipette_left.pick_up_tip()
     pipette_left.aspirate(1,location,rate)
     pipette_left.dispense(1,tuberack[A1],1)
+    pipette_left.blow_out()
     pipette_left.drop_tip()
 
     #mix
@@ -74,10 +77,10 @@ def run(protocol: protocol_api.RED):
     pipette_left.mix(3,20,tuberack[A1])  #repetetions, max volume uL, location
     #this helps rinse the extra enzyme as well
 
-    ##might want to comment when this is done so someone can place it in temp unit
-    This would look like
-    RED.comment('Prep is done... Place in TempUnit')
-    Need confimation of being placed
+    #PREP DONE
+
+    RED.comment('Prep is done...')
+
     ##incubate in tempunit for time @ temp
 
     #function for incubation
