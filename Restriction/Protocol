@@ -7,7 +7,7 @@ import csv
 ## Meta Data
 
 metadata = {'protocolName': 'RED',
-'author':'Mason Kellinger masonkellinger@vt.edu',
+'author':'Mason Kellinger masonkellinger@vt.edu', 'Steven Kenah ksteven18@vt.edu'
  'description': 'Restriction Enzyme Digestion',
  'apiLevel': '2.9' ## FIGURE THIS OUT
 }
