@@ -17,8 +17,18 @@ def get_config(config_file):
 
     ## read csv file containing enzyme specific Data
 
+
     ## create variables for use in protocol
-    g
+    g= open(csv) ##still need name of csv file.
+    print(g)
+    ## If statement checks if the user's input of data is correct.
+    check= input('Is this the data you want to use? Please enter yes or no')
+    if check == 'yes':
+        ##Do nothing.  Will continue running code
+    if check == 'no':
+        sys.exit() # Ends code so you can input new data and restart
+    Elif:
+        check= input('Incorrect input. Is this the data you want to use?  Please enter yes or no')
 
 
 ## protocol
