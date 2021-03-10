@@ -35,6 +35,7 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   combinations <- grep(pattern = "Combinations of Assembly Pieces",j5lines, fixed = TRUE)
   #Reads the Oligo Synthesis portion of the CSV file
   oligo_read <- readr::read_csv(file, col_names = c("ID Number", "Name", "Length", "Tm", "Tm (3' only)", "Cost", "Sequence", "Sequence (3' only)"),skip = oligo+1,n_max = pcr-oligo-3)
+  #TODO Suppress messages from read_csv
   #return(oligo_read)
   feather::write_feather(oligo_read, path = paste0(path,"/oligo.feather"))#Creates feather file for Oligo Synthesis information
 
