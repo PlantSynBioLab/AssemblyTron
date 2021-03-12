@@ -8,7 +8,7 @@
 
 import time
 import math
-
+import assemblies.feather
 from opentrons import robot, instruments, labware, modules
 
 num_rxns = len(combinations_to_make)
