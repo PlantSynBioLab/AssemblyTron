@@ -1,0 +1,6 @@
+"Part Name","Part Source (Sequence Display ID)","Reverse Compliment?","Start (bp)","End (bp)","Five Prime Internal Preferred Overhangs?","Three Prime Internal Preferred Overhangs?"
+ARF19_0-010,pWLxx,FALSE,2867,3961,,"(-18,18)"
+ARF19_051-end,pWLxx,FALSE,3962,6007,,
+ARF19_0-200,pWLxx_2,FALSE,2867,4531,,"(-17,17)"
+ARF19_241-end,pWLxx_2,FALSE,4532,6007,,
+Backbone_ARF19del,pWLxx_2,FALSE,6008,2866,,
