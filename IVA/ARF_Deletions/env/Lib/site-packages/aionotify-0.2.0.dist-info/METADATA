@@ -1,0 +1,22 @@
+Metadata-Version: 2.0
+Name: aionotify
+Version: 0.2.0
+Summary: Asyncio-powered inotify library
+Home-page: https://github.com/rbarrois/aionotify
+Author: Raphaël Barrois
+Author-email: raphael.barrois+aionotify@polytechnique.org
+License: BSD
+Keywords: asyncio,inotify
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Filesystems
+
+UNKNOWN
+
+

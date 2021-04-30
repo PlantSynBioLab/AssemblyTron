@@ -1,0 +1,4 @@
+[console_scripts]
+opentrons_execute = opentrons.execute:main
+opentrons_simulate = opentrons.simulate:main
+
