@@ -23,7 +23,7 @@ DPNI = 1 #How much DPNI to add
 
 #Import oligo.feather
 #path for my windows machine
-path = 'C:/Users/jonbr/Documents/GitHub/opentrons/IVA/ARF_Deletions/ARF7/oligo.feather'
+path = 'C:/Users/jonbr/Documents/GitHub/opentrons/j5_Files/j5__pGP8A-ARF7 domain delete/oligo.feather'
 
 oligos = ft.read_feather(path)
 oligos
@@ -86,7 +86,7 @@ oligos
 #path = '/Users/jbryant2/Google Drive File Stream/Shared drives/PlantSynBioLab/Cloning/AFB_epistasis_muts/pcr.feather'
 
 #path for my windows machine
-path = 'C:/Users/jonbr/Documents/GitHub/opentrons/IVA/ARF_Deletions/ARF7/pcr.feather'
+path = 'C:/Users/jonbr/Documents/GitHub/opentrons/j5_Files/j5__pGP8A-ARF7 domain delete/pcr.feather'
 
 pcr = ft.read_feather(path)
 pcr
@@ -185,7 +185,7 @@ pcr_plustemplates
 #path = '/Users/jbryant2/Google Drive File Stream/Shared drives/PlantSynBioLab/Cloning/AFB_epistasis_muts/assembly.feather'
 
 #path for my windows machine
-path ='C:/Users/jonbr/Documents/GitHub/opentrons/IVA/ARF_Deletions/ARF7/assembly.feather'
+path ='C:/Users/jonbr/Documents/GitHub/opentrons/j5_Files/j5__pGP8A-ARF7 domain delete/assembly.feather'
     
 assembly = ft.read_feather(path)
 assembly
@@ -194,7 +194,7 @@ assembly
 #path = '/Users/jbryant2/Google Drive File Stream/Shared drives/PlantSynBioLab/Cloning/AFB_epistasis_muts/combinations.feather'
 
 #path for my windows machine
-path = 'C:/Users/jonbr/Documents/GitHub/opentrons/IVA/ARF_Deletions/ARF7/combinations.feather'
+path = 'C:/Users/jonbr/Documents/GitHub/opentrons/j5_Files/j5__pGP8A-ARF7 domain delete/combinations.feather'
 
 combinations = ft.read_feather(path)
 combinations
