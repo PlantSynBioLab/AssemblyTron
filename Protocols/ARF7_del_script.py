@@ -280,26 +280,26 @@ print(metadata)
 
 
 
-#def run(protocol: protocol_api.ProtocolContext): #for actually running the script in the robot
+def run(protocol: protocol_api.ProtocolContext): #for actually running the script in the robot
 #will have to indent everything to be defined by the run function
 
-from opentrons import simulate
-protocol = simulate.get_protocol_api('2.2')
+#from opentrons import simulate
+    protocol = simulate.get_protocol_api('2.2')
     
 #labware:
-tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
-tiprack2 = protocol.load_labware('opentrons_96_tiprack_300ul','6')
+    tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
+    tiprack2 = protocol.load_labware('opentrons_96_tiprack_300ul','6')
 #tuberack1 = protocol.load_labware('opentrons_24_tuberack_generic_2ml_screwcap','1') #holds stock primers and templates
-watertuberack = protocol.load_labware('opentrons_15_tuberack_falcon_15ml_conical','3') #holds molec bio grad H2O
-tuberack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2') # holds dilute primers and templates
+    watertuberack = protocol.load_labware('opentrons_15_tuberack_falcon_15ml_conical','3') #holds molec bio grad H2O
+    tuberack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2') # holds dilute primers and templates
     
-tc_mod = protocol.load_module('Thermocycler Module')
-pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
-temp_module = protocol.load_module('temperature module', 1)
-cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes')
-temp_module.set_temperature(4)
-print(temp_module.temperature)
-tc_mod.open_lid()
+    tc_mod = protocol.load_module('Thermocycler Module')
+    pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
+    temp_module = protocol.load_module('temperature module', 1)
+    cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes')
+    temp_module.set_temperature(4)
+    print(temp_module.temperature)
+    tc_mod.open_lid()
 
 #########Some notes:    
 #specify the order of stock primers and template in tuberack1 here:
@@ -310,77 +310,77 @@ tc_mod.open_lid()
 #as of now Q5 is in 
     
 #pipettes
-right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1])
-left_pipette = protocol.load_instrument('p300_single','left',tip_racks=[tiprack2])
+    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1])
+    left_pipette = protocol.load_instrument('p300_single','left',tip_racks=[tiprack2])
     
 ##################################COMMANDS####################################
     
 #add water to template dilution tubes. ***df is the template description dataframe
 #Since we are just moving water I will use the same pipette tip to save plastic
-left_pipette.pick_up_tip()
-for i, row in df.iterrows():
-    left_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-    left_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
+    left_pipette.pick_up_tip()
+    for i, row in df.iterrows():
+        left_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+        left_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
     
 #add water to primer dilution tubes
-for i, row in oligos.iterrows():
-    left_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
-    left_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
-left_pipette.drop_tip()    
+    for i, row in oligos.iterrows():
+        left_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
+        left_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+    left_pipette.drop_tip()    
     
 #add stock templates to dilution tubes
-for i, row in df.iterrows():
-    right_pipette.pick_up_tip()
-    right_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
-    right_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
-    right_pipette.drop_tip()
+    for i, row in df.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
+        right_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+        right_pipette.drop_tip()
     
 #add stock primers to dilution tube
-for i, row in oligos.iterrows():
-    right_pipette.pick_up_tip() #add in an iterrows function
-    right_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
-    right_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
-    right_pipette.drop_tip()
+    for i, row in oligos.iterrows():
+        right_pipette.pick_up_tip() #add in an iterrows function
+        right_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
+        right_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        right_pipette.drop_tip()
     
 #robot pauses so user can take out stock primers and put in DNPNI
-protocol.pause('Take all stock primers and templates out. Add DPNI to A1. Then proceed')
+    protocol.pause('Take all stock primers and templates out. Add DPNI to A1. Then proceed')
     
 #now mix dilute primers, dilute templates, Q5, and water in pcr tube within thermocycler
-tc_mod.open_lid()
+    tc_mod.open_lid()
     
 #add water first
-for i, row in combinations.iterrows():
+    for i, row in combinations.iterrows():
         
-    right_pipette.pick_up_tip()
-    right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-    right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-    right_pipette.drop_tip()
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+        right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.drop_tip()
     
 #add 1uL of each primer
-for i, row in combinations.iterrows():
+    for i, row in combinations.iterrows():
         
-    for j in filter_col:
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(combinations.loc[i].at['amount primer to add to IVA'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
-        right_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-        right_pipette.drop_tip()
+        for j in filter_col:
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(combinations.loc[i].at['amount primer to add to IVA'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
+            right_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            right_pipette.drop_tip()
     
 #add 1uL of each template
-for i, row in combinations.iterrows():
+    for i, row in combinations.iterrows():
         
-    for j in temp_col:
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(combinations.loc[i].at['amount templates to add'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
-        right_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-        right_pipette.drop_tip()
+        for j in temp_col:
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(combinations.loc[i].at['amount templates to add'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
+            right_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            right_pipette.drop_tip()
     
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
-for i, row in combinations.iterrows():
-    right_pipette.pick_up_tip()
-    right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-    right_pipette.aspirate(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-    right_pipette.drop_tip()
+    for i, row in combinations.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
+        right_pipette.aspirate(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.drop_tip()
     
 #Now run thermocycler to amplify DNA
     
@@ -388,29 +388,29 @@ for i, row in combinations.iterrows():
 #should automate calculation of the parameters from j5 spreadsheets.
 #maybe use the median annealing temperature in the spreadsheet
     
-tc_mod.set_lid_temperature(temperature = 105)
-tc_mod.close_lid()
-tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
-profile = [
-    {'temperature': 98, 'hold_time_seconds': 10},
-    {'temperature': 68, 'hold_time_seconds': 30},
-    {'temperature': 72, 'hold_time_seconds': 60}] #should automate calculation of annealing temp based on spreadsheet
-tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
-tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
-tc_mod.set_block_temperature(4)
-tc_mod.open_lid()
+    tc_mod.set_lid_temperature(temperature = 105)
+    tc_mod.close_lid()
+    tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
+    profile = [
+        {'temperature': 98, 'hold_time_seconds': 10},
+        {'temperature': 68, 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': 60}] #should automate calculation of annealing temp based on spreadsheet
+    tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
+    tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
+    tc_mod.set_block_temperature(4)
+    tc_mod.open_lid()
 
 #Now add DPNI for digestion
-for i, row in combinations.iterrows():
-    left_pipette.pick_up_tip()
-    left_pipette.aspirate(DPNI, cold_tuberack['A1'], rate=2.0)
-    left_pipette.aspirate(DPNI, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-    left_pipette.drop_tip()
+    for i, row in combinations.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(DPNI, cold_tuberack['A1'], rate=2.0)
+        left_pipette.aspirate(DPNI, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        left_pipette.drop_tip()
 
-tc_mod.close_lid()
-tc_mod.set_block_temperature(37, hold_time_minutes=5, block_max_volume=25)
-tc_mod.set_block_temperature(4)
-tc_mod.deactivate_lid()
-tc_mod.open_lid()
+    tc_mod.close_lid()
+    tc_mod.set_block_temperature(37, hold_time_minutes=5, block_max_volume=25)
+    tc_mod.set_block_temperature(4)
+    tc_mod.deactivate_lid()
+    tc_mod.open_lid()
 
-print('all done')
+    print('all done')
