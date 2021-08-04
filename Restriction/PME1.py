@@ -57,10 +57,12 @@ def run(protocol: protocol_api.Protocol.Context):
      ## Loading labware
     thermo = protocol.load_module('Thermocycler Module')
     pcr = thermo.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
+    temp = protocol.load_module('Temperature Module', 4)
+    block = temp.load_labware('opentrons_24_aluminumblock_nest_2ml_snapcap')
     
     tiprack1 = protocol.load_labware("opentrons_96_tiprack_10ul",1)
     tiprack2 = protocol.load_labware("opentrons_96_tiprack_300ul",2)
-    tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap",4)
+    #tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap",4)
     
  ## Loading tools
     pipette_right = protocol.load_instrument('p300_single_gen2','right',tip_racks = [tiprack2])
@@ -74,7 +76,7 @@ def run(protocol: protocol_api.Protocol.Context):
 # pick up water -> dispense into pcr tube within thermocycler -> get rid of tip
     pipette_right.pick_up_tip()
     for i, row in plasmid.iterrows():
-        pipette_right.aspirate(plasmid.loc[i].at['Volume of Water'],tuberack['A1'],2)
+        pipette_right.aspirate(plasmid.loc[i].at['Volume of Water'],block['A1'],2)
         pipette_right.dispense(plasmid.loc[i].at['Volume of Water'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
         pipette_right.blow_out()
 
@@ -84,7 +86,7 @@ def run(protocol: protocol_api.Protocol.Context):
 
     for i, row in plasmid.iterrows():
         pipette_left.pick_up_tip()
-        pipette_left.aspirate(plasmid.loc[i].at['Volume of Plasmid'],tuberack[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
+        pipette_left.aspirate(plasmid.loc[i].at['Volume of Plasmid'],block[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
         pipette_left.dispense(plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
         pipette_left.drop_tip()
 
@@ -92,7 +94,7 @@ def run(protocol: protocol_api.Protocol.Context):
 
     for i, row in plasmid.iterrows():
         pipette_left.pick_up_tip()
-        pipette_left.aspirate(plasmid.loc[i].at['Buffer'],tuberack['A3'],2)
+        pipette_left.aspirate(plasmid.loc[i].at['Buffer'],block['A3'],2)
         pipette_left.dispense(plasmid.loc[i].at['Buffer'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
         pipette_left.blow_out()
         pipette_left.drop_tip()  
@@ -102,7 +104,7 @@ def run(protocol: protocol_api.Protocol.Context):
 
     for i, row in plasmid.iterrows():
         pipette_left.pick_up_tip()
-        pipette_left.aspirate(plasmid.loc[i].at['PME1'],tuberack['A4'],2)
+        pipette_left.aspirate(plasmid.loc[i].at['PME1'],block['A4'],2)
         pipette_left.dispense(plasmid.loc[i].at['PME1'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
         pipette_left.blow_out()
         pipette_left.drop_tip()
