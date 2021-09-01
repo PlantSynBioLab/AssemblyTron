@@ -14,7 +14,7 @@ print(metadata)
 os.chdir("/data/user_storage/restriction/")
 os.getcwd()
 
-plasmid = pd.read_csv("20210802_pme1.csv",engine = 'python', encoding='utf-8-sig')
+plasmid = pd.read_csv("20210901_pme1.csv",engine = 'python', encoding='utf-8-sig')
 
 plasmid = pd.DataFrame(plasmid)
 
@@ -26,22 +26,32 @@ plasmid['Volume of Water'] = ''
 plasmid['Volume of Plasmid'] = (1/(plasmid['Concentration'])) * 1000 * 1.5
 plasmid['Volume of Water'] = 44 - plasmid['Volume of Plasmid'] - plasmid['Buffer'] - plasmid['PME1']
 
+#plasmid templates arranged in an "L" formation
 row2well= {}
 row2well['0'] = 'A2'
 row2well['1'] = 'B2'
 row2well['2'] = 'C2'
 row2well['3'] = 'D2'
+row2well['4'] = 'D3'
+row2well['5'] = 'D4'
+row2well['6'] = 'D5'
+row2well['7'] = 'D6'
 
 plasmid['Plasmid Location'] = ''
 
 for i, row in plasmid.iterrows():
     plasmid.loc[i,'Plasmid Location'] = row2well[str(i)]
 
+#The pcr tube destination will change every time you use a new row of the 96 well pcr plate
 row2tube= {}
-row2tube['0'] = 'A1'
-row2tube['1'] = 'A2'
-row2tube['2'] = 'A3'
-row2tube['3'] = 'A4'
+row2tube['0'] = 'B1'
+row2tube['1'] = 'B2'
+row2tube['2'] = 'B3'
+row2tube['3'] = 'B4'
+row2tube['4'] = 'B5'
+row2tube['5'] = 'B6'
+row2tube['6'] = 'B7'
+row2tube['7'] = 'B8'
 
 plasmid['Digestion Tube'] = ''
 
@@ -133,7 +143,7 @@ def run(protocol: protocol_api.ProtocolContext):
 
 
     thermo.close_lid()
-    thermo.set_lid_temperature(105)
+    thermo.set_lid_temperature(80)
     thermo.set_block_temperature(37,0,30, block_max_volume = 44) #temp,seconds,minutes,ramprate(danger),max vol
     thermo.set_block_temperature(65,0,20, block_max_volume = 44)
     thermo.set_block_temperature(4, block_max_volume = 44)
