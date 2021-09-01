@@ -44,14 +44,22 @@ for i, row in plasmid.iterrows():
 
 #The pcr tube destination will change every time you use a new row of the 96 well pcr plate
 row2tube= {}
-row2tube['0'] = 'B1'
-row2tube['1'] = 'B2'
-row2tube['2'] = 'B3'
-row2tube['3'] = 'B4'
-row2tube['4'] = 'B5'
-row2tube['5'] = 'B6'
-row2tube['6'] = 'B7'
-row2tube['7'] = 'B8'
+#row2tube['0'] = 'B1'
+#row2tube['1'] = 'B2'
+#row2tube['2'] = 'B3'
+#row2tube['3'] = 'B4'
+#row2tube['4'] = 'B5'
+#row2tube['5'] = 'B6'
+#row2tube['6'] = 'B7'
+#row2tube['7'] = 'B8'
+row2tube['0'] = 'C1'
+row2tube['1'] = 'C2'
+row2tube['2'] = 'C3'
+row2tube['3'] = 'C4'
+row2tube['4'] = 'C5'
+row2tube['5'] = 'C6'
+row2tube['6'] = 'C7'
+row2tube['7'] = 'C8'
 
 plasmid['Digestion Tube'] = ''
 
@@ -80,12 +88,12 @@ def run(protocol: protocol_api.ProtocolContext):
     thermo = protocol.load_module('Thermocycler Module')
     pcr = thermo.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
         
-    tiprack1 = protocol.load_labware("opentrons_96_tiprack_10ul",1)
+    tiprack1 = protocol.load_labware("opentrons_96_tiprack_10ul",5)
     tiprack2 = protocol.load_labware("opentrons_96_tiprack_300ul",2)
     #tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap",4)
-    temp_module = protocol.load_module('temperature module', 4)
+    temp_module = protocol.load_module('temperature module', 1)
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_nest_1.5ml_snapcap', label='Temperature-Controlled Tubes')
-    temp_module.set_temperature(4)
+    temp_module.set_temperature(6)
     print(temp_module.temperature)
     
  ## Loading tools
