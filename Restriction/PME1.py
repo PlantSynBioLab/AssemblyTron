@@ -69,9 +69,7 @@ def run(protocol: protocol_api.ProtocolContext):
      ## Loading labware
     thermo = protocol.load_module('Thermocycler Module')
     pcr = thermo.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
-    temp = protocol.load_module('Temperature Module', 4)
-    block = temp.load_labware('opentrons_24_aluminumblock_nest_2ml_snapcap')
-    
+        
     tiprack1 = protocol.load_labware("opentrons_96_tiprack_10ul",1)
     tiprack2 = protocol.load_labware("opentrons_96_tiprack_300ul",2)
     #tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap",4)
