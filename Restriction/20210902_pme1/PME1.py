@@ -73,15 +73,15 @@ row2tube= {}
 # row2tube['5'] = 'C6'
 # row2tube['6'] = 'C7'
 # row2tube['7'] = 'C8'
-row2tube['0'] = 'D1'
-row2tube['1'] = 'D2'
-row2tube['2'] = 'D3'
-row2tube['3'] = 'D4'
-row2tube['4'] = 'D5'
-row2tube['5'] = 'D6'
-row2tube['6'] = 'D7'
-row2tube['7'] = 'D8'
-row2tube['8'] = 'D9'
+row2tube['0'] = 'E1'
+row2tube['1'] = 'E2'
+row2tube['2'] = 'E3'
+row2tube['3'] = 'E4'
+row2tube['4'] = 'E5'
+row2tube['5'] = 'E6'
+row2tube['6'] = 'E7'
+row2tube['7'] = 'E8'
+row2tube['8'] = 'E9'
 
 plasmid['Digestion Tube'] = ''
 
@@ -133,7 +133,7 @@ def run(protocol: protocol_api.ProtocolContext):
     #tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap",4)
     temp_module = protocol.load_module('temperature module', 1)
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_nest_1.5ml_snapcap', label='Temperature-Controlled Tubes')
-    temp_module.set_temperature(6)
+    temp_module.set_temperature(4)
     print(temp_module.temperature)
     
  ## Loading tools
@@ -201,11 +201,20 @@ def run(protocol: protocol_api.ProtocolContext):
     thermo.open_lid()
 
     for i, row in plasmid.iterrows():
-        pipette_left.pick_up_tip()
-        pipette_left.aspirate(plasmid.loc[i].at['total volume'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
-        pipette_left.dispense(plasmid.loc[i].at['total volume'],finalprodtubes[plasmid.loc[i].at['final tube']],2)
-        pipette_left.blow_out()
-        pipette_left.drop_tip()
+
+        if plasmid.loc[i].at['total volume'] > float('10'):
+            pipette_right.pick_up_tip()
+            pipette_right.aspirate(plasmid.loc[i].at['total volume'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+            pipette_right.dispense(plasmid.loc[i].at['total volume'],finalprodtubes[plasmid.loc[i].at['final tube']],2)
+            pipette_right.blow_out()
+            pipette_right.drop_tip()
+        
+        else:
+            pipette_left.pick_up_tip()
+            pipette_left.aspirate(plasmid.loc[i].at['total volume'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+            pipette_left.dispense(plasmid.loc[i].at['total volume'],finalprodtubes[plasmid.loc[i].at['final tube']],2)
+            pipette_left.blow_out()
+            pipette_left.drop_tip()
 
     thermo.close_lid()
 
