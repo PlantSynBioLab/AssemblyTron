@@ -297,7 +297,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
     temp_module = protocol.load_module('temperature module', 1)
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes')
-    temp_module.set_temperature(6)
+    temp_module.set_temperature(4)
     print(temp_module.temperature)
     tc_mod.open_lid()
 
