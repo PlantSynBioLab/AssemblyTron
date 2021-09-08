@@ -14,7 +14,8 @@ templatengs = .5 #this is the concentration of template you want in your pcr rxn
 #need to fill in stock template values further down the script
 diltemp = (templatengs)*(pcrvol)/1
 
-Q5 = 12.5 #How much Q5 to add
+total_volume = 25
+Q5 = total_volume - (0.5*(total_volume)) #How much Q5 to add
 DPNI = 1 #How much DPNI to add
 DPwater = 19
 cutsmart = 5
@@ -320,27 +321,42 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     for i, row in df.iterrows():
         right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
         right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
-    
+        right_pipette.blow_out()
+
 #add water to primer dilution tubes
     for i, row in oligos.iterrows():
         right_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
         right_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        right_pipette.blow_out()
     right_pipette.drop_tip()    
     
 #add stock templates to dilution tubes
     for i, row in df.iterrows():
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
-        right_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
-        right_pipette.drop_tip()
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
+        left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+        left_pipette.blow_out()
+        left_pipette.drop_tip()
     
 #add stock primers to dilution tube
     for i, row in oligos.iterrows():
         left_pipette.pick_up_tip() #add in an iterrows function
         left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
         left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        left_pipette.blow_out()
         left_pipette.drop_tip()
     
+#mix contents with pipette tip (reps, max volume, location) for templates and primers
+    for i, row in df.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.mix(3,df.loc[i].at['water to add'],tuberack2[df.loc[i].at['template_well']])
+        right_pipette.drop_tip()
+
+    for i, row in oligos.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.mix(3,oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'],tuberack2[oligos.loc[i].at['well']])
+        right_pipette.drop_tip()
+
 #robot pauses so user can take out stock primers and put in DNPNI
     protocol.pause('Take all stock primers and templates out. Add DPNI to A1, water to A2, and cutsmart to A3. Then proceed')
     
@@ -353,6 +369,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         right_pipette.pick_up_tip()
         right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
         right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.blow_out()
         right_pipette.drop_tip()
     
 #add 1uL of each primer
@@ -362,6 +379,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             left_pipette.pick_up_tip()
             left_pipette.aspirate(combinations.loc[i].at['amount primer to add to IVA'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
             left_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            left_pipette.blow_out()
             left_pipette.drop_tip()
     
 #add 1uL of each template
@@ -371,14 +389,22 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             left_pipette.pick_up_tip()
             left_pipette.aspirate(combinations.loc[i].at['amount templates to add'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
             left_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            left_pipette.blow_out()
             left_pipette.drop_tip()
     
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
     for i, row in combinations.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
+        left_pipette.aspirate(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        left_pipette.blow_out()
+        left_pipette.drop_tip()
+
+#mix up
+    for i, row in combinations.iterrows():
         right_pipette.pick_up_tip()
-        right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-        right_pipette.aspirate(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.mix(3,combinations.loc[i].at['water to add'],pcrplate[combinations.loc[i].at['pcrwell']])
         right_pipette.drop_tip()
     
 #Now run thermocycler to amplify DNA
