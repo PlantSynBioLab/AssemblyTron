@@ -297,7 +297,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
     temp_module = protocol.load_module('temperature module', 1)
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes')
-    temp_module.set_temperature(4)
+    temp_module.set_temperature(6)
     print(temp_module.temperature)
     tc_mod.open_lid()
 
@@ -395,11 +395,11 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
     for i, row in combinations.iterrows():
-        left_pipette.pick_up_tip()
-        left_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-        left_pipette.aspirate(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-        left_pipette.blow_out()
-        left_pipette.drop_tip()
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
+        right_pipette.aspirate(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.blow_out()
+        right_pipette.drop_tip()
 
 #mix up
     for i, row in combinations.iterrows():
