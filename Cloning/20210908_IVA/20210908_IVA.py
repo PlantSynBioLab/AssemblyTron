@@ -16,12 +16,15 @@ diltemp = (templatengs)*(pcrvol)/1
 
 Q5 = 12.5 #How much Q5 to add
 DPNI = 1 #How much DPNI to add
+DPwater = 19
+cutsmart = 5
 
 #first import information from the j5 spreadsheet in order to perform appropriate steps
 #import feather
 #import pyarrow.feather as ft
 import pandas
 import numpy as np
+import os
 
 ########################################################################################################
 
@@ -107,7 +110,7 @@ df['Template Concentration'] = ''
 df
 
 #enter template concentrations here
-df['Template Concentration'] = [126] #all you have to do is input the template concentrations in the right order
+df['Template Concentration'] = [455] #all you have to do is input the template concentrations in the right order
 
 df
 
@@ -284,8 +287,9 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
     tiprack2 = protocol.load_labware('opentrons_96_tiprack_300ul','6')
+    tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '5')
 #tuberack1 = protocol.load_labware('opentrons_24_tuberack_generic_2ml_screwcap','1') #holds stock primers and templates
-    watertuberack = protocol.load_labware('opentrons_15_tuberack_falcon_15ml_conical','3') #holds molec bio grad H2O
+    watertuberack = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical','3') #holds molec bio grad H2O
     tuberack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2') # holds dilute primers and templates
     
     tc_mod = protocol.load_module('Thermocycler Module')
@@ -305,23 +309,23 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #as of now Q5 is in 
     
 #pipettes
-    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1])
-    left_pipette = protocol.load_instrument('p300_single','left',tip_racks=[tiprack2])
+    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1, tiprack2])
+    left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
     
 ##################################COMMANDS####################################
     
 #add water to template dilution tubes. ***df is the template description dataframe
 #Since we are just moving water I will use the same pipette tip to save plastic
-    left_pipette.pick_up_tip()
+    right_pipette.pick_up_tip()
     for i, row in df.iterrows():
-        left_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-        left_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
+        right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+        right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
     
 #add water to primer dilution tubes
     for i, row in oligos.iterrows():
-        left_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
-        left_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
-    left_pipette.drop_tip()    
+        right_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
+        right_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+    right_pipette.drop_tip()    
     
 #add stock templates to dilution tubes
     for i, row in df.iterrows():
@@ -332,13 +336,13 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
 #add stock primers to dilution tube
     for i, row in oligos.iterrows():
-        right_pipette.pick_up_tip() #add in an iterrows function
-        right_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
-        right_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
-        right_pipette.drop_tip()
+        left_pipette.pick_up_tip() #add in an iterrows function
+        left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
+        left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        left_pipette.drop_tip()
     
 #robot pauses so user can take out stock primers and put in DNPNI
-    protocol.pause('Take all stock primers and templates out. Add DPNI to A1. Then proceed')
+    protocol.pause('Take all stock primers and templates out. Add DPNI to A1, water to A2, and cutsmart to A3. Then proceed')
     
 #now mix dilute primers, dilute templates, Q5, and water in pcr tube within thermocycler
     tc_mod.open_lid()
@@ -355,19 +359,19 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     for i, row in combinations.iterrows():
         
         for j in filter_col:
-            right_pipette.pick_up_tip()
-            right_pipette.aspirate(combinations.loc[i].at['amount primer to add to IVA'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
-            right_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-            right_pipette.drop_tip()
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(combinations.loc[i].at['amount primer to add to IVA'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
+            left_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            left_pipette.drop_tip()
     
 #add 1uL of each template
     for i, row in combinations.iterrows():
         
         for j in temp_col:
-            right_pipette.pick_up_tip()
-            right_pipette.aspirate(combinations.loc[i].at['amount templates to add'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
-            right_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-            right_pipette.drop_tip()
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(combinations.loc[i].at['amount templates to add'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
+            left_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            left_pipette.drop_tip()
     
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
@@ -396,6 +400,19 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.open_lid()
 
 #Now add DPNI for digestion
+
+    for i, row in combinations.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(DPwater, cold_tuberack['A2'], rate=2.0)
+        right_pipette.aspirate(DPwater, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.drop_tip()
+
+    for i, row in combinations.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(cutsmart, cold_tuberack['A3'], rate=2.0)
+        left_pipette.aspirate(cutsmart, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        left_pipette.drop_tip() 
+
     for i, row in combinations.iterrows():
         left_pipette.pick_up_tip()
         left_pipette.aspirate(DPNI, cold_tuberack['A1'], rate=2.0)
@@ -403,9 +420,12 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.drop_tip()
 
     tc_mod.close_lid()
-    tc_mod.set_block_temperature(37, hold_time_minutes=5, block_max_volume=25)
+    tc_mod.set_block_temperature(37, hold_time_minutes=15, block_max_volume=50)
+    tc_mod.set_block_temperature(80, hold_time_minutes=20, block_max_volume=50)
     tc_mod.set_block_temperature(4)
     tc_mod.deactivate_lid()
+    protocol.pause('hold until time to grab tubes')
+    
     tc_mod.open_lid()
 
     print('all done')
