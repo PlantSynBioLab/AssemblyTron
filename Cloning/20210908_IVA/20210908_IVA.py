@@ -263,7 +263,89 @@ for i, row in combinations.iterrows():
 combinations
 
 #############################################################################################################################
+#calculations for pcr conditions
+#check the ipynb dev file to see how each part works
+pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+frame = combinations[pieces]
+frame2 = frame.transpose()
+pcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Mean Oligo Tm (3')]
+morepcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Delta Oligo Tm (3')]
+anotherpcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Length')]
+pcr_info = pcr_info + morepcr_info + anotherpcr_info
+for column in frame2:
+    listoffrags = frame2[column].to_list()
+    listoffrags
+    
+    tablee = pcr_plustemplates[pcr_info]
+    tablee = tablee.iloc[listoffrags, :]
+    
+    if column == 0:
+        params0 = tablee.copy()
+    if column == 1:
+        params1 = tablee.copy()
+    if column == 2:
+        params2 = tablee.copy()
+    if column == 3:
+        params3 = tablee.copy()
+    if column == 4:
+        params4 = tablee.copy()
+    if column == 5:
+        params5 = tablee.copy()
+    if column == 6:
+        params6 = tablee.copy()
+    if column == 7:
+        params7 = tablee.copy()
+    if column == 8:
+        params8 = tablee.copy()
+    if column == 9:
+        params9 = tablee.copy()
+    if column == 10:
+        params10 = tablee.copy()
+    if column == 11:
+        params11 = tablee.copy()
 
+#so looks like this script will be limited for finding pcr conditions for just 2 construct. have to update for more
+
+Lengthparams0 = params0.nlargest(1,'Length')
+Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
+lengthlist = Lengthparams0['Length'].to_list()
+
+Lengthparams1 = params1.nlargest(1,'Length')
+Lengthparams1['Length'] = (Lengthparams1['Length']/1000)*30
+lengthlist1 = Lengthparams1['Length'].to_list()
+
+#Lengthparams2 = params2.nlargest(1,'Length')
+#   Lengthparams2['Length'] = (Lengthparams2['Length']/1000)*60
+ #   lengthlist = Lengthparams2['Length'].to_list()
+  #  print(lengthlist)
+
+#Lengthparams3 = params0.nlargest(1,'Length')
+#Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*60
+#lengthlist = Lengthparams0['Length'].to_list()
+#print(lengthlist)
+
+#Lengthparams0 = params0.nlargest(1,'Length')
+#Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*60
+#lengthlist = Lengthparams0['Length'].to_list()
+#print(lengthlist)
+
+finallengthlist = lengthlist + lengthlist1
+combinations['Extension time (seconds)'] = finallengthlist
+extens = combinations.nlargest(1,'Extension time (seconds)')
+extension_final = extens['Extension time (seconds)']
+params0['Upper temp'] = params0['Mean Oligo Tm (3 Only)'] + params0['Delta Oligo Tm (3Only)']
+params0['Lower temp'] = params0['Mean Oligo Tm (3 Only)'] - params0['Delta Oligo Tm (3Only)']
+Lowest_high = params0.nsmallest(1,'Upper temp')
+Highest_low = params0.nlargest(1,'Lower temp')
+LH = Lowest_high['Upper temp']
+HL=Highest_low['Lower temp']
+A = LH-HL
+if A.all() > 0:
+    annealing_temp = Lowest_high['Upper temp']
+if A.all() < 0:
+    annealing_temp = (Lowest_high['Upper temp']+Highest_low['Lower temp'])/2
+
+##########################################################################################
 from opentrons import protocol_api
 
 #Metadata is a dictionary of data that is read by the server and returned to the opentrons app. 
@@ -418,8 +500,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
     profile = [
         {'temperature': 98, 'hold_time_seconds': 10},
-        {'temperature': 68, 'hold_time_seconds': 30},
-        {'temperature': 72, 'hold_time_seconds': 60}] #should automate calculation of annealing temp based on spreadsheet
+        {'temperature': annealing_temp, 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': extension_final}] #should automate calculation of annealing temp based on spreadsheet
     tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
     tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
     tc_mod.set_block_temperature(4)
