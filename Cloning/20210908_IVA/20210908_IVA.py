@@ -20,6 +20,8 @@ DPNI = 1 #How much DPNI to add
 DPwater = 19
 cutsmart = 5
 
+Date = '20210908'
+
 #first import information from the j5 spreadsheet in order to perform appropriate steps
 #import feather
 #import pyarrow.feather as ft
@@ -86,6 +88,8 @@ for i, row in oligos.iterrows():
     oligos.loc[i,'volume of diluted primer'] = row['stock primer concentration']*row['volume of stock primer to add']/row['concentration of diluted primer']
     
 oligos
+
+oligos.to_csv('output_'+Date+'_oligo_IVA.csv')
 
 ################################################################################################################
 
@@ -154,6 +158,8 @@ df['volume of dilute template prepared'].astype(np.float32)
 #df['volume of dilute template prepared'] = pd.Series.astype(df['volume of dilute template prepared'], dtype=float,)
 df
 
+df.to_csv('output_'+Date+'_templates_IVA.csv')
+
 df.dtypes
 
 #this line of code integrates the template concentrations into the pcr df
@@ -179,6 +185,8 @@ wellinfo = wellinfo.rename(columns={'Forward Oligo ID Number':'Reverse Oligo ID 
 pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Reverse Oligo ID Number')
 pcr_plustemplates
 
+pcr_plustemplates.to_csv('output_'+Date+'_pcr_IVA.csv')
+
 ################################################################################################################################
 
 #read in assembly pieces as dataframe .... might not need this info
@@ -186,6 +194,8 @@ os.chdir("/data/user_storage/cloning/20210908_IVA")
 os.getcwd()
 assembly = pandas.read_csv('assembly.csv')
 assembly
+
+assembly.to_csv('output_'+Date+'_assembly_IVA.csv')
 
 #############################################################################################################################
 
@@ -261,6 +271,8 @@ combinations['pcrwell']=combinations['ID Number']
 for i, row in combinations.iterrows():
     combinations.loc[i,'pcrwell'] = id2wellpcr[str(i)]
 combinations
+
+combinations.to_csv('output_'+Date+'_combination_IVA.csv')
 
 #############################################################################################################################
 #calculations for pcr conditions
@@ -344,6 +356,11 @@ if A.all() > 0:
     annealing_temp = Lowest_high['Upper temp']
 if A.all() < 0:
     annealing_temp = (Lowest_high['Upper temp']+Highest_low['Lower temp'])/2
+
+Annealing_and_extension = pandas.DataFrame({'Annealing temp': annealing_temp,
+                   'extension time (seconds)': extension_final})
+
+Annealing_and_extension.to_csv('output_'+Date+'_Annealing_extension_IVA.csv')
 
 ##########################################################################################
 from opentrons import protocol_api
