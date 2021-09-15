@@ -1,5 +1,3 @@
-#this is a practice pcr run
-
 #variables:
 #primer dilutions:
 stkprm = 100 #concentration of the stock primer you are adding
@@ -345,24 +343,25 @@ lengthlist1 = Lengthparams1['Length'].to_list()
 #print(lengthlist)
 
 finallengthlist = lengthlist + lengthlist1
-combinations['Extension time (seconds)'] = finallengthlist
-extens = combinations.nlargest(1,'Extension time (seconds)')
-extension_final = extens['Extension time (seconds)']
-params0['Upper temp'] = params0['Mean Oligo Tm (3 Only)'] + params0['Delta Oligo Tm (3Only)']
-params0['Lower temp'] = params0['Mean Oligo Tm (3 Only)'] - params0['Delta Oligo Tm (3Only)']
-Lowest_high = params0.nsmallest(1,'Upper temp')
-Highest_low = params0.nlargest(1,'Lower temp')
-LH = Lowest_high['Upper temp']
-HL=Highest_low['Lower temp']
+combinations['Extension_time_sec'] = finallengthlist
+extens = combinations.nlargest(1,'Extension_time_sec')
+extension_final = extens['Extension_time_sec']
+params0['Upper_temp'] = params0['Mean Oligo Tm (3 Only)'] + params0['Delta Oligo Tm (3Only)']
+params0['Lower_temp'] = params0['Mean Oligo Tm (3 Only)'] - params0['Delta Oligo Tm (3Only)']
+Lowest_high = params0.nsmallest(1,'Upper_temp')
+Highest_low = params0.nlargest(1,'Lower_temp')
+LH = Lowest_high['Upper_temp']
+HL=Highest_low['Lower_temp']
 A = LH-HL
 if A.all() > 0:
-    annealing_temp = Lowest_high['Upper temp']
+    annealing_temp = Lowest_high['Upper_temp']
 if A.all() < 0:
-    annealing_temp = (Lowest_high['Upper temp']+Highest_low['Lower temp'])/2
+    annealing_temp = (Lowest_high['Upper_temp']+Highest_low['Lower_temp'])/2
 
 Annealing_and_extension = pandas.DataFrame({'Annealing temp': annealing_temp,
                    'extension time (seconds)': extension_final})
-
+Annealing_and_extension = Annealing_and_extension.reset_index()
+Annealing_and_extension = Annealing_and_extension.drop(columns = ['index'])
 Annealing_and_extension.to_csv('output_'+Date+'_Annealing_extension_IVA.csv')
 
 ##########################################################################################
@@ -401,7 +400,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes')
     #temp_module.set_temperature(4)
     print(temp_module.temperature)
-    #tc_mod.open_lid()
+    tc_mod.open_lid()
 
 #########Some notes:    
 #specify the order of stock primers and template in tuberack1 here:
@@ -412,13 +411,13 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #as of now Q5 is in 
     
 #pipettes
-#     right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1, tiprack2])
-#     left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
+    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1, tiprack2])
+    left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
     
-# ##################################COMMANDS####################################
+##################################COMMANDS####################################
     
-# #add water to template dilution tubes. ***df is the template description dataframe
-# #Since we are just moving water I will use the same pipette tip to save plastic
+#add water to template dilution tubes. ***df is the template description dataframe
+#Since we are just moving water I will use the same pipette tip to save plastic
 #     right_pipette.pick_up_tip()
 #     for i, row in df.iterrows():
 #         right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
@@ -518,45 +517,45 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 # #should automate calculation of the parameters from j5 spreadsheets.
 # #maybe use the median annealing temperature in the spreadsheet
     
-    tc_mod.close_lid()
-    #tc_mod.set_lid_temperature(temperature = 105)
-    #tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
+#     tc_mod.close_lid()
+    tc_mod.set_lid_temperature(temperature = 105)
+    tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
     profile = [
         {'temperature': 98, 'hold_time_seconds': 10},
-        {'temperature': annealing_temp, 'hold_time_seconds': 30},
-        {'temperature': 72, 'hold_time_seconds': extension_final}] #should automate calculation of annealing temp based on spreadsheet
+        {'temperature': round(Annealing_and_extension.loc[1].at['Annealing temp'],1), 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': round(Annealing_and_extension.loc[0].at['extension time (seconds)'],1)}] #should automate calculation of annealing temp based on spreadsheet
     tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
     tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
     tc_mod.set_block_temperature(4)
     tc_mod.open_lid()
 
-#Now add DPNI for digestion
+# #Now add DPNI for digestion
 
-    # for i, row in combinations.iterrows():
-    #     right_pipette.pick_up_tip()
-    #     right_pipette.aspirate(DPwater, cold_tuberack['A2'], rate=2.0)
-    #     right_pipette.aspirate(DPwater, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-    #     right_pipette.drop_tip()
+#     for i, row in combinations.iterrows():
+#         right_pipette.pick_up_tip()
+#         right_pipette.aspirate(DPwater, cold_tuberack['A2'], rate=2.0)
+#         right_pipette.aspirate(DPwater, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+#         right_pipette.drop_tip()
 
-    # for i, row in combinations.iterrows():
-    #     left_pipette.pick_up_tip()
-    #     left_pipette.aspirate(cutsmart, cold_tuberack['A3'], rate=2.0)
-    #     left_pipette.aspirate(cutsmart, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-    #     left_pipette.drop_tip() 
+#     for i, row in combinations.iterrows():
+#         left_pipette.pick_up_tip()
+#         left_pipette.aspirate(cutsmart, cold_tuberack['A3'], rate=2.0)
+#         left_pipette.aspirate(cutsmart, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+#         left_pipette.drop_tip() 
 
-    # for i, row in combinations.iterrows():
-    #     left_pipette.pick_up_tip()
-    #     left_pipette.aspirate(DPNI, cold_tuberack['A1'], rate=2.0)
-    #     left_pipette.aspirate(DPNI, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-    #     left_pipette.drop_tip()
+#     for i, row in combinations.iterrows():
+#         left_pipette.pick_up_tip()
+#         left_pipette.aspirate(DPNI, cold_tuberack['A1'], rate=2.0)
+#         left_pipette.aspirate(DPNI, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+#         left_pipette.drop_tip()
 
-    # tc_mod.close_lid()
-    # tc_mod.set_block_temperature(37, hold_time_minutes=15, block_max_volume=50)
-    # tc_mod.set_block_temperature(80, hold_time_minutes=20, block_max_volume=50)
-    # tc_mod.set_block_temperature(4)
-    # tc_mod.deactivate_lid()
-    # protocol.pause('hold until time to grab tubes')
+#     tc_mod.close_lid()
+#     tc_mod.set_block_temperature(37, hold_time_minutes=15, block_max_volume=50)
+#     tc_mod.set_block_temperature(80, hold_time_minutes=20, block_max_volume=50)
+#     tc_mod.set_block_temperature(4)
+#     tc_mod.deactivate_lid()
+#     protocol.pause('hold until time to grab tubes')
     
-    # tc_mod.open_lid()
+#     tc_mod.open_lid()
 
-    # print('all done')
+#     print('all done')

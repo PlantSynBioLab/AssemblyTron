@@ -254,19 +254,36 @@ combinations['water to add'] = (pcrvol-primersadded- tempsadded - Q5)
 
 combinations
 
+# id2wellpcr = {}
+# id2wellpcr['0'] = 'A1'
+# id2wellpcr['1'] = 'A2'
+# id2wellpcr['2'] = 'A3'
+# id2wellpcr['3'] = 'A4'
+# id2wellpcr['4'] = 'A5'
+# id2wellpcr['5'] = 'A6'
+# id2wellpcr['6'] = 'A7'
+# id2wellpcr['7'] = 'A8'
+# id2wellpcr['8'] = 'A9'
+# id2wellpcr['9'] = 'A10'
+# id2wellpcr['10'] = 'A11'
+# id2wellpcr['11'] = 'A12'
+
+#Have to adjust this dictionary based on which pcr well is available.
+#theoretically, we need 96 if statements with a variation of the dictionary starting at each well then you could
+#just imput which well to start with 
 id2wellpcr = {}
-id2wellpcr['0'] = 'A1'
-id2wellpcr['1'] = 'A2'
-id2wellpcr['2'] = 'A3'
-id2wellpcr['3'] = 'A4'
-id2wellpcr['4'] = 'A5'
-id2wellpcr['5'] = 'A6'
-id2wellpcr['6'] = 'A7'
-id2wellpcr['7'] = 'A8'
-id2wellpcr['8'] = 'A9'
-id2wellpcr['9'] = 'A10'
-id2wellpcr['10'] = 'A11'
-id2wellpcr['11'] = 'A12'
+id2wellpcr['0'] = 'A3'
+id2wellpcr['1'] = 'A4'
+id2wellpcr['2'] = 'A5'
+id2wellpcr['3'] = 'A6'
+id2wellpcr['4'] = 'A7'
+id2wellpcr['5'] = 'A8'
+id2wellpcr['6'] = 'A9'
+id2wellpcr['7'] = 'A10'
+id2wellpcr['8'] = 'A11'
+id2wellpcr['9'] = 'A12'
+id2wellpcr['10'] = 'B1'
+id2wellpcr['11'] = 'B2'
 
 combinations['pcrwell']=combinations['ID Number']
 for i, row in combinations.iterrows():
@@ -517,13 +534,12 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #should automate calculation of the parameters from j5 spreadsheets.
 #maybe use the median annealing temperature in the spreadsheet
     
-    tc_mod.close_lid()
     tc_mod.set_lid_temperature(temperature = 105)
     tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
     profile = [
         {'temperature': 98, 'hold_time_seconds': 10},
-        {'temperature': Annealing_and_extension.loc[1].at['Annealing temp'], 'hold_time_seconds': 30},
-        {'temperature': 72, 'hold_time_seconds': Annealing_and_extension.loc[0].at['extension time (seconds)']}] #should automate calculation of annealing temp based on spreadsheet
+        {'temperature': round(Annealing_and_extension.loc[1].at['Annealing temp'],1), 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': round(Annealing_and_extension.loc[0].at['extension time (seconds)'],1)}] #should automate calculation of annealing temp based on spreadsheet
     tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
     tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
     tc_mod.set_block_temperature(4)
