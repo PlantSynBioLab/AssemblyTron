@@ -343,24 +343,25 @@ lengthlist1 = Lengthparams1['Length'].to_list()
 #print(lengthlist)
 
 finallengthlist = lengthlist + lengthlist1
-combinations['Extension time (seconds)'] = finallengthlist
-extens = combinations.nlargest(1,'Extension time (seconds)')
-extension_final = extens['Extension time (seconds)']
-params0['Upper temp'] = params0['Mean Oligo Tm (3 Only)'] + params0['Delta Oligo Tm (3Only)']
-params0['Lower temp'] = params0['Mean Oligo Tm (3 Only)'] - params0['Delta Oligo Tm (3Only)']
-Lowest_high = params0.nsmallest(1,'Upper temp')
-Highest_low = params0.nlargest(1,'Lower temp')
-LH = Lowest_high['Upper temp']
-HL=Highest_low['Lower temp']
+combinations['Extension_time_sec'] = finallengthlist
+extens = combinations.nlargest(1,'Extension_time_sec')
+extension_final = extens['Extension_time_sec']
+params0['Upper_temp'] = params0['Mean Oligo Tm (3 Only)'] + params0['Delta Oligo Tm (3Only)']
+params0['Lower_temp'] = params0['Mean Oligo Tm (3 Only)'] - params0['Delta Oligo Tm (3Only)']
+Lowest_high = params0.nsmallest(1,'Upper_temp')
+Highest_low = params0.nlargest(1,'Lower_temp')
+LH = Lowest_high['Upper_temp']
+HL=Highest_low['Lower_temp']
 A = LH-HL
 if A.all() > 0:
-    annealing_temp = Lowest_high['Upper temp']
+    annealing_temp = Lowest_high['Upper_temp']
 if A.all() < 0:
-    annealing_temp = (Lowest_high['Upper temp']+Highest_low['Lower temp'])/2
+    annealing_temp = (Lowest_high['Upper_temp']+Highest_low['Lower_temp'])/2
 
 Annealing_and_extension = pandas.DataFrame({'Annealing temp': annealing_temp,
                    'extension time (seconds)': extension_final})
-
+Annealing_and_extension = Annealing_and_extension.reset_index()
+Annealing_and_extension = Annealing_and_extension.drop(columns = ['index'])
 Annealing_and_extension.to_csv('output_'+Date+'_Annealing_extension_IVA.csv')
 
 ##########################################################################################
@@ -521,8 +522,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
     profile = [
         {'temperature': 98, 'hold_time_seconds': 10},
-        {'temperature': annealing_temp.all(), 'hold_time_seconds': 30},
-        {'temperature': 72, 'hold_time_seconds': extension_final.all()}] #should automate calculation of annealing temp based on spreadsheet
+        {'temperature': Annealing_and_extension.loc[1].at['Annealing temp'], 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': Annealing_and_extension.loc[0].at['extension time (seconds)']}] #should automate calculation of annealing temp based on spreadsheet
     tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
     tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
     tc_mod.set_block_temperature(4)
