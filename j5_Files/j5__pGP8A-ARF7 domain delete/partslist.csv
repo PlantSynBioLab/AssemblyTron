@@ -1,0 +1,6 @@
+"Part Name","Part Source (Sequence Display ID)","Reverse Compliment?","Start (bp)","End (bp)","Five Prime Internal Preferred Overhangs?","Three Prime Internal Preferred Overhangs?"
+ARF7_0-10th,pWL242,FALSE,2867,3967,,"(-18,18)"
+ARF7_51-end,pWL242,FALSE,3968,6244,,
+backbone,pWL243,FALSE,6245,2866,,
+ARF7_0-570th,pWL243,FALSE,2867,5647,,"(-17,17)"
+ARF7_571-end,pWL243,FALSE,5648,6244,,
