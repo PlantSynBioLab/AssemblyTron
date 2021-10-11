@@ -1,3 +1,15 @@
+from opentrons import protocol_api
+
+#Metadata is a dictionary of data that is read by the server and returned to the opentrons app. 
+#give yourself credit. you are required to specify the 'apiLevel' herefrom opentrons import protocol_api
+metadata = {
+    'protocolName': 'ARF7 Deletions Protocol',
+    'author': 'John Bryant <jbryant2@vt.edu>',
+    'description': 'Protocol for performing PCR reactions and Plasmid assembly for TIR1 and AFB mutants',
+    'apiLevel': '2.10'
+}
+print(metadata)
+
 
 def run(protocol: protocol_api.ProtocolContext): #for actually running the script in the robot
 
@@ -28,7 +40,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #Since we are just moving water I will use the same pipette tip to save plastic
     right_pipette.pick_up_tip()
     right_pipette.aspirate(volume = 2, location = cold_tuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-    right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
+    right_pipette.dispense(2, tuberack2['A1'], rate=2.0)
     right_pipette.drop_tip()
 
     protocol.pause('explain dilution')
