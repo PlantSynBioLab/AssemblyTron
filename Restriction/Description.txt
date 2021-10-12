@@ -1,0 +1,3 @@
+20210901_pme1: pmeI digest that was transformed into yeast
+20210902_pme1: pmeI digest of pwl242 that was digested in 1/2 the volume every time
+20210907_pme1: pmeI digest of pwl242 that was digested in 10% less volume every time

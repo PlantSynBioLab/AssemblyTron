@@ -11,10 +11,10 @@ metadata = {'protocolName': 'PME1 Digestion',
 }
 print(metadata)
 
-os.chdir("/data/user_storage/restriction/")
+os.chdir("/data/user_storage/Restriction/")
 os.getcwd()
 
-plasmid = pd.read_csv("20210802_pme1.csv",engine = 'python', encoding='utf-8-sig')
+plasmid = pd.read_csv("20210916_pme1/20210916_pme1.csv",engine = 'python', encoding='utf-8-sig')
 
 plasmid = pd.DataFrame(plasmid)
 
@@ -26,27 +26,83 @@ plasmid['Volume of Water'] = ''
 plasmid['Volume of Plasmid'] = (1/(plasmid['Concentration'])) * 1000 * 1.5
 plasmid['Volume of Water'] = 44 - plasmid['Volume of Plasmid'] - plasmid['Buffer'] - plasmid['PME1']
 
+plasmid['total volume'] = float('44')
+
+
+#plasmid templates arranged in an "L" formation
 row2well= {}
 row2well['0'] = 'A2'
 row2well['1'] = 'B2'
 row2well['2'] = 'C2'
 row2well['3'] = 'D2'
+row2well['4'] = 'D3'
+row2well['5'] = 'D4'
+row2well['6'] = 'D5'
+row2well['7'] = 'D6'
 
 plasmid['Plasmid Location'] = ''
 
 for i, row in plasmid.iterrows():
     plasmid.loc[i,'Plasmid Location'] = row2well[str(i)]
 
+#The pcr tube destination will change every time you use a new row of the 96 well pcr plate
 row2tube= {}
-row2tube['0'] = 'A1'
-row2tube['1'] = 'A2'
-row2tube['2'] = 'A3'
-row2tube['3'] = 'A4'
+#row2tube['0'] = 'B1'
+#row2tube['1'] = 'B2'
+#row2tube['2'] = 'B3'
+#row2tube['3'] = 'B4'
+#row2tube['4'] = 'B5'
+#row2tube['5'] = 'B6'
+#row2tube['6'] = 'B7'
+#row2tube['7'] = 'B8'
+# row2tube['0'] = 'C1'
+# row2tube['1'] = 'C2'
+# row2tube['2'] = 'C3'
+# row2tube['3'] = 'C4'
+# row2tube['4'] = 'C5'
+# row2tube['5'] = 'C6'
+# row2tube['6'] = 'C7'
+# row2tube['7'] = 'C8'
+# row2tube['0'] = 'F1'
+# row2tube['1'] = 'F2'
+# row2tube['2'] = 'F3'
+# row2tube['3'] = 'F4'
+# row2tube['4'] = 'F5'
+# row2tube['5'] = 'F6'
+# row2tube['6'] = 'F7'
+# row2tube['7'] = 'F8'
+# row2tube['8'] = 'F9'
+row2tube['0'] = 'A3'
+row2tube['1'] = 'A4'
+row2tube['2'] = 'A5'
+row2tube['3'] = 'A6'
+row2tube['4'] = 'A7'
+row2tube['5'] = 'A8'
+row2tube['6'] = 'A9'
+row2tube['7'] = 'A10'
+row2tube['8'] = 'A11'
 
 plasmid['Digestion Tube'] = ''
 
 for i, row in plasmid.iterrows():
     plasmid.loc[i,'Digestion Tube'] = row2tube[str(i)]
+
+pcr2final= {}
+pcr2final['0'] = 'A1'
+pcr2final['1'] = 'A2'
+pcr2final['2'] = 'A3'
+pcr2final['3'] = 'A4'
+pcr2final['4'] = 'A5'
+pcr2final['5'] = 'A6'
+pcr2final['6'] = 'B1'
+pcr2final['7'] = 'B2'
+pcr2final['8'] = 'B3'
+
+plasmid['final tube'] = ''
+
+for i, row in plasmid.iterrows():
+    plasmid.loc[i,'final tube'] = pcr2final[str(i)]
+
 
 
 from opentrons import protocol_api
@@ -70,10 +126,11 @@ def run(protocol: protocol_api.ProtocolContext):
     thermo = protocol.load_module('Thermocycler Module')
     pcr = thermo.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
         
-    tiprack1 = protocol.load_labware("opentrons_96_tiprack_10ul",1)
+    tiprack1 = protocol.load_labware("opentrons_96_tiprack_10ul",5)
     tiprack2 = protocol.load_labware("opentrons_96_tiprack_300ul",2)
+    finalprodtubes = protocol.load_labware("opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap",3)
     #tuberack = protocol.load_labware("opentrons_24_tuberack_nest_2ml_snapcap",4)
-    temp_module = protocol.load_module('temperature module', 4)
+    temp_module = protocol.load_module('temperature module', 1)
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_nest_1.5ml_snapcap', label='Temperature-Controlled Tubes')
     temp_module.set_temperature(4)
     print(temp_module.temperature)
@@ -102,6 +159,8 @@ def run(protocol: protocol_api.ProtocolContext):
         pipette_left.pick_up_tip()
         pipette_left.aspirate(plasmid.loc[i].at['Volume of Plasmid'],cold_tuberack[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
         pipette_left.dispense(plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+        pipette_left.mix(3,plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']])
+        pipette_left.blow_out()
         pipette_left.drop_tip()
 
 # pick up buffer  -> dispense into pcr tube -> get rid of tip
@@ -110,6 +169,7 @@ def run(protocol: protocol_api.ProtocolContext):
         pipette_left.pick_up_tip()
         pipette_left.aspirate(plasmid.loc[i].at['Buffer'],cold_tuberack['A3'],2)
         pipette_left.dispense(plasmid.loc[i].at['Buffer'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+        pipette_left.mix(3,plasmid.loc[i].at['Buffer'],pcr[plasmid.loc[i].at['Digestion Tube']])
         pipette_left.blow_out()
         pipette_left.drop_tip()  
 
@@ -120,14 +180,21 @@ def run(protocol: protocol_api.ProtocolContext):
         pipette_left.pick_up_tip()
         pipette_left.aspirate(plasmid.loc[i].at['PME1'],cold_tuberack['A4'],2)
         pipette_left.dispense(plasmid.loc[i].at['PME1'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+        pipette_left.mix(3,plasmid.loc[i].at['PME1'],pcr[plasmid.loc[i].at['Digestion Tube']])
         pipette_left.blow_out()
         pipette_left.drop_tip()
 
 
     for i, row in plasmid.iterrows():
-        pipette_right.pick_up_tip()
-        pipette_right.mix(3,44,pcr[plasmid.loc[i].at['Digestion Tube']])
-        pipette_right.drop_tip()
+
+        if plasmid.loc[i].at['total volume'] > float('10'):
+            pipette_right.pick_up_tip()
+            pipette_right.mix(3,plasmid.loc[i].at['total volume'],pcr[plasmid.loc[i].at['Digestion Tube']])
+            pipette_right.drop_tip()
+        else:
+            pipette_left.pick_up_tip()
+            pipette_left.mix(3,plasmid.loc[i].at['total volume'],pcr[plasmid.loc[i].at['Digestion Tube']])
+            pipette_left.drop_tip()
 
  #mixes contents around using the pipette tip  (reps,max volume,location)
 
@@ -138,7 +205,32 @@ def run(protocol: protocol_api.ProtocolContext):
     thermo.set_block_temperature(65,0,20, block_max_volume = 44)
     thermo.set_block_temperature(4, block_max_volume = 44)
 
+    protocol.pause('wait until its time to dispense the product')
+
     thermo.open_lid()
+
+    for i, row in plasmid.iterrows():
+
+        if plasmid.loc[i].at['total volume'] > float('10'):
+            pipette_right.pick_up_tip()
+            pipette_right.aspirate(plasmid.loc[i].at['total volume'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+            pipette_right.dispense(plasmid.loc[i].at['total volume'],finalprodtubes[plasmid.loc[i].at['final tube']],2)
+            pipette_right.blow_out()
+            pipette_right.drop_tip()
+        
+        else:
+            pipette_left.pick_up_tip()
+            pipette_left.aspirate(plasmid.loc[i].at['total volume'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+            pipette_left.dispense(plasmid.loc[i].at['total volume'],finalprodtubes[plasmid.loc[i].at['final tube']],2)
+            pipette_left.blow_out()
+            pipette_left.drop_tip()
+
+    thermo.close_lid()
+
+    #could add a purple loading dye mix step here.
+
+
+    
 
 
 
