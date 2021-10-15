@@ -40,6 +40,18 @@ from datetime import date
 #starter_date = 'typedatehere'
 pwd = str(os.getcwd())
 
+def walk_up_folder(path, depth=1):
+    _cur_depth = 1        
+    while _cur_depth < depth:
+        path = os.path.dirname(path)
+        _cur_depth += 1
+    return path   
+
+paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
+paths
+
+
+
 Input_values = pandas.read_csv('Input.csv') 
 Input_values
 Date = str(int(Input_values.loc[0].at['Date']))
@@ -52,7 +64,7 @@ diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvo
 ###############################################################################################################################################
 #oligos
 
-os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+'_Golden_Gate')
 os.getcwd()
 oligos = pandas.read_csv('oligo.csv')
 oligos
@@ -119,7 +131,7 @@ oligos.to_csv('output_'+Date+'_oligo_GoldenGate.csv')
 #assembly
 
 #read in assembly pieces as dataframe .... might not need this info
-os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
+#os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
 os.getcwd()
 assembly = pandas.read_csv('assembly.csv')
 assembly
@@ -133,7 +145,7 @@ assembly.to_csv('output_'+Date+'_assembly_GoldenGate.csv')
 ##############################################################################################################################################################################################
 #digests
 
-os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
+#os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
 os.getcwd()
 digests = pandas.read_csv('digests.csv')
 digests
@@ -171,8 +183,7 @@ digests.to_csv('output_'+Date+'_digests_GoldenGate.csv')
 ##################################################################################################################################
 #pcr
 
-os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
-os.getcwd()
+#os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
 pcr = pandas.read_csv('pcr.csv')
 pcr.columns = pcr.columns.str.replace("'","")
 pcr
@@ -288,7 +299,7 @@ pcr_plustemplates.to_csv('output_'+Date+'_pcr_GoldenGate.csv')
 #######################################################################################################################################################################################################################
 #combinations
 
-os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
+#os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
 os.getcwd()
 combinations = pandas.read_csv('combinations.csv')
 combinations
@@ -548,11 +559,6 @@ combinations.to_csv('output_'+Date+'_combinations.csv')
 #########################################################################################################################
 #plasmid dataframe object for the digestion
 
-#os.chdir("/data/user_storage/Restriction/")
-os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
-os.getcwd()
-#plasmid = pandas.DataFrame()
-#plasmid = pandas.read_csv("date_BSA1.csv",engine = 'python', encoding='utf-8-sig')
 plasmid['Plasmid'] = Input_values['pwldigesttemp']
 plasmid['Concentration'] = Input_values['concdigesttemp']
 #plasmid = pandas.DataFrame(plasmid)
@@ -604,7 +610,7 @@ for i, row in plasmid.iterrows():
     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
 plasmid
 
-#put final goldengate assembly products on row B for good measure
+#put final goldengate assembly products on row C for good measure
 
 id2wellpcr = {}
 id2wellpcr['0'] = 'A1'
