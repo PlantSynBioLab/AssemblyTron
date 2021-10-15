@@ -1,0 +1,776 @@
+LOCUS       pmas00002               6733 bp    dna     circular UNK 
+ACCESSION   pmas00002
+VERSION     pmas00002.1
+KEYWORDS    ; ; ; ; ; ; ; .
+FEATURES             Location/Qualifiers
+     misc_feature    13..20
+                     /ApEinfo_fwdcolor=#6cff69
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="PmeI site"
+                     /ApEinfo_revcolor=green
+                     /label=PmeI site
+                     /locus_tag="PmeI site"
+     misc_feature    21..271
+                     /ApEinfo_fwdcolor=cyan
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="TRP1 5' UTR"
+                     /ApEinfo_revcolor=green
+                     /label=TRP1 5' UTR
+                     /locus_tag="TRP1 5' UTR"
+     misc_feature    165..174
+                     /ApEinfo_fwdcolor=#a17689
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="Fill-in removed EcoRI"
+                     /ApEinfo_revcolor=green
+                     /label=Fill-in removed EcoRI
+                     /locus_tag="Fill-in removed EcoRI"
+     CDS             complement(272..946)
+                     /ApEinfo_fwdcolor=#ffff00
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="TRP1"
+                     /ApEinfo_revcolor=#ffff00
+                     /label=TRP1
+                     /locus_tag="TRP1"
+     TATA_signal     458..465
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box
+                     /locus_tag="S. cerevisiae TATA box"
+     misc_feature    947..992
+                     /ApEinfo_fwdcolor=cyan
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="TRP1 3' UTR"
+                     /ApEinfo_revcolor=green
+                     /label=TRP1 3' UTR
+                     /locus_tag="TRP1 3' UTR"
+     misc_feature    993..1647
+                     /ApEinfo_fwdcolor=#009bff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="Actual GPD Promoter"
+                     /ApEinfo_revcolor=green
+                     /label=Actual GPD Promoter
+                     /locus_tag="Actual GPD Promoter"
+     primer_bind     993..1031
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="oNL1872 GPDf"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=oNL1872 GPDf
+                     /locus_tag="oNL1872 GPDf"
+     promoter        993..1647
+                     /ApEinfo_fwdcolor=#0000ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="GPD promoter"
+                     /ApEinfo_revcolor=#ff00ff
+                     /label=GPD promoter
+                     /locus_tag="GPD promoter"
+     promoter        1032..1647
+                     /ApEinfo_fwdcolor=#0000ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="GPD promoter"
+                     /ApEinfo_revcolor=#ff00ff
+                     /label=GPD promoter(1)
+                     /locus_tag="GPD promoter(1)"
+     primer_bind     1223..1249
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="oNL1472_midGPD_F"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=oNL1472_midGPD_F
+                     /locus_tag="oNL1472_midGPD_F"
+     primer_bind     1498..1535
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="oNL1478_GPDendF"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=oNL1478_GPDendF
+                     /locus_tag="oNL1478_GPDendF"
+     TATA_signal     1526..1533
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(1)
+                     /locus_tag="S. cerevisiae TATA box(1)"
+     misc_feature    1536..1559
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="GPDPro_F_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=GPDPro_F_primer
+                     /locus_tag="GPDPro_F_primer"
+     primer_bind     1536..1559
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="oNL2002_GPDpro_F"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=oNL2002_GPDpro_F
+                     /locus_tag="oNL2002_GPDpro_F"
+     CDS             complement(1581..1647)
+                     /ApEinfo_fwdcolor=#ffff01
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="ORF frame 2"
+                     /ApEinfo_revcolor=green
+                     /label=ORF frame 2
+                     /locus_tag="ORF frame 2"
+                     /translation="MSTTWSTLVQLVHAESDPGGGHELQQDHVIALLVGVFAQGGLVA
+                     QVVVVGQQHGAVADGGVLLVVVGELHAAVLDVVADLEVHLDAVLLLVGHDIDVVAVVV
+                     VLQLVPQDVAVLLEVDALQLDAVHQGVALELHLGAGLVVAVVLEEDGALLDVAFGHGG
+                     LEEVVLLHVVGVAGEALQAVAEGGHEGGPGHGQLAGGADELQGQLAVGGIALALAGHA
+                     ELVAVYVAVQLDQDGHHPGEQLLALAHHFVPGDPLVLESVETKFWCFKTKKKTNYKSR
+                     I*"
+     TATA_signal     complement(1591..1598)
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(7)
+                     /locus_tag="S. cerevisiae TATA box(7)"
+     primer_bind     complement(1640..1676)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0110_(pGP4G)_reverse"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0110_(pGP4G)_reverse
+                     /locus_tag="j5_0110_(pGP4G)_reverse"
+     primer_bind     complement(1644..1665)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0074_(pGP4G--JAZ9)_(4n)_reverse"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0074_(pGP4G--JAZ9)_(4n)_reverse
+                     /locus_tag="j5_0074_(pGP4G--JAZ9)_(4n)_reverse"
+     misc_feature    1648..1664
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="pBluescriptSK_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=pBluescriptSK_primer
+                     /locus_tag="pBluescriptSK_primer"
+     CDS             complement(1648..1665)
+                     /ApEinfo_fwdcolor=#ffff01
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="ORF frame 2"
+                     /ApEinfo_revcolor=green
+                     /label=ORF frame 2(1)
+                     /locus_tag="ORF frame 2(1)"
+                     /translation="MSTTWSTLVQLVHAESDPGGGHELQQDHVIALLVGVFAQGGLVA
+                     QVVVVGQQHGAVADGGVLLVVVGELHAAVLDVVADLEVHLDAVLLLVGHDIDVVAVVV
+                     VLQLVPQDVAVLLEVDALQLDAVHQGVALELHLGAGLVVAVVLEEDGALLDVAFGHGG
+                     LEEVVLLHVVGVAGEALQAVAEGGHEGGPGHGQLAGGADELQGQLAVGGIALALAGHA
+                     ELVAVYVAVQLDQDGHHPGEQLLALAHHFVPGDPLVLESVETKFWCFKTKKKTNYKSR
+                     I*"
+     primer_bind     complement(1649..1665)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /
+                     ApEinfo_label="j5_0002_(pGP4G_2xSV40)_(yeast_kozak)_rever
+                     se"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0002_(pGP4G_2xSV40)_(yeast_kozak)_reverse
+                     /locus_tag="j5_0002_(pGP4G_2xSV40)_(yeast_kozak)_reverse"
+     primer_bind     1653..1676
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0111_(ccDB)_forward"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0111_(ccDB)_forward
+                     /locus_tag="j5_0111_(ccDB)_forward"
+     primer_bind     1659..1665
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0003_(yEVenus)_forward"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0003_(yEVenus)_forward
+                     /locus_tag="j5_0003_(yEVenus)_forward"
+     primer_bind     complement(1666..1676)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0068_(pGP8G2-start)_(Start-
+                     BsaIr)_rever se"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0068_(pGP8G2-start)_(Start-BsaIr)_reverse
+                     /locus_tag="j5_0068_(pGP8G2-start)_(Start-BsaIr)_reverse"
+     primer_bind     1666..1676
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0069_(ccdB1)_forward"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0069_(ccdB1)_forward
+                     /locus_tag="j5_0069_(ccdB1)_forward"
+     misc_feature    1669..1672
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="attR1"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=attR1
+                     /locus_tag="attR1"
+     misc_feature    1673..1676
+                     /ApEinfo_fwdcolor=pink
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="p2"
+                     /ApEinfo_revcolor=pink
+                     /label=p2
+                     /locus_tag="p2"
+     primer_bind     1673..1700
+                     /label=oWL00250_(GFP_plus_link)_forward
+     gene            1680..2390
+                     /ApEinfo_fwdcolor=#ff10fc
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="yeGFP"
+                     /ApEinfo_revcolor=#ff10fc
+                     /label=yeGFP
+                     /locus_tag="yeGFP"
+     misc_feature    complement(1769..1795)
+                     /ApEinfo_fwdcolor=#f58a5e
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="JP51"
+                     /ApEinfo_revcolor=#f58a5e
+                     /label=JP51
+                     /locus_tag="JP51"
+     misc_feature    complement(1834..1854)
+                     /ApEinfo_fwdcolor=#f58a5e
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="JP50"
+                     /ApEinfo_revcolor=#f58a5e
+                     /label=JP50
+                     /locus_tag="JP50"
+     primer_bind     1835..1854
+                     /ApEinfo_fwdcolor=#0502cc
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="JP120"
+                     /ApEinfo_revcolor=#0502cc
+                     /label=JP120
+                     /locus_tag="JP120"
+     primer_bind     complement(2355..2390)
+                     /ApEinfo_fwdcolor=#14c0bd
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0464_(yEGFP)_reverse"
+                     /ApEinfo_revcolor=#4ec02b
+                     /label=j5_0464_(yEGFP)_reverse
+                     /locus_tag="j5_0464_(yEGFP)_reverse"
+     primer_bind     2375..2390
+                     /ApEinfo_fwdcolor=#14c0bd
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0465_(IAA17)_forward"
+                     /ApEinfo_revcolor=#4ec02b
+                     /label=j5_0465_(IAA17)_forward
+                     /locus_tag="j5_0465_(IAA17)_forward"
+     primer_bind     complement(2418..2437)
+                     /label=oWL00251_(GFP_plus_link)_reverse
+     primer_bind     2434..2453
+                     /label=oWL00252_(iaa12-prb)_forward
+     misc_feature    2436..2454
+                     /label=F primer
+     misc_feature    2436..2460
+                     /label=F primer(1)
+     misc_feature    2537..2711
+                     /label=CTLH domain
+     primer_bind     complement(2735..2759)
+                     /label=j5_00010_(pGP4G-TPL)_reverse
+     CDS             complement(2736..2756)
+                     /label=ORF frame 2
+     misc_feature    2736..2759
+                     /label=YFP spacer
+     primer_bind     2756..2784
+                     /label=j5_00018_(IAA12_noPB1)_forward
+     misc_feature    2760..3125
+                     /label=IAA12
+     primer_bind     complement(3104..3128)
+                     /label=j5_00019_(IAA12_noPB1)_reverse
+     primer_bind     3125..3147
+                     /label=j5_00017_(Pdar)_forward
+     source          complement(3126..3620)
+                     /label=source:synthetic DNA construct
+     misc_feature    3126..3620
+                     /label=Pdar
+     primer_bind     complement(3599..3620)
+                     /label=j5_00014_(Prb)_reverse
+     CDS             3600..3617
+                     /label=6xHis
+     primer_bind     complement(3603..3624)
+                     /label=oWL00253_(iaa12-prb)_reverse
+     primer_bind     3619..3620
+                     /label=j5_00015_(pWL106_BsaI)_forward
+     primer_bind     complement(3621..3624)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0072_(ccdB2)_(BsaIf)_reverse"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0072_(ccdB2)_(BsaIf)_reverse
+                     /locus_tag="j5_0072_(ccdB2)_(BsaIf)_reverse"
+     primer_bind     complement(3621..3638)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0112_(ccDB)_reverse"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0112_(ccDB)_reverse
+                     /locus_tag="j5_0112_(ccDB)_reverse"
+     primer_bind     3621..3660
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0109_(pGP4G)_forward"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0109_(pGP4G)_forward
+                     /locus_tag="j5_0109_(pGP4G)_forward"
+     primer_bind     3621..3624
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="j5_0071_(pGP8G1)_forward"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=j5_0071_(pGP8G1)_forward
+                     /locus_tag="j5_0071_(pGP8G1)_forward"
+     misc_feature    3621..3624
+                     /ApEinfo_fwdcolor=pink
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="p3"
+                     /ApEinfo_revcolor=pink
+                     /label=p3
+                     /locus_tag="p3"
+     terminator      3633..3872
+                     /ApEinfo_fwdcolor=pink
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="CYC1_terminator"
+                     /ApEinfo_revcolor=pink
+                     /label=CYC1_terminator
+                     /locus_tag="CYC1_terminator"
+     primer_bind     complement(3633..3662)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="oNL1913 TCYC1 front Rev"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=oNL1913 TCYC1 front Rev
+                     /locus_tag="oNL1913 TCYC1 front Rev"
+     terminator      3633..3872
+                     /ApEinfo_fwdcolor=cyan
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="CYC1 terminator"
+                     /ApEinfo_revcolor=green
+                     /label=CYC1 terminator
+                     /locus_tag="CYC1 terminator"
+     misc_feature    complement(3642..3660)
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="CYC1_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=CYC1_primer
+                     /locus_tag="CYC1_primer"
+     misc_feature    complement(3642..3660)
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="pYESTrp_rev_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=pYESTrp_rev_primer
+                     /locus_tag="pYESTrp_rev_primer"
+     TATA_signal     complement(3731..3738)
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(8)
+                     /locus_tag="S. cerevisiae TATA box(8)"
+     TATA_signal     complement(3761..3768)
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(9)
+                     /locus_tag="S. cerevisiae TATA box(9)"
+     primer_bind     complement(3849..3872)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="oNL1475 TCYC1r"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=oNL1475 TCYC1r
+                     /locus_tag="oNL1475 TCYC1r"
+     misc_feature    3873..4327
+                     /ApEinfo_fwdcolor=#b38bff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="TRP1 3' UTR extended"
+                     /ApEinfo_revcolor=green
+                     /label=TRP1 3' UTR extended
+                     /locus_tag="TRP1 3' UTR extended"
+     TATA_signal     4129..4136
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(3)
+                     /locus_tag="S. cerevisiae TATA box(3)"
+     TATA_signal     4131..4138
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(4)
+                     /locus_tag="S. cerevisiae TATA box(4)"
+     misc_feature    4328..4335
+                     /ApEinfo_fwdcolor=#6cff69
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="PmeI site"
+                     /ApEinfo_revcolor=green
+                     /label=PmeI site(1)
+                     /locus_tag="PmeI site(1)"
+     misc_feature    complement(4336..4354)
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="M13_reverse_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=M13_reverse_primer
+                     /locus_tag="M13_reverse_primer"
+     primer_bind     complement(4340..4356)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="M13R"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=M13R
+                     /locus_tag="M13R"
+     misc_feature    complement(4353..4375)
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="M13_pUC_rev_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=M13_pUC_rev_primer
+                     /locus_tag="M13_pUC_rev_primer"
+     misc_binding    complement(4362..4384)
+                     /ApEinfo_fwdcolor=#6495ed
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="LacO"
+                     /ApEinfo_revcolor=#6495ed
+                     /label=LacO
+                     /locus_tag="LacO"
+     primer_bind     complement(4514..4533)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="P.II-3'(5' is homology to forward of
+                     GOI)"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=P.II-3'(5' is homology to forward of GOI)
+                     /locus_tag="P.II-3'(5' is homology to forward of GOI)"
+     rep_origin      complement(4724..5406)
+                     /ApEinfo_fwdcolor=gray50
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="ColE1 origin"
+                     /ApEinfo_revcolor=gray50
+                     /label=ColE1 origin
+                     /locus_tag="ColE1 origin"
+     rep_origin      complement(4727..5346)
+                     /ApEinfo_fwdcolor=pink
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="pBR322_origin"
+                     /ApEinfo_revcolor=pink
+                     /label=pBR322_origin
+                     /locus_tag="pBR322_origin"
+     TATA_signal     5474..5481
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(5)
+                     /locus_tag="S. cerevisiae TATA box(5)"
+     CDS             complement(5501..5644)
+                     /ApEinfo_fwdcolor=#ffff01
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="Ampicillin"
+                     /ApEinfo_revcolor=green
+                     /gene="Ampicillin"
+                     /label=Ampicillin
+                     /locus_tag="Ampicillin"
+                     /note="ORF frame 3"
+                     /translation="MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGY
+                     IELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVE
+                     YSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFFHNMGDHVTRL
+                     DRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPL
+                     LRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIA
+                     EIGASLIKHW*"
+     gene            complement(5501..5644)
+                     /ApEinfo_fwdcolor=#00ff00
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="Ampicillin"
+                     /ApEinfo_revcolor=pink
+                     /gene="Ampicillin"
+                     /label=Ampicillin(1)
+                     /locus_tag="Ampicillin(1)"
+     CDS             complement(5504..5644)
+                     /ApEinfo_fwdcolor=yellow
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="AmpR"
+                     /ApEinfo_revcolor=yellow
+                     /label=AmpR
+                     /locus_tag="AmpR"
+     CDS             complement(5646..6361)
+                     /ApEinfo_fwdcolor=#ffff01
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="Ampicillin"
+                     /ApEinfo_revcolor=green
+                     /gene="Ampicillin"
+                     /label=Ampicillin
+                     /locus_tag="Ampicillin"
+                     /note="ORF frame 3"
+                     /translation="MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGY
+                     IELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVE
+                     YSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFFHNMGDHVTRL
+                     DRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPL
+                     LRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIA
+                     EIGASLIKHW*"
+     gene            complement(5646..6361)
+                     /ApEinfo_fwdcolor=#00ff00
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="Ampicillin"
+                     /ApEinfo_revcolor=pink
+                     /gene="Ampicillin"
+                     /label=Ampicillin(1)
+                     /locus_tag="Ampicillin(1)"
+     CDS             complement(5646..6163)
+                     /ApEinfo_fwdcolor=yellow
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="AmpR"
+                     /ApEinfo_revcolor=yellow
+                     /label=AmpR
+                     /locus_tag="AmpR"
+     primer_bind     5776..5802
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="prKL78-AmpR_F"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=prKL78-AmpR_F
+                     /locus_tag="prKL78-AmpR_F"
+     primer_bind     complement(5881..5903)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="prKL79-AmpR_R"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=prKL79-AmpR_R
+                     /locus_tag="prKL79-AmpR_R"
+     promoter        complement(6362..6460)
+                     /ApEinfo_fwdcolor=#0000ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="bla promoter"
+                     /ApEinfo_revcolor=#ff00ff
+                     /label=bla promoter
+                     /locus_tag="bla promoter"
+     promoter        complement(6403..6431)
+                     /ApEinfo_fwdcolor=#602ef3
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="AmpR_promoter"
+                     /ApEinfo_revcolor=pink
+                     /label=AmpR_promoter
+                     /locus_tag="AmpR_promoter"
+     TATA_signal     6528..6535
+                     /ApEinfo_fwdcolor=#4c4c4c
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="S. cerevisiae TATA box"
+                     /ApEinfo_revcolor=#b3b3b3
+                     /label=S. cerevisiae TATA box(6)
+                     /locus_tag="S. cerevisiae TATA box(6)"
+     misc_feature    complement(6590..6608)
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="pGEX_3_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=pGEX_3_primer
+                     /locus_tag="pGEX_3_primer"
+     primer_bind     complement(6590..6612)
+                     /ApEinfo_fwdcolor=#00ff80
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="3GEX"
+                     /ApEinfo_revcolor=#0080ff
+                     /label=3GEX
+                     /locus_tag="3GEX"
+     misc_feature    complement(6609..6612)
+                     /ApEinfo_fwdcolor=#9384ff
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+                     /ApEinfo_label="pGEX_3_primer"
+                     /ApEinfo_revcolor=#00ff29
+                     /label=pGEX_3_primer(1)
+                     /locus_tag="pGEX_3_primer(1)"
+ORIGIN      
+        1 gagagtgcac cagtttaaac catttaatag aacagcatcg taatatatgt gtactttgca
+       61 gttatgacgc cagatggcag tagtggaaga tattctttat tgaaaaatag cttgtcacct
+      121 tacgtacaat cttgatccgg agcttttctt tttttgccga ttaagaatta attcggtcga
+      181 aaaaagaaaa ggagagggcc aagagggagg gcattggtga ctattgagca cgtgagtata
+      241 cgtgattaag cacacaaagg cagcttggag tatgtctgtt attaatttca caggtagttc
+      301 tggtccattg gtgaaagttt gcggcttgca gagcacagag gccgcagaat gtgctctaga
+      361 ttccgatgct gacttgctgg gtattatatg tgtgcccaat agaaagagaa caattgaccc
+      421 ggttattgca aggaaaattt caagtcttgt aaaagcatat aaaaatagtt caggcactcc
+      481 gaaatacttg gttggcgtgt ttcgtaatca acctaaggag gatgttttgg ctctggtcaa
+      541 tgattacggc attgatatcg tccaactgca tggagatgag tcgtggcaag aataccaaga
+      601 gttcctcggt ttgccagtta ttaaaagact cgtatttcca aaagactgca acatactact
+      661 cagtgcagct tcacagaaac ctcattcgtt tattcccttg tttgattcag aagcaggtgg
+      721 gacaggtgaa cttttggatt ggaactcgat ttctgactgg gttggaaggc aagagagccc
+      781 cgaaagctta cattttatgt tagctggtgg actgacgcca gaaaatgttg gtgatgcgct
+      841 tagattaaat ggcgttattg gtgttgatgt aagcggaggt gtggagacaa atggtgtaaa
+      901 agactctaac aaaatagcaa atttcgtcaa aaatgctaag aaataggtta ttactgagta
+      961 gtatttattt aagtattgtt tgtgcacttg ccagtttatc attatcaata ctcgccattt
+     1021 caaagaatac gtaaataatt aatagtagtg attttcctaa ctttatttag tcaaaaaatt
+     1081 agccttttaa ttctgctgta acccgtacat gcccaaaata gggggcgggt tacacagaat
+     1141 atataacatc gtaggtgtct gggtgaacag tttattcctg gcatccacta aatataatgg
+     1201 agcccgcttt ttaagctggc atccagaaaa aaaaagaatc ccagcaccaa aatattgttt
+     1261 tcttcaccaa ccatcagttc ataggtccat tctcttagcg caactacaga gaacaggggc
+     1321 acaaacaggc aaaaaacggg cacaacctca atggagtgat gcaacctgcc tggagtaaat
+     1381 gatgacacaa ggcaattgac ccacgcatgt atctatctca ttttcttaca ccttctatta
+     1441 ccttctgctc tctctgattt ggaaaaagct gaaaaaaaag gttgaaacca gttccctgaa
+     1501 attattcccc tacttgacta ataagtatat aaagacggta ggtattgatt gtaattctgt
+     1561 aaatctattt cttaaacttc ttaaattcta cttttatagt tagtcttttt tttagtttta
+     1621 aaacaccaga acttagtttc gacggattct agaactagtg gatccatcac aaaatgatgt
+     1681 ctaaaggtga agaattattc actggtgttg tcccaatttt ggttgaatta gatggtgatg
+     1741 ttaatggtca caaattttct gtctccggtg aaggtgaagg tgatgctact tacggtaaat
+     1801 tgaccttaaa atttatttgt actactggta aattgccagt tccatggcca accttagtca
+     1861 ctactttagg ttatggtttg caatgttttg ctagataccc agatcatatg aaacaacatg
+     1921 actttttcaa gtctgccatg ccagaaggtt atgttcaaga aagaactatt tttttcaaag
+     1981 atgacggtaa ctacaagacc agagctgaag tcaagtttga aggtgatacc ttagttaata
+     2041 gaatcgaatt aaaaggtatt gattttaaag aagatggtaa cattttaggt cacaaattgg
+     2101 aatacaacta taactctcac aatgtttaca tcactgctga caaacaaaag aatggtatca
+     2161 aagctaactt caaaattaga cacaacattg aagatggtgg tgttcaatta gctgaccatt
+     2221 atcaacaaaa tactccaatt ggtgatggtc cagtcttgtt accagacaac cattacttat
+     2281 cctatcaatc tgccttatcc aaagatccaa acgaaaagag agaccacatg gtcttgttag
+     2341 aatttgttac tgctgctggt attacccatg gtatggatga attgtacaaa ggcggtagtg
+     2401 gaggcggtgg atctggtggt ggcggatcag gtgggatgtc ttctcttagt agagagctcg
+     2461 ttttcttgat cttacagttt ctcgatgaag agaagtttaa agagactgtt cacaagcttg
+     2521 aacaagaatc tgggtttttc ttcaatatga agtattttga ggatgaggtt cacaatggaa
+     2581 attgggatga ggttgagaag tatctctctg gtttcactaa agtagatgat aatagatact
+     2641 ctatgaagat attcttcgag ataagaaagc agaagtatct cgaggctttg gataagcatg
+     2701 atcgtcccaa ggctgtggat atactagtga aggatggtgg accaggtggt ggacatcaac
+     2761 gtggtgtgtc agaattggag gtggggaaga gtaatcttcc ggcggagagt gagctggaat
+     2821 tgggattagg gctcagcctc ggtggtggcg cgtggaaaga gcgtgggagg attcttactg
+     2881 ctaaggattt tccttccgtt gggtctaaac gctctgctga atcttcctct caccaaggag
+     2941 cttctcctcc tcgttcaagt caagtggtag gatggccacc aattgggtta cacaggatga
+     3001 acagtttggt taataaccaa gctatgaagg cagcaagagc ggaagaagga gacggggaga
+     3061 agaaagttgt gaagaatgat gagctcaaag atgtgtcaat gaaggtgaat ccgaaagttc
+     3121 agggcggcag cgatctgggt aaaaagctgc tggaagcagc cgcggccggc caagatgatg
+     3181 aggtgcgtat tctgatggcg aatggggccg atgttaacgc aaccgacgac aatggcctga
+     3241 ctccgctgca cctggcggct gcaaacgggc aactggaaat cgtagaggta ctgctgaaaa
+     3301 atggcgccga tgtgaacgct tctgatagtg cgggtattac tccgctgcac ctggccgctt
+     3361 atgacggcca tctggagatt gtcgaagtcc tgctgaagca cggggctgac gttaatgcgt
+     3421 acgaccgcgc cgggtggaca ccgctgcacc tagcagcgct gagtggccaa ctggagattg
+     3481 tggaagttct gctgaaacac ggcgcagatg tcaacgccca agacgcactg ggcctgaccg
+     3541 cgtttgatat ctcgattaat caaggtcagg aagatctggc agagatcctg caactcgagc
+     3601 accaccacca ccaccactga ttctgtcatg taattagtta tgtcacgctt acattcacgc
+     3661 cctcccccca catccgctct aaccgaaaag gaaggagtta gacaacctga agtctaggtc
+     3721 cctatttatt tttttatagt tatgttagta ttaagaacgt tatttatatt tcaaattttt
+     3781 cttttttttc tgtacagacg cgtgtacgca tgtaacatta tactgaaaac cttgcttgag
+     3841 aaggttttgg gacgctcgaa ggctttaatt tgtgcaggcc ttttgaaaag caagcataaa
+     3901 agatctaaac ataaaatctg taaaataaca agatgtaaag ataatgctaa atcatttggc
+     3961 tttttgattg attgtacagg aaaatataca tcgcaggggg ttgactttta ccatttcacc
+     4021 gcaatggaat caaacttgtt gaagagaatg ttcacaggcg catacgctac aatgacccga
+     4081 ttcttgctag ccttttctcg gtcttgcaaa caaccgccgg cagcttagta tataaataca
+     4141 catgtacata cctctctccg tatcctcgta atcattttct tgtatttatc gtcttttcgc
+     4201 tgtaaaaact ttatcacact tatctcaaat acacttatta accgctttta ctattatctt
+     4261 ctacgctgac agtaatatca aacagtgaca catattaaac acagtggttt ctttgcataa
+     4321 acaccatgtt taaaccatgg tcatagctgt ttcctgtgtg aaattgttat ccgctcacaa
+     4381 ttccacacaa cataggagcc ggaagcataa agtgtaaagc ctggggtgcc taatgagtga
+     4441 ggtaactcac attaattgcg ttgcgctcac tgcccgcttt ccagtcggga aacctgtcgt
+     4501 gccagctgca ttaatgaatc ggccaacgcg cggggagagg cggtttgcgt attgggcgct
+     4561 cttccgcttc ctcgctcact gactcgctgc gctcggtcgt tcggctgcgg cgagcggtat
+     4621 cagctcactc aaaggcggta atacggttat ccacagaatc aggggataac gcaggaaaga
+     4681 acatgtgagc aaaaggccag caaaaggcca ggaaccgtaa aaaggccgcg ttgctggcgt
+     4741 ttttccatag gctcggcccc cctgacgagc atcacaaaaa tcgacgctca agtcagaggt
+     4801 ggcgaaaccc gacaggacta taaagatacc aggcgttccc ccctggaagc tccctcgtgc
+     4861 gctctcctgt tccgaccctg ccgcttaccg gatacctgtc cgcctttctc ccttcgggaa
+     4921 gcgtggcgct ttctcaatgc tcacgctgta ggtatctcag ttcggtgtag gtcgttcgct
+     4981 ccaagctggg ctgtgtgcac gaaccccccg ttcagcccga ccgctgcgcc ttatccggta
+     5041 actatcgtct tgagtccaac ccggtaagac acgacttatc gccactggca gcagccactg
+     5101 gtaacaggat tagcagagcg aggtatgtag gcggtgctac agagttcttg aagtggtggc
+     5161 ctaactacgg ctacactaga aggacagtat ttggtatctg cgctctgctg aagccagtta
+     5221 ccttcggaaa aagagttggt agctcttgat ccggcaaaca aaccaccgct ggtagcggtg
+     5281 gtttttttgt ttgcaagcag cagattacgc gcagaaaaaa aggatctcaa gaagatcctt
+     5341 tgatcttttc tacggggtct gacgctcagt ggaacgaaaa ctcacgttaa gggattttgg
+     5401 tcatgagatt atcaaaaagg atcttcacct agatcctttt aaattaaaaa tgaagtttta
+     5461 aatcaatcta aagtatatat gagtaaactt ggtctgacag ttaccaatgc ttaatcagtg
+     5521 aggcacctat ctcagcgatc tgtctatttc gttcatccat agttgcctga ctgcccgtcg
+     5581 tgtagataac tacgatacgg gagggcttac catctggccc cagtgctgca atgataccgc
+     5641 gagatccacg ctcaccggct ccagatttat cagcaataaa ccagccagcc ggaagggccg
+     5701 agcgcagaag tggtcctgca actttatccg cctccatcca gtctattaat tgttgccggg
+     5761 aagctagagt aagtagttcg ccagttaata gtttgcgcaa cgttgttgcc attgctacag
+     5821 gcatcgtggt gtcacgctcg tcgtttggta tggcttcatt cagctccggt tcccaacgat
+     5881 caaggcgagt tacatgatcc cccatgttgt gaaaaaaagc ggttagctcc ttcggtcctc
+     5941 cgatcgttgt cagaagtaag ttggccgcag tgttatcact catggttatg gcagcactgc
+     6001 ataattctct tactgtcatg ccatccgtaa gatgcttttc tgtgactggt gagtactcaa
+     6061 ccaagtcatt ctgagaatag tgtatgcggc gaccgagttg ctcttgcccg gcgtcaatac
+     6121 gggataatac cgcgccacat agcagaactt taaaagtgct catcattgga aaacgttctt
+     6181 cggggcgaaa actctcaagg atcttaccgc tgttgagatc cagttcgatg taacccactc
+     6241 gtgcacccaa ctgatcttca gcatctttta ctttcaccag cgtttctggg tgagcaaaaa
+     6301 caggaaggca aaatgccgca aaaaagggaa taagggcgac acggaaatgt tgaatactca
+     6361 tactcttcct ttttcaatat tattgaagca tttatcaggg ttattgtctc atgagcggat
+     6421 acatatttga atgtatttag aaaaataaac aaataggggt tccgcgcaca tttccccgaa
+     6481 aagtgccacc tgacgtctaa gaaaccatta ttatcatgac attaacctat aaaaataggc
+     6541 gtatcacgag gccctttcgt ctcgcgcgtt tcggtgatga cggtgaaaac ctctgacaca
+     6601 tgcagctccc ggagacggtc acagcttgtc tgtaagcgga tgccgggagc agacaagccc
+     6661 gtcagggcgc gtcagcgggt gttggcgggt gtcggggctg gcttaactat gcggcatcag
+     6721 agcagattgt act
+//
