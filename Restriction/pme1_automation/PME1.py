@@ -11,25 +11,25 @@ metadata = {'protocolName': 'PME1 Digestion',
 }
 print(metadata)
 
-os.chdir("/data/user_storage/Restriction/")
+os.chdir("C:/Users/Cameron Longmire/Documents/GitHub/opentrons/Restriction")
 os.getcwd()
 
 date = Input.loc[0].at['date']
-Input = pd.read_csv("20210916_pme1/20210916_pme1.csv") #put path to csv here
+Input = pd.read_csv("pme1_automation/Input.csv") #put path to csv here
 
 
-plasmid = pd.DataFrame(Input)
+plasmid['pwl','concentration'] = Input['pwl','Concentration']
 
 #plasmid['Buffer'] = float('4.4')
 #plasmid['Buffer'] = Input.loc[0].at['Buffer'] #example of how to read in variables from a csv file rather than hard coding them into the script
 #plasmid['PME1'] = float('1')
-plasmid['Volume of Plasmid'] = ''
-plasmid['Volume of Water'] = ''
+#plasmid['Volume of Plasmid'] = ''
+#plasmid['Volume of Water'] = ''
 
-plasmid['Volume of Plasmid'] = (1/(Input.loc[0].at['Concentration'])) * 1000 * 1.5 #1000 conversion factor for ug to ng
+plasmid['Volume of Plasmid'] = (1/(Input.loc[0].at['Concentration'])) * 1000 * Input.loc[0].at['ng desired'] #1000 conversion factor for ug to ng
 plasmid['Volume of Water'] = 44 - plasmid['Volume of Plasmid'] - plasmid['Buffer'] - plasmid['PME1']
 
-plasmid['total volume'] = float('44')
+plasmid['total volume'] = input.loc[0].at['total volume']
 
 
 #plasmid templates arranged in an "L" formation
