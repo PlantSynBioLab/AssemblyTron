@@ -18,18 +18,19 @@ date = Input.loc[0].at['date']
 Input = pd.read_csv("pme1_automation/Input.csv") #put path to csv here
 
 
-plasmid['pwl','concentration'] = Input['pwl','Concentration']
+plasmid['pwl','concentration'] = Input['pwl','concentration']
 
 #plasmid['Buffer'] = float('4.4')
 #plasmid['Buffer'] = Input.loc[0].at['Buffer'] #example of how to read in variables from a csv file rather than hard coding them into the script
 #plasmid['PME1'] = float('1')
 #plasmid['Volume of Plasmid'] = ''
 #plasmid['Volume of Water'] = ''
-
+plasmid['buffer']= Input.loc[0].at['buffer']
+plasmid['PME1']=Input.loc[0].at['pme1']
 plasmid['Volume of Plasmid'] = (1/(Input.loc[0].at['Concentration'])) * 1000 * Input.loc[0].at['ng desired'] #1000 conversion factor for ug to ng
 plasmid['Volume of Water'] = 44 - plasmid['Volume of Plasmid'] - plasmid['Buffer'] - plasmid['PME1']
 
-plasmid['total volume'] = input.loc[0].at['total volume']
+plasmid['total volume'] = Input.loc[0].at['total volume']
 
 
 #plasmid templates arranged in an "L" formation
