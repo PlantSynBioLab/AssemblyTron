@@ -459,7 +459,7 @@ variables['template concentrations'] = tempconcs
 
 variables
 
-os.chdir('C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/'+date+'_GoldenGate')
+os.chdir('C:/Users/public/documents/opentrons/Golden_Gate/'+date+'_GoldenGate')
 variables.to_csv('Input.csv')
 
 os.system("notepad.exe Golden_Gate_instructions.txt")
