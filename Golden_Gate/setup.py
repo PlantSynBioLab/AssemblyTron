@@ -11,19 +11,19 @@ date = str(today.strftime('%Y%m%d'))
 date
 
 #make the run folder of the day
-os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/")
+os.chdir("C:/Users/Public/Documents/opentrons/Golden_Gate/")
 os.getcwd()
 os.mkdir(date+'_GoldenGate')
 os.chdir(date+'_GoldenGate')
 os.getcwd()
 
 #copy the temp GoldenGate.py to the new folder
-os.chdir('C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/')
+os.chdir('C:/Users/Public/Documents/opentrons/Golden_Gate/')
 dst = '/'+date+'GoldenGate'
-shutil.copy2('C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/GoldenGate.py', 'C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/'+date+'_GoldenGate/')
+shutil.copy2('C:/Users/Public/Documents/opentrons/Golden_Gate/GoldenGate.py', 'C:/Users/Public/Documents/opentrons/Golden_Gate/'+date+'_GoldenGate/')
 
 #now rename the script with the date
-os.chdir('C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/'+date+'_GoldenGate')
+os.chdir('C:/Users/Public/Documents/opentrons/Golden_Gate/'+date+'_GoldenGate')
 os.rename('GoldenGate.py', date+'_GoldenGate.py')
 
 ###############################################################################################################################################################################################3
@@ -330,5 +330,5 @@ variables['template concentrations'] = tempconcs
 
 variables
 
-os.chdir('C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/'+date+'_GoldenGate')
+os.chdir('C:/Users/Public/Documents/opentrons/Golden_Gate/'+date+'_GoldenGate')
 variables.to_csv('Input.csv')
