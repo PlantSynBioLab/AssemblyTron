@@ -47,13 +47,13 @@ def walk_up_folder(path, depth=1):
         _cur_depth += 1
     return path   
 
-paths = pandas.read_csv('/data/user_storage/Golden_Gate/20211019_GoldenGate/paths.csv')
+paths = pandas.read_csv(walk_up_folder(os.getcwd(), 3)+'/robotpaths.csv')
 paths
 
 
 
 #Input_values = pandas.read_csv('Input.csv') 
-Input_values = pandas.read_csv('/data/user_storage/Golden_Gate/20211019_GoldenGate/Input.csv') 
+Input_values = pandas.read_csv('Input.csv') 
 Input_values
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
@@ -64,10 +64,7 @@ diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvo
 
 ###############################################################################################################################################
 #oligos
-
-#os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+'_Golden_Gate')
-os.chdir('/data/user_storage/Golden_Gate/20211019_GoldenGate/')
-os.getcwd()
+os.chdir(paths.loc[0].at['opentrons_repo']+'Golden_Gate/'+Date+'_GoldenGate')
 oligos = pandas.read_csv('oligo.csv')
 oligos
 
@@ -134,7 +131,6 @@ oligos.to_csv('output_'+Date+'_oligo_GoldenGate.csv')
 
 #read in assembly pieces as dataframe .... might not need this info
 #os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
-os.getcwd()
 assembly = pandas.read_csv('assembly.csv')
 assembly
 
@@ -287,13 +283,7 @@ wellinfo = wellinfo.rename(columns={'Forward Oligo ID Number':'Reverse Oligo ID 
 pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Reverse Oligo ID Number')
 pcr_plustemplates
 
-#############################################################################################
-#remove this!!!
-total_volume = 25
-#############################################################################################
-
-
-pcr_plustemplates['total_water_toadd'] = total_volume-Q5-1-1-1
+pcr_plustemplates['total_water_toadd'] = Input_values.loc[0].at['pcrvol']-Q5-1-1-1
 pcr_plustemplates
 
 pcrstart  = len(digests['well'])
@@ -447,9 +437,9 @@ for i, row in params_tables.iterrows():
         annealing_temp = (Lowest_high['Upper_temp']+Highest_low['Lower_temp'])/2
     annealing.append(annealing_temp)
 #dfff = np.array(annealing)
-#dfff = pandas.DataFrame(annealing)
-#avg_annealing = np.average(dfff) 
-avg_annealing = 68.5925
+dfff = pandas.DataFrame(annealing)
+dfff = dfff.sum(axis=1)
+avg_annealing = dfff.mean() 
 avg_annealing
 
 Annealing_and_extension = pandas.DataFrame({'Annealing temp': avg_annealing,
@@ -556,15 +546,15 @@ for i, row in GG_dfs.iterrows():
     for i, row in locals()[x].iterrows():
         locals()[x].loc[i,"equimolar ratio"]=locals()[x].loc[i,"Sequence Length"]/backbone_length
         locals()[x].loc[i,"inverse of conc"]=1/locals()[x].loc[i,"conc_assumed"]
-        locals()[x].loc[i,"initial required amount"]=ngdesired*locals()[x].loc[i,"equimolar ratio"]*locals()[x].loc[i,"inverse of conc"]
+        locals()[x].loc[i,"initial required amount"]=Input_values.loc[0].at['ngdesired']*locals()[x].loc[i,"equimolar ratio"]*locals()[x].loc[i,"inverse of conc"]
     
         if locals()[x].loc[i,"initial required amount"] > 1: 
-            locals()[x].loc[i,"H20 to add to 1uL of fragment"] = 0#np.nan
+            locals()[x].loc[i,"H20 to add to 1uL of fragment"] = np.nan
         if locals()[x].loc[i,"initial required amount"] < 1:
             locals()[x].loc[i,"H20 to add to 1uL of fragment"]=(2/locals()[x].loc[i,"initial required amount"])-1    
     
         locals()[x].loc[i,"new Conc"] = locals()[x].loc[i,"conc_assumed"]/(locals()[x].loc[i,"H20 to add to 1uL of fragment"]+1)
-        locals()[x].loc[i,"new required amount"] = ngdesired*locals()[x].loc[i,"equimolar ratio"]*(1/locals()[x].loc[i,"new Conc"])
+        locals()[x].loc[i,"new required amount"] = Input_values.loc[0].at['ngdesired']*locals()[x].loc[i,"equimolar ratio"]*(1/locals()[x].loc[i,"new Conc"])
     
         locals()[x].loc[i,"final amount to add"] = ''
         if locals()[x].loc[i,"initial required amount"] > 1:
@@ -581,22 +571,13 @@ for i, row in GG_dfs.iterrows():
         locals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
     
 
-        gg1 = locals()['gg1']
-        gg2 = locals()['gg2']
-        gg3 = locals()['gg3']
-        gg4 = locals()['gg4']
 
     next_tc_tube = next_tc_tube + 1
 
-gg11 = gg1
-gg22 = gg2
-gg33 = gg3
-gg44 = gg4
-
-GG_dffs = {'goldengate': ['gg11','gg22','gg33','gg44']}
-GG_dffs = pandas.DataFrame(data=GG_dffs)
-
 combinations.to_csv('output_'+Date+'_combinations.csv')
+
+dt = {'dispense_tube': ['C3','C4','C5','C6']}
+dis_tube = pandas.DataFrame(data=dt)
 
 #########################################################################################################################
 #plasmid dataframe object for the digestion
@@ -1011,72 +992,71 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 #for i in range(0,e):
     
-    
-    for i, row in GG_dffs.iterrows():
-        x = GG_dffs.loc[i].at['goldengate']
-        wawa = 15 - round(locals()[x].loc[:,'final amount to add'].sum(),2) - 1 - 1 - 1.65
+    for i, row in GG_dfs.iterrows():
+        x = GG_dfs.loc[i].at['gg#']
+        #wawa = 15 - round(locals()[x].loc[:,'final amount to add'].sum(),2) - 1 - 1 - 1.65
 
         #how much water you need to add
         left_pipette.pick_up_tip()
-        left_pipette.aspirate(wawa, watertuberack['A1'])
-        left_pipette.dispense(15 - round(locals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65, pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.aspirate(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65, watertuberack['A1'])
+        left_pipette.dispense(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65, pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.blow_out()
         left_pipette.drop_tip()
     
     #now add all fragments to the GG tube
-        for i, row in locals()[x].iterrows():
+        for i, row in globals()[x].iterrows():
             left_pipette.pick_up_tip()
-            if locals()[x][i,'initial required amount'] <1:
-                left_pipette.aspirate(locals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
-                left_pipette.dispense(locals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[locals()[x].loc[i].at['dil_tube']])
+            if globals()[x].loc[i].at['initial required amount'] <1:
+                left_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
+                left_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[globals()[x].loc[i].at['dil_tube']])
                 left_pipette.blow_out()
                 left_pipette.drop_tip()
                 
                 left_pipette.pick_up_tip()
-                left_pipette.aspirate(1, locals()[x].loc[i].at['frag_loc'])
-                left_pipette.dispense(1, pcrplate[locals()[x].loc[i].at['dil_tube']])
+                left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
+                left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
                 left_pipette.blow_out()
-                left_pipette.mix(3,locals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[locals()[x].loc[i].at['dil_tube']])
+                left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
                 left_pipette.drop_tip()
                 
                 left_pipette.pick_up_tip()
-                left_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['dil_tube']])
-                left_pipette.dispense(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['dil_tube']])
+                left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
                 left_pipette.drop_tip()
                 
             else:
-                left_pipette.aspirate(locals()[x].loc[i].at['initial required amount'], pcrplate[locals()[x].loc[i].at['frag_loc']])
-                left_pipette.dispense(locals()[x].loc[i].at['initial required amount'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.aspirate(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['frag_loc']])
+                left_pipette.dispense(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
                 left_pipette.drop_tip()
    
     
     #pipette the T4 BSA combo into GG assemblies
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1.65,cold_tuberack['C4'])
-        left_pipette.dispense(1.65,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.dispense(1.65,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.blow_out()
-        left_pipette.mix(3,8,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.mix(3,8,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.drop_tip()
     
     #pipette the BsaI in
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['D5'])
-        left_pipette.dispense(1,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.blow_out()
-        left_pipette.mix(3,9,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.drop_tip()
     
     #pipette the T4 ligase in
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['C5'])
-        left_pipette.dispense(1,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.blow_out()
-        left_pipette.mix(3,9,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.drop_tip()
     
     #one more mix
         right_pipette.pick_up_tip()
-        right_pipette.mix(3,15,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+        right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         right_pipette.blow_out()
         right_pipette.drop_tip()
     
@@ -1096,12 +1076,12 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
 #for i in range(0,e):
     
-    for i, row in GG_dffs.iterrows():
-        x = GG_dffs.loc[i].at['goldengate']
+    for i, row in GG_dfs.iterrows():
+        x = GG_dfs.loc[i].at['gg#']
     
         right_pipette.pick_up_tip()
-        right_pipette.aspirate(15,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
-        right_pipette.dispense(15,tuberack2[GG_dfs.loc[i].at['dispense tube']])
+        right_pipette.aspirate(15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        right_pipette.dispense(15,tuberack2[dis_tube.loc[i].at['dispense_tube']])
         right_pipette.blow_out()
         right_pipette.drop_tip()
     
