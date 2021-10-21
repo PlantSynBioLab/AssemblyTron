@@ -694,43 +694,43 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #add water for templates
     right_pipette.pick_up_tip()
     for i, row in df.iterrows():
-        right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-        right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
+        right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
+        right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=1.0)
         right_pipette.blow_out()
 #digestions water
     for i, row in digests.iterrows():
-        right_pipette.aspirate(volume = digests.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-        right_pipette.dispense(digests.loc[i].at['water to add'], tuberack2[digests.loc[i].at['well']], rate=2.0)
+        right_pipette.aspirate(volume = digests.loc[i].at['water to add'], location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
+        right_pipette.dispense(digests.loc[i].at['water to add'], tuberack2[digests.loc[i].at['well']], rate=1.0)
         right_pipette.blow_out()
 
 #add water to primer dilution tubes
     for i, row in oligos.iterrows():
-        right_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
-        right_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        right_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=1.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
+        right_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=1.0)
         right_pipette.blow_out()
     right_pipette.drop_tip()    
     
 #add stock templates to dilution tubes
     for i, row in df.iterrows():
         left_pipette.pick_up_tip()
-        left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
-        left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+        left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=1.0) #dilution well corresponds to stock well
+        left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=1.0) #makes a 12.5ng/uL template
         left_pipette.blow_out()
         left_pipette.drop_tip()
 
 #add stock templates for digests:
     for i, row in digests.iterrows():
         left_pipette.pick_up_tip()
-        left_pipette.aspirate(digests.loc[i].at['amount of template to add'], cold_tuberack[digests.loc[i].at['well']], rate=2.0) #dilution well corresponds to stock well
-        left_pipette.dispense(digests.loc[i].at['amount of template to add'], tuberack2[digests.loc[i].at['well']], rate=2.0) #makes a 12.5ng/uL template
+        left_pipette.aspirate(digests.loc[i].at['amount of template to add'], cold_tuberack[digests.loc[i].at['well']], rate=1.0) #dilution well corresponds to stock well
+        left_pipette.dispense(digests.loc[i].at['amount of template to add'], tuberack2[digests.loc[i].at['well']], rate=1.0) #makes a 12.5ng/uL template
         left_pipette.blow_out()
         left_pipette.drop_tip()
     
 #add stock primers to dilution tube
     for i, row in oligos.iterrows():
         left_pipette.pick_up_tip() #add in an iterrows function
-        left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
-        left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=1.0)
+        left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=1.0)
         left_pipette.blow_out()
         left_pipette.drop_tip()
     
@@ -916,6 +916,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #should automate calculation of the parameters from j5 spreadsheets.
 #maybe use the median annealing temperature in the spreadsheet
     
+    tc_mod.close_lid()
     tc_mod.set_lid_temperature(temperature = 105)
     tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
     profile = [
@@ -925,6 +926,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
     tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
     tc_mod.set_block_temperature(4)
+    protocol.pause('wait until ready to continue')
     tc_mod.open_lid()
 
 #Now replace first digested part

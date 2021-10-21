@@ -38,7 +38,7 @@ from datetime import date
 #starter_date = str(today.strftime('%Y%m%d'))
 #if folder was created on diff date:
 #starter_date = 'typedatehere'
-pwd = str(os.getcwd())
+#pwd = str(os.getcwd())
 
 def walk_up_folder(path, depth=1):
     _cur_depth = 1        
@@ -46,15 +46,17 @@ def walk_up_folder(path, depth=1):
         path = os.path.dirname(path)
         _cur_depth += 1
     return path   
+#walk_up_folder(os.getcwd(), 2)+
 
-#paths = pandas.read_csv(walk_up_folder(os.getcwd(), 3)+'/robotpaths.csv')
-paths = pandas.read_csv('/data/user_storage/robotpaths.csv',engine = 'python', encoding='utf-8-sig')
+paths = pandas.read_csv(walk_up_folder(os.getcwd(), 3)+'/robotpaths.csv',engine = 'python', encoding='utf-8-sig')
+
+#paths = pandas.read_csv('/data/user_storage/robotpaths.csv',engine = 'python', encoding='utf-8-sig')
 paths
 
 
 
 #Input_values = pandas.read_csv('Input.csv') 
-Input_values = pandas.read_csv('Input.csv') 
+Input_values = pandas.read_csv('Input.csv',engine = 'python', encoding='utf-8-sig') 
 Input_values
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
