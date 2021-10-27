@@ -1,0 +1,24 @@
+Place the coldtuberack in slot 1. 
+put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+put in a fresh pcr plate into thermocycler. 
+Instructions for setting up the coldtuberack: 
+Put oWL00250_(GFP_plus_link)_forward in A1
+Put oWL00251_(GFP_plus_link)_reverse in A2
+Put oWL00252_(iaa12-prb)_forward in A3
+Put oWL00253_(iaa12-prb)_reverse in A4
+Put pWL34_pIWG_ccdB in A5
+Put pWL233_pGP4G2_yE in A6
+Put pwl248 in B1
+Put pwl277 in B2
+Put pwl282 in B3
+Put pwl281 in B4
+Place empty tube in C4 for the T4/BSA mix 
+Place T4 ligase in C5 
+Place 100X BSA in C6 
+Place T4 buffer in D2 
+Place DPNI in D3 
+Place cutsmart buffer in D4 
+Place BsaI in D5 
+Place Q5 DNA polymerase in D6 
+Place 24 well tuberack in slot 2. Add 15 empty 1.5 mL tubes to the rack in the same positions. 
+Place 4 tubes in row C of 24 tuberack in slot 2. Start from D6 and go to D3 
