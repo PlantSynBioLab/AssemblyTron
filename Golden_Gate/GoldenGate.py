@@ -38,22 +38,22 @@ from datetime import date
 #starter_date = str(today.strftime('%Y%m%d'))
 #if folder was created on diff date:
 #starter_date = 'typedatehere'
-pwd = str(os.getcwd())
+# pwd = str(os.getcwd())
 
-def walk_up_folder(path, depth=1):
-    _cur_depth = 1        
-    while _cur_depth < depth:
-        path = os.path.dirname(path)
-        _cur_depth += 1
-    return path   
+# def walk_up_folder(path, depth=1):
+#     _cur_depth = 1        
+#     while _cur_depth < depth:
+#         path = os.path.dirname(path)
+#         _cur_depth += 1
+#     return path   
 
-paths = pandas.read_csv(walk_up_folder(os.getcwd(), 3)+'/robotpaths.csv')
+paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
 paths
 
 
 
 #Input_values = pandas.read_csv('Input.csv') 
-Input_values = pandas.read_csv('Input.csv') 
+Input_values = pandas.read_csv('/data/user_storage/Golden_Gate/Input.csv') 
 Input_values
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
@@ -696,18 +696,18 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     for i, row in df.iterrows():
         right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
         right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=1.0)
-        right_pipette.blow_out()
+       #right_pipette.blow_out()
 #digestions water
     for i, row in digests.iterrows():
         right_pipette.aspirate(volume = digests.loc[i].at['water to add'], location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
         right_pipette.dispense(digests.loc[i].at['water to add'], tuberack2[digests.loc[i].at['well']], rate=1.0)
-        right_pipette.blow_out()
+        #right_pipette.blow_out()
 
 #add water to primer dilution tubes
     for i, row in oligos.iterrows():
         right_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=1.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
         right_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=1.0)
-        right_pipette.blow_out()
+        #right_pipette.blow_out()
     right_pipette.drop_tip()    
     
 #add stock templates to dilution tubes
@@ -715,7 +715,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=1.0) #dilution well corresponds to stock well
         left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=1.0) #makes a 12.5ng/uL template
-        left_pipette.blow_out()
+        #left_pipette.blow_out()
         left_pipette.drop_tip()
 
 #add stock templates for digests:
@@ -723,7 +723,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(digests.loc[i].at['amount of template to add'], cold_tuberack[digests.loc[i].at['well']], rate=1.0) #dilution well corresponds to stock well
         left_pipette.dispense(digests.loc[i].at['amount of template to add'], tuberack2[digests.loc[i].at['well']], rate=1.0) #makes a 12.5ng/uL template
-        left_pipette.blow_out()
+        #left_pipette.blow_out()
         left_pipette.drop_tip()
     
 #add stock primers to dilution tube
@@ -731,26 +731,26 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip() #add in an iterrows function
         left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=1.0)
         left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=1.0)
-        left_pipette.blow_out()
+        #left_pipette.blow_out()
         left_pipette.drop_tip()
     
 #mix contents with pipette tip (reps, max volume, location) for templates and primers
     for i, row in df.iterrows():
         right_pipette.pick_up_tip()
         right_pipette.mix(3,df.loc[i].at['water to add'],tuberack2[df.loc[i].at['template_well']])
-        right_pipette.blow_out()
+        #right_pipette.blow_out()
         right_pipette.drop_tip()
 
     for i, row in digests.iterrows():
         right_pipette.pick_up_tip()
         right_pipette.mix(3,digests.loc[i].at['water to add'],tuberack2[digests.loc[i].at['well']])
-        right_pipette.blow_out()
+        #right_pipette.blow_out()
         right_pipette.drop_tip()
         
     for i, row in oligos.iterrows():
         right_pipette.pick_up_tip()
         right_pipette.mix(3,oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'],tuberack2[oligos.loc[i].at['well']])
-        right_pipette.blow_out()
+        #right_pipette.blow_out()
         right_pipette.drop_tip()
 
 #robot pauses so user can take out stock primers and put in DNPNI
@@ -759,15 +759,115 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #now mix dilute primers, dilute templates, Q5, and water in pcr tube within thermocycler
     tc_mod.open_lid()
     
-#Do the Digestion
+
+
 ##########################################################################################################################
+#pcr rxn
 ##########################################################################################################################
 
 
+#add water first
+    for i, row in pcr_plustemplates.iterrows():
+        
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(pcr_plustemplates.loc[i].at['total_water_toadd'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+        right_pipette.dispense(pcr_plustemplates.loc[i].at['total_water_toadd'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        right_pipette.blow_out()
+        right_pipette.drop_tip()
+    
+#add 1uL of BOTH (not each) primers
+    for i, row in oligos.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(oligos.loc[i].at['amount primer to add to frag amplification'], tuberack2[pcr_plustemplates.loc[i].at['well']], rate=2.0)
+        left_pipette.dispense(oligos.loc[i].at['amount primer to add to frag amplification'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        left_pipette.blow_out()            
+        left_pipette.drop_tip()
+        
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(oligos.loc[i].at['amount primer to add to frag amplification'], tuberack2[pcr_plustemplates.loc[i].at['well2']], rate=2.0)            
+        left_pipette.dispense(oligos.loc[i].at['amount primer to add to frag amplification'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        left_pipette.blow_out()
+        left_pipette.drop_tip()
+    
+#add 1uL of each template
+    for i, row in combinations.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(pcr_plustemplates.loc[i].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[i].at['template_well']], rate=2.0)
+        left_pipette.dispense(pcr_plustemplates.loc[i].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        left_pipette.blow_out()
+        left_pipette.drop_tip()
+    
+#add Q5 to each reaction
+#keep Q5 in tuberack1['D6']                                            
+    for i, row in pcr_plustemplates.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
+        right_pipette.aspirate(Q5, pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        right_pipette.blow_out()
+        right_pipette.drop_tip()
+
+#mix up
+    for i, row in pcr_plustemplates.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        right_pipette.blow_out()
+        right_pipette.drop_tip()
+    
+#Now run thermocycler to amplify DNA
+    
+#these parameters can be altered for different pcr reactionsabs
+#should automate calculation of the parameters from j5 spreadsheets.
+#maybe use the median annealing temperature in the spreadsheet
+    
+    tc_mod.close_lid()
+    tc_mod.set_lid_temperature(temperature = 105)
+    tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
+    profile = [
+        {'temperature': 98, 'hold_time_seconds': 10},
+        {'temperature': round(Annealing_and_extension.loc[0].at['Annealing temp'],1), 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': round(Annealing_and_extension.loc[0].at['extension time (seconds)'],1)}] #should automate calculation of annealing temp based on spreadsheet
+    tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
+    tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
+    tc_mod.set_block_temperature(4)
+    protocol.pause('wait until ready to continue')
+    tc_mod.open_lid()
+
+#Now add DPNI for digestion
+
+    for i, row in pcr_plustemplates.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
+        right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        #right_pipette.blow_out()
+        right_pipette.drop_tip()
+
+    for i, row in pcr_plustemplates.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(Input_values.loc[0].at['cutsmart'], cold_tuberack['D4'], rate=2.0)
+        left_pipette.dispense(Input_values.loc[0].at['cutsmart'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        #left_pipette.blow_out()
+        left_pipette.drop_tip() 
+
+    for i, row in pcr_plustemplates.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(Input_values.loc[0].at['DPNI'], cold_tuberack['D3'], rate=2.0)
+        left_pipette.dispense(Input_values.loc[0].at['DPNI'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        left_pipette.mix(3,10,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        #left_pipette.blow_out()
+        left_pipette.drop_tip()
+
+#mix up
+    for i, row in pcr_plustemplates.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        right_pipette.blow_out()
+        right_pipette.drop_tip()
+
+#Do the bsa1 Digestion
+##########################################################################################################################
+##########################################################################################################################
 
 # pick up water -> dispense into pcr tube within thermocycler -> get rid of tip
-    
-    
     for i, row in plasmid.iterrows():
         if plasmid.loc[i].at['Concentration'] > 1:
             right_pipette.pick_up_tip()
@@ -839,157 +939,75 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(80,0,20, block_max_volume = 50)
     tc_mod.set_block_temperature(4, block_max_volume = 50)
 
+    tc_mod.open_lid()
+
     protocol.pause('wait until its time to dispense the product')
 
-    tc_mod.open_lid()
+    #tc_mod.open_lid()
 
-    for i, row in plasmid.iterrows():
-        if plasmid.loc[i].at['Concentration'] > 1:
-            if plasmid.loc[i].at['total volume'] > float('10'):
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
-                right_pipette.dispense(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
-                right_pipette.blow_out()
-                right_pipette.drop_tip()
+#don't need to move out the digestion this way
+    # for i, row in plasmid.iterrows():
+    #     if plasmid.loc[i].at['Concentration'] > 1:
+    #         if plasmid.loc[i].at['total volume'] > float('10'):
+    #             right_pipette.pick_up_tip()
+    #             right_pipette.aspirate(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
+    #             right_pipette.dispense(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
+    #             right_pipette.blow_out()
+    #             right_pipette.drop_tip()
         
-            else:
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
-                left_pipette.dispense(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
-                left_pipette.blow_out()
-                left_pipette.drop_tip()
-
-##########################################################################################################################
-##########################################################################################################################
+    #         else:
+    #             left_pipette.pick_up_tip()
+    #             left_pipette.aspirate(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
+    #             left_pipette.dispense(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
+    #             left_pipette.blow_out()
+    #             left_pipette.drop_tip()
 
 
-#add water first
-    for i, row in pcr_plustemplates.iterrows():
+    # tc_mod.close_lid()
+    # tc_mod.set_block_temperature(37, hold_time_minutes=15, block_max_volume=50)
+    # tc_mod.set_block_temperature(80, hold_time_minutes=20, block_max_volume=50)
+    # tc_mod.set_block_temperature(4)
+    # tc_mod.deactivate_lid()
+    # protocol.pause('hold until time to grab tubes')
+    
+    # tc_mod.open_lid()
+
+#Don't need to move out the digestion this way
+  #Now replace first digested part
+    
+#     for i, row in plasmid.iterrows():
+#         if plasmid.loc[i].at['Concentration'] > 1:
+#             if plasmid.loc[i].at['total volume'] > float('10'):
+#                 right_pipette.pick_up_tip()
+#                 right_pipette.aspirate(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
+#                 right_pipette.dispense(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
+#                 right_pipette.blow_out()
+#                 right_pipette.drop_tip()
         
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(pcr_plustemplates.loc[i].at['total_water_toadd'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-        right_pipette.dispense(pcr_plustemplates.loc[i].at['total_water_toadd'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
-    
-#add 1uL of BOTH (not each) primers
-    for i, row in oligos.iterrows():
-        left_pipette.pick_up_tip()
-        left_pipette.aspirate(oligos.loc[i].at['amount primer to add to frag amplification'], tuberack2[pcr_plustemplates.loc[i].at['well']], rate=2.0)
-        left_pipette.dispense(oligos.loc[i].at['amount primer to add to frag amplification'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        left_pipette.blow_out()            
-        left_pipette.drop_tip()
-        
-        left_pipette.pick_up_tip()
-        left_pipette.aspirate(oligos.loc[i].at['amount primer to add to frag amplification'], tuberack2[pcr_plustemplates.loc[i].at['well2']], rate=2.0)            
-        left_pipette.dispense(oligos.loc[i].at['amount primer to add to frag amplification'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        left_pipette.blow_out()
-        left_pipette.drop_tip()
-    
-#add 1uL of each template
-    for i, row in combinations.iterrows():
-        left_pipette.pick_up_tip()
-        left_pipette.aspirate(pcr_plustemplates.loc[i].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[i].at['template_well']], rate=2.0)
-        left_pipette.dispense(pcr_plustemplates.loc[i].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        left_pipette.blow_out()
-        left_pipette.drop_tip()
-    
-#add Q5 to each reaction
-#keep Q5 in tuberack1['D6']                                            
-    for i, row in pcr_plustemplates.iterrows():
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-        right_pipette.aspirate(Q5, pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
+#             else:
+#                 left_pipette.pick_up_tip()
+#                 left_pipette.aspirate(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
+#                 left_pipette.dispense(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
+#                 left_pipette.blow_out()
+#                 left_pipette.drop_tip()
 
-#mix up
-    for i, row in pcr_plustemplates.iterrows():
-        right_pipette.pick_up_tip()
-        right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
-    
-#Now run thermocycler to amplify DNA
-    
-#these parameters can be altered for different pcr reactionsabs
-#should automate calculation of the parameters from j5 spreadsheets.
-#maybe use the median annealing temperature in the spreadsheet
-    
-    tc_mod.close_lid()
-    tc_mod.set_lid_temperature(temperature = 105)
-    tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
-    profile = [
-        {'temperature': 98, 'hold_time_seconds': 10},
-        {'temperature': round(Annealing_and_extension.loc[0].at['Annealing temp'],1), 'hold_time_seconds': 30},
-        {'temperature': 72, 'hold_time_seconds': round(Annealing_and_extension.loc[0].at['extension time (seconds)'],1)}] #should automate calculation of annealing temp based on spreadsheet
-    tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
-    tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
-    tc_mod.set_block_temperature(4)
-    protocol.pause('wait until ready to continue')
-    tc_mod.open_lid()
 
-#Now replace first digested part
-    
-    for i, row in plasmid.iterrows():
-        if plasmid.loc[i].at['Concentration'] > 1:
-            if plasmid.loc[i].at['total volume'] > float('10'):
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
-                right_pipette.dispense(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
-                right_pipette.blow_out()
-                right_pipette.drop_tip()
-        
-            else:
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(plasmid.loc[i].at['total volume'],tuberack2[plasmid.loc[i].at['final tube']],2)
-                left_pipette.dispense(plasmid.loc[i].at['total volume'],pcrplate[digests.loc[i].at['frag_pcr_tube']],2)
-                left_pipette.blow_out()
-                left_pipette.drop_tip()
-
-#Now add DPNI for digestion
-
-    for i, row in assembly.iterrows():
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
-        right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[assembly.loc[i].at['pcr_frag_tube']], rate=2.0)
-        right_pipette.drop_tip()
-
-    for i, row in assembly.iterrows():
-        left_pipette.pick_up_tip()
-        left_pipette.aspirate(Input_values.loc[0].at['cutsmart'], cold_tuberack['D4'], rate=2.0)
-        left_pipette.dispense(Input_values.loc[0].at['cutsmart'], pcrplate[assembly.loc[i].at['pcr_frag_tube']], rate=2.0)
-        left_pipette.drop_tip() 
-
-    for i, row in assembly.iterrows():
-        left_pipette.pick_up_tip()
-        left_pipette.aspirate(Input_values.loc[0].at['DPNI'], cold_tuberack['D3'], rate=2.0)
-        left_pipette.dispense(Input_values.loc[0].at['DPNI'], pcrplate[assembly.loc[i].at['pcr_frag_tube']], rate=2.0)
-        left_pipette.drop_tip()
-
-    tc_mod.close_lid()
-    tc_mod.set_block_temperature(37, hold_time_minutes=15, block_max_volume=50)
-    tc_mod.set_block_temperature(80, hold_time_minutes=20, block_max_volume=50)
-    tc_mod.set_block_temperature(4)
-    tc_mod.deactivate_lid()
-    protocol.pause('hold until time to grab tubes')
-    
-    tc_mod.open_lid()
 ##########################################################################################################################
 #set up goldengate
 
     #mix the T4 BSA combo
-    left_pipette.pick_up_tip()
-    left_pipette.aspirate(10,cold_tuberack['D2'])
-    left_pipette.dispense(10,cold_tuberack['C4'])
-    left_pipette.blow_out()
-    left_pipette.drop_tip()
+    right_pipette.pick_up_tip()
+    right_pipette.aspirate(20,cold_tuberack['D2'])
+    right_pipette.dispense(20,cold_tuberack['C4'])
+    right_pipette.blow_out()
+    right_pipette.drop_tip()
     
     left_pipette.pick_up_tip()
-    left_pipette.aspirate(1,cold_tuberack['C6'])
-    left_pipette.dispense(1,cold_tuberack['C4'])
+    left_pipette.aspirate(2,cold_tuberack['C6'])
+    left_pipette.dispense(2,cold_tuberack['C4'])
     left_pipette.blow_out()
     left_pipette.mix(3,10,cold_tuberack['C4'])
+    left_pipette.blow_out()
     left_pipette.drop_tip()
 
 #for i in range(0,e):
@@ -1057,10 +1075,10 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.drop_tip()
     
     #one more mix
-        right_pipette.pick_up_tip()
-        right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
+        #right_pipette.pick_up_tip()
+        #right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        #right_pipette.blow_out()
+        #right_pipette.drop_tip()
     
     tc_mod.close_lid()
     tc_mod.set_lid_temperature(temperature = 105)

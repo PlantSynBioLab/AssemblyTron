@@ -489,5 +489,6 @@ variables
 
 os.chdir('C:/Users/public/documents/opentrons/Golden_Gate/'+date+'_GoldenGate')
 variables.to_csv('Input.csv')
+shutil.copy2('Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
 os.system("notepad.exe Golden_Gate_instructions.txt")

@@ -53,7 +53,7 @@ paths
 
 
 #Input_values = pandas.read_csv('Input.csv') 
-Input_values = pandas.read_csv('/data/user_storage/Golden_Gate/20211023_GoldenGate/Input.csv') 
+Input_values = pandas.read_csv('/data/user_storage/Golden_Gate/Input.csv') 
 Input_values
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
