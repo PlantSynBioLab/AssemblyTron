@@ -44,11 +44,11 @@ def walk_up_folder(path, depth=1):
 paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
 paths
 
-shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
-shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
-# only use for digestable destination backbone -- shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
-shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
+shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+#shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
 oligos = pandas.read_csv('oligo.csv')
 oligos
@@ -91,8 +91,9 @@ e2slot['21'] = 'D4'
 e2slot['22'] = 'D5'
 e2slot['23'] = 'D6'
     
+
 def main():
-    f = open('IVA_instructions.txt','w+')
+    f = open('GoldenGate_instructions.txt','w+')
     f.write('Place the coldtuberack in slot 1. \r\n')
     f.write('put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
     f.write('put in a fresh pcr plate into thermocycler. \r\n')
@@ -113,7 +114,7 @@ def main():
     
     #Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
     
-    f = open('IVA_instructions.txt','a+')
+    f = open('GoldenGate_instructions.txt','a+')
     for i, row in pcr.iterrows():
         
         if i > 0:
@@ -126,18 +127,17 @@ def main():
         
         f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
         
-    #f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
+   
+    f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
     
-    #f.write('Place T4 ligase in C5 \r\n')
+    f.write('Place T4 ligase in C5 \r\n')
 
-    #f.write('Place 100X BSA in C6 \r\n')
-    f.write('Place molec bio grade h20 in D3 \r\n')
+    f.write('Place 100X BSA in C6 \r\n')
     
-    #f.write('Place T4 buffer in D2 \r\n')
-
+    f.write('Place T4 buffer in D2 \r\n')
+    f.write('Place DPNI in D3 \r\n')
     f.write('Place cutsmart buffer in D4 \r\n')
-    f.write('Place DPNI in D5 \r\n')
-    #f.write('Place BsaI in D5 \r\n')
+    f.write('Place BsaI in D5 \r\n')
     f.write('Place Q5 DNA polymerase in D6 \r\n')
     
     
@@ -152,13 +152,68 @@ def main():
 
     f.close()
 
-
-    
-    
 if __name__== "__main__":
     main()
 
-os.system("notepad.exe IVA_instructions.txt")
+os.system("notepad.exe GoldenGate_instructions.txt")
+
+# def main():
+#     f = open('Golden_Gate_instructions.txt','w+')
+#     f.write('Place the coldtuberack in slot 1. \r\n')
+#     f.write('put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
+#     f.write('put in a fresh pcr plate into thermocycler. \r\n')
+
+#     f.write('Instructions for setting up the coldtuberack: \r\n')
+#     for i, row in oligos.iterrows():
+#         f.write('Put '+oligos.loc[i].at['Name']+' in '+e2slot[str(oligos.loc[i].at['ID Number'])]+'\r\n')
+#     f.close()
+    
+#     Nextslot = len(oligos["ID Number"])
+    
+#     f = open('Golden_Gate_instructions.txt','a+')
+#     for i, row in digests.iterrows():
+#         f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
+#         Nextslot = Nextslot+1
+#     f.close()
+    
+#     Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
+    
+#     f = open('Golden_Gate_instructions.txt','a+')
+#     for i, row in pcr.iterrows():
+#         f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot2)]+'\r\n')
+#         Nextslot2 = Nextslot2+1
+    
+#     f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
+    
+#     f.write('Place T4 ligase in C5 \r\n')
+
+#     f.write('Place 100X BSA in C6 \r\n')
+    
+#     f.write('Place T4 buffer in D2 \r\n')
+#     f.write('Place DPNI in D3 \r\n')
+#     f.write('Place cutsmart buffer in D4 \r\n')
+#     f.write('Place BsaI in D5 \r\n')
+#     f.write('Place Q5 DNA polymerase in D6 \r\n')
+    
+    
+#     totaltubes= Nextslot2 + len(pcr['Primary Template'])
+    
+#     f.write('Place 24 well tuberack in slot 2. Add '+str(totaltubes)+' empty 1.5 mL tubes to the rack in the same positions. \r\n')
+    
+    
+    
+#     numfinaltubes = len(combinations['ID Number'])
+#     f.write('Place '+str(numfinaltubes)+' tubes in row C of 24 tuberack in slot 2. Start from D6 and go to D'+str(6-numfinaltubes+1)+' \r\n')
+
+#     f.close()
+
+
+    
+    
+# if __name__== "__main__":
+#     main()
+
+# os.system("notepad.exe Golden_Gate_instructions.txt")
 
 
 import tkinter as tk
@@ -174,28 +229,29 @@ date = str(today.strftime('%Y%m%d'))
 date
 
 #make the run folder of the day
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/')
-os.mkdir(date+'_IVA')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+os.mkdir(date+'_GoldenGate')
 
-#copy the temp IVA.py to the new folder
-dst = '/'+date+'IVA'
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/IVA.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
+#copy the temp GoldenGate.py to the new folder
+dst = '/'+date+'GoldenGate'
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 
 #now rename the script with the date
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA')
-os.rename('IVA.py', date+'_IVA.py')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
+os.rename('GoldenGate.py', date+'_GoldenGate.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/IVA_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 
 
 ###############################################################################################################################################################################################3
 #tkinter window
+
 from tkinter import *
 
 csv_root = tk.Tk()
@@ -245,8 +301,8 @@ def set_variables():
     cutsmart = float(cutsmart_entry.get())
     Date = float(Date_entry.get())
     ngdesired = float(ngdesired_entry.get())
-    #pwldigesttemp = float(pwldigesttemp_entry.get())
-    #concdigesttemp = float(concdigesttemp_entry.get())
+    # pwldigesttemp = float(pwldigesttemp_entry.get())
+    # concdigesttemp = float(concdigesttemp_entry.get())
 
 
     
@@ -497,8 +553,8 @@ variables['template concentrations'] = tempconcs
 
 variables
 
-os.chdir('C:/Users/public/documents/opentrons/Cloning/'+date+'_IVA')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
 variables.to_csv('Input.csv')
-shutil.copy2('Input.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
+shutil.copy2('Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
-os.system("notepad.exe IVA_instructions.txt")
+os.system("notepad.exe GoldenGate_instructions.txt")
