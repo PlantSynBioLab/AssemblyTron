@@ -316,6 +316,14 @@ frame = combinations[pieces]
 #frame2 = frame.transpose()
 frame
 
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 0']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 1']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 2']
+    
+
 frame += startnum
 frame
 frame= frame.values.astype(str)
@@ -329,6 +337,14 @@ combinations_plustemplocs
 
 pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
 frame = combinations[pieces]
+
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 0']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 1']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 2']
+
 frame2 = frame.transpose()
 frame2
 
@@ -490,18 +506,16 @@ for i, row in params_tables.iterrows():
 #locals()[x]
     locals()[x]['Upper_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] + locals()[x]['Delta Oligo Tm (3Only)']
     locals()[x]['Lower_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] - locals()[x]['Delta Oligo Tm (3Only)']
-    Lowest_high = locals()[x].nsmallest(1,'Upper_temp')
-    Lowest_high
-    Highest_low = locals()[x].nlargest(1,'Lower_temp')
-    Highest_low
-    LH = Lowest_high['Upper_temp']
-    HL=Highest_low['Lower_temp']
-    A = LH-HL
-    if A.all() > 0:
-        annealing_temp = Lowest_high['Upper_temp']
-    if A.all() < 0:
-        annealing_temp = (Lowest_high['Upper_temp']+Highest_low['Lower_temp'])/2
+    HL = locals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
+    HL = HL['Upper_temp'].values.tolist()
+    LH = locals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
+    LH = LH['Lower_temp'].values.tolist()    
+    if LH[0] > HL[0]:
+        annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+    if LH[0] < HL[0]:
+        annealing_temp = HL[0]
     annealing.append(annealing_temp)
+
 #dfff = np.array(annealing)
 dfff = pandas.DataFrame(annealing)
 dfff = dfff.sum(axis=1)
