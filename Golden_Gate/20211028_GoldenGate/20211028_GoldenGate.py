@@ -511,7 +511,7 @@ for i, row in params_tables.iterrows():
     LH = locals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
     LH = LH['Lower_temp'].values.tolist()    
     if LH[0] > HL[0]:
-        annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+        annealing_temp = (LH[0]+HL[0])/2 #+ ((LH[0]-HL[0])/3)
     if LH[0] < HL[0]:
         annealing_temp = HL[0]
     annealing.append(annealing_temp)
