@@ -234,11 +234,11 @@ os.mkdir(date+'_GoldenGate')
 
 #copy the temp GoldenGate.py to the new folder
 dst = '/'+date+'GoldenGate'
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 
 #now rename the script with the date
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
-os.rename('GoldenGate.py', date+'_GoldenGate.py')
+os.rename('GoldenGate_nodigests.py', date+'_GoldenGate.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')

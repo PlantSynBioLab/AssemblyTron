@@ -864,7 +864,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.drop_tip()
     
 #add 1uL of each template
-    for i, row in combinations.iterrows():
+    for i, row in pcr_plustemplates.iterrows():
         left_pipette.pick_up_tip()
         left_pipette.aspirate(pcr_plustemplates.loc[i].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[i].at['template_well']], rate=2.0)
         left_pipette.dispense(pcr_plustemplates.loc[i].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)

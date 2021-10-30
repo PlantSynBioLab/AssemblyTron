@@ -316,6 +316,14 @@ frame = combinations[pieces]
 #frame2 = frame.transpose()
 frame
 
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 0']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 1']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 2']
+    
+
 frame += startnum
 frame
 frame= frame.values.astype(str)
@@ -329,6 +337,14 @@ combinations_plustemplocs
 
 pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
 frame = combinations[pieces]
+
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 0']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 1']
+if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+    del frame['Assembly Piece ID Number Bin 2']
+
 frame2 = frame.transpose()
 frame2
 
@@ -490,18 +506,16 @@ for i, row in params_tables.iterrows():
 #locals()[x]
     locals()[x]['Upper_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] + locals()[x]['Delta Oligo Tm (3Only)']
     locals()[x]['Lower_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] - locals()[x]['Delta Oligo Tm (3Only)']
-    Lowest_high = locals()[x].nsmallest(1,'Upper_temp')
-    Lowest_high
-    Highest_low = locals()[x].nlargest(1,'Lower_temp')
-    Highest_low
-    LH = Lowest_high['Upper_temp']
-    HL=Highest_low['Lower_temp']
-    A = LH-HL
-    if A.all() > 0:
-        annealing_temp = Lowest_high['Upper_temp']
-    if A.all() < 0:
-        annealing_temp = (Lowest_high['Upper_temp']+Highest_low['Lower_temp'])/2
+    HL = locals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
+    HL = HL['Upper_temp'].values.tolist()
+    LH = locals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
+    LH = LH['Lower_temp'].values.tolist()    
+    if LH[0] > HL[0]:
+        annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+    if LH[0] < HL[0]:
+        annealing_temp = HL[0]
     annealing.append(annealing_temp)
+
 #dfff = np.array(annealing)
 dfff = pandas.DataFrame(annealing)
 dfff = dfff.sum(axis=1)
@@ -737,7 +751,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
     temp_module = protocol.load_module('temperature module', 1)
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes')
-    temp_module.set_temperature(4)
+    temp_module.set_temperature(6)
     print(temp_module.temperature)
     tc_mod.open_lid()
 
@@ -782,6 +796,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=1.0) #dilution well corresponds to stock well
         left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=1.0) #makes a 12.5ng/uL template
+        left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
         #left_pipette.blow_out()
         left_pipette.drop_tip()
 
@@ -798,6 +813,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip() #add in an iterrows function
         left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=1.0)
         left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=1.0)
+        left_pipette.mix(3,5,tuberack2[oligos.loc[i].at['well']])
         #left_pipette.blow_out()
         left_pipette.drop_tip()
     
@@ -847,21 +863,24 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(pcr_plustemplates.loc[i].at['primervol_x'], tuberack2[pcr_plustemplates.loc[i].at['well']], rate=2.0)
         left_pipette.dispense(pcr_plustemplates.loc[i].at['primervol_x'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        left_pipette.blow_out()            
+        left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        #left_pipette.blow_out()            
         left_pipette.drop_tip()
         
         left_pipette.pick_up_tip()
         left_pipette.aspirate(pcr_plustemplates.loc[i].at['primervol_y'], tuberack2[pcr_plustemplates.loc[i].at['well2']], rate=2.0)            
         left_pipette.dispense(pcr_plustemplates.loc[i].at['primervol_y'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        left_pipette.blow_out()
+        left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        #left_pipette.blow_out()
         left_pipette.drop_tip()
     
 #add 1uL of each template
-    for i, row in combinations.iterrows():
+    for i, row in pcr_plustemplates.iterrows():
         left_pipette.pick_up_tip()
         left_pipette.aspirate(pcr_plustemplates.loc[i].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[i].at['template_well']], rate=2.0)
         left_pipette.dispense(pcr_plustemplates.loc[i].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        left_pipette.blow_out()
+        left_pipette.mix(3,3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        #left_pipette.blow_out()
         left_pipette.drop_tip()
     
 #add Q5 to each reaction
@@ -870,6 +889,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         right_pipette.pick_up_tip()
         right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
         right_pipette.aspirate(Q5, pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        #right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
         right_pipette.blow_out()
         right_pipette.drop_tip()
 
@@ -877,7 +897,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     for i, row in pcr_plustemplates.iterrows():
         right_pipette.pick_up_tip()
         right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
-        right_pipette.blow_out()
+        #right_pipette.blow_out()
         right_pipette.drop_tip()
     
 #Now run thermocycler to amplify DNA
@@ -1005,7 +1025,6 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(37,0,30, block_max_volume = 50) #temp,seconds,minutes,ramprate(danger),max vol
     tc_mod.set_block_temperature(80,0,20, block_max_volume = 50)
     tc_mod.set_block_temperature(4, block_max_volume = 50)
-
     tc_mod.open_lid()
 
     protocol.pause('wait until its time to dispense the product')
@@ -1156,7 +1175,6 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(50, hold_time_minutes=5, block_max_volume=15)
     tc_mod.set_block_temperature(80, hold_time_minutes=5, block_max_volume=15)
     tc_mod.set_block_temperature(4)
-    
     protocol.pause('wait until ready to dispense assemblies')
     
     tc_mod.open_lid()
