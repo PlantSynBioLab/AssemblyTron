@@ -110,6 +110,32 @@ id2well['21'] = 'D4'
 id2well['22'] = 'D5'
 id2well['23'] = 'D6'
 
+id2pcrrr = {}
+id2pcrrr['0'] = 'B2'
+id2pcrrr['1'] = 'B3'
+id2pcrrr['2'] = 'B4'
+id2pcrrr['3'] = 'B5'
+id2pcrrr['4'] = 'B6'
+id2pcrrr['5'] = 'B7'
+id2pcrrr['6'] = 'B8'
+id2pcrrr['7'] = 'B9'
+id2pcrrr['8'] = 'B10'
+id2pcrrr['9'] = 'B11'
+id2pcrrr['10'] = 'C2'
+id2pcrrr['11'] = 'C3'
+id2pcrrr['12'] = 'C4'
+id2pcrrr['13'] = 'C5'
+id2pcrrr['14'] = 'C6'
+id2pcrrr['15'] = 'C7'
+id2pcrrr['16'] = 'C8'
+id2pcrrr['17'] = 'C9'
+id2pcrrr['18'] = 'C10'
+id2pcrrr['19'] = 'C11'
+id2pcrrr['20'] = 'D2'
+id2pcrrr['21'] = 'D3'
+id2pcrrr['22'] = 'D4'
+id2pcrrr['23'] = 'D5'
+
 for i, row in oligos.iterrows():
     oligos.loc[i,'well'] = id2well[str(i)] #this only works because the index matces the id number. id number is a floating value
     oligos.loc[i,'stock primer concentration'] = Input_values.loc[0].at['stkprm']
@@ -135,7 +161,7 @@ assembly = pandas.read_csv('assembly.csv')
 assembly
 
 for i, row in assembly.iterrows():
-    assembly.loc[i,'pcr_frag_tube'] = id2well[str(i)]
+    assembly.loc[i,'pcr_frag_tube'] = id2pcrrr[str(i)]
 assembly
 
 assembly.to_csv('output_'+Date+'_assembly_GoldenGate.csv')
@@ -173,7 +199,7 @@ assembly.to_csv('output_'+Date+'_assembly_GoldenGate.csv')
 # digests
 
 # for i, row in digests.iterrows():
-#     digests.loc[i,'frag_pcr_tube'] = id2well[str(i)]
+#     digests.loc[i,'frag_pcr_tube'] = id2pcrrr[str(i)]
 # digests
 
 # digests.to_csv('output_'+Date+'_digests_GoldenGate.csv')
@@ -288,7 +314,7 @@ pcr_plustemplates
 
 #pcrstart  = len(digests['well'])
 for i, row in pcr_plustemplates.iterrows():
-    pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2well[str(i)]
+    pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2pcrrr[str(i)]
 pcr_plustemplates
 
 prvol = pandas.DataFrame()
@@ -511,7 +537,7 @@ for i, row in params_tables.iterrows():
     LH = locals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
     LH = LH['Lower_temp'].values.tolist()    
     if LH[0] > HL[0]:
-        annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+        annealing_temp = (LH[0]+HL[0])/2 #+ ((LH[0]-HL[0])/3)
     if LH[0] < HL[0]:
         annealing_temp = HL[0]
     annealing.append(annealing_temp)
@@ -541,20 +567,20 @@ Annealing_and_extension.to_csv('output_'+Date+'_Annealing_extension.csv')
 #put final goldengate assembly products on row C for good measure
 
 id2wellpcr = {}
-id2wellpcr['0'] = 'A1'
-id2wellpcr['1'] = 'A2'
-id2wellpcr['2'] = 'A3'
-id2wellpcr['3'] = 'A4'
-id2wellpcr['4'] = 'A5'
-id2wellpcr['5'] = 'A6'
-id2wellpcr['6'] = 'A7'
-id2wellpcr['7'] = 'A8'
-id2wellpcr['8'] = 'A9'
-id2wellpcr['9'] = 'A10'
-id2wellpcr['10'] = 'A11'
-id2wellpcr['11'] = 'A12'
-id2wellpcr['12'] = 'B1'
-id2wellpcr['13'] = 'B2'
+id2wellpcr['0'] = 'B2'
+id2wellpcr['1'] = 'B3'
+id2wellpcr['2'] = 'B4'
+id2wellpcr['3'] = 'B5'
+id2wellpcr['4'] = 'B6'
+id2wellpcr['5'] = 'B7'
+id2wellpcr['6'] = 'B8'
+id2wellpcr['7'] = 'B9'
+id2wellpcr['8'] = 'B10'
+id2wellpcr['9'] = 'B11'
+id2wellpcr['10'] = 'C2'
+id2wellpcr['11'] = 'C3'
+id2wellpcr['12'] = 'C4'
+id2wellpcr['13'] = 'C5'
 
 
 combinations
@@ -588,14 +614,14 @@ gg3 = pandas.DataFrame()
 gg4 = pandas.DataFrame()
 
 dil_tu = {}
-dil_tu['A1'] = 'B1'
-dil_tu['A2'] = 'B2'
-dil_tu['A3'] = 'B3'
-dil_tu['A4'] = 'B4'
-dil_tu['A5'] = 'B5'
-dil_tu['A6'] = 'B6'
-dil_tu['A7'] = 'B7'
-dil_tu['A8'] = 'B8'
+dil_tu['B2'] = 'C2'
+dil_tu['B3'] = 'C3'
+dil_tu['B4'] = 'C4'
+dil_tu['B5'] = 'C5'
+dil_tu['B6'] = 'C6'
+dil_tu['B7'] = 'C7'
+dil_tu['B8'] = 'C8'
+dil_tu['B9'] = 'C9'
 
 e = len(combs_short.columns)
 next_tc_tube = len(assembly.index)
@@ -751,7 +777,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
     temp_module = protocol.load_module('temperature module', 1)
     cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes')
-    temp_module.set_temperature(6)
+    temp_module.set_temperature(4)
     print(temp_module.temperature)
     tc_mod.open_lid()
 
