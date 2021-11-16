@@ -751,7 +751,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                 annealing_temp = (U4 + L4)/2  
 
-           elif L3 < (U4+L4)/2 < U3:
+            elif L3 < (U4+L4)/2 < U3:
                 del annealing[2]
                 annealing.append((U4 + L4)/2)
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
@@ -807,7 +807,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                 annealing_temp = (U5 + L5)/2  
 
-           elif L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
+            elif L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
                 del annealing[2]
                 del annealing[3]
                 annealing.append((U5 + L5)/2)

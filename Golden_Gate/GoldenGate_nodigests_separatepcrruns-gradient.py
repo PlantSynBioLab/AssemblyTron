@@ -111,14 +111,14 @@ id2well['22'] = 'D5'
 id2well['23'] = 'D6'
 
 id2pcrrr = {}
-id2pcrrr['0'] = 'D2'
-id2pcrrr['1'] = 'D3'
-id2pcrrr['2'] = 'D4'
-id2pcrrr['3'] = 'D5'
-id2pcrrr['4'] = 'D6'
-id2pcrrr['5'] = 'D7'
-id2pcrrr['6'] = 'D8'
-id2pcrrr['7'] = 'D9'
+id2pcrrr['0'] = 'B2'
+id2pcrrr['1'] = 'B3'
+id2pcrrr['2'] = 'B4'
+id2pcrrr['3'] = 'B5'
+id2pcrrr['4'] = 'B6'
+id2pcrrr['5'] = 'B7'
+id2pcrrr['6'] = 'B8'
+id2pcrrr['7'] = 'B9'
 # id2pcrrr['8'] = 'B10'
 # id2pcrrr['9'] = 'B11'
 # id2pcrrr['10'] = 'C2'
@@ -326,7 +326,7 @@ prvol = prvol.rename(columns={'well':'well2'})
 pcr_plustemplates = pcr_plustemplates.merge(prvol, on='well2')
 pcr_plustemplates
 
-
+pcr_plustemplates.to_csv('output_'+Date+'_pcr_GoldenGate.csv')
 
 #######################################################################################################################################################################################################################
 #combinations
@@ -566,6 +566,103 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
     pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
     pcr_plustemplates
 
+    temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
+    
+    deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
+    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].values.tolist()
+    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].values.tolist()
+    
+    U = delta_temp[0] + delta_val[0]
+    L = delta_temp[0] - delta_val[0]
+
+    redo = 1
+    while redo == 1:
+
+        current = 0
+        CV = 0
+
+        num = 100000
+        for x in range(num):    
+    
+            #temps = [59.499,65.4245,67.8095,62.142,62.7575]
+            #temps
+
+            one = numpy.random.uniform(50,70)
+            #one = round(numpy.random.uniform(50, 70), 1)
+            eight = numpy.random.uniform(70,90)
+            #eight = round(numpy.random.uniform(70, 90), 1)
+
+            two = one +((2-1)/(8-1)) * (eight-one)
+            three = one +((3-1)/(8-1)) * (eight-one)
+            four = one +((4-1)/(8-1)) * (eight-one)
+            five = one +((5-1)/(8-1)) * (eight-one)
+            six = one +((6-1)/(8-1)) * (eight-one)
+            seven = one +((7-1)/(8-1)) * (eight-one)
+
+            vector = [one,two,three,four,five,six,seven,eight]
+
+            f = []
+            i = 0
+            while i < len(vector):
+                j = 0
+                while j < len(temps):
+                    Diff = abs(vector[i]-temps[j])
+                    if Diff > 0.4:
+                        f.append(100.0)
+                    if Diff < 0.4:
+                        f.append(Diff)
+                    j = j + 1
+                i = i + 1
+            sum(f)
+    
+            #if sum(f) < 3505.0 & :
+        
+            if current == 0:
+        
+                current = sum(f)
+                CV = vector
+    
+            else:
+                if sum(f) < current:
+                    current = sum(f)
+                    CV = vector
+            
+        #find upper and lower for lowest range rxn
+        #lowest delta -> upper and lower -> check temps
+        #U = 65.6955
+        #L = 65.1535
+
+        i = 0
+        while i < len(CV):
+            if L<CV[i]<U:
+                print('good')
+                redo = 2
+                break
+            else:
+                redo = 1
+                print(redo)
+            i = i + 1
+    
+
+
+    gradient = pandas.DataFrame(CV, columns=['temp'])
+    wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
+    gradient['well'] = wells
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # multiple pcr run variation.
     runnumber = 0
     annealing = []
@@ -588,27 +685,19 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
             comparison1 = pcr_plustemplates.iloc[i-1,:]
             comparison2 = pcr_plustemplates.iloc[i,:] #last one is the row we're on and evaluatinh
                
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']   
+            HL = comparison1['Upper_temp']
+            LH = comparison1['Lower_temp']   
                
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
+            HL2 = comparison2['Upper_temp']
+            LH2 = comparison2['Lower_temp'] 
                    
-            if L1 < (U2 + L2)/2 < U1:
-                annealing = []
-                annealing.append((U2 + L2)/2)
+            if LH2 < HL:
+                annealing_temp = LH2
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U2 + L2)/2
-        
-            # elif L1 < U2 < U1:
-            #     annealing = []
-            #     annealing.append(U2)
-            #     pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-            #     annealing_temp = U2
-
-            else:
+                
+            elif LH2 > HL:
                 runnumber = runnumber + 1
-                annealing_temp = (U2 + L2)/2 #pcr_plustemplates.loc[i].at['Upper_temp']#(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+                annealing_temp = LH2 #pcr_plustemplates.loc[i].at['Upper_temp']#(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
                 pcr_plustemplates.loc[i,'run'] = runnumber
             
             annealing.append(annealing_temp)
@@ -618,347 +707,165 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
             comparison2 = pcr_plustemplates.iloc[i-1,:]
             comparison3 = pcr_plustemplates.iloc[i,:]
                     
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']    
+            HL = comparison1['Upper_temp']
+            LH = comparison1['Lower_temp']    
                
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
+            HL2 = comparison2['Upper_temp']
+            LH2 = comparison2['Lower_temp'] 
                     
-            U3 = comparison3['Upper_temp']
-            L3 = comparison3['Lower_temp'] 
-                
-            if L1 < (U3+L3)/2 < U1 and L2 < (U3+L3)/2 < U2:
-                annealing = []
-                annealing.append((U3 + L3)/2)
-                annealing.append((U3 + L3)/2)
+            HL3 = comparison3['Upper_temp']
+            LH3 = comparison3['Lower_temp'] 
+                    
+            if LH3 < HL:
+                annealing_temp = LH3
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U3 + L3)/2  
+                   
+            elif LH3 < HL2:
+                annealing_temp = LH3
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
 
-            # elif L1 < U3 < U1 and L2 < U3 < U2:
-            #     annealing = []
-            #     annealing.append(U3)
-            #     annealing.append(U3)
-            #     pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-            #     annealing_temp = U3
-
-            elif L2 < (U3+L3)/2 < U2:
-                del annealing[1]
-                annealing.append((U3 + L3)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                annealing_temp = (U3 + L3)/2  
-
-            # elif L2 < U3 < U2:
-            #     del annealing[-1]
-            #     annealing.append(U3)
-            #     pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-            #     annealing_temp = U3
-
-            else:
+            elif LH3 > HL and LH3 > HL2:
                 runnumber = runnumber + 1
-                annealing_temp = U3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+                annealing_temp = LH3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
                 pcr_plustemplates.loc[i,'run'] = runnumber
             
             annealing.append(annealing_temp)
                     
-        #  if i == 3:
-        #     comparison1 = pcr_plustemplates.iloc[i-3,:]
-        #     comparison2 = pcr_plustemplates.iloc[i-2,:]
-        #     comparison3 = pcr_plustemplates.iloc[i-1,:]
-        #     comparison4 = pcr_plustemplates.iloc[i,:]
-
-        #     U1 = comparison1['Upper_temp']
-        #     L1 = comparison1['Lower_temp']    
-               
-        #     U2 = comparison2['Upper_temp']
-        #     L2 = comparison2['Lower_temp'] 
-                    
-        #     U3 = comparison3['Upper_temp']
-        #     L3 = comparison3['Lower_temp']
-
-        #     U4 = comparison4['Upper_temp']
-        #     L4 = comparison4['Lower_temp']
-
-                
-        #     if L1 < (U4+L4)/2 < U1 and L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
-        #         annealing = []
-        #         annealing.append((U4 + L4)/2)
-        #         annealing.append((U4 + L4)/2)
-        #         annealing.append((U4 + L4)/2)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-        #         annealing_temp = (U4 + L4)/2  
-
-        #     elif L1 < U4 < U1 and L2 < U4 < U2 and L3 < U4 < U3:
-        #         annealing = []
-        #         annealing.append(U4)
-        #         annealing.append(U4)
-        #         annealing.append(U4)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-        #         annealing_temp = U4
-
-        #     elif L2 < U4 < U2:
-        #         del annealing[-1]
-        #         annealing.append(U4)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-        #         annealing_temp = U3
-
-        #     elif L2 < U4 < U2:
-        #         del annealing[-1]
-        #         annealing.append(U3)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-        #         annealing_temp = U3
-
-        #     elif L2 > U3 or U3 > U2:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = U3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
-            
-        #     annealing.append(annealing_temp)
-                    
-        
-
-        if i == 4:
+        if i == 3:
             comparison1 = pcr_plustemplates.iloc[i-3,:]
             comparison2 = pcr_plustemplates.iloc[i-2,:]
             comparison3 = pcr_plustemplates.iloc[i-1,:]
             comparison4 = pcr_plustemplates.iloc[i,:]
-
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']    
+                  
+            HL = comparison1['Upper_temp']
+            LH = comparison1['Lower_temp']    
+              
+            HL2 = comparison2['Upper_temp']
+            LH2 = comparison2['Lower_temp'] 
                
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
+            HL3 = comparison3['Upper_temp']
+            LH3 = comparison3['Lower_temp'] 
+               
+            HL4 = comparison4['Upper_temp']
+            LH4 = comparison4['Lower_temp']
                     
-            U3 = comparison3['Upper_temp']
-            L3 = comparison3['Lower_temp']
-
-            U4 = comparison4['Upper_temp']
-            L4 = comparison4['Lower_temp']
-
-                
-            if L1 < (U4+L4)/2 < U1 and L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
-                annealing = []
-                annealing.append((U4 + L4)/2)
-                annealing.append((U4 + L4)/2)
-                annealing.append((U4 + L4)/2)
+            if LH4 < HL:
+                annealing_temp = LH4
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U4 + L4)/2  
+                
+            elif LH4 < HL2:
+                annealing_temp = LH4
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
+                   
+            elif LH4 < HL3:
+                annealing_temp = LH4
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
 
-            elif L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
-                del annealing[1]
-                del annealing[2]
-                annealing.append((U4 + L4)/2)
-                annealing.append((U4 + L4)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                annealing_temp = (U4 + L4)/2  
-
-           elif L3 < (U4+L4)/2 < U3:
-                del annealing[2]
-                annealing.append((U4 + L4)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
-                annealing_temp = (U4 + L4)/2 
-
-            else: 
+            elif LH4 > HL and LH4 > HL2 and LH4 > HL3:
                 runnumber = runnumber + 1
-                annealing_temp = U4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-                pcr_plustemplates.loc[i,'run'] = runnumber  
-            
+                annealing_temp = LH4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+                pcr_plustemplates.loc[i,'run'] = runnumber
+           
             annealing.append(annealing_temp)
                     
-        
         if i == 4:
             comparison1 = pcr_plustemplates.iloc[i-4,:]
             comparison2 = pcr_plustemplates.iloc[i-3,:]
             comparison3 = pcr_plustemplates.iloc[i-2,:]
             comparison4 = pcr_plustemplates.iloc[i-1,:]
             comparison5 = pcr_plustemplates.iloc[i,:]
-
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']    
+              
+            HL = comparison1['Upper_temp']
+            LH = comparison1['Lower_temp']    
                
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
-                    
-            U3 = comparison3['Upper_temp']
-            L3 = comparison3['Lower_temp']
-
-            U4 = comparison4['Upper_temp']
-            L4 = comparison4['Lower_temp']
-
-            U5 = comparison5['Upper_temp']
-            L5 = comparison5['Lower_temp']
-
+            HL2 = comparison2['Upper_temp']
+            LH2 = comparison2['Lower_temp'] 
                 
-            if L1 < (U5+L5)/2 < U1 and L2 < (U5+L5)/2 < U2 and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
-                annealing = []
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
+            HL3 = comparison3['Upper_temp']
+            LH3 = comparison3['Lower_temp'] 
+                
+            HL4 = comparison4['Upper_temp']
+            LH4 = comparison4['Lower_temp'] 
+                
+            HL5 = comparison5['Upper_temp']
+            LH5 = comparison5['Lower_temp'] 
+               
+            if LH5 < HL:
+                annealing_temp = LH5
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U5 + L5)/2  
-
-            elif L2 < (U5+L5)/2 < U2 and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
-                del annealing[1]
-                del annealing[2]
-                del annealing[3]
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
+               
+            elif LH5 < HL2:
+                annealing_temp = LH5
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                annealing_temp = (U5 + L5)/2  
+                
+            elif LH5 < HL3:
+                annealing_temp = LH5
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
+                    
+            elif LH5 < HL4:
+                annealing_temp = LH5
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
 
-           elif L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
-                del annealing[2]
-                del annealing[3]
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
-                annealing_temp = (U5 + L5)/2 
-
-            elif L4 < (U5+L5)/2 < U4:
-                del annealing[3]
-                annealing.append((U5 + L5)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run']
-                annealing_temp = (U5 + L5)/2 
-
-            else: 
+            elif LH5 > HL and LH5 > HL2 and LH5 > HL3 and LH5 > HL4:
                 runnumber = runnumber + 1
-                annealing_temp = U5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-                pcr_plustemplates.loc[i,'run'] = runnumber  
+                annealing_temp = LH5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+                pcr_plustemplates.loc[i,'run'] = runnumber
             
             annealing.append(annealing_temp)
-        
+                    
+                    
+        if i == 5:
+            comparison1 = pcr_plustemplates.iloc[i-5,:]
+            comparison1 = pcr_plustemplates.iloc[i-4,:]
+            comparison2 = pcr_plustemplates.iloc[i-3,:]
+            comparison3 = pcr_plustemplates.iloc[i-2,:]
+            comparison4 = pcr_plustemplates.iloc[i-1,:]
+            comparison5 = pcr_plustemplates.iloc[i,:]
+            
+            HL = comparison1['Upper_temp']
+            LH = comparison1['Lower_temp']    
+               
+            HL2 = comparison2['Upper_temp']
+            LH2 = comparison2['Lower_temp']    
              
+            HL3 = comparison3['Upper_temp']
+            LH3 = comparison3['Lower_temp'] 
+                 
+            HL4 = comparison4['Upper_temp']
+            LH4 = comparison4['Lower_temp'] 
+               
+            HL5 = comparison5['Upper_temp']
+            LH5 = comparison5['Lower_temp'] 
+                 
+            HL6 = comparison6['Upper_temp']
+            LH6 = comparison6['Lower_temp'] 
+                 
+            if LH6 < HL:
+                annealing_temp = LH6
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+                 
+            elif LH6 < HL2:
+                annealing_temp = LH6
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                   
-        #     HL = comparison1['Upper_temp']
-        #     LH = comparison1['Lower_temp']    
-              
-        #     HL2 = comparison2['Upper_temp']
-        #     LH2 = comparison2['Lower_temp'] 
-               
-        #     HL3 = comparison3['Upper_temp']
-        #     LH3 = comparison3['Lower_temp'] 
-               
-        #     HL4 = comparison4['Upper_temp']
-        #     LH4 = comparison4['Lower_temp']
-                    
-        #     if LH4 < HL:
-        #         annealing_temp = HL
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                
-        #     elif LH4 < HL2:
-        #         annealing_temp = HL2
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
+            elif LH6 < HL3:
+                annealing_temp = LH6
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
                    
-        #     elif LH4 < HL3:
-        #         annealing_temp = HL3
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
+            elif LH6 < HL4:
+                annealing_temp = LH6
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
+                    
+            elif LH6 < HL5:
+                annealing_temp = LH6
+                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[4,'run'] 
 
-        #     elif LH4 > HL and LH4 > HL2 and LH4 > HL3:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = HL4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
-           
-        #     annealing.append(annealing_temp)
-                    
-        # if i == 4:
-        #     comparison1 = pcr_plustemplates.iloc[i-4,:]
-        #     comparison2 = pcr_plustemplates.iloc[i-3,:]
-        #     comparison3 = pcr_plustemplates.iloc[i-2,:]
-        #     comparison4 = pcr_plustemplates.iloc[i-1,:]
-        #     comparison5 = pcr_plustemplates.iloc[i,:]
-              
-        #     HL = comparison1['Upper_temp']
-        #     LH = comparison1['Lower_temp']    
-               
-        #     HL2 = comparison2['Upper_temp']
-        #     LH2 = comparison2['Lower_temp'] 
-                
-        #     HL3 = comparison3['Upper_temp']
-        #     LH3 = comparison3['Lower_temp'] 
-                
-        #     HL4 = comparison4['Upper_temp']
-        #     LH4 = comparison4['Lower_temp'] 
-                
-        #     HL5 = comparison5['Upper_temp']
-        #     LH5 = comparison5['Lower_temp'] 
-               
-        #     if LH5 < HL:
-        #         annealing_temp = HL
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-               
-        #     elif LH5 < HL2:
-        #         annealing_temp = HL2
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                
-        #     elif LH5 < HL3:
-        #         annealing_temp = HL3
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
-                    
-        #     elif LH5 < HL4:
-        #         annealing_temp = HL4
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
-
-        #     elif LH5 > HL and LH5 > HL2 and LH5 > HL3 and LH5 > HL4:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = HL5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
+            elif LH6 > HL and LH6 > HL2 and LH6 > HL3 and LH6 > HL4 and LH6 > HL5:
+                runnumber = runnumber + 1
+                annealing_temp = LH6 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+                pcr_plustemplates.loc[i,'run'] = runnumber
             
-        #     annealing.append(annealing_temp)
-                    
-                    
-        # if i == 5:
-        #     comparison1 = pcr_plustemplates.iloc[i-5,:]
-        #     comparison1 = pcr_plustemplates.iloc[i-4,:]
-        #     comparison2 = pcr_plustemplates.iloc[i-3,:]
-        #     comparison3 = pcr_plustemplates.iloc[i-2,:]
-        #     comparison4 = pcr_plustemplates.iloc[i-1,:]
-        #     comparison5 = pcr_plustemplates.iloc[i,:]
-            
-        #     HL = comparison1['Upper_temp']
-        #     LH = comparison1['Lower_temp']    
-               
-        #     HL2 = comparison2['Upper_temp']
-        #     LH2 = comparison2['Lower_temp']    
-             
-        #     HL3 = comparison3['Upper_temp']
-        #     LH3 = comparison3['Lower_temp'] 
-                 
-        #     HL4 = comparison4['Upper_temp']
-        #     LH4 = comparison4['Lower_temp'] 
-               
-        #     HL5 = comparison5['Upper_temp']
-        #     LH5 = comparison5['Lower_temp'] 
-                 
-        #     HL6 = comparison6['Upper_temp']
-        #     LH6 = comparison6['Lower_temp'] 
-                 
-        #     if LH6 < HL:
-        #         annealing_temp = HL
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                 
-        #     elif LH6 < HL2:
-        #         annealing_temp = HL2
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                  
-        #     elif LH6 < HL3:
-        #         annealing_temp = HL3
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
-                   
-        #     elif LH6 < HL4:
-        #         annealing_temp = HL4
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
-                    
-        #     elif LH6 < HL5:
-        #         annealing_temp = HL5
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[4,'run'] 
-
-        #     elif LH6 > HL and LH6 > HL2 and LH6 > HL3 and LH6 > HL4 and LH6 > HL5:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = HL6 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
-            
-        #     annealing.append(annealing_temp)
+            annealing.append(annealing_temp)
                 
     pcr_plustemplates['annealing_temp'] = annealing  
 
@@ -1049,10 +956,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
     annealing_extension = annealing_extension.drop_duplicates()
     annealing_extension = annealing_extension.reset_index()
     annealing_extension
-    annealing_extension.to_csv('output_'+Date+'_annealing_extension.csv')
     
-    pcr_plustemplates.to_csv('output_'+Date+'_pcr_GoldenGate.csv')
-
     combinations = pandas.read_csv('combinations.csv')
     combinations
 
@@ -1162,14 +1066,6 @@ dil_tu['B6'] = 'C6'
 dil_tu['B7'] = 'C7'
 dil_tu['B8'] = 'C8'
 dil_tu['B9'] = 'C9'
-dil_tu['D2'] = 'E2'
-dil_tu['D3'] = 'E3'
-dil_tu['D4'] = 'E4'
-dil_tu['D5'] = 'E5'
-dil_tu['D6'] = 'E6'
-dil_tu['D7'] = 'E7'
-dil_tu['D8'] = 'E8'
-dil_tu['D9'] = 'E9'
 
 e = len(combs_short.columns)
 next_tc_tube = len(assembly.index)
@@ -1488,7 +1384,6 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
         #for j, row in annealing_extension.iterrows():
         tc_mod.close_lid()
-        temp_module.deactivate()
         tc_mod.set_lid_temperature(temperature = 105)
         tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
         profile = [

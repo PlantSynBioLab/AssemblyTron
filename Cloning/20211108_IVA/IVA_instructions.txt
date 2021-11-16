@@ -1,0 +1,16 @@
+Place the coldtuberack in slot 1. 
+put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+put in a fresh pcr plate into thermocycler. 
+Instructions for setting up the coldtuberack: 
+Put oWL00231_(IAA12-prb)_forward in A1
+Put oWL00235_(IAA12-pdar)_(A_to_G)_reverse in A2
+Put oWL00236_(pdar_2)_forward in A3
+Put oWL00237_(pdar_2)_reverse in A4
+Put pwl277 in A5
+Put pwl277 in A5
+Put pwl281 in A6
+Place molec bio grade h20 in D3 
+Place cutsmart buffer in D4 
+Place DPNI in D5 
+Place Q5 DNA polymerase in D6 
+Place 24 well tuberack in slot 2. Add 8 empty 1.5 mL tubes to the rack in the same positions. 

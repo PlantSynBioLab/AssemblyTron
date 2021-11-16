@@ -111,14 +111,22 @@ id2well['22'] = 'D5'
 id2well['23'] = 'D6'
 
 id2pcrrr = {}
-id2pcrrr['0'] = 'D2'
-id2pcrrr['1'] = 'D3'
-id2pcrrr['2'] = 'D4'
-id2pcrrr['3'] = 'D5'
-id2pcrrr['4'] = 'D6'
-id2pcrrr['5'] = 'D7'
-id2pcrrr['6'] = 'D8'
-id2pcrrr['7'] = 'D9'
+# id2pcrrr['0'] = 'D2'
+# id2pcrrr['1'] = 'D3'
+# id2pcrrr['2'] = 'D4'
+# id2pcrrr['3'] = 'D5'
+# id2pcrrr['4'] = 'D6'
+# id2pcrrr['5'] = 'D7'
+# id2pcrrr['6'] = 'D8'
+# id2pcrrr['7'] = 'D9'
+id2pcrrr['0'] = 'E2'
+id2pcrrr['1'] = 'E3'
+id2pcrrr['2'] = 'E4'
+id2pcrrr['3'] = 'E5'
+id2pcrrr['4'] = 'E6'
+id2pcrrr['5'] = 'E7'
+id2pcrrr['6'] = 'E8'
+id2pcrrr['7'] = 'E9'
 # id2pcrrr['8'] = 'B10'
 # id2pcrrr['9'] = 'B11'
 # id2pcrrr['10'] = 'C2'
@@ -627,7 +635,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
             U3 = comparison3['Upper_temp']
             L3 = comparison3['Lower_temp'] 
                 
-            if L1 < (U3+L3)/2 < U1 and L2 < (U3+L3)/2 < U2:
+            if L1 < (U3+L3)/2 < U1: #and L2 < (U3+L3)/2 < U2:
                 annealing = []
                 annealing.append((U3 + L3)/2)
                 annealing.append((U3 + L3)/2)
@@ -735,7 +743,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
             L4 = comparison4['Lower_temp']
 
                 
-            if L1 < (U4+L4)/2 < U1 and L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
+            if L1 < (U4+L4)/2 < U1:# and L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
                 annealing = []
                 annealing.append((U4 + L4)/2)
                 annealing.append((U4 + L4)/2)
@@ -743,7 +751,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 annealing_temp = (U4 + L4)/2  
 
-            elif L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
+            elif L2 < (U4+L4)/2 < U2:# and L3 < (U4+L4)/2 < U3:
                 del annealing[1]
                 del annealing[2]
                 annealing.append((U4 + L4)/2)
@@ -751,7 +759,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                 annealing_temp = (U4 + L4)/2  
 
-           elif L3 < (U4+L4)/2 < U3:
+            elif L3 < (U4+L4)/2 < U3:
                 del annealing[2]
                 annealing.append((U4 + L4)/2)
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
@@ -788,7 +796,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
             L5 = comparison5['Lower_temp']
 
                 
-            if L1 < (U5+L5)/2 < U1 and L2 < (U5+L5)/2 < U2 and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
+            if L1 < (U5+L5)/2 < U1:# and L2 < (U5+L5)/2 < U2 and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
                 annealing = []
                 annealing.append((U5 + L5)/2)
                 annealing.append((U5 + L5)/2)
@@ -797,7 +805,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 annealing_temp = (U5 + L5)/2  
 
-            elif L2 < (U5+L5)/2 < U2 and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
+            elif L2 < (U5+L5)/2 < U2:# and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
                 del annealing[1]
                 del annealing[2]
                 del annealing[3]
@@ -807,7 +815,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
                 pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                 annealing_temp = (U5 + L5)/2  
 
-           elif L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
+            elif L3 < (U5+L5)/2 < U3:# and L4 < (U5+L5)/2 < U4:
                 del annealing[2]
                 del annealing[3]
                 annealing.append((U5 + L5)/2)
@@ -1170,6 +1178,14 @@ dil_tu['D6'] = 'E6'
 dil_tu['D7'] = 'E7'
 dil_tu['D8'] = 'E8'
 dil_tu['D9'] = 'E9'
+dil_tu['E2'] = 'F2'
+dil_tu['E3'] = 'F3'
+dil_tu['E4'] = 'F4'
+dil_tu['E5'] = 'F5'
+dil_tu['E6'] = 'F6'
+dil_tu['E7'] = 'F7'
+dil_tu['E8'] = 'F8'
+dil_tu['E9'] = 'F9'
 
 e = len(combs_short.columns)
 next_tc_tube = len(assembly.index)
