@@ -569,13 +569,14 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
     temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
     
     deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].values.tolist()
-    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].values.tolist()
+    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
+    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
     
-    U = delta_temp[0] + delta_val[0]
-    L = delta_temp[0] - delta_val[0]
+    U = delta_temp + delta_val
+    L = delta_temp - delta_val
 
     redo = 1
+    
     while redo == 1:
 
         current = 0
@@ -587,9 +588,9 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
             #temps = [59.499,65.4245,67.8095,62.142,62.7575]
             #temps
 
-            one = numpy.random.uniform(50,70)
+            one = np.random.uniform(50,70)
             #one = round(numpy.random.uniform(50, 70), 1)
-            eight = numpy.random.uniform(70,90)
+            eight = np.random.uniform(70,90)
             #eight = round(numpy.random.uniform(70, 90), 1)
 
             two = one +((2-1)/(8-1)) * (eight-one)
@@ -647,25 +648,43 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
 
     gradient = pandas.DataFrame(CV, columns=['temp'])
     wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
-    gradient['well'] = wells
+    gradient['tube'] = wells
     
-
-    for i in pcr_plustemplates.iterrows():
+    for i, row in pcr_plustemplates.iterrows():
         diffss = []
-        for j in gradient.iterrows():
-            abs(pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)'] - gradient.loc[j].at['temp']) = A 
+        for j, row in gradient.iterrows():
+            aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)']
+            bbb = gradient.loc[j].at['temp']
+            A = abs(aaa - bbb )
             diffss.append(A)
         min_val = min(diffss)
         min_index = diffss.index(min_val)
-        pcr_plustemplates.loc[i].at['tube'] = gradient.loc[min_index].at['tube']
+        pcr_plustemplates.loc[i,'tube'] = gradient.loc[min_index].at['tube']
+    pcr_plustemplates
 
+    dupin = {}
+    dupin['A1'] = 'B1'
+    dupin['A2'] = 'B2'
+    dupin['A3'] = 'B3'
+    dupin['A4'] = 'B4'
+    dupin['A5'] = 'B5'
+    dupin['A6'] = 'B6'
+    dupin['A7'] = 'B7'
+    dupin['A8'] = 'B8'
 
+    duplicate_in_tube = pcr_plustemplates.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr_plustemplates.loc[duplicate_in_tube]
+        index = tes.index
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr_plustemplates.loc[index[i]].at['tube']
+        pcr_plustemplates.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+    pcr_plustemplates
 
-
-
-
-
-
+    gradient.to_csv('output_'+Date+'_gradient.csv')
 
 
 
@@ -876,93 +895,93 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
                 
     # pcr_plustemplates['annealing_temp'] = annealing  
 
-    rxn1 = pcr_plustemplates.copy()
-    rxn2 = pcr_plustemplates.copy()
-    rxn3 = pcr_plustemplates.copy()
-    rxn4 = pcr_plustemplates.copy()
+    # rxn1 = pcr_plustemplates.copy()
+    # rxn2 = pcr_plustemplates.copy()
+    # rxn3 = pcr_plustemplates.copy()
+    # rxn4 = pcr_plustemplates.copy()
 
-    for i, row in pcr_plustemplates.iterrows():
+    # for i, row in pcr_plustemplates.iterrows():
     
-        if not pcr_plustemplates.loc[i].at['run'] == 0:
-            rxn1.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i].at['run'] == 0:
+    #         rxn1.drop(i,axis=0,inplace=True)
 
-        if not pcr_plustemplates.loc[i].at['run'] == 1:
-            rxn2.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i].at['run'] == 1:
+    #         rxn2.drop(i,axis=0,inplace=True)
 
-        if not pcr_plustemplates.loc[i,'run'] == 2:
-            rxn3.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i,'run'] == 2:
+    #         rxn3.drop(i,axis=0,inplace=True)
        
-        if not pcr_plustemplates.loc[i,'run'] == 3:
-            rxn4.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i,'run'] == 3:
+    #         rxn4.drop(i,axis=0,inplace=True)
             
-    rxns_tables = {'rxn': ['rxn1']}
-    rxns_tables = pandas.DataFrame(data=rxns_tables)
-    v=0
+    # rxns_tables = {'rxn': ['rxn1']}
+    # rxns_tables = pandas.DataFrame(data=rxns_tables)
+    # v=0
     
-    if len(rxn2.index) >= 1:
-        rxns_tables = {'rxn': ['rxn1','rxn2']}
-        rxns_tables = pandas.DataFrame(data=rxns_tables)
-        v=1
-    if len(rxn2.index) < 1:
-        del rxn2    
+    # if len(rxn2.index) >= 1:
+    #     rxns_tables = {'rxn': ['rxn1','rxn2']}
+    #     rxns_tables = pandas.DataFrame(data=rxns_tables)
+    #     v=1
+    # if len(rxn2.index) < 1:
+    #     del rxn2    
    
-    if len(rxn3.index) >= 1:
-        rxns_tables = {'rxn': ['rxn1','rxn2','rxn3']}
-        rxns_tables = pandas.DataFrame(data=rxns_tables)
-        v=2
-    if len(rxn3.index) < 1:
-        del rxn3
+    # if len(rxn3.index) >= 1:
+    #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3']}
+    #     rxns_tables = pandas.DataFrame(data=rxns_tables)
+    #     v=2
+    # if len(rxn3.index) < 1:
+    #     del rxn3
 
-    if len(rxn4.index) >= 1:
-        rxns_tables = {'rxn': ['rxn1','rxn2','rxn3','rxn4']}
-        rxns_tables = pandas.DataFrame(data=rxns_tables) 
-        v=3
-    if len(rxn4.index) < 1:
-        del rxn4
+    # if len(rxn4.index) >= 1:
+    #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3','rxn4']}
+    #     rxns_tables = pandas.DataFrame(data=rxns_tables) 
+    #     v=3
+    # if len(rxn4.index) < 1:
+        # del rxn4
     
     
     
     #rxns_tables = {'rxn': ['rxn1','rxn2']}
     #rxns_tables = pandas.DataFrame(data=rxns_tables)
-    for i, row in rxns_tables.iterrows():
-        x = rxns_tables.loc[i].at['rxn']
-        Length = locals()[x].nlargest(1,'Length')
-        l = (Length['Length']/1000)*30
-        L = l.values.tolist()
-        locals()[x]['extension time'] = L[0] 
-    if v==0:
-        allrxns = rxn1
-    if v==1:
-        allrxns = pandas.concat([rxn1, rxn2], axis=0)
-    if v==2:
-        allrxns = pandas.concat([rxn1, rxn2,rxn3], axis=0)
-    if v==3:
-        allrxns = pandas.concat([rxn1, rxn2,rxn3,rxn4], axis=0)
+    # for i, row in rxns_tables.iterrows():
+    #     x = rxns_tables.loc[i].at['rxn']
+    Length = pcr_plustemplates.nlargest(1,'Length')
+    l = (Length['Length']/1000)*30
+    L = l.values.tolist()
+    L[0] 
+    # if v==0:
+    #     allrxns = rxn1
+    # if v==1:
+    #     allrxns = pandas.concat([rxn1, rxn2], axis=0)
+    # if v==2:
+    #     allrxns = pandas.concat([rxn1, rxn2,rxn3], axis=0)
+    # if v==3:
+    #     allrxns = pandas.concat([rxn1, rxn2,rxn3,rxn4], axis=0)
     
-    allrxnsimppart = allrxns.iloc[:,[28,30]]
+    # allrxnsimppart = allrxns.iloc[:,[28,30]]
     
     
-    pcr_plustemplates = pcr_plustemplates.merge(allrxnsimppart, on= 'run', how='right')
-    pcr_plustemplates = pcr_plustemplates.drop_duplicates(subset=['Reaction ID Number'])
-    pcr_plustemplates = pcr_plustemplates.reset_index()
-    pcr_plustemplates
+    # pcr_plustemplates = pcr_plustemplates.merge(allrxnsimppart, on= 'run', how='right')
+    # pcr_plustemplates = pcr_plustemplates.drop_duplicates(subset=['Reaction ID Number'])
+    # pcr_plustemplates = pcr_plustemplates.reset_index()
+    # pcr_plustemplates
 #allrxnsimppart
-    id2hold = {}
-    id2hold['0'] = 'C1'
-    id2hold['1'] = 'C2'
-    id2hold['2'] = 'C3'
-    id2hold['3'] = 'C4'
-    id2hold['4'] = 'C5'
-    id2hold['5'] = 'C6'
+    # id2hold = {}
+    # id2hold['0'] = 'C1'
+    # id2hold['1'] = 'C2'
+    # id2hold['2'] = 'C3'
+    # id2hold['3'] = 'C4'
+    # id2hold['4'] = 'C5'
+    # id2hold['5'] = 'C6'
 
 
-    for i, row in pcr_plustemplates.iterrows():
-        pcr_plustemplates.loc[i,'holding_tube'] = id2hold[str(i)]
-    pcr_plustemplates
-    annealing_extension = pcr_plustemplates.iloc[:,[29,30,31]]
-    annealing_extension = annealing_extension.drop_duplicates()
-    annealing_extension = annealing_extension.reset_index()
-    annealing_extension
+    # for i, row in pcr_plustemplates.iterrows():
+    #     pcr_plustemplates.loc[i,'holding_tube'] = id2hold[str(i)]
+    # pcr_plustemplates
+    # annealing_extension = pcr_plustemplates.iloc[:,[29,30,31]]
+    # annealing_extension = annealing_extension.drop_duplicates()
+    # annealing_extension = annealing_extension.reset_index()
+    # annealing_extension
     
     combinations = pandas.read_csv('combinations.csv')
     combinations
@@ -1325,64 +1344,66 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #pcr rxn
 ##########################################################################################################################
 
-    for i in range(0,pcr_plustemplates['run'].sum()+1):
+#    for i in range(0,pcr_plustemplates['run'].sum()+1):
 
 
 #add water first
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(pcr_plustemplates.loc[j].at['total_water_toadd'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-                right_pipette.dispense(pcr_plustemplates.loc[j].at['total_water_toadd'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                right_pipette.blow_out()
-                right_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(pcr_plustemplates.loc[j].at['total_water_toadd'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+            right_pipette.dispense(pcr_plustemplates.loc[j].at['total_water_toadd'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            right_pipette.blow_out()
+            right_pipette.drop_tip()
     
 #add 1uL of BOTH (not each) primers
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_x'], tuberack2[pcr_plustemplates.loc[j].at['well']], rate=2.0)
-                left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_x'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #left_pipette.blow_out()            
-                left_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_x'], tuberack2[pcr_plustemplates.loc[j].at['well']], rate=2.0)
+            left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_x'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            #left_pipette.blow_out()            
+            left_pipette.drop_tip()
         
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_y'], tuberack2[pcr_plustemplates.loc[j].at['well2']], rate=2.0)            
-                left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_y'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #left_pipette.blow_out()
-                left_pipette.drop_tip()
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_y'], tuberack2[pcr_plustemplates.loc[j].at['well2']], rate=2.0)            
+            left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_y'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
     
 #add 1uL of each template
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(pcr_plustemplates.loc[j].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[j].at['template_well']], rate=2.0)
-                left_pipette.dispense(pcr_plustemplates.loc[j].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                left_pipette.mix(3,3,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #left_pipette.blow_out()
-                left_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(pcr_plustemplates.loc[j].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[j].at['template_well']], rate=2.0)
+            left_pipette.dispense(pcr_plustemplates.loc[j].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            left_pipette.mix(3,3,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
 
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-                right_pipette.aspirate(Q5, pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                #right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
-                right_pipette.blow_out()
-                right_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
+            right_pipette.aspirate(Q5, pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            #right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+            right_pipette.blow_out()
+            right_pipette.drop_tip()
 
 #mix up
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #right_pipette.blow_out()
-                right_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+        if pcr_plustemplates.loc[j,'run'] == i:
+            right_pipette.pick_up_tip()
+            right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            #right_pipette.blow_out()
+            right_pipette.drop_tip()
     
+    protocol.pause('move to gradient thermocycler. set gradiet to be between '+gradient.loc[0].at['temp']+' and '+gradient.loc[7].at['temp']+'. Extension time should be '+L[0]+' seconds. Follow normal parameters for everything else. A1 is cool, A8 is hot.')
+
+
+
+
+
 #Now run thermocycler to amplify DNA
     
 #these parameters can be altered for different pcr reactionsabs
@@ -1390,26 +1411,26 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #maybe use the median annealing temperature in the spreadsheet
     
         #for j, row in annealing_extension.iterrows():
-        tc_mod.close_lid()
-        tc_mod.set_lid_temperature(temperature = 105)
-        tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
-        profile = [
-            {'temperature': 98, 'hold_time_seconds': 10},
-            {'temperature': round(annealing_extension.loc[i].at['annealing_temp'],1), 'hold_time_seconds': 30},
-            {'temperature': 72, 'hold_time_seconds': round(annealing_extension.loc[i].at['extension time'],1)}] #should automate calculation of annealing temp based on spreadsheet
-        tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
-        tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
-        tc_mod.set_block_temperature(4)
-        protocol.pause('wait until ready to continue')
-        tc_mod.open_lid()
+    tc_mod.close_lid()
+    tc_mod.set_lid_temperature(temperature = 105)
+    tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
+    profile = [
+        {'temperature': 98, 'hold_time_seconds': 10},
+        {'temperature': round(annealing_extension.loc[i].at['annealing_temp'],1), 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': round(annealing_extension.loc[i].at['extension time'],1)}] #should automate calculation of annealing temp based on spreadsheet
+    tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
+    tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
+    tc_mod.set_block_temperature(4)
+    protocol.pause('wait until ready to continue')
+    tc_mod.open_lid()
         
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']],2)
-                right_pipette.dispense(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[j].at['holding_tube']],2)
-                #right_pipette.blow_out()
-                right_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+        if pcr_plustemplates.loc[j,'run'] == i:
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']],2)
+            right_pipette.dispense(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[j].at['holding_tube']],2)
+            #right_pipette.blow_out()
+            right_pipette.drop_tip()
 
     for i, row in pcr_plustemplates.iterrows():
         right_pipette.pick_up_tip()
