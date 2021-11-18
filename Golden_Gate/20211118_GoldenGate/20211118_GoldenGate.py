@@ -559,132 +559,134 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
 ######################separate pcrrxns####################################
 ########################################################################
 if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
-    runnumber = 0
-
-    pcr_plustemplates
-    pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
-    pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
-    pcr_plustemplates
-
-    temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
+    gradient = pandas.read_csv('gradient.csv')
     
-    deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
-    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
+    # runnumber = 0
+
+    # pcr_plustemplates
+    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates
+
+    # temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
     
-    U = delta_temp + delta_val
-    L = delta_temp - delta_val
-
-    redo = 1
+    # deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
+    # delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
+    # delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
     
-    while redo == 1:
+    # U = delta_temp + delta_val
+    # L = delta_temp - delta_val
 
-        current = 0
-        CV = 0
-
-        num = 100000
-        for x in range(num):    
+    # redo = 1
     
-            #temps = [59.499,65.4245,67.8095,62.142,62.7575]
-            #temps
+    # while redo == 1:
 
-            one = np.random.uniform(50,70)
-            #one = round(numpy.random.uniform(50, 70), 1)
-            eight = np.random.uniform(70,90)
-            #eight = round(numpy.random.uniform(70, 90), 1)
+    #     current = 0
+    #     CV = 0
 
-            two = one +((2-1)/(8-1)) * (eight-one)
-            three = one +((3-1)/(8-1)) * (eight-one)
-            four = one +((4-1)/(8-1)) * (eight-one)
-            five = one +((5-1)/(8-1)) * (eight-one)
-            six = one +((6-1)/(8-1)) * (eight-one)
-            seven = one +((7-1)/(8-1)) * (eight-one)
-
-            vector = [one,two,three,four,five,six,seven,eight]
-
-            f = []
-            i = 0
-            while i < len(vector):
-                j = 0
-                while j < len(temps):
-                    Diff = abs(vector[i]-temps[j])
-                    if Diff > 0.4:
-                        f.append(100.0)
-                    if Diff < 0.4:
-                        f.append(Diff)
-                    j = j + 1
-                i = i + 1
-            sum(f)
+    #     num = 100000
+    #     for x in range(num):    
     
-            #if sum(f) < 3505.0 & :
+    #         #temps = [59.499,65.4245,67.8095,62.142,62.7575]
+    #         #temps
+
+    #         one = np.random.uniform(50,70)
+    #         #one = round(numpy.random.uniform(50, 70), 1)
+    #         eight = np.random.uniform(70,90)
+    #         #eight = round(numpy.random.uniform(70, 90), 1)
+
+    #         two = one +((2-1)/(8-1)) * (eight-one)
+    #         three = one +((3-1)/(8-1)) * (eight-one)
+    #         four = one +((4-1)/(8-1)) * (eight-one)
+    #         five = one +((5-1)/(8-1)) * (eight-one)
+    #         six = one +((6-1)/(8-1)) * (eight-one)
+    #         seven = one +((7-1)/(8-1)) * (eight-one)
+
+    #         vector = [one,two,three,four,five,six,seven,eight]
+
+    #         f = []
+    #         i = 0
+    #         while i < len(vector):
+    #             j = 0
+    #             while j < len(temps):
+    #                 Diff = abs(vector[i]-temps[j])
+    #                 if Diff > 0.4:
+    #                     f.append(100.0)
+    #                 if Diff < 0.4:
+    #                     f.append(Diff)
+    #                 j = j + 1
+    #             i = i + 1
+    #         sum(f)
+    
+    #         #if sum(f) < 3505.0 & :
         
-            if current == 0:
+    #         if current == 0:
         
-                current = sum(f)
-                CV = vector
+    #             current = sum(f)
+    #             CV = vector
     
-            else:
-                if sum(f) < current:
-                    current = sum(f)
-                    CV = vector
+    #         else:
+    #             if sum(f) < current:
+    #                 current = sum(f)
+    #                 CV = vector
             
-        #find upper and lower for lowest range rxn
-        #lowest delta -> upper and lower -> check temps
-        #U = 65.6955
-        #L = 65.1535
+    #     #find upper and lower for lowest range rxn
+    #     #lowest delta -> upper and lower -> check temps
+    #     #U = 65.6955
+    #     #L = 65.1535
 
-        i = 0
-        while i < len(CV):
-            if L<CV[i]<U:
-                print('good')
-                redo = 2
-                break
-            else:
-                redo = 1
-                print(redo)
-            i = i + 1
+    #     i = 0
+    #     while i < len(CV):
+    #         if L<CV[i]<U:
+    #             print('good')
+    #             redo = 2
+    #             break
+    #         else:
+    #             redo = 1
+    #             print(redo)
+    #         i = i + 1
     
 
 
-    gradient = pandas.DataFrame(CV, columns=['temp'])
-    wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
-    gradient['tube'] = wells
+    # gradient = pandas.DataFrame(CV, columns=['temp'])
+    # wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
+    # gradient['tube'] = wells
     
-    for i, row in pcr_plustemplates.iterrows():
-        diffss = []
-        for j, row in gradient.iterrows():
-            aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)']
-            bbb = gradient.loc[j].at['temp']
-            A = abs(aaa - bbb )
-            diffss.append(A)
-        min_val = min(diffss)
-        min_index = diffss.index(min_val)
-        pcr_plustemplates.loc[i,'tube'] = gradient.loc[min_index].at['tube']
-    pcr_plustemplates
+    # for i, row in pcr_plustemplates.iterrows():
+    #     diffss = []
+    #     for j, row in gradient.iterrows():
+    #         aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)']
+    #         bbb = gradient.loc[j].at['temp']
+    #         A = abs(aaa - bbb )
+    #         diffss.append(A)
+    #     min_val = min(diffss)
+    #     min_index = diffss.index(min_val)
+    #     pcr_plustemplates.loc[i,'tube'] = gradient.loc[min_index].at['tube']
+    # pcr_plustemplates
 
-    dupin = {}
-    dupin['A1'] = 'B1'
-    dupin['A2'] = 'B2'
-    dupin['A3'] = 'B3'
-    dupin['A4'] = 'B4'
-    dupin['A5'] = 'B5'
-    dupin['A6'] = 'B6'
-    dupin['A7'] = 'B7'
-    dupin['A8'] = 'B8'
+    # dupin = {}
+    # dupin['A1'] = 'B1'
+    # dupin['A2'] = 'B2'
+    # dupin['A3'] = 'B3'
+    # dupin['A4'] = 'B4'
+    # dupin['A5'] = 'B5'
+    # dupin['A6'] = 'B6'
+    # dupin['A7'] = 'B7'
+    # dupin['A8'] = 'B8'
 
-    duplicate_in_tube = pcr_plustemplates.duplicated(subset=['tube'])
-    if duplicate_in_tube.any():
-        tes = pcr_plustemplates.loc[duplicate_in_tube]
-        index = tes.index
-    index
-    i = 0
-    while i < len(index):
-        letter = pcr_plustemplates.loc[index[i]].at['tube']
-        pcr_plustemplates.loc[index[i],'tube'] = dupin[letter]
-        i = i + 1
-    pcr_plustemplates
+    # duplicate_in_tube = pcr_plustemplates.duplicated(subset=['tube'])
+    # if duplicate_in_tube.any():
+    #     tes = pcr_plustemplates.loc[duplicate_in_tube]
+    #     index = tes.index
+    # index
+    # i = 0
+    # while i < len(index):
+    #     letter = pcr_plustemplates.loc[index[i]].at['tube']
+    #     pcr_plustemplates.loc[index[i],'tube'] = dupin[letter]
+    #     i = i + 1
+    # pcr_plustemplates
 
-    gradient.to_csv('gradient.csv')
+    # gradient.to_csv('gradient.csv')
 
 
 
@@ -1397,7 +1399,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             #right_pipette.blow_out()
             right_pipette.drop_tip()
     
-    protocol.pause('move to gradient thermocycler. set gradiet to be between '+gradient.loc[0].at['temp']+' and '+gradient.loc[7].at['temp']+'. Extension time should be '+(Length['Length']/1000)*30+' seconds. Follow normal parameters for everything else. A1 is cool, A8 is hot.')
+    protocol.pause('move to gradient thermocycler. set gradiet to be between '+str(gradient.loc[0].at['temp'])+' and '+str(gradient.loc[7].at['temp'])+'. Extension time should be '+str((Length['Length']/1000)*30)+' seconds. Follow normal parameters for everything else. A1 is cool, A8 is hot.')
 
 
 
@@ -1410,33 +1412,33 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #maybe use the median annealing temperature in the spreadsheet
     
         #for j, row in annealing_extension.iterrows():
-    tc_mod.close_lid()
-    tc_mod.set_lid_temperature(temperature = 105)
-    tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
-    profile = [
-        {'temperature': 98, 'hold_time_seconds': 10},
-        {'temperature': round(annealing_extension.loc[i].at['annealing_temp'],1), 'hold_time_seconds': 30},
-        {'temperature': 72, 'hold_time_seconds': round(annealing_extension.loc[i].at['extension time'],1)}] #should automate calculation of annealing temp based on spreadsheet
-    tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
-    tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
-    tc_mod.set_block_temperature(4)
-    protocol.pause('wait until ready to continue')
-    tc_mod.open_lid()
+    # tc_mod.close_lid()
+    # tc_mod.set_lid_temperature(temperature = 105)
+    # tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
+    # profile = [
+    #     {'temperature': 98, 'hold_time_seconds': 10},
+    #     {'temperature': round(annealing_extension.loc[i].at['annealing_temp'],1), 'hold_time_seconds': 30},
+    #     {'temperature': 72, 'hold_time_seconds': round(annealing_extension.loc[i].at['extension time'],1)}] #should automate calculation of annealing temp based on spreadsheet
+    # tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
+    # tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
+    # tc_mod.set_block_temperature(4)
+    # protocol.pause('wait until ready to continue')
+    # tc_mod.open_lid()
         
-    for j, row in pcr_plustemplates.iterrows():
-        if pcr_plustemplates.loc[j,'run'] == i:
-            right_pipette.pick_up_tip()
-            right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']],2)
-            right_pipette.dispense(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[j].at['holding_tube']],2)
-            #right_pipette.blow_out()
-            right_pipette.drop_tip()
+    # for j, row in pcr_plustemplates.iterrows():
+    #     if pcr_plustemplates.loc[j,'run'] == i:
+    #         right_pipette.pick_up_tip()
+    #         right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']],2)
+    #         right_pipette.dispense(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[j].at['holding_tube']],2)
+    #         #right_pipette.blow_out()
+    #         right_pipette.drop_tip()
 
-    for i, row in pcr_plustemplates.iterrows():
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[i].at['holding_tube']],2)
-        right_pipette.dispense(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']],2)
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
+    # for i, row in pcr_plustemplates.iterrows():
+    #     right_pipette.pick_up_tip()
+    #     right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[i].at['holding_tube']],2)
+    #     right_pipette.dispense(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']],2)
+    #     right_pipette.blow_out()
+    #     right_pipette.drop_tip()
 
 #Now add DPNI for digestion
 
@@ -1628,31 +1630,31 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.blow_out()
         left_pipette.drop_tip()
     
-    #now add all fragments to the GG tube
-        for i, row in globals()[x].iterrows():
-            left_pipette.pick_up_tip()
-            if globals()[x].loc[i].at['initial required amount'] <1:
-                left_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
-                left_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[globals()[x].loc[i].at['dil_tube']])
-                left_pipette.blow_out()
-                left_pipette.drop_tip()
+    # #now add all fragments to the GG tube
+    #     for i, row in globals()[x].iterrows():
+    #         left_pipette.pick_up_tip()
+    #         if globals()[x].loc[i].at['initial required amount'] <1:
+    #             left_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
+    #             left_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[globals()[x].loc[i].at['dil_tube']])
+    #             left_pipette.blow_out()
+    #             left_pipette.drop_tip()
                 
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
-                left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
-                left_pipette.blow_out()
-                left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
-                left_pipette.drop_tip()
+    #             left_pipette.pick_up_tip()
+    #             left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
+    #             left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
+    #             left_pipette.blow_out()
+    #             left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+    #             left_pipette.drop_tip()
                 
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['dil_tube']])
-                left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
-                left_pipette.drop_tip()
+    #             left_pipette.pick_up_tip()
+    #             left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['dil_tube']])
+    #             left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+    #             left_pipette.drop_tip()
                 
-            else:
-                left_pipette.aspirate(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['frag_loc']])
-                left_pipette.dispense(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
-                left_pipette.drop_tip()
+    #         else:
+    #             left_pipette.aspirate(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['frag_loc']])
+    #             left_pipette.dispense(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+    #             left_pipette.drop_tip()
    
     
     #pipette the T4 BSA combo into GG assemblies

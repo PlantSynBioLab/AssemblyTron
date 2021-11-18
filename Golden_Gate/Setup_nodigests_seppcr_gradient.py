@@ -1,6 +1,7 @@
 import os
 import pandas
 import shutil
+import numpy as np
 
 from tkinter import filedialog
 from tkinter import *
@@ -57,6 +58,7 @@ oligos
 #digests
 
 pcr = pandas.read_csv('pcr.csv')
+pcr.columns = pcr.columns.str.replace("'","")
 pcr
 
 combinations = pandas.read_csv('combinations.csv')
@@ -243,7 +245,7 @@ os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+# shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
@@ -635,8 +637,156 @@ if extra2value != 0:
 
 variables
 
+#####################################################################################################
+##################GRADIENT OPTIMIZER################################################################
+if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
+    runnumber = 0
+
+    # pcr_plustemplates
+    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates
+
+    temps = pcr['Mean Oligo Tm (3 Only)'].values.tolist()
+    
+    deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
+    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
+    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
+    
+    U = delta_temp + delta_val
+    L = delta_temp - delta_val
+
+    redo = 1
+    
+    while redo == 1:
+
+        current = 0
+        CV = 0
+
+        num = 100000
+        for x in range(num):    
+    
+            #temps = [59.499,65.4245,67.8095,62.142,62.7575]
+            #temps
+
+            one = np.random.uniform(50,70)
+            #one = round(numpy.random.uniform(50, 70), 1)
+            eight = np.random.uniform(70,90)
+            #eight = round(numpy.random.uniform(70, 90), 1)
+
+            two = one +((2-1)/(8-1)) * (eight-one)
+            three = one +((3-1)/(8-1)) * (eight-one)
+            four = one +((4-1)/(8-1)) * (eight-one)
+            five = one +((5-1)/(8-1)) * (eight-one)
+            six = one +((6-1)/(8-1)) * (eight-one)
+            seven = one +((7-1)/(8-1)) * (eight-one)
+
+            vectorfull = [one,two,three,four,five,six,seven,eight]
+            vector = [two,three,four,five,six,seven,eight]
+
+            f = []
+            i = 0
+            while i < len(vector):
+                j = 0
+                while j < len(temps):
+                    Diff = abs(vector[i]-temps[j])
+                    if Diff > 0.4:
+                        f.append(100.0)
+                    if Diff < 0.4:
+                        f.append(Diff)
+                    j = j + 1
+                i = i + 1
+            sum(f)
+    
+            #if sum(f) < 3505.0 & :
+        
+            if current == 0:
+        
+                current = sum(f)
+                CV = vector
+                FV = vectorfull
+    
+            else:
+                if sum(f) < current:
+                    current = sum(f)
+                    CV = vector
+                    FV = vectorfull
+            
+        #find upper and lower for lowest range rxn
+        #lowest delta -> upper and lower -> check temps
+        #U = 65.6955
+        #L = 65.1535
+
+        i = 0
+        while i < len(FV):
+            if L<FV[i]<U:
+                print('good')
+                start = str(FV[i])
+                redo = 2
+                break
+            else:
+                redo = 1
+                print(redo)
+            i = i + 1
+        # i=0
+        # while i<len(CV):
+        #     if start == '0':
+        #         redo = 1
+        #         print(redo)
+        #     i = i + 1
+
+
+    gradient = pandas.DataFrame(FV, columns=['temp'])
+    wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
+    gradient['tube'] = wells
+    
+    for i, row in pcr.iterrows():
+        diffss = []
+        for j, row in gradient.iterrows():
+            aaa = pcr.loc[i].at['Mean Oligo Tm (3 Only)']
+            bbb = gradient.loc[j].at['temp']
+            A = abs(aaa - bbb )
+            diffss.append(A)
+        min_val = min(diffss)
+        min_index = diffss.index(min_val)
+        pcr.loc[i,'tube'] = gradient.loc[min_index].at['tube']
+    pcr
+
+    dupin = {}
+    dupin['A1'] = 'B1'
+    dupin['A2'] = 'B2'
+    dupin['A3'] = 'B3'
+    dupin['A4'] = 'B4'
+    dupin['A5'] = 'B5'
+    dupin['A6'] = 'B6'
+    dupin['A7'] = 'B7'
+    dupin['A8'] = 'B8'
+
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+    pcr
+
+    pcr.to_csv('pcr.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+    gradient.to_csv('gradient.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+
+
+
+######################################################################################################
+
+
+
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
 variables.to_csv('Input.csv')
-shutil.copy2('Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'Golden_Gate/')
 
 os.system("notepad.exe GoldenGate_instructions.txt")
