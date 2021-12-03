@@ -5,34 +5,34 @@ metadata= {'protocolName': 'Pipette cleaning',
 }
 from opentrons import protocol_api
 from opentrons import simulate
-protocol = simulate.get_protocol_api('2.2')
+#protocol = simulate.get_protocol_api('2.2')
 
 import pandas
 import numpy as np
 import os
-import tkinter as tk
+#import tkinter as tk
 
-from tkinter import * 
-window = Tk()
-window.geometry("400x100")
-window.title("Tip well count")
+#from tkinter import * 
+#window = Tk()
+#window.geometry("400x100")
+# window.title("Tip well count")
 
-entry = Entry(window)
-entry.pack()
+# entry = Entry(window)
+# entry.pack()
 
-def confirm():
-    label = Label(window,text = entry.get())
-    label.pack()
-    global Wellcount
-    Wellcount = entry.get()
+# def confirm():
+#     label = Label(window,text = entry.get())
+#     label.pack()
+#     global Wellcount
+#     Wellcount = entry.get()
 
-    window.destroy()
-button = Button(window,text="Enter number of pipette boxes to clean, from 1 to 4",command = confirm)
-button.pack()
-window.mainloop()
+#     window.destroy()
+# button = Button(window,text="Enter number of pipette boxes to clean, from 1 to 4",command = confirm)
+# button.pack()
+# window.mainloop()
 
-Wellcount = int(Wellcount)
-
+# Wellcount = int(Wellcount)
+Wellcount=1
 id2well = {}
 id2well[0] = 'A1'
 id2well[1] = 'A2'
@@ -136,45 +136,47 @@ def run(protocol: protocol_api.ProtocolContext):
 
     #from opentrons import simulate
     #protocol= simulate.get_protocol_api('2.0')
-    left_pipette = protocol.load_instrument('p1000_single_gen2','left')
-    solutionrack = protocol.load_labware('opentrons_6_tuberack_falcon_50ml_conical',3)#verify location
+    left_pipette = protocol.load_instrument('p10_single','left')
+    solutionrack = protocol.load_labware('opentrons_10_tuberack_nest_4x50ml_6x15ml_conical',3)#verify location
 
     if Wellcount > 0:
-        tiprack1 = protocol.load_labware('opentrons_96_tiprack_1000ul',1)
+        tiprack1 = protocol.load_labware('opentrons_96_tiprack_10ul',1)
+        tiprack2 = protocol.load_labware('opentrons_96_tiprack_10ul',5)
         r=0
         while r < 96:
             left_pipette.pick_up_tip(tiprack1[id2well[r]])  
-            left_pipette.mix(3,1000,solutionrack['A1'])
+            left_pipette.mix(3,10,solutionrack['B4'])
+            left_pipette.move_to(solutionrack['B4'].top())
             left_pipette.blow_out()
-            left_pipette.return_tip()
+            left_pipette.drop_tip(tiprack2[id2well[r]])
             r += 1
 
     if Wellcount > 1:
-        tiprack2 = protocol.load_labware('opentrons_96_tiprack_1000ul',2)
+        tiprack2 = protocol.load_labware('opentrons_96_tiprack_10ul',2)
         x=0
         while x < 96:
-            left_pipette.pick_up_tip(tiprack2[id2well[x]])  
-            left_pipette.mix(3,1000,solutionrack['A1'])
+            left_pipette.pick_up_tip(tiprack6[id2well[x]])  
+            left_pipette.mix(3,10,solutionrack['B4'])
             left_pipette.blow_out()
             left_pipette.return_tip()
             x += 1
 
     if Wellcount > 2:
-        tiprack3 = protocol.load_labware('opentrons_96_tiprack_1000ul',4)  
+        tiprack3 = protocol.load_labware('opentrons_96_tiprack_10ul',4)  
         y=0
         while y < 96:
             left_pipette.pick_up_tip(tiprack3[id2well[y]])  
-            left_pipette.mix(3,1000,solutionrack['A1'])
+            left_pipette.mix(3,10,solutionrack['B4'])
             left_pipette.blow_out()
             left_pipette.return_tip()
             y += 1
 
     if Wellcount > 3:
-        tiprack4 = protocol.load_labware('opentrons_96_tiprack_1000ul',5)  
+        tiprack4 = protocol.load_labware('opentrons_96_tiprack_10ul',6)  
         z=0
         while z < 96:
             left_pipette.pick_up_tip(tiprack4[id2well[z]])  
-            left_pipette.mix(3,1000,solutionrack['A1'])
+            left_pipette.mix(3,10,solutionrack['B4'])
             left_pipette.blow_out()
             left_pipette.return_tip()
             z += 1
