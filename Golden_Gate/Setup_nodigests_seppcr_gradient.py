@@ -761,6 +761,15 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     dupin['A6'] = 'B6'
     dupin['A7'] = 'B7'
     dupin['A8'] = 'B8'
+    dupin['B1'] = 'C1'
+    dupin['B2'] = 'C2'
+    dupin['B3'] = 'C3'
+    dupin['B4'] = 'C4'
+    dupin['B5'] = 'C5'
+    dupin['B6'] = 'C6'
+    dupin['B7'] = 'C7'
+    dupin['B8'] = 'C8'
+
 
     duplicate_in_tube = pcr.duplicated(subset=['tube'])
     if duplicate_in_tube.any():
@@ -772,7 +781,19 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
         letter = pcr.loc[index[i]].at['tube']
         pcr.loc[index[i],'tube'] = dupin[letter]
         i = i + 1
-    pcr
+
+    #repeating the duplicate correction step in case there are triple duplicates (this might not be necessary but not sure)
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+    
 
     pcr.to_csv('pcr.csv')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
