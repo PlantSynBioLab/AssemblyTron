@@ -1629,7 +1629,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     right_pipette.pick_up_tip()
     right_pipette.aspirate(20,cold_tuberack['D2'])
     right_pipette.dispense(20,cold_tuberack['C4'])
-    #right_pipette.blow_out()
+    right_pipette.blow_out()
     right_pipette.drop_tip()
     
     left_pipette.pick_up_tip()
@@ -1666,32 +1666,32 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     right_pipette.blow_out()
                     right_pipette.drop_tip()
 
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
+                if 8 < globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
                     left_pipette.pick_up_tip()
                     left_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
                     left_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[globals()[x].loc[i].at['dil_tube']])
                     left_pipette.blow_out()
                     left_pipette.drop_tip()
 
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
-                    left_pipette.pick_up_tip()
-                    left_pipette.aspirate(3*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), watertuberack['A1'])
-                    left_pipette.dispense(3*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), pcrplate[globals()[x].loc[i].at['dil_tube']])
-                    left_pipette.blow_out()
-                    left_pipette.drop_tip()
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    right_pipette.pick_up_tip()
+                    right_pipette.aspirate(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), watertuberack['A1'])
+                    right_pipette.dispense(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    right_pipette.blow_out()
+                    right_pipette.drop_tip()
 #####################################################################################################
 ############adding temp
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 5:
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 8:
                     left_pipette.pick_up_tip()
                     left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
                     left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
                     left_pipette.blow_out()
                     left_pipette.drop_tip()
 
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
                     left_pipette.pick_up_tip()
-                    left_pipette.aspirate(3, pcrplate[globals()[x].loc[i].at['frag_loc']])
-                    left_pipette.dispense(3, pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    left_pipette.aspirate(4, pcrplate[globals()[x].loc[i].at['frag_loc']])
+                    left_pipette.dispense(4, pcrplate[globals()[x].loc[i].at['dil_tube']])
                     #left_pipette.blow_out()
                     left_pipette.drop_tip()
                 
@@ -1700,13 +1700,13 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     right_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
                     right_pipette.drop_tip()
 
-                if 5 < globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
                     left_pipette.pick_up_tip()
                     left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
                     left_pipette.drop_tip()
 
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
-                    print('skip') #do nothing
+                #if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    #print('skip') #do nothing
 
 #####################################################################################################
 ###########now add to goldengate tube
