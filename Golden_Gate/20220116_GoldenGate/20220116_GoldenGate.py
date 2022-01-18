@@ -1095,6 +1095,7 @@ if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
     combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
     combs_short = combinations[combs_shor]
     #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+combs_short = combs_short.T.drop_duplicates().T
 
 if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
     ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
@@ -1102,6 +1103,7 @@ if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
     combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
     combs_short = combinations[combs_shor]
     #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+combs_short = combs_short.T.drop_duplicates().T
 
 
 
