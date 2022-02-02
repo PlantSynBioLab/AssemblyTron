@@ -1095,6 +1095,7 @@ if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
     combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
     combs_short = combinations[combs_shor]
     #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+combs_short = combs_short.T.drop_duplicates().T
 
 if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
     ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
@@ -1102,6 +1103,7 @@ if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
     combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
     combs_short = combinations[combs_shor]
     #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+combs_short = combs_short.T.drop_duplicates().T
 
 
 
@@ -1665,20 +1667,24 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 ##########################################################################################################################
 #set up goldengate
-
+#here i'm trying to slow dow aspirate rate for the viscous 100X BSA
+    left_pipette.flow_rate.aspirate = 50
+    right_pipette.flow_rate.aspirate = 50
     #mix the T4 BSA combo
     right_pipette.pick_up_tip()
     right_pipette.aspirate(20,cold_tuberack['D2'])
     right_pipette.dispense(20,cold_tuberack['C4'])
     right_pipette.blow_out()
     right_pipette.drop_tip()
-    
+
+    left_pipette.flow_rate.aspirate = 10
     left_pipette.pick_up_tip()
     left_pipette.aspirate(2,cold_tuberack['C6'])
     left_pipette.dispense(2,cold_tuberack['C4'])
     #left_pipette.blow_out()
     left_pipette.mix(3,10,cold_tuberack['C4'])
     #left_pipette.blow_out()
+    left_pipette.flow_rate.aspirate = 50
     left_pipette.drop_tip()
 
 #for i in range(0,e):
@@ -1726,24 +1732,28 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     left_pipette.pick_up_tip()
                     left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
                     left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
-                    left_pipette.blow_out()
+                    #left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.blow_out()
                     left_pipette.drop_tip()
 
                 if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
                     left_pipette.pick_up_tip()
                     left_pipette.aspirate(4, pcrplate[globals()[x].loc[i].at['frag_loc']])
                     left_pipette.dispense(4, pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
                     #left_pipette.blow_out()
                     left_pipette.drop_tip()
                 
                 if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
                     right_pipette.pick_up_tip()
                     right_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #right_pipette.blow_out()
                     right_pipette.drop_tip()
 
                 if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
                     left_pipette.pick_up_tip()
                     left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.blow_out()
                     left_pipette.drop_tip()
 
                 #if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
@@ -1754,12 +1764,14 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['dil_tube']])
                 left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.blow_out()
                 left_pipette.drop_tip()
                 
             else:
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['frag_loc']])
                 left_pipette.dispense(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.blow_out()
                 left_pipette.drop_tip()
    
     
@@ -1767,31 +1779,31 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1.65,cold_tuberack['C4'])
         left_pipette.dispense(1.65,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
         left_pipette.mix(3,8,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.blow_out()
         left_pipette.drop_tip()
     
     #pipette the BsaI in
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['D5'])
         left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
         left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.blow_out()
         left_pipette.drop_tip()
     
     #pipette the T4 ligase in
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['C5'])
         left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
         left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.blow_out()
         left_pipette.drop_tip()
     
     # one more mix
-        right_pipette.pick_up_tip()
-        right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
+        # right_pipette.pick_up_tip()
+        # right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        # right_pipette.blow_out()
+        # right_pipette.drop_tip()
     
     tc_mod.close_lid()
     tc_mod.set_lid_temperature(temperature = 105)
