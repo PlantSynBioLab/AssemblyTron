@@ -148,6 +148,9 @@ def run(protocol: protocol_api.ProtocolContext):
             left_pipette.mix(3,10,solutionrack['B4'])
             left_pipette.move_to(solutionrack['B4'].top())
             left_pipette.blow_out()
+            left_pipette.mix(3,10,solutionrack['A4'])
+            left_pipette.move_to(solutionrack['A4'].top())
+            left_pipette.blow_out()
             left_pipette.drop_tip(tiprack2[id2well[r]])
             r += 1
 
