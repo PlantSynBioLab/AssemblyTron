@@ -298,188 +298,207 @@ combinations['water to add'] = (Input_values.loc[0].at['pcrvol']-primersadded- t
 
 combinations
 
-########################################################################################################################################
-#determining which row of pcr rack to start on. 
-
-loc_i = pandas.read_csv('/data/user_storage/output_new_pcrwell_location.csv')
-
-if loc_i.loc[0].at['newlocation'].startswith('H'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'A1'
-    id2wellpcr['1'] = 'A2'
-    id2wellpcr['2'] = 'A3'
-    id2wellpcr['3'] = 'A4'
-    id2wellpcr['4'] = 'A5'
-    id2wellpcr['5'] = 'A6'
-    id2wellpcr['6'] = 'A7'
-    id2wellpcr['7'] = 'A8'
-    id2wellpcr['8'] = 'A9'
-    id2wellpcr['9'] = 'A10'
-    id2wellpcr['10'] = 'A11'
-    id2wellpcr['11'] = 'A12'
-
-if loc_i.loc[0].at['newlocation'].startswith('A'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'B1'
-    id2wellpcr['1'] = 'B2'
-    id2wellpcr['2'] = 'B3'
-    id2wellpcr['3'] = 'B4'
-    id2wellpcr['4'] = 'B5'
-    id2wellpcr['5'] = 'B6'
-    id2wellpcr['6'] = 'B7'
-    id2wellpcr['7'] = 'B8'
-    id2wellpcr['8'] = 'B9'
-    id2wellpcr['9'] = 'B10'
-    id2wellpcr['10'] = 'B11'
-    id2wellpcr['11'] = 'B12'
-
-if loc_i.loc[0].at['newlocation'].startswith('B'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'C1'
-    id2wellpcr['1'] = 'C2'
-    id2wellpcr['2'] = 'C3'
-    id2wellpcr['3'] = 'C4'
-    id2wellpcr['4'] = 'C5'
-    id2wellpcr['5'] = 'C6'
-    id2wellpcr['6'] = 'C7'
-    id2wellpcr['7'] = 'C8'
-    id2wellpcr['8'] = 'C9'
-    id2wellpcr['9'] = 'C10'
-    id2wellpcr['10'] = 'C11'
-    id2wellpcr['11'] = 'C12'
-
-if loc_i.loc[0].at['newlocation'].startswith('C'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'D1'
-    id2wellpcr['1'] = 'D2'
-    id2wellpcr['2'] = 'D3'
-    id2wellpcr['3'] = 'D4'
-    id2wellpcr['4'] = 'D5'
-    id2wellpcr['5'] = 'D6'
-    id2wellpcr['6'] = 'D7'
-    id2wellpcr['7'] = 'D8'
-    id2wellpcr['8'] = 'D9'
-    id2wellpcr['9'] = 'D10'
-    id2wellpcr['10'] = 'D11'
-    id2wellpcr['11'] = 'D12'
-
-if loc_i.loc[0].at['newlocation'].startswith('D'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'E1'
-    id2wellpcr['1'] = 'E2'
-    id2wellpcr['2'] = 'E3'
-    id2wellpcr['3'] = 'E4'
-    id2wellpcr['4'] = 'E5'
-    id2wellpcr['5'] = 'E6'
-    id2wellpcr['6'] = 'E7'
-    id2wellpcr['7'] = 'E8'
-    id2wellpcr['8'] = 'E9'
-    id2wellpcr['9'] = 'E10'
-    id2wellpcr['10'] = 'E11'
-    id2wellpcr['11'] = 'E12'
-
-if loc_i.loc[0].at['newlocation'].startswith('E'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'F1'
-    id2wellpcr['1'] = 'F2'
-    id2wellpcr['2'] = 'F3'
-    id2wellpcr['3'] = 'F4'
-    id2wellpcr['4'] = 'F5'
-    id2wellpcr['5'] = 'F6'
-    id2wellpcr['6'] = 'F7'
-    id2wellpcr['7'] = 'F8'
-    id2wellpcr['8'] = 'F9'
-    id2wellpcr['9'] = 'F10'
-    id2wellpcr['10'] = 'F11'
-    id2wellpcr['11'] = 'F12'
-
-if loc_i.loc[0].at['newlocation'].startswith('F'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'G1'
-    id2wellpcr['1'] = 'G2'
-    id2wellpcr['2'] = 'G3'
-    id2wellpcr['3'] = 'G4'
-    id2wellpcr['4'] = 'G5'
-    id2wellpcr['5'] = 'G6'
-    id2wellpcr['6'] = 'G7'
-    id2wellpcr['7'] = 'G8'
-    id2wellpcr['8'] = 'G9'
-    id2wellpcr['9'] = 'G10'
-    id2wellpcr['10'] = 'G11'
-    id2wellpcr['11'] = 'G12'
-
-if loc_i.loc[0].at['newlocation'].startswith('G'):
-
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'H1'
-    id2wellpcr['1'] = 'H2'
-    id2wellpcr['2'] = 'H3'
-    id2wellpcr['3'] = 'H4'
-    id2wellpcr['4'] = 'H5'
-    id2wellpcr['5'] = 'H6'
-    id2wellpcr['6'] = 'H7'
-    id2wellpcr['7'] = 'H8'
-    id2wellpcr['8'] = 'H9'
-    id2wellpcr['9'] = 'H10'
-    id2wellpcr['10'] = 'H11'
-    id2wellpcr['11'] = 'H12'
-
-####################################################################################################################################
+id2wellpcr = {}
+id2wellpcr['0'] = 'A1'
+id2wellpcr['1'] = 'A2'
+id2wellpcr['2'] = 'A3'
+id2wellpcr['3'] = 'A4'
+id2wellpcr['4'] = 'A5'
+id2wellpcr['5'] = 'A6'
+id2wellpcr['6'] = 'A7'
+id2wellpcr['7'] = 'A8'
+id2wellpcr['8'] = 'A9'
+id2wellpcr['9'] = 'A10'
+id2wellpcr['10'] = 'A11'
+id2wellpcr['11'] = 'A12'
 
 combinations['pcrwell']=combinations['ID Number']
 for i, row in combinations.iterrows():
     combinations.loc[i,'pcrwell'] = id2wellpcr[str(i)]
 combinations
 
-#combinations.to_csv('output_'+Date+'_combination_IVA.csv')
 
-last_pcrwell = len(combinations['pcrwell'])
-last_pcrwell
-last_pcrwell_id = last_pcrwell - 1
-last_pcrwell_id
+########################################################################################################################################
+#determining which row of pcr rack to start on,loop through 96 well, not totally necessary. 
 
-#lastlocation = plasmid['Digestion Tube'].iloc[-1]
-lastlocation = combinations.loc[last_pcrwell_id].at['pcrwell']
-lastlocation
+# loc_i = pandas.read_csv('/data/user_storage/output_new_pcrwell_location.csv')
 
-#lastlocation = 'H12'
+# if loc_i.loc[0].at['newlocation'].startswith('H'):
 
-rowchar = lastlocation[0]
-r = ord(rowchar[0])
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'A1'
+#     id2wellpcr['1'] = 'A2'
+#     id2wellpcr['2'] = 'A3'
+#     id2wellpcr['3'] = 'A4'
+#     id2wellpcr['4'] = 'A5'
+#     id2wellpcr['5'] = 'A6'
+#     id2wellpcr['6'] = 'A7'
+#     id2wellpcr['7'] = 'A8'
+#     id2wellpcr['8'] = 'A9'
+#     id2wellpcr['9'] = 'A10'
+#     id2wellpcr['10'] = 'A11'
+#     id2wellpcr['11'] = 'A12'
 
-if lastlocation == 'H12':
-    raise ValueError("you need new pcr wells")
+# if loc_i.loc[0].at['newlocation'].startswith('A'):
 
-elif len(lastlocation) == 2:
-    newlocation = lastlocation[0] + str(int(lastlocation[1]) + 1)
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'B1'
+#     id2wellpcr['1'] = 'B2'
+#     id2wellpcr['2'] = 'B3'
+#     id2wellpcr['3'] = 'B4'
+#     id2wellpcr['4'] = 'B5'
+#     id2wellpcr['5'] = 'B6'
+#     id2wellpcr['6'] = 'B7'
+#     id2wellpcr['7'] = 'B8'
+#     id2wellpcr['8'] = 'B9'
+#     id2wellpcr['9'] = 'B10'
+#     id2wellpcr['10'] = 'B11'
+#     id2wellpcr['11'] = 'B12'
+
+# if loc_i.loc[0].at['newlocation'].startswith('B'):
+
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'C1'
+#     id2wellpcr['1'] = 'C2'
+#     id2wellpcr['2'] = 'C3'
+#     id2wellpcr['3'] = 'C4'
+#     id2wellpcr['4'] = 'C5'
+#     id2wellpcr['5'] = 'C6'
+#     id2wellpcr['6'] = 'C7'
+#     id2wellpcr['7'] = 'C8'
+#     id2wellpcr['8'] = 'C9'
+#     id2wellpcr['9'] = 'C10'
+#     id2wellpcr['10'] = 'C11'
+#     id2wellpcr['11'] = 'C12'
+
+# if loc_i.loc[0].at['newlocation'].startswith('C'):
+
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'D1'
+#     id2wellpcr['1'] = 'D2'
+#     id2wellpcr['2'] = 'D3'
+#     id2wellpcr['3'] = 'D4'
+#     id2wellpcr['4'] = 'D5'
+#     id2wellpcr['5'] = 'D6'
+#     id2wellpcr['6'] = 'D7'
+#     id2wellpcr['7'] = 'D8'
+#     id2wellpcr['8'] = 'D9'
+#     id2wellpcr['9'] = 'D10'
+#     id2wellpcr['10'] = 'D11'
+#     id2wellpcr['11'] = 'D12'
+
+# if loc_i.loc[0].at['newlocation'].startswith('D'):
+
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'E1'
+#     id2wellpcr['1'] = 'E2'
+#     id2wellpcr['2'] = 'E3'
+#     id2wellpcr['3'] = 'E4'
+#     id2wellpcr['4'] = 'E5'
+#     id2wellpcr['5'] = 'E6'
+#     id2wellpcr['6'] = 'E7'
+#     id2wellpcr['7'] = 'E8'
+#     id2wellpcr['8'] = 'E9'
+#     id2wellpcr['9'] = 'E10'
+#     id2wellpcr['10'] = 'E11'
+#     id2wellpcr['11'] = 'E12'
+
+# if loc_i.loc[0].at['newlocation'].startswith('E'):
+
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'F1'
+#     id2wellpcr['1'] = 'F2'
+#     id2wellpcr['2'] = 'F3'
+#     id2wellpcr['3'] = 'F4'
+#     id2wellpcr['4'] = 'F5'
+#     id2wellpcr['5'] = 'F6'
+#     id2wellpcr['6'] = 'F7'
+#     id2wellpcr['7'] = 'F8'
+#     id2wellpcr['8'] = 'F9'
+#     id2wellpcr['9'] = 'F10'
+#     id2wellpcr['10'] = 'F11'
+#     id2wellpcr['11'] = 'F12'
+
+# if loc_i.loc[0].at['newlocation'].startswith('F'):
+
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'G1'
+#     id2wellpcr['1'] = 'G2'
+#     id2wellpcr['2'] = 'G3'
+#     id2wellpcr['3'] = 'G4'
+#     id2wellpcr['4'] = 'G5'
+#     id2wellpcr['5'] = 'G6'
+#     id2wellpcr['6'] = 'G7'
+#     id2wellpcr['7'] = 'G8'
+#     id2wellpcr['8'] = 'G9'
+#     id2wellpcr['9'] = 'G10'
+#     id2wellpcr['10'] = 'G11'
+#     id2wellpcr['11'] = 'G12'
+
+# if loc_i.loc[0].at['newlocation'].startswith('G'):
+
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'H1'
+#     id2wellpcr['1'] = 'H2'
+#     id2wellpcr['2'] = 'H3'
+#     id2wellpcr['3'] = 'H4'
+#     id2wellpcr['4'] = 'H5'
+#     id2wellpcr['5'] = 'H6'
+#     id2wellpcr['6'] = 'H7'
+#     id2wellpcr['7'] = 'H8'
+#     id2wellpcr['8'] = 'H9'
+#     id2wellpcr['9'] = 'H10'
+#     id2wellpcr['10'] = 'H11'
+#     id2wellpcr['11'] = 'H12'
+
+# ####################################################################################################################################
+
+# combinations['pcrwell']=combinations['ID Number']
+# for i, row in combinations.iterrows():
+#     combinations.loc[i,'pcrwell'] = id2wellpcr[str(i)]
+# combinations
+
+# #combinations.to_csv('output_'+Date+'_combination_IVA.csv')
+
+# last_pcrwell = len(combinations['pcrwell'])
+# last_pcrwell
+# last_pcrwell_id = last_pcrwell - 1
+# last_pcrwell_id
+
+# #lastlocation = plasmid['Digestion Tube'].iloc[-1]
+# lastlocation = combinations.loc[last_pcrwell_id].at['pcrwell']
+# lastlocation
+
+# #lastlocation = 'H12'
+
+# rowchar = lastlocation[0]
+# r = ord(rowchar[0])
+
+# if lastlocation == 'H12':
+#     raise ValueError("you need new pcr wells")
+
+# elif len(lastlocation) == 2:
+#     newlocation = lastlocation[0] + str(int(lastlocation[1]) + 1)
     
-elif len(lastlocation) == 3:
-    if lastlocation[2] == '2':
-        newlocation = chr(r + 1) + '1'
-    elif lastlocation[2] == '1' or '0':
-        newlocation = lastlocation[0] + lastlocation[1] + str(int(lastlocation[2]) + 1)
+# elif len(lastlocation) == 3:
+#     if lastlocation[2] == '2':
+#         newlocation = chr(r + 1) + '1'
+#     elif lastlocation[2] == '1' or '0':
+#         newlocation = lastlocation[0] + lastlocation[1] + str(int(lastlocation[2]) + 1)
 
-newlocation
+# newlocation
 
    
-newlocation
-newlocationlist = [newlocation]
+# newlocation
+# newlocationlist = [newlocation]
 
-columns = ['newlocation']
+# columns = ['newlocation']
 
-# value: series of values
-newlocation_df = pandas.DataFrame(newlocationlist, columns=columns)
-newlocation_df
+# # value: series of values
+# newlocation_df = pandas.DataFrame(newlocationlist, columns=columns)
+# newlocation_df
 
-newlocation_df.to_csv('/data/user_storage/output_new_pcrwell_location.csv')
-
+# newlocation_df.to_csv('/data/user_storage/output_new_pcrwell_location.csv')
 
 ###################################################################################################
 #annealing calcs
@@ -753,7 +772,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
         left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
-        left_pipette.mix(3,5,tuberack2[oligos.loc[i].at['well']])
+        left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
         #left_pipette.blow_out()
         left_pipette.drop_tip()
     
@@ -838,7 +857,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #these parameters can be altered for different pcr reactionsabs
 #should automate calculation of the parameters from j5 spreadsheets.
 #maybe use the median annealing temperature in the spreadsheet
-    
+    tc_mod.close_lid()
     tc_mod.set_lid_temperature(temperature = 105)
     tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
     profile = [
@@ -849,12 +868,13 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
     tc_mod.set_block_temperature(4)
     tc_mod.open_lid()
+    protocol.pause()
 
 #Now add DPNI for digestion
 
     for i, row in combinations.iterrows():
         right_pipette.pick_up_tip()
-        right_pipette.aspirate(Input_values.loc[0].at['DPwater'], cold_tuberack['D3'], rate=2.0)
+        right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
         right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
         right_pipette.mix(3,Input_values.loc[0].at['DPwater'],pcrplate[combinations.loc[i].at['pcrwell']])
         right_pipette.drop_tip()
