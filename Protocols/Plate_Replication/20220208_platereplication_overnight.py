@@ -67,55 +67,55 @@ plasmids_df['loc'] = plasmids_df['row'] + plasmids_df['col'].astype(str)
 
 for i, row in plasmids_df.iterrows():
     if plasmids_df.loc[i,'bacterial res'] == 'Amp':
-        plasmids_df.loc[i,'anti loc'] = 'A1'
-
-        
-for i, row in plasmids_df.iterrows():
-    if plasmids_df.loc[i,'bacterial res'] == 'Kan':
-        plasmids_df.loc[i,'anti loc'] = 'A2'
-
-        
-for i, row in plasmids_df.iterrows():
-    if plasmids_df.loc[i,'bacterial res'] == 'Chl':
         plasmids_df.loc[i,'anti loc'] = 'A3'
 
         
 for i, row in plasmids_df.iterrows():
-    if plasmids_df.loc[i,'bacterial res'] == 'Tet':
+    if plasmids_df.loc[i,'bacterial res'] == 'Kan':
+        plasmids_df.loc[i,'anti loc'] = 'A1'
+
+        
+for i, row in plasmids_df.iterrows():
+    if plasmids_df.loc[i,'bacterial res'] == 'Chl':
         plasmids_df.loc[i,'anti loc'] = 'A4'
+
+        
+for i, row in plasmids_df.iterrows():
+    if plasmids_df.loc[i,'bacterial res'] == 'Tet':
+        plasmids_df.loc[i,'anti loc'] = 'A2'
  
         
 for i, row in plasmids_df.iterrows():
     if plasmids_df.loc[i,'bacterial res'] == 'Spec':
-        plasmids_df.loc[i,'anti loc'] = 'A5'
-
-        
-for i, row in plasmids_df.iterrows():
-    if plasmids_df.loc[i,'bacterial res'] == 'Gent':
         plasmids_df.loc[i,'anti loc'] = 'B1'
 
         
 for i, row in plasmids_df.iterrows():
-    if plasmids_df.loc[i,'bacterial res'] == 'Zeo':
+    if plasmids_df.loc[i,'bacterial res'] == 'Gent':
         plasmids_df.loc[i,'anti loc'] = 'B2'
+
+        
+for i, row in plasmids_df.iterrows():
+    if plasmids_df.loc[i,'bacterial res'] == 'Zeo':
+        plasmids_df.loc[i,'anti loc'] = 'C1'
         
 for i, row in plasmids_df.iterrows():
     if plasmids_df.loc[i,'bacterial res'] == 'Carb':
-        plasmids_df.loc[i,'anti loc'] = 'B3'
+        plasmids_df.loc[i,'anti loc'] = 'C2'
            
 
 for i, row in plasmids_df.iterrows():
     if plasmids_df.loc[i,'bacterial res2'] == 'Chl':
-        plasmids_df.loc[i,'anti loc2'] = 'A3'
+        plasmids_df.loc[i,'anti loc2'] = 'A4'
 
 
 for i, row in plasmids_df.iterrows():
     if plasmids_df.loc[i,'bacterial res2'] == 'Kan':
-        plasmids_df.loc[i,'anti loc2'] = 'A2'
+        plasmids_df.loc[i,'anti loc2'] = 'A1'
 
 for i, row in plasmids_df.iterrows():
     if plasmids_df.loc[i,'bacterial res2'] == 'Gent':
-        plasmids_df.loc[i,'anti loc2'] = 'B1'
+        plasmids_df.loc[i,'anti loc2'] = 'B2'
 
 
 
@@ -188,7 +188,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     deepwell4 = protocol.load_labware('nest_96_wellplate_2ml_deep',8)
     media_res = protocol.load_labware('agilent_1_reservoir_290ml',9)
 
-    anti_tubes = protocol.load_labware('opentrons_15_tuberack_falcon_15ml_conical',10)
+    anti_tubes = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical',10)
 
 
     pipette_right.pick_up_tip()
@@ -207,56 +207,56 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             
             if plasmids_df.loc[i,'bacterial res'] == 'Amp':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A1'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A3'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
             
             if plasmids_df.loc[i,'bacterial res'] == 'Kan':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A2'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Chl':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A3'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A4'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Tet':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A4'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Spec':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A5'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Gent':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B1'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Zeo':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B2'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['C1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Carb':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B3'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['C2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
@@ -267,21 +267,21 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     
             if plasmids_df.loc[i,'bacterial res2'] == 'Chl':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A3'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A4'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res2'] == 'Kan':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A2'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res2'] == 'Gent':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B1'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
@@ -311,56 +311,56 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             
             if plasmids_df.loc[i,'bacterial res'] == 'Amp':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A1'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A3'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
             
             if plasmids_df.loc[i,'bacterial res'] == 'Kan':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A2'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Chl':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A3'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A4'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Tet':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A4'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Spec':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A5'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Gent':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B1'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Zeo':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B2'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['C1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res'] == 'Carb':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B3'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['C2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
@@ -371,21 +371,21 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     
             if plasmids_df.loc[i,'bacterial res2'] == 'Chl':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A3'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A4'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res2'] == 'Kan':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A2'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['A1'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
                     
             if plasmids_df.loc[i,'bacterial res2'] == 'Gent':
                 pipette_left.pick_up_tip()
-                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B1'])
+                pipette_left.aspirate(int(overnight_df['anti(uL)']),anti_tubes['B2'])
                 pipette_left.dispense(int(overnight_df['anti(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
                 pipette_left.blow_out()
                 pipette_left.drop_tip()
