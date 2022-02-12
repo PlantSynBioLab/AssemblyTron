@@ -47,15 +47,15 @@ paths
 
 shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-#shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
 oligos = pandas.read_csv('oligo.csv')
 oligos
 
-#digests = pandas.read_csv('digests.csv')
-#digests
+digests = pandas.read_csv('digests.csv')
+digests
 
 pcr = pandas.read_csv('pcr.csv')
 pcr.columns = pcr.columns.str.replace("'","")
@@ -107,14 +107,14 @@ def main():
     
     Nextslot = len(oligos["ID Number"])
     
-    # No digest in this protocol
-    # f = open('Golden_Gate_instructions.txt','a+')
-    # for i, row in digests.iterrows():
-    #     f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
-    #     Nextslot = Nextslot+1
-    # f.close()
     
-    #Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
+    f = open('GoldenGate_instructions.txt','a+')
+    for i, row in digests.iterrows():
+        f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        Nextslot = Nextslot+1
+    f.close()
+    
+    Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
     
     f = open('GoldenGate_instructions.txt','a+')
     
@@ -124,13 +124,13 @@ def main():
         
         if i > 0:
             if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
-                Nextslot = Nextslot
+                Nextslot2 = Nextslot2
             else:
-                Nextslot = Nextslot+1
+                Nextslot2 = Nextslot2+1
     
         
         
-        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot2)]+'\r\n')
         
    
     f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
@@ -246,7 +246,7 @@ os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
 os.rename('GoldenGate_nodigests_separatepcrruns-gradient.py', date+'_GoldenGate.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
-#shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
@@ -276,8 +276,8 @@ def set_variables():
     global cutsmart
     global Date
     global ngdesired
-    # global pwldigesttemp
-    # global concdigesttemp
+    global pwldigesttemp
+    global concdigesttemp
     
     global extra1value
     global extra1name
@@ -308,8 +308,8 @@ def set_variables():
     cutsmart = float(cutsmart_entry.get())
     Date = Date_entry.get()
     ngdesired = float(ngdesired_entry.get())
-    # pwldigesttemp = float(pwldigesttemp_entry.get())
-    # concdigesttemp = float(concdigesttemp_entry.get())
+    pwldigesttemp = float(pwldigesttemp_entry.get())
+    concdigesttemp = float(concdigesttemp_entry.get())
     
     extra1value = float(extra1value_entry.get())
     extra1name = str(extra1name_entry.get())
@@ -419,11 +419,11 @@ label_Date.place(relx=0,rely=0.3)
 label_ngdesired = tk.Label(text='ngdesired',font=('Helvatical bold',14))
 label_ngdesired.place(relx=0,rely=0.325)
 
-# label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
-# label_pwldigesttemp.place(relx=0,rely=0.35)
+label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
+label_pwldigesttemp.place(relx=0,rely=0.35)
 
-# label_concdigesttemp = tk.Label(text='concdigesttemp',font=('Helvatical bold',14))
-# label_concdigesttemp.place(relx=0,rely=0.375)
+label_concdigesttemp = tk.Label(text='concdigesttemp',font=('Helvatical bold',14))
+label_concdigesttemp.place(relx=0,rely=0.375)
 
 label_extra1 = tk.Label(text='extra1',font=('Helvatical bold',14))
 label_extra1.place(relx=0,rely=0.425)
@@ -487,13 +487,13 @@ ngdesired_entry = tk.Entry()
 ngdesired_entry.insert(END, '100')
 ngdesired_entry.place(relx=0.1,rely=0.325,width=35)
 
-# pwldigesttemp_entry = tk.Entry()
-# pwldigesttemp_entry.insert(END, '0')
-# pwldigesttemp_entry.place(relx=0.1,rely=0.35,width=35)
+pwldigesttemp_entry = tk.Entry()
+pwldigesttemp_entry.insert(END, '0')
+pwldigesttemp_entry.place(relx=0.1,rely=0.35,width=35)
 
-# concdigesttemp_entry = tk.Entry()
-# concdigesttemp_entry.insert(END, '0')
-# concdigesttemp_entry.place(relx=0.1,rely=0.375,width=35)
+concdigesttemp_entry = tk.Entry()
+concdigesttemp_entry.insert(END, '0')
+concdigesttemp_entry.place(relx=0.1,rely=0.375,width=35)
 
 extra1name_entry = tk.Entry()
 extra1name_entry.insert(END, 'variable')

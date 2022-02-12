@@ -110,15 +110,18 @@ id2well['21'] = 'D4'
 id2well['22'] = 'D5'
 id2well['23'] = 'D6'
 
-id2pcrrr = {}
-id2pcrrr['0'] = 'D2'
-id2pcrrr['1'] = 'D3'
-id2pcrrr['2'] = 'D4'
-id2pcrrr['3'] = 'D5'
-id2pcrrr['4'] = 'D6'
-id2pcrrr['5'] = 'D7'
-id2pcrrr['6'] = 'D8'
-id2pcrrr['7'] = 'D9'
+pcr = pandas.read_csv('pcr.csv')
+id2pcrrr = pcr.set_index('Reaction ID Number').to_dict()['tube']
+
+#id2pcrrr = {}
+#id2pcrrr['0'] = 'B2'
+#id2pcrrr['1'] = 'B3'
+#id2pcrrr['2'] = 'B4'
+#id2pcrrr['3'] = 'B5'
+#id2pcrrr['4'] = 'B6'
+#id2pcrrr['5'] = 'B7'
+#id2pcrrr['6'] = 'B8'
+#id2pcrrr['7'] = 'B9'
 # id2pcrrr['8'] = 'B10'
 # id2pcrrr['9'] = 'B11'
 # id2pcrrr['10'] = 'C2'
@@ -135,6 +138,7 @@ id2pcrrr['7'] = 'D9'
 # id2pcrrr['21'] = 'D3'
 # id2pcrrr['22'] = 'D4'
 # id2pcrrr['23'] = 'D5'
+
 
 for i, row in oligos.iterrows():
     oligos.loc[i,'well'] = id2well[str(i)] #this only works because the index matces the id number. id number is a floating value
@@ -161,7 +165,7 @@ assembly = pandas.read_csv('assembly.csv')
 assembly
 
 for i, row in assembly.iterrows():
-    assembly.loc[i,'pcr_frag_tube'] = id2pcrrr[str(i)]
+    assembly.loc[i,'pcr_frag_tube'] = id2pcrrr[i]
 assembly
 
 assembly.to_csv('output_'+Date+'_assembly_GoldenGate.csv')
@@ -208,7 +212,7 @@ assembly.to_csv('output_'+Date+'_assembly_GoldenGate.csv')
 #pcr
 
 #os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
-pcr = pandas.read_csv('pcr.csv')
+# pcr = pandas.read_csv('pcr.csv')
 pcr.columns = pcr.columns.str.replace("'","")
 pcr
 
@@ -314,7 +318,7 @@ pcr_plustemplates
 
 #pcrstart  = len(digests['well'])
 for i, row in pcr_plustemplates.iterrows():
-    pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2pcrrr[str(i)]
+    pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2pcrrr[i]
 pcr_plustemplates
 
 prvol = pandas.DataFrame()
@@ -326,7 +330,7 @@ prvol = prvol.rename(columns={'well':'well2'})
 pcr_plustemplates = pcr_plustemplates.merge(prvol, on='well2')
 pcr_plustemplates
 
-
+pcr_plustemplates.to_csv('output_'+Date+'_pcr_GoldenGate.csv')
 
 #######################################################################################################################################################################################################################
 #combinations
@@ -559,500 +563,432 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
 ######################separate pcrrxns####################################
 ########################################################################
 if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
-    runnumber = 0
+    gradient = pandas.read_csv('gradient.csv')
+    
+    # runnumber = 0
 
-    pcr_plustemplates
-    pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
-    pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
-    pcr_plustemplates
+    # pcr_plustemplates
+    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates
+
+    # temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
+    
+    # deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
+    # delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
+    # delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
+    
+    # U = delta_temp + delta_val
+    # L = delta_temp - delta_val
+
+    # redo = 1
+    
+    # while redo == 1:
+
+    #     current = 0
+    #     CV = 0
+
+    #     num = 100000
+    #     for x in range(num):    
+    
+    #         #temps = [59.499,65.4245,67.8095,62.142,62.7575]
+    #         #temps
+
+    #         one = np.random.uniform(50,70)
+    #         #one = round(numpy.random.uniform(50, 70), 1)
+    #         eight = np.random.uniform(70,90)
+    #         #eight = round(numpy.random.uniform(70, 90), 1)
+
+    #         two = one +((2-1)/(8-1)) * (eight-one)
+    #         three = one +((3-1)/(8-1)) * (eight-one)
+    #         four = one +((4-1)/(8-1)) * (eight-one)
+    #         five = one +((5-1)/(8-1)) * (eight-one)
+    #         six = one +((6-1)/(8-1)) * (eight-one)
+    #         seven = one +((7-1)/(8-1)) * (eight-one)
+
+    #         vector = [one,two,three,four,five,six,seven,eight]
+
+    #         f = []
+    #         i = 0
+    #         while i < len(vector):
+    #             j = 0
+    #             while j < len(temps):
+    #                 Diff = abs(vector[i]-temps[j])
+    #                 if Diff > 0.4:
+    #                     f.append(100.0)
+    #                 if Diff < 0.4:
+    #                     f.append(Diff)
+    #                 j = j + 1
+    #             i = i + 1
+    #         sum(f)
+    
+    #         #if sum(f) < 3505.0 & :
+        
+    #         if current == 0:
+        
+    #             current = sum(f)
+    #             CV = vector
+    
+    #         else:
+    #             if sum(f) < current:
+    #                 current = sum(f)
+    #                 CV = vector
+            
+    #     #find upper and lower for lowest range rxn
+    #     #lowest delta -> upper and lower -> check temps
+    #     #U = 65.6955
+    #     #L = 65.1535
+
+    #     i = 0
+    #     while i < len(CV):
+    #         if L<CV[i]<U:
+    #             print('good')
+    #             redo = 2
+    #             break
+    #         else:
+    #             redo = 1
+    #             print(redo)
+    #         i = i + 1
+    
+
+
+    # gradient = pandas.DataFrame(CV, columns=['temp'])
+    # wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
+    # gradient['tube'] = wells
+    
+    # for i, row in pcr_plustemplates.iterrows():
+    #     diffss = []
+    #     for j, row in gradient.iterrows():
+    #         aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)']
+    #         bbb = gradient.loc[j].at['temp']
+    #         A = abs(aaa - bbb )
+    #         diffss.append(A)
+    #     min_val = min(diffss)
+    #     min_index = diffss.index(min_val)
+    #     pcr_plustemplates.loc[i,'tube'] = gradient.loc[min_index].at['tube']
+    # pcr_plustemplates
+
+    # dupin = {}
+    # dupin['A1'] = 'B1'
+    # dupin['A2'] = 'B2'
+    # dupin['A3'] = 'B3'
+    # dupin['A4'] = 'B4'
+    # dupin['A5'] = 'B5'
+    # dupin['A6'] = 'B6'
+    # dupin['A7'] = 'B7'
+    # dupin['A8'] = 'B8'
+
+    # duplicate_in_tube = pcr_plustemplates.duplicated(subset=['tube'])
+    # if duplicate_in_tube.any():
+    #     tes = pcr_plustemplates.loc[duplicate_in_tube]
+    #     index = tes.index
+    # index
+    # i = 0
+    # while i < len(index):
+    #     letter = pcr_plustemplates.loc[index[i]].at['tube']
+    #     pcr_plustemplates.loc[index[i],'tube'] = dupin[letter]
+    #     i = i + 1
+    # pcr_plustemplates
+
+    # gradient.to_csv('gradient.csv')
+
+
+
 
 # multiple pcr run variation.
-    runnumber = 0
-    annealing = []
-    pcr_plustemplates['run'] = ''
-    for i, row in pcr_plustemplates.iterrows():
+    # runnumber = 0
+    # annealing = []
+    # pcr_plustemplates['run'] = ''
+    # for i, row in pcr_plustemplates.iterrows():
     
-        comparison1 = pandas.DataFrame()
-        comparison2 = pandas.DataFrame()
-        comparison3 = pandas.DataFrame()
-        comparison4 = pandas.DataFrame()
-        comparison5 = pandas.DataFrame()
-        comparison6 = pandas.DataFrame()   
+    #     comparison1 = pandas.DataFrame()
+    #     comparison2 = pandas.DataFrame()
+    #     comparison3 = pandas.DataFrame()
+    #     comparison4 = pandas.DataFrame()
+    #     comparison5 = pandas.DataFrame()
+    #     comparison6 = pandas.DataFrame()   
             
-        if i == 0:
-            pcr_plustemplates.loc[i,'run'] = runnumber
-            annealing_temp = pcr_plustemplates.loc[i].at['Upper_temp']
-            annealing.append(annealing_temp)
+    #     if i == 0:
+    #         pcr_plustemplates.loc[i,'run'] = runnumber
+    #         annealing_temp = pcr_plustemplates.loc[i].at['Upper_temp']
+    #         annealing.append(annealing_temp)
             
-        if i == 1:
-            comparison1 = pcr_plustemplates.iloc[i-1,:]
-            comparison2 = pcr_plustemplates.iloc[i,:] #last one is the row we're on and evaluatinh
+    #     if i == 1:
+    #         comparison1 = pcr_plustemplates.iloc[i-1,:]
+    #         comparison2 = pcr_plustemplates.iloc[i,:] #last one is the row we're on and evaluatinh
                
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']   
+    #         HL = comparison1['Upper_temp']
+    #         LH = comparison1['Lower_temp']   
                
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
+    #         HL2 = comparison2['Upper_temp']
+    #         LH2 = comparison2['Lower_temp'] 
                    
-            if L1 < (U2 + L2)/2 < U1:
-                annealing = []
-                annealing.append((U2 + L2)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U2 + L2)/2
-        
-            # elif L1 < U2 < U1:
-            #     annealing = []
-            #     annealing.append(U2)
-            #     pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-            #     annealing_temp = U2
-
-            else:
-                runnumber = runnumber + 1
-                annealing_temp = (U2 + L2)/2 #pcr_plustemplates.loc[i].at['Upper_temp']#(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-                pcr_plustemplates.loc[i,'run'] = runnumber
-            
-            annealing.append(annealing_temp)
-                    
-        if i == 2:
-            comparison1 = pcr_plustemplates.iloc[i-2,:]
-            comparison2 = pcr_plustemplates.iloc[i-1,:]
-            comparison3 = pcr_plustemplates.iloc[i,:]
-                    
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']    
-               
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
-                    
-            U3 = comparison3['Upper_temp']
-            L3 = comparison3['Lower_temp'] 
+    #         if LH2 < HL:
+    #             annealing_temp = LH2
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 
-            if L1 < (U3+L3)/2 < U1 and L2 < (U3+L3)/2 < U2:
-                annealing = []
-                annealing.append((U3 + L3)/2)
-                annealing.append((U3 + L3)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U3 + L3)/2  
-
-            # elif L1 < U3 < U1 and L2 < U3 < U2:
-            #     annealing = []
-            #     annealing.append(U3)
-            #     annealing.append(U3)
-            #     pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-            #     annealing_temp = U3
-
-            elif L2 < (U3+L3)/2 < U2:
-                del annealing[1]
-                annealing.append((U3 + L3)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                annealing_temp = (U3 + L3)/2  
-
-            # elif L2 < U3 < U2:
-            #     del annealing[-1]
-            #     annealing.append(U3)
-            #     pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-            #     annealing_temp = U3
-
-            else:
-                runnumber = runnumber + 1
-                annealing_temp = U3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-                pcr_plustemplates.loc[i,'run'] = runnumber
+    #         elif LH2 > HL:
+    #             runnumber = runnumber + 1
+    #             annealing_temp = LH2 #pcr_plustemplates.loc[i].at['Upper_temp']#(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+    #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-            annealing.append(annealing_temp)
+    #         annealing.append(annealing_temp)
                     
-        #  if i == 3:
-        #     comparison1 = pcr_plustemplates.iloc[i-3,:]
-        #     comparison2 = pcr_plustemplates.iloc[i-2,:]
-        #     comparison3 = pcr_plustemplates.iloc[i-1,:]
-        #     comparison4 = pcr_plustemplates.iloc[i,:]
-
-        #     U1 = comparison1['Upper_temp']
-        #     L1 = comparison1['Lower_temp']    
+    #     if i == 2:
+    #         comparison1 = pcr_plustemplates.iloc[i-2,:]
+    #         comparison2 = pcr_plustemplates.iloc[i-1,:]
+    #         comparison3 = pcr_plustemplates.iloc[i,:]
+                    
+    #         HL = comparison1['Upper_temp']
+    #         LH = comparison1['Lower_temp']    
                
-        #     U2 = comparison2['Upper_temp']
-        #     L2 = comparison2['Lower_temp'] 
+    #         HL2 = comparison2['Upper_temp']
+    #         LH2 = comparison2['Lower_temp'] 
                     
-        #     U3 = comparison3['Upper_temp']
-        #     L3 = comparison3['Lower_temp']
+    #         HL3 = comparison3['Upper_temp']
+    #         LH3 = comparison3['Lower_temp'] 
+                    
+    #         if LH3 < HL:
+    #             annealing_temp = LH3
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+                   
+    #         elif LH3 < HL2:
+    #             annealing_temp = LH3
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
 
-        #     U4 = comparison4['Upper_temp']
-        #     L4 = comparison4['Lower_temp']
-
-                
-        #     if L1 < (U4+L4)/2 < U1 and L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
-        #         annealing = []
-        #         annealing.append((U4 + L4)/2)
-        #         annealing.append((U4 + L4)/2)
-        #         annealing.append((U4 + L4)/2)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-        #         annealing_temp = (U4 + L4)/2  
-
-        #     elif L1 < U4 < U1 and L2 < U4 < U2 and L3 < U4 < U3:
-        #         annealing = []
-        #         annealing.append(U4)
-        #         annealing.append(U4)
-        #         annealing.append(U4)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-        #         annealing_temp = U4
-
-        #     elif L2 < U4 < U2:
-        #         del annealing[-1]
-        #         annealing.append(U4)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-        #         annealing_temp = U3
-
-        #     elif L2 < U4 < U2:
-        #         del annealing[-1]
-        #         annealing.append(U3)
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-        #         annealing_temp = U3
-
-        #     elif L2 > U3 or U3 > U2:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = U3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
+    #         elif LH3 > HL and LH3 > HL2:
+    #             runnumber = runnumber + 1
+    #             annealing_temp = LH3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+    #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-        #     annealing.append(annealing_temp)
+    #         annealing.append(annealing_temp)
                     
-        
-
-        if i == 4:
-            comparison1 = pcr_plustemplates.iloc[i-3,:]
-            comparison2 = pcr_plustemplates.iloc[i-2,:]
-            comparison3 = pcr_plustemplates.iloc[i-1,:]
-            comparison4 = pcr_plustemplates.iloc[i,:]
-
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']    
-               
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
-                    
-            U3 = comparison3['Upper_temp']
-            L3 = comparison3['Lower_temp']
-
-            U4 = comparison4['Upper_temp']
-            L4 = comparison4['Lower_temp']
-
-                
-            if L1 < (U4+L4)/2 < U1 and L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
-                annealing = []
-                annealing.append((U4 + L4)/2)
-                annealing.append((U4 + L4)/2)
-                annealing.append((U4 + L4)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U4 + L4)/2  
-
-            elif L2 < (U4+L4)/2 < U2 and L3 < (U4+L4)/2 < U3:
-                del annealing[1]
-                del annealing[2]
-                annealing.append((U4 + L4)/2)
-                annealing.append((U4 + L4)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                annealing_temp = (U4 + L4)/2  
-
-           elif L3 < (U4+L4)/2 < U3:
-                del annealing[2]
-                annealing.append((U4 + L4)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
-                annealing_temp = (U4 + L4)/2 
-
-            else: 
-                runnumber = runnumber + 1
-                annealing_temp = U4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-                pcr_plustemplates.loc[i,'run'] = runnumber  
-            
-            annealing.append(annealing_temp)
-                    
-        
-        if i == 4:
-            comparison1 = pcr_plustemplates.iloc[i-4,:]
-            comparison2 = pcr_plustemplates.iloc[i-3,:]
-            comparison3 = pcr_plustemplates.iloc[i-2,:]
-            comparison4 = pcr_plustemplates.iloc[i-1,:]
-            comparison5 = pcr_plustemplates.iloc[i,:]
-
-            U1 = comparison1['Upper_temp']
-            L1 = comparison1['Lower_temp']    
-               
-            U2 = comparison2['Upper_temp']
-            L2 = comparison2['Lower_temp'] 
-                    
-            U3 = comparison3['Upper_temp']
-            L3 = comparison3['Lower_temp']
-
-            U4 = comparison4['Upper_temp']
-            L4 = comparison4['Lower_temp']
-
-            U5 = comparison5['Upper_temp']
-            L5 = comparison5['Lower_temp']
-
-                
-            if L1 < (U5+L5)/2 < U1 and L2 < (U5+L5)/2 < U2 and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
-                annealing = []
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
-                annealing_temp = (U5 + L5)/2  
-
-            elif L2 < (U5+L5)/2 < U2 and L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
-                del annealing[1]
-                del annealing[2]
-                del annealing[3]
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
-                annealing_temp = (U5 + L5)/2  
-
-           elif L3 < (U5+L5)/2 < U3 and L4 < (U5+L5)/2 < U4:
-                del annealing[2]
-                del annealing[3]
-                annealing.append((U5 + L5)/2)
-                annealing.append((U5 + L5)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
-                annealing_temp = (U5 + L5)/2 
-
-            elif L4 < (U5+L5)/2 < U4:
-                del annealing[3]
-                annealing.append((U5 + L5)/2)
-                pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run']
-                annealing_temp = (U5 + L5)/2 
-
-            else: 
-                runnumber = runnumber + 1
-                annealing_temp = U5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-                pcr_plustemplates.loc[i,'run'] = runnumber  
-            
-            annealing.append(annealing_temp)
-        
-             
+    #     if i == 3:
+    #         comparison1 = pcr_plustemplates.iloc[i-3,:]
+    #         comparison2 = pcr_plustemplates.iloc[i-2,:]
+    #         comparison3 = pcr_plustemplates.iloc[i-1,:]
+    #         comparison4 = pcr_plustemplates.iloc[i,:]
                   
-        #     HL = comparison1['Upper_temp']
-        #     LH = comparison1['Lower_temp']    
+    #         HL = comparison1['Upper_temp']
+    #         LH = comparison1['Lower_temp']    
               
-        #     HL2 = comparison2['Upper_temp']
-        #     LH2 = comparison2['Lower_temp'] 
+    #         HL2 = comparison2['Upper_temp']
+    #         LH2 = comparison2['Lower_temp'] 
                
-        #     HL3 = comparison3['Upper_temp']
-        #     LH3 = comparison3['Lower_temp'] 
+    #         HL3 = comparison3['Upper_temp']
+    #         LH3 = comparison3['Lower_temp'] 
                
-        #     HL4 = comparison4['Upper_temp']
-        #     LH4 = comparison4['Lower_temp']
+    #         HL4 = comparison4['Upper_temp']
+    #         LH4 = comparison4['Lower_temp']
                     
-        #     if LH4 < HL:
-        #         annealing_temp = HL
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+    #         if LH4 < HL:
+    #             annealing_temp = LH4
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 
-        #     elif LH4 < HL2:
-        #         annealing_temp = HL2
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
+    #         elif LH4 < HL2:
+    #             annealing_temp = LH4
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
                    
-        #     elif LH4 < HL3:
-        #         annealing_temp = HL3
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
+    #         elif LH4 < HL3:
+    #             annealing_temp = LH4
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
 
-        #     elif LH4 > HL and LH4 > HL2 and LH4 > HL3:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = HL4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
+    #         elif LH4 > HL and LH4 > HL2 and LH4 > HL3:
+    #             runnumber = runnumber + 1
+    #             annealing_temp = LH4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+    #             pcr_plustemplates.loc[i,'run'] = runnumber
            
-        #     annealing.append(annealing_temp)
+    #         annealing.append(annealing_temp)
                     
-        # if i == 4:
-        #     comparison1 = pcr_plustemplates.iloc[i-4,:]
-        #     comparison2 = pcr_plustemplates.iloc[i-3,:]
-        #     comparison3 = pcr_plustemplates.iloc[i-2,:]
-        #     comparison4 = pcr_plustemplates.iloc[i-1,:]
-        #     comparison5 = pcr_plustemplates.iloc[i,:]
+    #     if i == 4:
+    #         comparison1 = pcr_plustemplates.iloc[i-4,:]
+    #         comparison2 = pcr_plustemplates.iloc[i-3,:]
+    #         comparison3 = pcr_plustemplates.iloc[i-2,:]
+    #         comparison4 = pcr_plustemplates.iloc[i-1,:]
+    #         comparison5 = pcr_plustemplates.iloc[i,:]
               
-        #     HL = comparison1['Upper_temp']
-        #     LH = comparison1['Lower_temp']    
+    #         HL = comparison1['Upper_temp']
+    #         LH = comparison1['Lower_temp']    
                
-        #     HL2 = comparison2['Upper_temp']
-        #     LH2 = comparison2['Lower_temp'] 
+    #         HL2 = comparison2['Upper_temp']
+    #         LH2 = comparison2['Lower_temp'] 
                 
-        #     HL3 = comparison3['Upper_temp']
-        #     LH3 = comparison3['Lower_temp'] 
+    #         HL3 = comparison3['Upper_temp']
+    #         LH3 = comparison3['Lower_temp'] 
                 
-        #     HL4 = comparison4['Upper_temp']
-        #     LH4 = comparison4['Lower_temp'] 
+    #         HL4 = comparison4['Upper_temp']
+    #         LH4 = comparison4['Lower_temp'] 
                 
-        #     HL5 = comparison5['Upper_temp']
-        #     LH5 = comparison5['Lower_temp'] 
+    #         HL5 = comparison5['Upper_temp']
+    #         LH5 = comparison5['Lower_temp'] 
                
-        #     if LH5 < HL:
-        #         annealing_temp = HL
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+    #         if LH5 < HL:
+    #             annealing_temp = LH5
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                
-        #     elif LH5 < HL2:
-        #         annealing_temp = HL2
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
+    #         elif LH5 < HL2:
+    #             annealing_temp = LH5
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                 
-        #     elif LH5 < HL3:
-        #         annealing_temp = HL3
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
+    #         elif LH5 < HL3:
+    #             annealing_temp = LH5
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
                     
-        #     elif LH5 < HL4:
-        #         annealing_temp = HL4
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
+    #         elif LH5 < HL4:
+    #             annealing_temp = LH5
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
 
-        #     elif LH5 > HL and LH5 > HL2 and LH5 > HL3 and LH5 > HL4:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = HL5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
+    #         elif LH5 > HL and LH5 > HL2 and LH5 > HL3 and LH5 > HL4:
+    #             runnumber = runnumber + 1
+    #             annealing_temp = LH5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+    #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-        #     annealing.append(annealing_temp)
+    #         annealing.append(annealing_temp)
                     
                     
-        # if i == 5:
-        #     comparison1 = pcr_plustemplates.iloc[i-5,:]
-        #     comparison1 = pcr_plustemplates.iloc[i-4,:]
-        #     comparison2 = pcr_plustemplates.iloc[i-3,:]
-        #     comparison3 = pcr_plustemplates.iloc[i-2,:]
-        #     comparison4 = pcr_plustemplates.iloc[i-1,:]
-        #     comparison5 = pcr_plustemplates.iloc[i,:]
+    #     if i == 5:
+    #         comparison1 = pcr_plustemplates.iloc[i-5,:]
+    #         comparison1 = pcr_plustemplates.iloc[i-4,:]
+    #         comparison2 = pcr_plustemplates.iloc[i-3,:]
+    #         comparison3 = pcr_plustemplates.iloc[i-2,:]
+    #         comparison4 = pcr_plustemplates.iloc[i-1,:]
+    #         comparison5 = pcr_plustemplates.iloc[i,:]
             
-        #     HL = comparison1['Upper_temp']
-        #     LH = comparison1['Lower_temp']    
+    #         HL = comparison1['Upper_temp']
+    #         LH = comparison1['Lower_temp']    
                
-        #     HL2 = comparison2['Upper_temp']
-        #     LH2 = comparison2['Lower_temp']    
+    #         HL2 = comparison2['Upper_temp']
+    #         LH2 = comparison2['Lower_temp']    
              
-        #     HL3 = comparison3['Upper_temp']
-        #     LH3 = comparison3['Lower_temp'] 
+    #         HL3 = comparison3['Upper_temp']
+    #         LH3 = comparison3['Lower_temp'] 
                  
-        #     HL4 = comparison4['Upper_temp']
-        #     LH4 = comparison4['Lower_temp'] 
+    #         HL4 = comparison4['Upper_temp']
+    #         LH4 = comparison4['Lower_temp'] 
                
-        #     HL5 = comparison5['Upper_temp']
-        #     LH5 = comparison5['Lower_temp'] 
+    #         HL5 = comparison5['Upper_temp']
+    #         LH5 = comparison5['Lower_temp'] 
                  
-        #     HL6 = comparison6['Upper_temp']
-        #     LH6 = comparison6['Lower_temp'] 
+    #         HL6 = comparison6['Upper_temp']
+    #         LH6 = comparison6['Lower_temp'] 
                  
-        #     if LH6 < HL:
-        #         annealing_temp = HL
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+    #         if LH6 < HL:
+    #             annealing_temp = LH6
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                  
-        #     elif LH6 < HL2:
-        #         annealing_temp = HL2
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
+    #         elif LH6 < HL2:
+    #             annealing_temp = LH6
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                   
-        #     elif LH6 < HL3:
-        #         annealing_temp = HL3
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
+    #         elif LH6 < HL3:
+    #             annealing_temp = LH6
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
                    
-        #     elif LH6 < HL4:
-        #         annealing_temp = HL4
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
+    #         elif LH6 < HL4:
+    #             annealing_temp = LH6
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
                     
-        #     elif LH6 < HL5:
-        #         annealing_temp = HL5
-        #         pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[4,'run'] 
+    #         elif LH6 < HL5:
+    #             annealing_temp = LH6
+    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[4,'run'] 
 
-        #     elif LH6 > HL and LH6 > HL2 and LH6 > HL3 and LH6 > HL4 and LH6 > HL5:
-        #         runnumber = runnumber + 1
-        #         annealing_temp = HL6 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-        #         pcr_plustemplates.loc[i,'run'] = runnumber
+    #         elif LH6 > HL and LH6 > HL2 and LH6 > HL3 and LH6 > HL4 and LH6 > HL5:
+    #             runnumber = runnumber + 1
+    #             annealing_temp = LH6 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+    #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-        #     annealing.append(annealing_temp)
+    #         annealing.append(annealing_temp)
                 
-    pcr_plustemplates['annealing_temp'] = annealing  
+    # pcr_plustemplates['annealing_temp'] = annealing  
 
-    rxn1 = pcr_plustemplates.copy()
-    rxn2 = pcr_plustemplates.copy()
-    rxn3 = pcr_plustemplates.copy()
-    rxn4 = pcr_plustemplates.copy()
+    # rxn1 = pcr_plustemplates.copy()
+    # rxn2 = pcr_plustemplates.copy()
+    # rxn3 = pcr_plustemplates.copy()
+    # rxn4 = pcr_plustemplates.copy()
 
-    for i, row in pcr_plustemplates.iterrows():
+    # for i, row in pcr_plustemplates.iterrows():
     
-        if not pcr_plustemplates.loc[i].at['run'] == 0:
-            rxn1.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i].at['run'] == 0:
+    #         rxn1.drop(i,axis=0,inplace=True)
 
-        if not pcr_plustemplates.loc[i].at['run'] == 1:
-            rxn2.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i].at['run'] == 1:
+    #         rxn2.drop(i,axis=0,inplace=True)
 
-        if not pcr_plustemplates.loc[i,'run'] == 2:
-            rxn3.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i,'run'] == 2:
+    #         rxn3.drop(i,axis=0,inplace=True)
        
-        if not pcr_plustemplates.loc[i,'run'] == 3:
-            rxn4.drop(i,axis=0,inplace=True)
+    #     if not pcr_plustemplates.loc[i,'run'] == 3:
+    #         rxn4.drop(i,axis=0,inplace=True)
             
-    rxns_tables = {'rxn': ['rxn1']}
-    rxns_tables = pandas.DataFrame(data=rxns_tables)
-    v=0
+    # rxns_tables = {'rxn': ['rxn1']}
+    # rxns_tables = pandas.DataFrame(data=rxns_tables)
+    # v=0
     
-    if len(rxn2.index) >= 1:
-        rxns_tables = {'rxn': ['rxn1','rxn2']}
-        rxns_tables = pandas.DataFrame(data=rxns_tables)
-        v=1
-    if len(rxn2.index) < 1:
-        del rxn2    
+    # if len(rxn2.index) >= 1:
+    #     rxns_tables = {'rxn': ['rxn1','rxn2']}
+    #     rxns_tables = pandas.DataFrame(data=rxns_tables)
+    #     v=1
+    # if len(rxn2.index) < 1:
+    #     del rxn2    
    
-    if len(rxn3.index) >= 1:
-        rxns_tables = {'rxn': ['rxn1','rxn2','rxn3']}
-        rxns_tables = pandas.DataFrame(data=rxns_tables)
-        v=2
-    if len(rxn3.index) < 1:
-        del rxn3
+    # if len(rxn3.index) >= 1:
+    #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3']}
+    #     rxns_tables = pandas.DataFrame(data=rxns_tables)
+    #     v=2
+    # if len(rxn3.index) < 1:
+    #     del rxn3
 
-    if len(rxn4.index) >= 1:
-        rxns_tables = {'rxn': ['rxn1','rxn2','rxn3','rxn4']}
-        rxns_tables = pandas.DataFrame(data=rxns_tables) 
-        v=3
-    if len(rxn4.index) < 1:
-        del rxn4
+    # if len(rxn4.index) >= 1:
+    #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3','rxn4']}
+    #     rxns_tables = pandas.DataFrame(data=rxns_tables) 
+    #     v=3
+    # if len(rxn4.index) < 1:
+        # del rxn4
     
     
     
     #rxns_tables = {'rxn': ['rxn1','rxn2']}
     #rxns_tables = pandas.DataFrame(data=rxns_tables)
-    for i, row in rxns_tables.iterrows():
-        x = rxns_tables.loc[i].at['rxn']
-        Length = locals()[x].nlargest(1,'Length')
-        l = (Length['Length']/1000)*30
-        L = l.values.tolist()
-        locals()[x]['extension time'] = L[0] 
-    if v==0:
-        allrxns = rxn1
-    if v==1:
-        allrxns = pandas.concat([rxn1, rxn2], axis=0)
-    if v==2:
-        allrxns = pandas.concat([rxn1, rxn2,rxn3], axis=0)
-    if v==3:
-        allrxns = pandas.concat([rxn1, rxn2,rxn3,rxn4], axis=0)
+    # for i, row in rxns_tables.iterrows():
+    #     x = rxns_tables.loc[i].at['rxn']
+    Length = pcr_plustemplates.nlargest(1,'Length')
     
-    allrxnsimppart = allrxns.iloc[:,[28,30]]
+    #L = l.values.tolist()
+    #L[0] 
+    # if v==0:
+    #     allrxns = rxn1
+    # if v==1:
+    #     allrxns = pandas.concat([rxn1, rxn2], axis=0)
+    # if v==2:
+    #     allrxns = pandas.concat([rxn1, rxn2,rxn3], axis=0)
+    # if v==3:
+    #     allrxns = pandas.concat([rxn1, rxn2,rxn3,rxn4], axis=0)
+    
+    # allrxnsimppart = allrxns.iloc[:,[28,30]]
     
     
-    pcr_plustemplates = pcr_plustemplates.merge(allrxnsimppart, on= 'run', how='right')
-    pcr_plustemplates = pcr_plustemplates.drop_duplicates(subset=['Reaction ID Number'])
-    pcr_plustemplates = pcr_plustemplates.reset_index()
-    pcr_plustemplates
+    # pcr_plustemplates = pcr_plustemplates.merge(allrxnsimppart, on= 'run', how='right')
+    # pcr_plustemplates = pcr_plustemplates.drop_duplicates(subset=['Reaction ID Number'])
+    # pcr_plustemplates = pcr_plustemplates.reset_index()
+    # pcr_plustemplates
 #allrxnsimppart
-    id2hold = {}
-    id2hold['0'] = 'C1'
-    id2hold['1'] = 'C2'
-    id2hold['2'] = 'C3'
-    id2hold['3'] = 'C4'
-    id2hold['4'] = 'C5'
-    id2hold['5'] = 'C6'
+    # id2hold = {}
+    # id2hold['0'] = 'C1'
+    # id2hold['1'] = 'C2'
+    # id2hold['2'] = 'C3'
+    # id2hold['3'] = 'C4'
+    # id2hold['4'] = 'C5'
+    # id2hold['5'] = 'C6'
 
 
-    for i, row in pcr_plustemplates.iterrows():
-        pcr_plustemplates.loc[i,'holding_tube'] = id2hold[str(i)]
-    pcr_plustemplates
-    annealing_extension = pcr_plustemplates.iloc[:,[29,30,31]]
-    annealing_extension = annealing_extension.drop_duplicates()
-    annealing_extension = annealing_extension.reset_index()
-    annealing_extension
-    annealing_extension.to_csv('output_'+Date+'_annealing_extension.csv')
+    # for i, row in pcr_plustemplates.iterrows():
+    #     pcr_plustemplates.loc[i,'holding_tube'] = id2hold[str(i)]
+    # pcr_plustemplates
+    # annealing_extension = pcr_plustemplates.iloc[:,[29,30,31]]
+    # annealing_extension = annealing_extension.drop_duplicates()
+    # annealing_extension = annealing_extension.reset_index()
+    # annealing_extension
     
-    pcr_plustemplates.to_csv('output_'+Date+'_pcr_GoldenGate.csv')
-
     combinations = pandas.read_csv('combinations.csv')
     combinations
 
@@ -1067,6 +1003,10 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
         del frame['Assembly Piece ID Number Bin 1']
     if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
         del frame['Assembly Piece ID Number Bin 2']
+    if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
+        del frame['Assembly Piece ID Number Bin 3']
+    if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
+        del frame['Assembly Piece ID Number Bin 4']
     
 
 #frame += startnum
@@ -1131,17 +1071,39 @@ ID_tube = assembly[['Reaction ID Number','pcr_frag_tube']]
 if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
     ID_tube = ID_tube.rename(columns={'Reaction ID Number':'Assembly Piece ID Number Bin 0'})
     combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 0')
-    combs_short = combinations[['pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+    combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+    combs_short = combinations[combs_shor]
+    #combs_short = combinations[['pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
 if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
     ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 0':'Assembly Piece ID Number Bin 1'})
     combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 1')
-    combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y']] #,'pcr_frag_tube_y','pcr_frag_tube'
+    combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+    combs_short = combinations[combs_shor]
+    #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
 if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
     ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 1':'Assembly Piece ID Number Bin 2'})
     combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 2')
-    combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+    combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+    combs_short = combinations[combs_shor]
+    #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+
+if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
+    ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 2':'Assembly Piece ID Number Bin 3'})
+    combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 3')
+    combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+    combs_short = combinations[combs_shor]
+    #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+combs_short = combs_short.T.drop_duplicates().T
+
+if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
+    ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
+    combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 4')
+    combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+    combs_short = combinations[combs_shor]
+    #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+combs_short = combs_short.T.drop_duplicates().T
 
 
 
@@ -1154,25 +1116,39 @@ gg3 = pandas.DataFrame()
 gg4 = pandas.DataFrame()
 
 dil_tu = {}
-dil_tu['B2'] = 'C2'
-dil_tu['B3'] = 'C3'
-dil_tu['B4'] = 'C4'
-dil_tu['B5'] = 'C5'
-dil_tu['B6'] = 'C6'
-dil_tu['B7'] = 'C7'
-dil_tu['B8'] = 'C8'
-dil_tu['B9'] = 'C9'
-dil_tu['D2'] = 'E2'
-dil_tu['D3'] = 'E3'
-dil_tu['D4'] = 'E4'
-dil_tu['D5'] = 'E5'
-dil_tu['D6'] = 'E6'
-dil_tu['D7'] = 'E7'
-dil_tu['D8'] = 'E8'
-dil_tu['D9'] = 'E9'
+dil_tu['A1'] = 'D1'
+dil_tu['A2'] = 'D2'
+dil_tu['A3'] = 'D3'
+dil_tu['A4'] = 'D4'
+dil_tu['A5'] = 'D5'
+dil_tu['A6'] = 'D6'
+dil_tu['A7'] = 'D7'
+dil_tu['A8'] = 'D8'
+dil_tu['B1'] = 'E1'
+dil_tu['B2'] = 'E2'
+dil_tu['B3'] = 'E3'
+dil_tu['B4'] = 'E4'
+dil_tu['B5'] = 'E5'
+dil_tu['B6'] = 'E6'
+dil_tu['B7'] = 'E7'
+dil_tu['B8'] = 'E8'
+dil_tu['C1'] = 'F1'
+dil_tu['C2'] = 'F2'
+dil_tu['C3'] = 'F3'
+dil_tu['C4'] = 'F4'
+dil_tu['C5'] = 'F5'
+dil_tu['C6'] = 'F6'
+dil_tu['C7'] = 'F7'
+dil_tu['C8'] = 'F8'
+#dil_tu['B7'] = 'C7'
+#dil_tu['B8'] = 'C8'
+#dil_tu['B9'] = 'C9'
 
 e = len(combs_short.columns)
-next_tc_tube = len(assembly.index)
+
+#next_tc_tube = len(assembly.index)
+#changing next_tc_tube to 6 just to make room for a solid six fragment gradient every time
+next_tc_tube = 6
 
 
     
@@ -1315,7 +1291,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
-    tiprack2 = protocol.load_labware('opentrons_96_tiprack_300ul','6')
+    #tiprack2 = protocol.load_labware("opentrons_96_tiprack_10ul",'6')
     tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '5')
 #tuberack1 = protocol.load_labware('opentrons_24_tuberack_generic_2ml_screwcap','1') #holds stock primers and templates
     watertuberack = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical','3') #holds molec bio grad H2O
@@ -1338,7 +1314,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 # #as of now Q5 is in 
     
 #pipettes
-    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1, tiprack2])
+    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1])
     left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
     
 ##################################COMMANDS####################################
@@ -1422,64 +1398,68 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #pcr rxn
 ##########################################################################################################################
 
-    for i in range(0,pcr_plustemplates['run'].sum()+1):
+#    for i in range(0,pcr_plustemplates['run'].sum()+1):
 
 
 #add water first
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(pcr_plustemplates.loc[j].at['total_water_toadd'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-                right_pipette.dispense(pcr_plustemplates.loc[j].at['total_water_toadd'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                right_pipette.blow_out()
-                right_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(pcr_plustemplates.loc[j].at['total_water_toadd'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+            right_pipette.dispense(pcr_plustemplates.loc[j].at['total_water_toadd'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            right_pipette.blow_out()
+            right_pipette.drop_tip()
     
 #add 1uL of BOTH (not each) primers
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_x'], tuberack2[pcr_plustemplates.loc[j].at['well']], rate=2.0)
-                left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_x'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #left_pipette.blow_out()            
-                left_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_x'], tuberack2[pcr_plustemplates.loc[j].at['well']], rate=2.0)
+            left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_x'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            #left_pipette.blow_out()            
+            left_pipette.drop_tip()
         
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_y'], tuberack2[pcr_plustemplates.loc[j].at['well2']], rate=2.0)            
-                left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_y'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #left_pipette.blow_out()
-                left_pipette.drop_tip()
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(pcr_plustemplates.loc[j].at['primervol_y'], tuberack2[pcr_plustemplates.loc[j].at['well2']], rate=2.0)            
+            left_pipette.dispense(pcr_plustemplates.loc[j].at['primervol_y'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            left_pipette.mix(3,2,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
     
 #add 1uL of each template
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(pcr_plustemplates.loc[j].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[j].at['template_well']], rate=2.0)
-                left_pipette.dispense(pcr_plustemplates.loc[j].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                left_pipette.mix(3,3,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #left_pipette.blow_out()
-                left_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(pcr_plustemplates.loc[j].at['amount of template to add'], tuberack2[pcr_plustemplates.loc[j].at['template_well']], rate=2.0)
+            left_pipette.dispense(pcr_plustemplates.loc[j].at['amount of template to add'], pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            left_pipette.mix(3,3,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
 
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-                right_pipette.aspirate(Q5, pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']], rate=2.0)
-                #right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
-                right_pipette.blow_out()
-                right_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
+            right_pipette.aspirate(Q5, pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)
+            #right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+            right_pipette.blow_out()
+            right_pipette.drop_tip()
 
 #mix up
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']])
-                #right_pipette.blow_out()
-                right_pipette.drop_tip()
+    for j, row in pcr_plustemplates.iterrows():
+            right_pipette.pick_up_tip()
+            right_pipette.mix(3,Q5+3,pcrplate[pcr_plustemplates.loc[j].at['tube']])
+            right_pipette.blow_out()
+            right_pipette.drop_tip()
     
+    tc_mod.deactivate()
+    temp_module.deactivate()
+    
+    protocol.pause('move to gradient thermocycler. set gradiet to be between '+str(gradient.loc[0].at['temp'])+' and '+str(gradient.loc[7].at['temp'])+'. Extension time should be '+str((Length['Length']/1000)*30)+' seconds. Follow normal parameters for everything else. A1 is cool, A8 is hot.')
+
+    temp_module.set_temperature(4)
+
+
+
 #Now run thermocycler to amplify DNA
     
 #these parameters can be altered for different pcr reactionsabs
@@ -1487,63 +1467,62 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #maybe use the median annealing temperature in the spreadsheet
     
         #for j, row in annealing_extension.iterrows():
-        tc_mod.close_lid()
-        temp_module.deactivate()
-        tc_mod.set_lid_temperature(temperature = 105)
-        tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
-        profile = [
-            {'temperature': 98, 'hold_time_seconds': 10},
-            {'temperature': round(annealing_extension.loc[i].at['annealing_temp'],1), 'hold_time_seconds': 30},
-            {'temperature': 72, 'hold_time_seconds': round(annealing_extension.loc[i].at['extension time'],1)}] #should automate calculation of annealing temp based on spreadsheet
-        tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
-        tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
-        tc_mod.set_block_temperature(4)
-        protocol.pause('wait until ready to continue')
-        tc_mod.open_lid()
+    # tc_mod.close_lid()
+    # tc_mod.set_lid_temperature(temperature = 105)
+    # tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
+    # profile = [
+    #     {'temperature': 98, 'hold_time_seconds': 10},
+    #     {'temperature': round(annealing_extension.loc[i].at['annealing_temp'],1), 'hold_time_seconds': 30},
+    #     {'temperature': 72, 'hold_time_seconds': round(annealing_extension.loc[i].at['extension time'],1)}] #should automate calculation of annealing temp based on spreadsheet
+    # tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
+    # tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
+    # tc_mod.set_block_temperature(4)
+    # protocol.pause('wait until ready to continue')
+    # tc_mod.open_lid()
         
-        for j, row in pcr_plustemplates.iterrows():
-            if pcr_plustemplates.loc[j,'run'] == i:
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']],2)
-                right_pipette.dispense(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[j].at['holding_tube']],2)
-                #right_pipette.blow_out()
-                right_pipette.drop_tip()
+    # for j, row in pcr_plustemplates.iterrows():
+    #     if pcr_plustemplates.loc[j,'run'] == i:
+    #         right_pipette.pick_up_tip()
+    #         right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[j].at['frag_pcr_tube']],2)
+    #         right_pipette.dispense(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[j].at['holding_tube']],2)
+    #         #right_pipette.blow_out()
+    #         right_pipette.drop_tip()
 
-    for i, row in pcr_plustemplates.iterrows():
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[i].at['holding_tube']],2)
-        right_pipette.dispense(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']],2)
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
+    # for i, row in pcr_plustemplates.iterrows():
+    #     right_pipette.pick_up_tip()
+    #     right_pipette.aspirate(Input_values.loc[0].at['pcrvol'],cold_tuberack[pcr_plustemplates.loc[i].at['holding_tube']],2)
+    #     right_pipette.dispense(Input_values.loc[0].at['pcrvol'],pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']],2)
+    #     right_pipette.blow_out()
+    #     right_pipette.drop_tip()
 
 #Now add DPNI for digestion
 
     for i, row in pcr_plustemplates.iterrows():
         right_pipette.pick_up_tip()
         right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
-        right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[pcr_plustemplates.loc[i].at['tube']], rate=2.0)
         #right_pipette.blow_out()
         right_pipette.drop_tip()
 
     for i, row in pcr_plustemplates.iterrows():
         left_pipette.pick_up_tip()
         left_pipette.aspirate(Input_values.loc[0].at['cutsmart'], cold_tuberack['D4'], rate=2.0)
-        left_pipette.dispense(Input_values.loc[0].at['cutsmart'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
+        left_pipette.dispense(Input_values.loc[0].at['cutsmart'], pcrplate[pcr_plustemplates.loc[i].at['tube']], rate=2.0)
         #left_pipette.blow_out()
         left_pipette.drop_tip() 
 
     for i, row in pcr_plustemplates.iterrows():
         left_pipette.pick_up_tip()
         left_pipette.aspirate(Input_values.loc[0].at['DPNI'], cold_tuberack['D3'], rate=2.0)
-        left_pipette.dispense(Input_values.loc[0].at['DPNI'], pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']], rate=2.0)
-        left_pipette.mix(3,10,pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        left_pipette.dispense(Input_values.loc[0].at['DPNI'], pcrplate[pcr_plustemplates.loc[i].at['tube']], rate=2.0)
+        left_pipette.mix(3,10,pcrplate[pcr_plustemplates.loc[i].at['tube']])
         #left_pipette.blow_out()
         left_pipette.drop_tip()
 
 #mix up
     for i, row in pcr_plustemplates.iterrows():
         right_pipette.pick_up_tip()
-        right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[pcr_plustemplates.loc[i].at['frag_pcr_tube']])
+        right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[pcr_plustemplates.loc[i].at['tube']])
         right_pipette.blow_out()
         right_pipette.drop_tip()
 
@@ -1624,7 +1603,18 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(4, block_max_volume = 50)
     tc_mod.open_lid()
 
-    protocol.pause('wait until its time to dispense the product')
+    temp_module.deactivate()
+    #tiprack3.reset_tipracks(self)
+    #left_pipette.reset()
+    tiprack3.reset()
+
+    tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
+    #left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
+
+    
+    protocol.pause('REFILL TIP RACKS, and wait until its time to dispense the product')
+
+    temp_module.set_temperature(4)
 
     #tc_mod.open_lid()
 
@@ -1677,20 +1667,24 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 ##########################################################################################################################
 #set up goldengate
-
+#here i'm trying to slow dow aspirate rate for the viscous 100X BSA
+    left_pipette.flow_rate.aspirate = 50
+    right_pipette.flow_rate.aspirate = 50
     #mix the T4 BSA combo
     right_pipette.pick_up_tip()
     right_pipette.aspirate(20,cold_tuberack['D2'])
     right_pipette.dispense(20,cold_tuberack['C4'])
     right_pipette.blow_out()
     right_pipette.drop_tip()
-    
+
+    left_pipette.flow_rate.aspirate = 10
     left_pipette.pick_up_tip()
     left_pipette.aspirate(2,cold_tuberack['C6'])
     left_pipette.dispense(2,cold_tuberack['C4'])
-    left_pipette.blow_out()
+    #left_pipette.blow_out()
     left_pipette.mix(3,10,cold_tuberack['C4'])
-    left_pipette.blow_out()
+    #left_pipette.blow_out()
+    left_pipette.flow_rate.aspirate = 50
     left_pipette.drop_tip()
 
 #for i in range(0,e):
@@ -1708,28 +1702,76 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
     #now add all fragments to the GG tube
         for i, row in globals()[x].iterrows():
-            left_pipette.pick_up_tip()
+            
             if globals()[x].loc[i].at['initial required amount'] <1:
-                left_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
-                left_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[globals()[x].loc[i].at['dil_tube']])
-                left_pipette.blow_out()
-                left_pipette.drop_tip()
+#########################################################################################################
+############adding h20
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
+                    right_pipette.pick_up_tip()
+                    right_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
+                    right_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    right_pipette.blow_out()
+                    right_pipette.drop_tip()
+
+                if 8 < globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
+                    left_pipette.pick_up_tip()
+                    left_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
+                    left_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    left_pipette.blow_out()
+                    left_pipette.drop_tip()
+
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    right_pipette.pick_up_tip()
+                    right_pipette.aspirate(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), watertuberack['A1'])
+                    right_pipette.dispense(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    right_pipette.blow_out()
+                    right_pipette.drop_tip()
+#####################################################################################################
+############adding temp
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 8:
+                    left_pipette.pick_up_tip()
+                    left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
+                    left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.blow_out()
+                    left_pipette.drop_tip()
+
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    left_pipette.pick_up_tip()
+                    left_pipette.aspirate(4, pcrplate[globals()[x].loc[i].at['frag_loc']])
+                    left_pipette.dispense(4, pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.blow_out()
+                    left_pipette.drop_tip()
                 
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
-                left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
-                left_pipette.blow_out()
-                left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
-                left_pipette.drop_tip()
-                
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
+                    right_pipette.pick_up_tip()
+                    right_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #right_pipette.blow_out()
+                    right_pipette.drop_tip()
+
+                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
+                    left_pipette.pick_up_tip()
+                    left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],pcrplate[globals()[x].loc[i].at['dil_tube']])
+                    #left_pipette.blow_out()
+                    left_pipette.drop_tip()
+
+                #if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    #print('skip') #do nothing
+
+#####################################################################################################
+###########now add to goldengate tube
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['dil_tube']])
                 left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.blow_out()
                 left_pipette.drop_tip()
                 
             else:
+                left_pipette.pick_up_tip()
                 left_pipette.aspirate(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['frag_loc']])
                 left_pipette.dispense(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.blow_out()
                 left_pipette.drop_tip()
    
     
@@ -1737,31 +1779,31 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1.65,cold_tuberack['C4'])
         left_pipette.dispense(1.65,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
         left_pipette.mix(3,8,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.blow_out()
         left_pipette.drop_tip()
     
     #pipette the BsaI in
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['D5'])
         left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
         left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.blow_out()
         left_pipette.drop_tip()
     
     #pipette the T4 ligase in
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['C5'])
         left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
         left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        left_pipette.blow_out()
         left_pipette.drop_tip()
     
-    #one more mix
-        #right_pipette.pick_up_tip()
-        #right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        #right_pipette.blow_out()
-        #right_pipette.drop_tip()
+    # one more mix
+        # right_pipette.pick_up_tip()
+        # right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        # right_pipette.blow_out()
+        # right_pipette.drop_tip()
     
     tc_mod.close_lid()
     tc_mod.set_lid_temperature(temperature = 105)
@@ -1775,6 +1817,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     protocol.pause('wait until ready to dispense assemblies')
     
     tc_mod.open_lid()
+
+    protocol.pause('just take them out manually...')
     
 #for i in range(0,e):
     
