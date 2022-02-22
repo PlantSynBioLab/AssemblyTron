@@ -186,7 +186,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     deepwell2 = protocol.load_labware('nest_96_wellplate_2ml_deep',7)
     deepwell3 = protocol.load_labware('nest_96_wellplate_2ml_deep',5)  # 1->3 2->4
     deepwell4 = protocol.load_labware('nest_96_wellplate_2ml_deep',8)
-    media_res = protocol.load_labware('agilent_1_reservoir_290ml',9)
+    media_res = protocol.load_labware('nest_1_reservoir_195ml',9)
 
     anti_tubes = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical',10)
 
