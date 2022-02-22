@@ -1476,7 +1476,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     temp_module.deactivate()
     
     protocol.pause('move to gradient thermocycler. set gradiet to be between '+str(gradient.loc[0].at['temp'])+' and '+str(gradient.loc[7].at['temp'])+'. Extension time should be '+str((Length['Length']/1000)*30)+' seconds. Follow normal parameters for everything else. A1 is cool, A8 is hot.')
-
+    
+    tc_mod.set_block_temperature(4)
     temp_module.set_temperature(4)
 
 
@@ -1544,7 +1545,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     for i, row in pcr_plustemplates.iterrows():
         right_pipette.pick_up_tip()
         right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[pcr_plustemplates.loc[i].at['tube']])
-        right_pipette.blow_out()
+        #right_pipette.blow_out()
         right_pipette.drop_tip()
 
 #Do the bsa1 Digestion
@@ -1557,7 +1558,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             right_pipette.pick_up_tip()
             right_pipette.aspirate(plasmid.loc[i].at['Volume of Water'],watertuberack['A1'],2)
             right_pipette.dispense(plasmid.loc[i].at['Volume of Water'],pcrplate[digests.loc[i].at['tube']],2)
-            right_pipette.blow_out()
+            #right_pipette.blow_out()
             right_pipette.drop_tip()
 
 # pick up plasmid  -> dispense into pcr tube -> get rid of tip  no blow out because aeresol
@@ -1568,7 +1569,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             left_pipette.aspirate(plasmid.loc[i].at['Volume of Plasmid'],cold_tuberack[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
             left_pipette.dispense(plasmid.loc[i].at['Volume of Plasmid'],pcrplate[digests.loc[i].at['tube']],2)
             left_pipette.mix(3,plasmid.loc[i].at['Volume of Plasmid'],pcrplate[digests.loc[i].at['tube']])
-            left_pipette.blow_out()
+            #left_pipette.blow_out()
             left_pipette.drop_tip()
 
         if plasmid.loc[i].at['Volume of Plasmid'] in range(10, 100):
@@ -1576,7 +1577,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             right_pipette.aspirate(plasmid.loc[i].at['Volume of Plasmid'],cold_tuberack[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
             right_pipette.dispense(plasmid.loc[i].at['Volume of Plasmid'],pcrplate[digests.loc[i].at['tube']],2)
             right_pipette.mix(3,plasmid.loc[i].at['Volume of Plasmid'],pcrplate[digests.loc[i].at['tube']])
-            right_pipette.blow_out()
+            #right_pipette.blow_out()
             right_pipette.drop_tip()
 
 # pick up buffer  -> dispense into pcr tube -> get rid of tip
@@ -1587,7 +1588,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             left_pipette.aspirate(plasmid.loc[i].at['Buffer'],cold_tuberack['D4'],2)
             left_pipette.dispense(plasmid.loc[i].at['Buffer'],pcrplate[digests.loc[i].at['tube']],2)
             left_pipette.mix(3,plasmid.loc[i].at['Buffer'],pcrplate[digests.loc[i].at['tube']])
-            left_pipette.blow_out()
+            #left_pipette.blow_out()
             left_pipette.drop_tip()  
 
 
@@ -1599,7 +1600,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             left_pipette.aspirate(plasmid.loc[i].at['BSA1'],cold_tuberack['D5'],2)
             left_pipette.dispense(plasmid.loc[i].at['BSA1'],pcrplate[digests.loc[i].at['tube']],2)
             left_pipette.mix(3,plasmid.loc[i].at['BSA1'],pcrplate[digests.loc[i].at['tube']])
-            left_pipette.blow_out()
+            #left_pipette.blow_out()
             left_pipette.drop_tip()
 
 
@@ -1693,7 +1694,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     right_pipette.pick_up_tip()
     right_pipette.aspirate(20,cold_tuberack['D2'])
     right_pipette.dispense(20,cold_tuberack['C4'])
-    right_pipette.blow_out()
+    #right_pipette.blow_out()
     right_pipette.drop_tip()
     
     left_pipette.pick_up_tip()
@@ -1749,7 +1750,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     left_pipette.pick_up_tip()
                     left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
                     left_pipette.dispense(1, pcrplate[globals()[x].loc[i].at['dil_tube']])
-                    left_pipette.mix(3,3,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                    left_pipette.mix(3,3,pcrplate[globals()[x].loc[i].at['dil_tube']])
                     #left_pipette.blow_out()
                     left_pipette.drop_tip()
 
@@ -1757,7 +1758,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     left_pipette.pick_up_tip()
                     left_pipette.aspirate(4, pcrplate[globals()[x].loc[i].at['frag_loc']])
                     left_pipette.dispense(4, pcrplate[globals()[x].loc[i].at['dil_tube']])
-                    left_pipette.mix(3,3,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                    left_pipette.mix(3,3,pcrplate[globals()[x].loc[i].at['dil_tube']])
                     #left_pipette.blow_out()
                     left_pipette.drop_tip()
                 
@@ -1794,7 +1795,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1.65,cold_tuberack['C4'])
         left_pipette.dispense(1.65,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
+        #left_pipette.blow_out()
         left_pipette.mix(3,8,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.drop_tip()
     
@@ -1802,7 +1803,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['D5'])
         left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
+        #left_pipette.blow_out()
         left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.drop_tip()
     
@@ -1810,7 +1811,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(1,cold_tuberack['C5'])
         left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        left_pipette.blow_out()
+        #left_pipette.blow_out()
         left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
         left_pipette.drop_tip()
     
