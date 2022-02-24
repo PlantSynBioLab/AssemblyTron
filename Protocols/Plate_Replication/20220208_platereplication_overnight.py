@@ -301,7 +301,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         if plasmids_df.loc[i,'plate'] == 2:
             
             pipette_right.aspirate(volume = int(overnight_df['media-to-add(uL)']),location = media_res['A1'],rate = 2)
-            pipette_right.dispense(int(overnight_df['media-to-add(uL)']),deepwell3[plasmids_df.loc[i].at['loc']],2)
+            pipette_right.dispense(int(overnight_df['media-to-add(uL)']),deepwell4[plasmids_df.loc[i].at['loc']],2)
             pipette_right.blow_out()
             
     pipette_right.drop_tip()
