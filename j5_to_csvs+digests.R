@@ -67,7 +67,7 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   #feather::write_feather(assembly_read, path = paste0(path,"/assembly.feather"))#Creates feather file for Oligo Synthesis information
   write.csv(assembly_read, file = paste0(path,"/assembly.csv"), row.names = FALSE)
   
-  combinations_read <- readr::read_csv(file, col_names = c("ID Number", "Name","Assembly Method", "Part(s) Bin 0", "Assembly Piece ID Number Bin 0", "Part(s) Bin 1", "Assembly Piece ID Number Bin 1","Part(s) Bin 2", "Assembly Piece ID Number Bin 2"), skip = combinations+2)
+  combinations_read <- readr::read_csv(file, col_names = c("ID Number", "Name","Assembly Method", "Part(s) Bin 0", "Assembly Piece ID Number Bin 0", "Part(s) Bin 1", "Assembly Piece ID Number Bin 1","Part(s) Bin 2", "Assembly Piece ID Number Bin 2","Part(s) Bin 3","Assembly Piece ID Number Bin 3","Part(s) Bin 4","Assembly Piece ID Number Bin 4"), skip = combinations+2)
   #feather::write_feather(combinations_read, path = paste0(path,"/combinations.feather"))#Creates feather file for Oligo Synthesis information
   write.csv(combinations_read, file = paste0(path,"/combinations.csv"), row.names = FALSE)
   
