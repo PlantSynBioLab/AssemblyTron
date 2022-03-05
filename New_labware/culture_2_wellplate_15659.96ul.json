@@ -1,0 +1,73 @@
+{
+    "ordering": [
+        [
+            "A1"
+        ],
+        [
+            "A2"
+        ]
+    ],
+    "brand": {
+        "brand": "Culture",
+        "brandId": [
+            "VT"
+        ]
+    },
+    "metadata": {
+        "displayName": "Culture 2 Well Plate 15659.96 µL",
+        "displayCategory": "wellPlate",
+        "displayVolumeUnits": "µL",
+        "tags": []
+    },
+    "dimensions": {
+        "xDimension": 127.76,
+        "yDimension": 86.12,
+        "zDimension": 13.49
+    },
+    "wells": {
+        "A1": {
+            "depth": 6.75,
+            "totalLiquidVolume": 15659.96,
+            "shape": "circular",
+            "diameter": 54.37,
+            "x": 27.98,
+            "y": 58.14,
+            "z": 6.74
+        },
+        "A2": {
+            "depth": 6.75,
+            "totalLiquidVolume": 15659.96,
+            "shape": "circular",
+            "diameter": 54.37,
+            "x": 83.14,
+            "y": 58.14,
+            "z": 6.74
+        }
+    },
+    "groups": [
+        {
+            "metadata": {
+                "wellBottomShape": "v"
+            },
+            "wells": [
+                "A1",
+                "A2"
+            ]
+        }
+    ],
+    "parameters": {
+        "format": "irregular",
+        "quirks": [],
+        "isTiprack": false,
+        "isMagneticModuleCompatible": false,
+        "loadName": "culture_2_wellplate_15659.96ul"
+    },
+    "namespace": "custom_beta",
+    "version": 1,
+    "schemaVersion": 2,
+    "cornerOffsetFromSlot": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    }
+}

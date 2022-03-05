@@ -47,15 +47,15 @@ paths
 
 shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-#shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
 oligos = pandas.read_csv('oligo.csv')
 oligos
 
-#digests = pandas.read_csv('digests.csv')
-#digests
+digests = pandas.read_csv('digests.csv')
+digests
 
 pcr = pandas.read_csv('pcr.csv')
 pcr.columns = pcr.columns.str.replace("'","")
@@ -107,14 +107,14 @@ def main():
     
     Nextslot = len(oligos["ID Number"])
     
-    # No digest in this protocol
-    # f = open('Golden_Gate_instructions.txt','a+')
-    # for i, row in digests.iterrows():
-    #     f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
-    #     Nextslot = Nextslot+1
-    # f.close()
     
-    #Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
+    f = open('GoldenGate_instructions.txt','a+')
+    for i, row in digests.iterrows():
+        f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        Nextslot = Nextslot+1
+    f.close()
+    
+    Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
     
     f = open('GoldenGate_instructions.txt','a+')
     
@@ -124,13 +124,13 @@ def main():
         
         if i > 0:
             if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
-                Nextslot = Nextslot
+                Nextslot2 = Nextslot2
             else:
-                Nextslot = Nextslot+1
+                Nextslot2 = Nextslot2+1
     
         
         
-        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot2)]+'\r\n')
         
    
     f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
@@ -239,11 +239,11 @@ os.mkdir(date+'_GoldenGate')
 
 #copy the temp GoldenGate.py to the new folder
 dst = '/'+date+'GoldenGate'
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns-gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 
 #now rename the script with the date
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
-os.rename('GoldenGate_nodigests_separatepcrruns-gradient.py', date+'_GoldenGate.py')
+os.rename('GoldenGate.py', date+'_GoldenGate.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
@@ -276,8 +276,8 @@ def set_variables():
     global cutsmart
     global Date
     global ngdesired
-    # global pwldigesttemp
-    # global concdigesttemp
+    global pwldigesttemp
+    global concdigesttemp
     
     global extra1value
     global extra1name
@@ -308,8 +308,8 @@ def set_variables():
     cutsmart = float(cutsmart_entry.get())
     Date = Date_entry.get()
     ngdesired = float(ngdesired_entry.get())
-    # pwldigesttemp = float(pwldigesttemp_entry.get())
-    # concdigesttemp = float(concdigesttemp_entry.get())
+    pwldigesttemp = float(pwldigesttemp_entry.get())
+    concdigesttemp = float(concdigesttemp_entry.get())
     
     extra1value = float(extra1value_entry.get())
     extra1name = str(extra1name_entry.get())
@@ -419,11 +419,11 @@ label_Date.place(relx=0,rely=0.3)
 label_ngdesired = tk.Label(text='ngdesired',font=('Helvatical bold',14))
 label_ngdesired.place(relx=0,rely=0.325)
 
-# label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
-# label_pwldigesttemp.place(relx=0,rely=0.35)
+label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
+label_pwldigesttemp.place(relx=0,rely=0.35)
 
-# label_concdigesttemp = tk.Label(text='concdigesttemp',font=('Helvatical bold',14))
-# label_concdigesttemp.place(relx=0,rely=0.375)
+label_concdigesttemp = tk.Label(text='concdigesttemp',font=('Helvatical bold',14))
+label_concdigesttemp.place(relx=0,rely=0.375)
 
 label_extra1 = tk.Label(text='extra1',font=('Helvatical bold',14))
 label_extra1.place(relx=0,rely=0.425)
@@ -487,13 +487,13 @@ ngdesired_entry = tk.Entry()
 ngdesired_entry.insert(END, '100')
 ngdesired_entry.place(relx=0.1,rely=0.325,width=35)
 
-# pwldigesttemp_entry = tk.Entry()
-# pwldigesttemp_entry.insert(END, '0')
-# pwldigesttemp_entry.place(relx=0.1,rely=0.35,width=35)
+pwldigesttemp_entry = tk.Entry()
+pwldigesttemp_entry.insert(END, '0')
+pwldigesttemp_entry.place(relx=0.1,rely=0.35,width=35)
 
-# concdigesttemp_entry = tk.Entry()
-# concdigesttemp_entry.insert(END, '0')
-# concdigesttemp_entry.place(relx=0.1,rely=0.375,width=35)
+concdigesttemp_entry = tk.Entry()
+concdigesttemp_entry.insert(END, '0')
+concdigesttemp_entry.place(relx=0.1,rely=0.375,width=35)
 
 extra1name_entry = tk.Entry()
 extra1name_entry.insert(END, 'variable')
@@ -621,12 +621,12 @@ input_csv.mainloop()
 
 temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
 tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-test = [[0,0,0,0,0,0,0,0,0,0,0,0]]
+test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
 
 
-row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired]]
-variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired'],index=range(len(temppwls)))
-variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired]
+row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,pwldigesttemp,concdigesttemp]]
+variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','pwldigesttemp','concdigesttemp'],index=range(len(temppwls)))
+variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,pwldigesttemp,concdigesttemp]
 variables['template pwl number'] = temppwls
 variables['template concentrations'] = tempconcs
 
@@ -772,6 +772,14 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     dupin['B6'] = 'C6'
     dupin['B7'] = 'C7'
     dupin['B8'] = 'C8'
+    dupin['C1'] = 'D1'
+    dupin['C2'] = 'D2'
+    dupin['C3'] = 'D3'
+    dupin['C4'] = 'D4'
+    dupin['C5'] = 'D5'
+    dupin['C6'] = 'D6'
+    dupin['C7'] = 'D7'
+    dupin['C8'] = 'D8'
 
 
     duplicate_in_tube = pcr.duplicated(subset=['tube'])
@@ -809,7 +817,28 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
         pcr.loc[index[i],'tube'] = dupin[letter]
         i = i + 1
     
+    digests['tube'] = ''
+    tubes_bro = pcr['tube'].tolist()
 
+    if pcr['tube'].isin(['A1']).any() == False:
+        digests.at[0, 'tube'] = 'A1'
+    elif pcr['tube'].isin(['A2']).any() == False:
+        digests.at[0, 'tube'] = 'A2'
+    elif pcr['tube'].isin(['A3']).any() == False:
+        digests.at[0, 'tube'] = 'A3'
+    elif pcr['tube'].isin(['A4']).any() == False:
+        digests.at[0, 'tube'] = 'A4'
+    elif pcr['tube'].isin(['A5']).any() == False:
+        digests.at[0, 'tube'] = 'A5'
+    elif pcr['tube'].isin(['A6']).any() == False:
+        digests.at[0, 'tube'] = 'A6'
+    elif pcr['tube'].isin(['A7']).any() == False:
+        digests.at[0, 'tube'] = 'A7'
+    elif pcr['tube'].isin(['A8']).any() == False:
+        digests.at[0, 'tube'] = 'A8'
+
+    digests.to_csv('digests.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
     pcr.to_csv('pcr.csv')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
     gradient.to_csv('gradient.csv')
