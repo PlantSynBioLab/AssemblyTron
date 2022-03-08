@@ -772,6 +772,24 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     dupin['B6'] = 'C6'
     dupin['B7'] = 'C7'
     dupin['B8'] = 'C8'
+    dupin['C1'] = 'D1'
+    dupin['C2'] = 'D2'
+    dupin['C3'] = 'D3'
+    dupin['C4'] = 'D4'
+    dupin['C5'] = 'D5'
+    dupin['C6'] = 'D6'
+    dupin['C7'] = 'D7'
+    dupin['C8'] = 'D8'
+    dupin['D1'] = 'E1'
+    dupin['D2'] = 'E2'
+    dupin['D3'] = 'E3'
+    dupin['D4'] = 'E4'
+    dupin['D5'] = 'E5'
+    dupin['D6'] = 'E6'
+    dupin['D7'] = 'E7'
+    dupin['D8'] = 'E8'
+
+
 
 
     duplicate_in_tube = pcr.duplicated(subset=['tube'])
@@ -798,6 +816,18 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
         i = i + 1
 
     #repeating the duplicate correction step in case there are quadruple duplicates (this might not be necessary but not sure)
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+
+    #repeating the duplicate correction step in case there are 5X duplicates (this might not be necessary but not sure)
     duplicate_in_tube = pcr.duplicated(subset=['tube'])
     if duplicate_in_tube.any():
         tes = pcr.loc[duplicate_in_tube]
