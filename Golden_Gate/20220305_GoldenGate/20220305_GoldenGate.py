@@ -1553,7 +1553,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.pick_up_tip()
         left_pipette.aspirate(Input_values.loc[0].at['cutsmart'], cold_tuberack['D4'], rate=2.0)
         left_pipette.dispense(Input_values.loc[0].at['cutsmart'], pcrplate[pcr_plustemplates.loc[i].at['tube']], rate=2.0)
-        left_pipette.mix(3,10,pcrplate[pcr_plustemplates.loc[i].at['tube']])
+        #left_pipette.mix(3,10,pcrplate[pcr_plustemplates.loc[i].at['tube']])
         #left_pipette.blow_out()
         left_pipette.drop_tip() 
 
@@ -1642,23 +1642,23 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #  #mixes contents around using the pipette tip  (reps,max volume,location)
 
 
-#     tc_mod.close_lid()
-#     tc_mod.set_lid_temperature(105)
-#     tc_mod.set_block_temperature(37,0,30, block_max_volume = 50) #temp,seconds,minutes,ramprate(danger),max vol
-#     tc_mod.set_block_temperature(80,0,20, block_max_volume = 50)
-#     tc_mod.set_block_temperature(4, block_max_volume = 50)
-#     tc_mod.open_lid()
+    tc_mod.close_lid()
+    tc_mod.set_lid_temperature(105)
+    tc_mod.set_block_temperature(37,0,30, block_max_volume = 50) #temp,seconds,minutes,ramprate(danger),max vol
+    tc_mod.set_block_temperature(80,0,20, block_max_volume = 50)
+    tc_mod.set_block_temperature(4, block_max_volume = 50)
+    tc_mod.open_lid()
 
-#     temp_module.deactivate()
-#     #tiprack3.reset_tipracks(self)
-#     #left_pipette.reset()
-#     tiprack3.reset()
+    temp_module.deactivate()
+    #tiprack3.reset_tipracks(self)
+    #left_pipette.reset()
+    tiprack3.reset()
 
-#     tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
-#     #left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
+    tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
+    #left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
 
     
-#     protocol.pause('REFILL TIP RACKS, and wait until its time to dispense the product')
+    protocol.pause('REFILL TIP RACKS, and wait until its time to dispense the product')
 
     temp_module.set_temperature(4)
 
@@ -1718,15 +1718,15 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     right_pipette.flow_rate.aspirate = 50
     #mix the T4 BSA combo
     right_pipette.pick_up_tip()
-    right_pipette.aspirate(20,cold_tuberack['D2'])
-    right_pipette.dispense(20,cold_tuberack['C4'])
+    right_pipette.aspirate(30,cold_tuberack['D2'])
+    right_pipette.dispense(30,cold_tuberack['C4'])
     right_pipette.blow_out()
     right_pipette.drop_tip()
 
     left_pipette.flow_rate.aspirate = 10
     left_pipette.pick_up_tip()
-    left_pipette.aspirate(2,cold_tuberack['C6'])
-    left_pipette.dispense(2,cold_tuberack['C4'])
+    left_pipette.aspirate(3,cold_tuberack['C6'])
+    left_pipette.dispense(3,cold_tuberack['C4'])
     #left_pipette.blow_out()
     left_pipette.mix(3,10,cold_tuberack['C4'])
     #left_pipette.blow_out()
