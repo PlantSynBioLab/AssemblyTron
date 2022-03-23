@@ -268,7 +268,6 @@ if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
 
 
 
-
 combinations['primer concentrations'] = oligos['concentration of diluted primer']
 combinations['amount primer to add to IVA'] = Input_values.loc[0].at['pcrvol']*Input_values.loc[0].at['primerconc']/combinations['primer concentrations']
 
@@ -294,6 +293,7 @@ if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
     templateinformation = templateinformation.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
     combinations = combinations.merge(templateinformation, on= 'Assembly Piece ID Number Bin 4')
 
+
 combinations['template concentrations'] = pcr_plustemplates['concentration of template (ng/uL)']
 combinations['amount templates to add'] = Input_values.loc[0].at['pcrvol']*Input_values.loc[0].at['templatengs']/combinations['template concentrations']
 
@@ -312,8 +312,6 @@ tempsadded = len(temp_col)
 
 combinations['water to add'] = (Input_values.loc[0].at['pcrvol']-primersadded- tempsadded - Input_values.loc[0].at['Q5'])
 
-
-combinations
 
 combinations
 
@@ -338,7 +336,7 @@ combinations
 
 
 ########################################################################################################################################
-#determining which row of pcr rack to start on. 
+#determining which row of pcr rack to start on,loop through 96 well, not totally necessary. 
 
 # loc_i = pandas.read_csv('/data/user_storage/output_new_pcrwell_location.csv')
 
@@ -518,7 +516,6 @@ combinations
 # newlocation_df
 
 # newlocation_df.to_csv('/data/user_storage/output_new_pcrwell_location.csv')
-
 
 ###################################################################################################
 #annealing calcs
@@ -825,7 +822,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             left_pipette.dispense(3*df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
             #left_pipette.blow_out()
             left_pipette.drop_tip()
-    
+
 #add stock primers to dilution tube
     for i, row in oligos.iterrows():
         left_pipette.pick_up_tip() #add in an iterrows function
@@ -861,18 +858,12 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
 #add water first
     for i, row in combinations.iterrows():
-        if combinations.loc[i].at['water to add'] > 8:
-            right_pipette.pick_up_tip()
-            right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-            right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-            #right_pipette.blow_out()
-            right_pipette.drop_tip()
-        if combinations.loc[i].at['water to add'] < 8:
-            left_pipette.pick_up_tip()
-            left_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-            left_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-            #left_pipette.blow_out()
-            left_pipette.drop_tip()
+        
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+        right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        #right_pipette.blow_out()
+        right_pipette.drop_tip()
     
 #add 1uL of each primer
     for i, row in combinations.iterrows():
