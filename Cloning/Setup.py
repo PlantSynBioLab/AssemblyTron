@@ -342,7 +342,7 @@ primerconc_entry.insert(END, '0.1')
 primerconc_entry.place(relx=0.250,rely=0.1,width=35)
 
 pcrvol_entry = tk.Entry()
-pcrvol_entry.insert(END, '25')
+pcrvol_entry.insert(END, '40')
 pcrvol_entry.place(relx=0.340,rely=0.1,width=35)
 
 templatengs_entry = tk.Entry()
@@ -358,7 +358,7 @@ DPNI_entry.insert(END, '1')
 DPNI_entry.place(relx=0.60,rely=0.1,width=35)
 
 DPwater_entry = tk.Entry()
-DPwater_entry.insert(END, '19')
+DPwater_entry.insert(END, '4')
 DPwater_entry.place(relx=0.65,rely=0.1,width=35)
 
 cutsmart_entry = tk.Entry()
