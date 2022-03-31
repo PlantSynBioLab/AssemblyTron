@@ -944,11 +944,18 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #Now add DPNI for digestion
 
     for i, row in combinations.iterrows():
-        right_pipette.pick_up_tip()
-        right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
-        right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-        right_pipette.mix(3,Input_values.loc[0].at['DPwater'],pcrplate[combinations.loc[i].at['pcrwell']])
-        right_pipette.drop_tip()
+        if Input_values.loc[0].at['DPwater'] > 10:
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
+            right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            right_pipette.mix(3,Input_values.loc[0].at['DPwater'],pcrplate[combinations.loc[i].at['pcrwell']])
+            right_pipette.drop_tip()
+        if Input_values.loc[0].at['DPwater'] < 10:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
+            left_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            left_pipette.mix(3,Input_values.loc[0].at['DPwater'],pcrplate[combinations.loc[i].at['pcrwell']])
+            left_pipette.drop_tip()
 
     for i, row in combinations.iterrows():
         left_pipette.pick_up_tip()
