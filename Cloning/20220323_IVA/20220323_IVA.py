@@ -56,7 +56,7 @@ Date
 
 Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
 diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
-
+DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
 
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
@@ -317,7 +317,7 @@ temp_col
 tempsadded = len(temp_col)
 
 
-combinations['water to add'] = (Input_values.loc[0].at['pcrvol']-(primersadded*(Input_values.loc[0].at['pcrvol']*Input_values.loc[0].at['primerconc']/combinations['primer concentrations']))- tempsadded - Q5)
+combinations['water to add'] = (Input_values.loc[0].at['pcrvol']-(primersadded*(Input_values.loc[0].at['pcrvol']*Input_values.loc[0].at['primerconc']/combinations['primer concentrations']))- tempsadded - Q5 - DMSO)
 
 
 combinations
@@ -905,7 +905,14 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             #left_pipette.mix(3,3,pcrplate[combinations.loc[i].at['pcrwell']])
             left_pipette.blow_out()
             left_pipette.drop_tip()
-    
+#Add DMSO
+    for i, row in combinations.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(DMSO, cold_tuberack['D5'], rate=2.0)
+        left_pipette.dispense(DMSO, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)    
+        left_pipette.blow_out()
+        left_pipette.drop_tip()
+
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
     for i, row in combinations.iterrows():
@@ -940,6 +947,20 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(4)
     tc_mod.open_lid()
     protocol.pause()
+
+#Now dilute PCR reactions to get rid of some of the Q5
+    for i,row in combinations.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(50, watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+        right_pipette.dispense(50, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.mix(3,50,pcrplate[combinations.loc[i].at['pcrwell']])
+        
+        right_pipette.aspirate(50, pcrplate[combinations.loc[i].at['pcrwell']])
+        ###delete this after trial.
+        right_pipette.dispense(50, pcrplate['D1'])
+        ######
+        right_pipette.drop_tip()
+
 
 #Now add DPNI for digestion
 
