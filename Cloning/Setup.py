@@ -354,11 +354,11 @@ Q5_entry.insert(END, '0')
 Q5_entry.place(relx=0.520,rely=0.1,width=35)
 
 DPNI_entry = tk.Entry()
-DPNI_entry.insert(END, '1')
+DPNI_entry.insert(END, '2')
 DPNI_entry.place(relx=0.60,rely=0.1,width=35)
 
 DPwater_entry = tk.Entry()
-DPwater_entry.insert(END, '4')
+DPwater_entry.insert(END, '3')
 DPwater_entry.place(relx=0.65,rely=0.1,width=35)
 
 cutsmart_entry = tk.Entry()
