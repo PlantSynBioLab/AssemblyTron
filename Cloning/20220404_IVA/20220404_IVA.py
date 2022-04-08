@@ -56,7 +56,7 @@ Date
 
 Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
 diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
-
+DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
 
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
@@ -317,7 +317,7 @@ temp_col
 tempsadded = len(temp_col)
 
 
-combinations['water to add'] = (Input_values.loc[0].at['pcrvol']-(primersadded*(Input_values.loc[0].at['pcrvol']*Input_values.loc[0].at['primerconc']/combinations['primer concentrations']))- tempsadded - Q5)
+combinations['water to add'] = (Input_values.loc[0].at['pcrvol']-(primersadded*(Input_values.loc[0].at['pcrvol']*Input_values.loc[0].at['primerconc']/combinations['primer concentrations']))- tempsadded - Q5 - DMSO)
 
 
 combinations
@@ -780,191 +780,212 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1, tiprack2])
     left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
     
-# ##################################COMMANDS####################################
+##################################COMMANDS####################################
     
-# #add water to template dilution tubes. ***df is the template description dataframe
-# #Since we are just moving water I will use the same pipette tip to save plastic
+#add water to template dilution tubes. ***df is the template description dataframe
+#Since we are just moving water I will use the same pipette tip to save plastic
     
-#     for i, row in df.iterrows():
-#         if df.loc[i].at['water to add'] > 10:
-#             right_pipette.pick_up_tip()
-#             right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-#             right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
-#             right_pipette.drop_tip()
-#         if 3.333 < df.loc[i].at['water to add'] < 10:
-#             if 3*(df.loc[i].at['water to add']) < 10:
-#                 left_pipette.pick_up_tip()
-#                 left_pipette.aspirate(3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-#                 left_pipette.dispense(3*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
-#                 left_pipette.drop_tip()
-#             else:
-#                 right_pipette.pick_up_tip()
-#                 right_pipette.aspirate(3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-#                 right_pipette.dispense(3*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
-#                 right_pipette.drop_tip()
-#         if 2.5 < df.loc[i].at['water to add'] < 3.333:
-#             if 4*(df.loc[i].at['water to add']) < 10:
-#                 left_pipette.pick_up_tip()
-#                 left_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-#                 left_pipette.dispense(4*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
-#                 left_pipette.drop_tip()
-#             else:
-#                 right_pipette.pick_up_tip()
-#                 right_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-#                 right_pipette.dispense(4*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
-#                 right_pipette.drop_tip()
-#         if df.loc[i].at['water to add'] < 2.5:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-#             left_pipette.dispense(4*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
-#             left_pipette.drop_tip()
+    for i, row in df.iterrows():
+        if df.loc[i].at['water to add'] > 10:
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+            right_pipette.dispense(df.loc[i].at['water to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0)
+            right_pipette.drop_tip()
+        if 3.333 < df.loc[i].at['water to add'] < 10:
+            if 3*(df.loc[i].at['water to add']) < 10:
+                left_pipette.pick_up_tip()
+                left_pipette.aspirate(3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                left_pipette.dispense(3*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
+                left_pipette.drop_tip()
+            else:
+                right_pipette.pick_up_tip()
+                right_pipette.aspirate(3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                right_pipette.dispense(3*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
+                right_pipette.drop_tip()
+        if 2.5 < df.loc[i].at['water to add'] < 3.333:
+            if 4*(df.loc[i].at['water to add']) < 10:
+                left_pipette.pick_up_tip()
+                left_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                left_pipette.dispense(4*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
+                left_pipette.drop_tip()
+            else:
+                right_pipette.pick_up_tip()
+                right_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                right_pipette.dispense(4*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
+                right_pipette.drop_tip()
+        if df.loc[i].at['water to add'] < 2.5:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+            left_pipette.dispense(4*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
+            left_pipette.drop_tip()
 
-#         #right_pipette.blow_out()
+        #right_pipette.blow_out()
 
-# #add water to primer dilution tubes
-#     right_pipette.pick_up_tip()
-#     for i, row in oligos.iterrows():
-#         right_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
-#         right_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
-#         #right_pipette.blow_out()
-#     right_pipette.drop_tip()    
+#add water to primer dilution tubes
+    right_pipette.pick_up_tip()
+    for i, row in oligos.iterrows():
+        right_pipette.aspirate(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], watertuberack['A1'], rate=2.0) #need to put 39uL of water into each dilution tube for primers,) #we need to find better way to loop through these commands
+        right_pipette.dispense(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        #right_pipette.blow_out()
+    right_pipette.drop_tip()    
     
-# #add stock templates to dilution tubes
-#     for i, row in df.iterrows():
-#         if df.loc[i].at['water to add'] > 10:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
-#             left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
-#             left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
-#             #left_pipette.blow_out()
-#             left_pipette.drop_tip()
-#         if 3.333 < df.loc[i].at['water to add'] < 10:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(3*(df.loc[i].at['amount of template to add']), cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
-#             left_pipette.dispense(3*(df.loc[i].at['amount of template to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
-#             left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
-#             #left_pipette.blow_out()
-#             left_pipette.drop_tip()
-#         if 2.5< df.loc[i].at['water to add'] < 3.333:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(4*(df.loc[i].at['amount of template to add']), cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
-#             left_pipette.dispense(4*(df.loc[i].at['amount of template to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
-#             left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
-#             #left_pipette.blow_out()
-#             left_pipette.drop_tip()
-#         if df.loc[i].at['water to add'] < 2.5:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(4*(df.loc[i].at['amount of template to add']), cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
-#             left_pipette.dispense(4*(df.loc[i].at['amount of template to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
-#             left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
-#             #left_pipette.blow_out()
-#             left_pipette.drop_tip()
+#add stock templates to dilution tubes
+    for i, row in df.iterrows():
+        if df.loc[i].at['water to add'] > 10:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(df.loc[i].at['amount of template to add'], cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
+            left_pipette.dispense(df.loc[i].at['amount of template to add'], tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+            left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
+        if 3.333 < df.loc[i].at['water to add'] < 10:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(3*(df.loc[i].at['amount of template to add']), cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
+            left_pipette.dispense(3*(df.loc[i].at['amount of template to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+            left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
+        if 2.5< df.loc[i].at['water to add'] < 3.333:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(4*(df.loc[i].at['amount of template to add']), cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
+            left_pipette.dispense(4*(df.loc[i].at['amount of template to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+            left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
+        if df.loc[i].at['water to add'] < 2.5:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(4*(df.loc[i].at['amount of template to add']), cold_tuberack[df.loc[i].at['template_well']], rate=2.0) #dilution well corresponds to stock well
+            left_pipette.dispense(4*(df.loc[i].at['amount of template to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+            left_pipette.mix(3,5,tuberack2[df.loc[i].at['template_well']])
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
     
-# #add stock primers to dilution tube
-#     for i, row in oligos.iterrows():
-#         left_pipette.pick_up_tip() #add in an iterrows function
-#         left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
-#         left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
-#         left_pipette.mix(3,5,tuberack2[oligos.loc[i].at['well']])
-#         #left_pipette.blow_out()
-#         left_pipette.drop_tip()
+#add stock primers to dilution tube
+    for i, row in oligos.iterrows():
+        left_pipette.pick_up_tip() #add in an iterrows function
+        left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], cold_tuberack[oligos.loc[i].at['well']], rate=2.0)
+        left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], tuberack2[oligos.loc[i].at['well']], rate=2.0)
+        left_pipette.mix(3,5,tuberack2[oligos.loc[i].at['well']])
+        #left_pipette.blow_out()
+        left_pipette.drop_tip()
     
-# #mix contents with pipette tip (reps, max volume, location) for templates and primers
-#     # for i, row in df.iterrows():
-#     #     if df.loc[i].at['water to add'] > 8:
-#     #         right_pipette.pick_up_tip()
-#     #         right_pipette.mix(3,df.loc[i].at['water to add'],tuberack2[df.loc[i].at['template_well']])
-#     #         #right_pipette.blow_out()
-#     #         right_pipette.drop_tip()
-#     #     if df.loc[i].at['water to add'] < 8:
-#     #         right_pipette.pick_up_tip()
-#     #         right_pipette.mix(3,3*df.loc[i].at['water to add'],tuberack2[df.loc[i].at['template_well']])
-#     #         #right_pipette.blow_out()
-#     #         right_pipette.drop_tip()
+#mix contents with pipette tip (reps, max volume, location) for templates and primers
+    # for i, row in df.iterrows():
+    #     if df.loc[i].at['water to add'] > 8:
+    #         right_pipette.pick_up_tip()
+    #         right_pipette.mix(3,df.loc[i].at['water to add'],tuberack2[df.loc[i].at['template_well']])
+    #         #right_pipette.blow_out()
+    #         right_pipette.drop_tip()
+    #     if df.loc[i].at['water to add'] < 8:
+    #         right_pipette.pick_up_tip()
+    #         right_pipette.mix(3,3*df.loc[i].at['water to add'],tuberack2[df.loc[i].at['template_well']])
+    #         #right_pipette.blow_out()
+    #         right_pipette.drop_tip()
 
-#     for i, row in oligos.iterrows():
-#         right_pipette.pick_up_tip()
-#         right_pipette.mix(3,oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'],tuberack2[oligos.loc[i].at['well']])
-#         #right_pipette.blow_out()
-#         right_pipette.drop_tip()
+    for i, row in oligos.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.mix(3,oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'],tuberack2[oligos.loc[i].at['well']])
+        #right_pipette.blow_out()
+        right_pipette.drop_tip()
 
-# #robot pauses so user can take out stock primers and put in DNPNI
-#     protocol.pause('Take all stock primers and templates out. Add DPNI to A1, water to A2, and cutsmart to A3. Then proceed')
+#robot pauses so user can take out stock primers and put in DNPNI
+    protocol.pause('Take all stock primers and templates out. Add DPNI to A1, water to A2, and cutsmart to A3. Then proceed')
     
-# #now mix dilute primers, dilute templates, Q5, and water in pcr tube within thermocycler
-#     tc_mod.open_lid()
+#now mix dilute primers, dilute templates, Q5, and water in pcr tube within thermocycler
+    tc_mod.open_lid()
     
-# #add water first
-#     for i, row in combinations.iterrows():
-#         if combinations.loc[i].at['water to add'] > 10:
-#             right_pipette.pick_up_tip()
-#             right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-#             right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-#             right_pipette.blow_out()
-#             right_pipette.drop_tip()
-#         if combinations.loc[i].at['water to add'] < 10:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
-#             left_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-#             left_pipette.blow_out()
-#             left_pipette.drop_tip()
+#add water first
+    for i, row in combinations.iterrows():
+        if combinations.loc[i].at['water to add'] > 10:
+            right_pipette.pick_up_tip()
+            right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+            right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            right_pipette.blow_out()
+            right_pipette.drop_tip()
+        if combinations.loc[i].at['water to add'] < 10:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+            left_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            left_pipette.blow_out()
+            left_pipette.drop_tip()
     
-# #add 1uL of each primer
-#     for i, row in combinations.iterrows():
+#add 1uL of each primer
+    for i, row in combinations.iterrows():
         
-#         for j in filter_col:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(combinations.loc[i].at['amount primer to add to IVA'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
-#             left_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-#             #left_pipette.mix(3,2,pcrplate[combinations.loc[i].at['pcrwell']])
-#             left_pipette.blow_out()
-#             left_pipette.drop_tip()
+        for j in filter_col:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(combinations.loc[i].at['amount primer to add to IVA'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
+            left_pipette.dispense(combinations.loc[i].at['amount primer to add to IVA'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            #left_pipette.mix(3,2,pcrplate[combinations.loc[i].at['pcrwell']])
+            left_pipette.blow_out()
+            left_pipette.drop_tip()
     
-# #add 1uL of each template
-#     for i, row in combinations.iterrows():
+#add 1uL of each template
+    for i, row in combinations.iterrows():
         
-#         for j in temp_col:
-#             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(combinations.loc[i].at['amount templates to add'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
-#             left_pipette.dispense(combinations.loc[i].at['amount templates to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-#             #left_pipette.mix(3,3,pcrplate[combinations.loc[i].at['pcrwell']])
-#             left_pipette.blow_out()
-#             left_pipette.drop_tip()
+        for j in temp_col:
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(combinations.loc[i].at['amount templates to add'], tuberack2[combinations.loc[i].at[j]], rate=2.0)
+            left_pipette.dispense(combinations.loc[i].at['amount templates to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+            #left_pipette.mix(3,3,pcrplate[combinations.loc[i].at['pcrwell']])
+            left_pipette.blow_out()
+            left_pipette.drop_tip()
+    #Add DMSO
+    for i, row in combinations.iterrows():
+        left_pipette.pick_up_tip()
+        left_pipette.aspirate(DMSO, cold_tuberack['D5'], rate=2.0)
+        left_pipette.dispense(DMSO, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)    
+        left_pipette.blow_out()
+        left_pipette.drop_tip()        
     
-# #add Q5 to each reaction
-# #keep Q5 in tuberack1['D6']                                            
-#     for i, row in combinations.iterrows():
-#         right_pipette.pick_up_tip()
-#         right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-#         right_pipette.dispense(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
-#         right_pipette.mix(3,Q5+3,pcrplate[combinations.loc[i].at['pcrwell']])
-#         #right_pipette.blow_out()
-#         right_pipette.drop_tip()
+#add Q5 to each reaction
+#keep Q5 in tuberack1['D6']                                            
+    for i, row in combinations.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
+        right_pipette.dispense(Q5, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.mix(3,Q5+3,pcrplate[combinations.loc[i].at['pcrwell']])
+        #right_pipette.blow_out()
+        right_pipette.drop_tip()
 
 #mix up
-    # for i, row in combinations.iterrows():
-    #     right_pipette.pick_up_tip()
-    #     right_pipette.mix(3,combinations.loc[i].at['water to add'],pcrplate[combinations.loc[i].at['pcrwell']])
-    #     right_pipette.blow_out()
-    #     right_pipette.drop_tip()
+# for i, row in combinations.iterrows():
+#     right_pipette.pick_up_tip()
+#     right_pipette.mix(3,combinations.loc[i].at['water to add'],pcrplate[combinations.loc[i].at['pcrwell']])
+#     right_pipette.blow_out()
+#     right_pipette.drop_tip()
     
 #Now run thermocycler to amplify DNA
     
 #these parameters can be altered for different pcr reactionsabs
 #should automate calculation of the parameters from j5 spreadsheets.
 #maybe use the median annealing temperature in the spreadsheet
-    # tc_mod.close_lid()
-    # tc_mod.set_lid_temperature(temperature = 105)
-    # tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
-    # profile = [
-    #     {'temperature': 98, 'hold_time_seconds': 10},
-    #     {'temperature': round(Annealing_and_extension.loc[0].at['Annealing temp'],1), 'hold_time_seconds': 30},
-    #     {'temperature': 72, 'hold_time_seconds': round(Annealing_and_extension.loc[0].at['extension time (seconds)'],1)}] #should automate calculation of annealing temp based on spreadsheet
-    # tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
-    # tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
-    # tc_mod.set_block_temperature(4)
-    # tc_mod.open_lid()
-    # protocol.pause()
+    tc_mod.close_lid()
+    tc_mod.set_lid_temperature(temperature = 105)
+    tc_mod.set_block_temperature(98, hold_time_seconds=30, block_max_volume=25)
+    profile = [
+        {'temperature': 98, 'hold_time_seconds': 10},
+        {'temperature': round(Annealing_and_extension.loc[0].at['Annealing temp'],1), 'hold_time_seconds': 30},
+        {'temperature': 72, 'hold_time_seconds': round(Annealing_and_extension.loc[0].at['extension time (seconds)'],1)}] #should automate calculation of annealing temp based on spreadsheet
+    tc_mod.execute_profile(steps=profile, repetitions=34, block_max_volume=25)
+    tc_mod.set_block_temperature(72, hold_time_minutes=5, block_max_volume=25)
+    tc_mod.set_block_temperature(4)
+    tc_mod.open_lid()
+    protocol.pause()
+
+#Now dilute PCR reactions to get rid of some of the Q5
+    for i,row in combinations.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.aspirate(50, watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
+        right_pipette.dispense(50, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
+        right_pipette.mix(3,50,pcrplate[combinations.loc[i].at['pcrwell']])
+        
+        right_pipette.aspirate(50, pcrplate[combinations.loc[i].at['pcrwell']])
+        ###delete this after trial.
+        right_pipette.dispense(50, pcrplate['D1'])
+        ######
+        right_pipette.drop_tip()
+
 
 #Now add DPNI for digestion
 

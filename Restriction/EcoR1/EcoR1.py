@@ -18,7 +18,7 @@ plasmid = pd.read_csv("20220408/20220408_ecor1.csv",engine = 'python', encoding=
 
 plasmid = pd.DataFrame(plasmid)
 
-plasmid['Buffer'] = float('4.4')
+plasmid['Buffer'] = float('5')
 plasmid['EcoR1'] = float('1')
 plasmid['Volume of Plasmid'] = ''
 plasmid['Volume of Water'] = ''
