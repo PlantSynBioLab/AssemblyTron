@@ -798,8 +798,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             right_pipette.drop_tip()
         if df.loc[i].at['water to add'] < 8:
             left_pipette.pick_up_tip()
-            left_pipette.aspirate(3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
-            left_pipette.dispense(3*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
+            left_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+            left_pipette.dispense(4*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=2.0)
             left_pipette.drop_tip()
         #right_pipette.blow_out()
 
@@ -871,13 +871,13 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
 #add water first
     for i, row in combinations.iterrows():
-        if combinations.loc[i].at['water to add'] > 10:
+        if combinations.loc[i].at['water to add'] > 8:
             right_pipette.pick_up_tip()
             right_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
             right_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
             right_pipette.blow_out()
             right_pipette.drop_tip()
-        if combinations.loc[i].at['water to add'] < 10:
+        if combinations.loc[i].at['water to add'] < 8:
             left_pipette.pick_up_tip()
             left_pipette.aspirate(combinations.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #need to write a function to add up all volumes that are being added and figure out how much water to add in automated way
             left_pipette.dispense(combinations.loc[i].at['water to add'], pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)
@@ -972,11 +972,11 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         left_pipette.drop_tip()
 
     #mix up
-    # for i, row in combinations.iterrows():
-    #     right_pipette.pick_up_tip()
-    #     right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[combinations.loc[i].at['pcrwell']])
-    #     #right_pipette.blow_out()
-    #     right_pipette.drop_tip()
+    for i, row in combinations.iterrows():
+        right_pipette.pick_up_tip()
+        right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[combinations.loc[i].at['pcrwell']])
+        #right_pipette.blow_out()
+        right_pipette.drop_tip()
 
     tc_mod.close_lid()
 
