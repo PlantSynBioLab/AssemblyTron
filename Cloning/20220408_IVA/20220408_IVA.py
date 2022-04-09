@@ -930,10 +930,11 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             #left_pipette.mix(3,3,pcrplate[combinations.loc[i].at['pcrwell']])
             left_pipette.blow_out()
             left_pipette.drop_tip()
+    
     #Add DMSO
     for i, row in combinations.iterrows():
         left_pipette.pick_up_tip()
-        left_pipette.aspirate(DMSO, cold_tuberack['D5'], rate=2.0)
+        left_pipette.aspirate(DMSO, tuberack2['D6'], rate=2.0)
         left_pipette.dispense(DMSO, pcrplate[combinations.loc[i].at['pcrwell']], rate=2.0)    
         left_pipette.blow_out()
         left_pipette.drop_tip()        
@@ -981,7 +982,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         right_pipette.mix(3,50,pcrplate[combinations.loc[i].at['pcrwell']])
         
         right_pipette.aspirate(50, pcrplate[combinations.loc[i].at['pcrwell']])
-        ###delete this after trial.
+        ###delete this after trials.
         right_pipette.dispense(50, pcrplate['D1'])
         ######
         right_pipette.drop_tip()
