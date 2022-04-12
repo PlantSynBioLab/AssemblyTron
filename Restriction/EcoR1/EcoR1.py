@@ -156,12 +156,20 @@ def run(protocol: protocol_api.ProtocolContext):
 # pick up plasmid  -> dispense into pcr tube -> get rid of tip  no blow out because aeresol
 
     for i, row in plasmid.iterrows():
-        pipette_left.pick_up_tip()
-        pipette_left.aspirate(plasmid.loc[i].at['Volume of Plasmid'],cold_tuberack[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
-        pipette_left.dispense(plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
-        pipette_left.mix(3,plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']])
-        pipette_left.blow_out()
-        pipette_left.drop_tip()
+        if plasmid.loc[i].at['Volume of Plasmid'] < 10:
+            pipette_left.pick_up_tip()
+            pipette_left.aspirate(plasmid.loc[i].at['Volume of Plasmid'],cold_tuberack[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
+            pipette_left.dispense(plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+            pipette_left.mix(3,plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']])
+            pipette_left.blow_out()
+            pipette_left.drop_tip()
+        else:
+            pipette_right.pick_up_tip()
+            pipette_right.aspirate(plasmid.loc[i].at['Volume of Plasmid'],cold_tuberack[plasmid.loc[i].at['Plasmid Location']],2) #location of plasmid
+            pipette_right.dispense(plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']],2)
+            pipette_right.mix(3,plasmid.loc[i].at['Volume of Plasmid'],pcr[plasmid.loc[i].at['Digestion Tube']])
+            pipette_right.blow_out()
+            pipette_right.drop_tip()
 
 # pick up buffer  -> dispense into pcr tube -> get rid of tip
 
