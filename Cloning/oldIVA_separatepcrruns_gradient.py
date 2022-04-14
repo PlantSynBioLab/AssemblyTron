@@ -1023,7 +1023,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
         del frame['Assembly Piece ID Number Bin 3']
     if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
         del frame['Assembly Piece ID Number Bin 4']
-    partss = frame
+    
 
 #frame += startnum
 #frame
@@ -1744,18 +1744,11 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
     #add all fragments to the GG tube
         for i, row in globals()[x].iterrows():
-            if globals()[x].loc[i].at['final amount to add'] < 10:
-                left_pipette.pick_up_tip()
-                left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['frag_loc']])
-                left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
-                left_pipette.blow_out()
-                left_pipette.drop_tip()
-            else:
-                right_pipette.pick_up_tip()
-                right_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['frag_loc']])
-                right_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
-                right_pipette.blow_out()
-                right_pipette.drop_tip()
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['frag_loc']])
+            left_pipette.dispense(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+            left_pipette.blow_out()
+            left_pipette.drop_tip()
    
     # one more mix
         right_pipette.pick_up_tip()

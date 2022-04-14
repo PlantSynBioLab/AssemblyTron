@@ -468,11 +468,11 @@ Q5_entry.insert(END, '0')
 Q5_entry.place(relx=0.1,rely=0.2,width=35)
 
 DPNI_entry = tk.Entry()
-DPNI_entry.insert(END, '1')
+DPNI_entry.insert(END, '2')
 DPNI_entry.place(relx=0.1,rely=0.225,width=35)
 
 DPwater_entry = tk.Entry()
-DPwater_entry.insert(END, '19')
+DPwater_entry.insert(END, '18')
 DPwater_entry.place(relx=0.1,rely=0.250,width=35)
 
 cutsmart_entry = tk.Entry()
@@ -828,16 +828,16 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
         i = i + 1
 
     #repeating the duplicate correction step in case there are 5X duplicates (this might not be necessary but not sure)
-    duplicate_in_tube = pcr.duplicated(subset=['tube'])
-    if duplicate_in_tube.any():
-        tes = pcr.loc[duplicate_in_tube]
-        index = tes.index
-    index
-    i = 0
-    while i < len(index):
-        letter = pcr.loc[index[i]].at['tube']
-        pcr.loc[index[i],'tube'] = dupin[letter]
-        i = i + 1
+    # duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    # if duplicate_in_tube.any():
+    #     tes = pcr.loc[duplicate_in_tube]
+    #     index = tes.index
+    # index
+    # i = 0
+    # while i < len(index):
+    #     letter = pcr.loc[index[i]].at['tube']
+    #     pcr.loc[index[i],'tube'] = dupin[letter]
+    #     i = i + 1
     
 
     pcr.to_csv('pcr.csv')
