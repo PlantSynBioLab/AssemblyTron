@@ -1666,7 +1666,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 #  #mixes contents around using the pipette tip  (reps,max volume,location)
 
-
+    temp_module.deactivate()
     tc_mod.close_lid()
     tc_mod.set_lid_temperature(105)
     tc_mod.set_block_temperature(37,0,60, block_max_volume = 50) #temp,seconds,minutes,ramprate(danger),max vol
@@ -1674,7 +1674,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(4, block_max_volume = 50)
     tc_mod.open_lid()
 
-    temp_module.deactivate()
+    
     #tiprack3.reset_tipracks(self)
     #left_pipette.reset()
     tiprack3.reset()
@@ -1758,9 +1758,9 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 right_pipette.drop_tip()
    
     # one more mix
-        right_pipette.pick_up_tip()
-        right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-        right_pipette.blow_out()
-        right_pipette.drop_tip()
+        # right_pipette.pick_up_tip()
+        # right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        # right_pipette.blow_out()
+        # right_pipette.drop_tip()
  
     print('all done')

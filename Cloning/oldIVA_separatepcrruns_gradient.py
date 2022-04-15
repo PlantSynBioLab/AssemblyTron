@@ -1023,7 +1023,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
         del frame['Assembly Piece ID Number Bin 3']
     if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
         del frame['Assembly Piece ID Number Bin 4']
-    
+    partss = frame
 
 #frame += startnum
 #frame
@@ -1666,7 +1666,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 #  #mixes contents around using the pipette tip  (reps,max volume,location)
 
-
+    temp_module.deactivate()
     tc_mod.close_lid()
     tc_mod.set_lid_temperature(105)
     tc_mod.set_block_temperature(37,0,60, block_max_volume = 50) #temp,seconds,minutes,ramprate(danger),max vol
@@ -1674,7 +1674,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     tc_mod.set_block_temperature(4, block_max_volume = 50)
     tc_mod.open_lid()
 
-    temp_module.deactivate()
+    
     #tiprack3.reset_tipracks(self)
     #left_pipette.reset()
     tiprack3.reset()
@@ -1744,11 +1744,18 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
     #add all fragments to the GG tube
         for i, row in globals()[x].iterrows():
-            left_pipette.pick_up_tip()
-            left_pipette.aspirate(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['frag_loc']])
-            left_pipette.dispense(globals()[x].loc[i].at['initial required amount'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
-            left_pipette.blow_out()
-            left_pipette.drop_tip()
+            if globals()[x].loc[i].at['final amount to add'] < 10:
+                left_pipette.pick_up_tip()
+                left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['frag_loc']])
+                left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.blow_out()
+                left_pipette.drop_tip()
+            else:
+                right_pipette.pick_up_tip()
+                right_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['frag_loc']])
+                right_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+                right_pipette.blow_out()
+                right_pipette.drop_tip()
    
     # one more mix
         right_pipette.pick_up_tip()
