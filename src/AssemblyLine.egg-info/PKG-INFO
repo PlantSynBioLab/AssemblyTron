@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: AssemblyLine
+Version: 0.0.1
+Summary: A package for automating DNA assembly with an Opentrons liquid handling robot
+Home-page: https://github.com/PlantSynBioLab/opentrons
+Author: John Bryant
+Author-email: jbryant2@vt.edu
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# Example Package
+
+This is a package to automate the opetrons liquid handling robot. You can use
+[Github-flavored Markdown](https://guides.github.com/PlantSynBioLab/opentrons)
+to access it.
