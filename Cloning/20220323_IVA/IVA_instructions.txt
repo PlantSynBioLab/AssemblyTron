@@ -1,0 +1,30 @@
+Place the coldtuberack in slot 1. 
+put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+put in a fresh pcr plate into thermocycler. 
+Instructions for setting up the coldtuberack: 
+Put oWL00332_(Backbone)_forward in A1
+Put oWL00333_(Backbone)_reverse in A2
+Put oWL00334_(aeBlue_twistt)_forward in A3
+Put oWL00335_(aeBlue_twistt)_reverse in A4
+Put oWL00336_(backbone_2)_forward in A5
+Put oWL00337_(backbone_2)_reverse in A6
+Put oWL00338_(backbone_2_copy)_forward in B1
+Put oWL00339_(backbone_2_copy)_reverse in B2
+Put oWL00340_(amajLime_twistt)_forward in B3
+Put oWL00341_(amajLime_twistt)_reverse in B4
+Put oWL00342_(amilCP_Pink_twistt)_forward in B5
+Put oWL00343_(amilCP_Pink_twistt)_reverse in B6
+Put oWL00344_(No_Color_twistt)_forward in C1
+Put oWL00345_(No_Color_twistt)_reverse in C2
+Put amilCP_Orange in C3
+Put aeBlue_parti_0 in C4
+Put amilCP_Orange in C5
+Put amilCP_Orange in C5
+Put amajLime_par_0 in C6
+Put amilCP_Pink__0 in D1
+Put amajLime_par_0 in D2
+Place molec bio grade h20 in D3 
+Place cutsmart buffer in D4 
+Place DPNI in D5 
+Place Q5 DNA polymerase in D6 
+Place 24 well tuberack in slot 2. Add 26 empty 1.5 mL tubes to the rack in the same positions. 

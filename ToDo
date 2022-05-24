@@ -4,3 +4,8 @@
 - Make ARF19_del into a .py file
 - Make enzyme digestion notebook into a .py file
 - Make Gibson assembly notebook into a .py file
+
+############################################################################################
+
+20211028
+*update the tkinter window in Setup_nodigests.py and Setup_IVA.py
