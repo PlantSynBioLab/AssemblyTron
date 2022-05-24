@@ -1,5 +1,0 @@
-,ID Number,Name,Assembly Method,Part(s) Bin 0,Assembly Piece ID Number Bin 0,Part(s) Bin 1,Assembly Piece ID Number Bin 1,Part(s) Bin 2,Assembly Piece ID Number Bin 2,Part(s) Bin 3,Assembly Piece ID Number Bin 3,Part(s) Bin 4,Assembly Piece ID Number Bin 4,pcr_frag_tube_x,pcr_frag_tube_y,pcr_frag_tube
-0,0,pmas00001,Golden-gate,(Backbone),0,(aeBlue_twistt),1,(backbone_2),2,,,,,A1,B1,C1
-1,1,pmas00002,Golden-gate,(Backbone),0,(amajLime_twistt),3,(backbone_2),2,,,,,A1,D1,C1
-2,2,pmas00003,Golden-gate,(Backbone),0,(amilCP_Pink_twistt),4,(backbone_2),2,,,,,A1,E1,C1
-3,3,pmas00004,Golden-gate,(Backbone),0,(No_Color_twistt),5,(backbone_2),2,,,,,A1,A4,C1

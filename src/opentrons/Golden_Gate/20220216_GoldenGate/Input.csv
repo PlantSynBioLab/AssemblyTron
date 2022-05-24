@@ -1,7 +1,0 @@
-,stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,pwldigesttemp,concdigesttemp,template pwl number,template concentrations,Combinatorial_pcr_params
-0,100,1,2.5,0.1,25,0.5,0,1,19,5,20220216,100,34,370,233,267.0,2.0
-1,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,248,367.0,
-2,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,277,265.0,
-3,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,282,172.0,
-4,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,281,229.0,
-5,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,0,0.0,

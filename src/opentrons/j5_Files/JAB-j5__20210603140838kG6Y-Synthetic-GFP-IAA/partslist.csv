@@ -1,7 +1,0 @@
-"Part Name","Part Source (Sequence Display ID)","Reverse Compliment?","Start (bp)","End (bp)","Five Prime Internal Preferred Overhangs?","Three Prime Internal Preferred Overhangs?"
-GFP_plus_link,pWL233_pGP4G2_yE,FALSE,1664,2422,,
-iaa12-prb,pwl248,FALSE,1849,2994,,
-iaa12-pdar,pwl277,FALSE,1849,3033,,
-iaa14-prb,pwl282,FALSE,1849,2952,,
-iaa14-pdar,pwl281,FALSE,1849,2991,,
-pIWG,pWL34_pIWG_ccdB,FALSE,3091,1676,"(1,4)","(-4,4)"

@@ -1,5 +1,0 @@
-,ID Number,Name,Assembly Method,Part(s) Bin 0,Assembly Piece ID Number Bin 0,Part(s) Bin 1,Assembly Piece ID Number Bin 1,Part(s) Bin 2,Assembly Piece ID Number Bin 2,Part(s) Bin 3,Assembly Piece ID Number Bin 3,Part(s) Bin 4,Assembly Piece ID Number Bin 4,well_a,well_b,well_c,well_d,well_e,well_f,well,well2,primer concentrations,amount primer to add to IVA,template_well_a,template_well_b,template_well_x,template_well_y,template concentrations,amount templates to add,water to add,pcrwell,Extension_time_sec
-0,0,pmas00001,SLIC/Gibson/CPEC,(backbone),0,(Yukon),1,(bb2),2,(AmpR),3,,,A1,A2,A3,A4,A5,A6,B1,B2,2.5,1.6,C3,C4,C3,C5,20.0,1.0,1.9999999999999993,A1,31.14
-1,1,pmas00002,SLIC/Gibson/CPEC,(backbone),0,(fuGFP),4,(bb2),2,(AmpR),3,,,A1,A2,B3,B4,A5,A6,B1,B2,2.5,1.6,C3,C6,C3,C5,20.0,1.0,1.9999999999999993,A2,29.58
-2,2,pmas00003,SLIC/Gibson/CPEC,(backbone),0,(tsPurple),5,(bb2),2,(AmpR),3,,,A1,A2,B5,B6,A5,A6,B1,B2,2.5,1.6,C3,D1,C3,C5,20.0,1.0,1.9999999999999993,A3,29.58
-3,3,pmas00004,SLIC/Gibson/CPEC,(backbone),0,(eforCP),6,(bb2),2,(AmpR),3,,,A1,A2,C1,C2,A5,A6,B1,B2,2.5,1.6,C3,D2,C3,C5,20.0,1.0,1.9999999999999993,A4,29.58

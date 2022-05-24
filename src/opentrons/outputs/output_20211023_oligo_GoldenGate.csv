@@ -1,5 +1,0 @@
-,ID Number,Name,Length,Tm,Tm (3' only),Cost,Sequence,Sequence (3' only),well,stock primer concentration,volume of stock primer to add,concentration of diluted primer,volume of diluted primer,how much of the diluted primer is left,amount primer to add to frag amplification
-0,0,oWL00250_(GFP_plus_link)_forward,42,65.027,54.766000000000005,4.2,CACACCAGGTCTCAAATGATGTCTAAAGGTGAAGAATTATTC,ATGTCTAAAGGTGAAGAATTATTC,A1,100,1,2.5,40,,1.0
-1,1,oWL00251_(GFP_plus_link)_reverse,34,76.42699999999999,65.048,3.4,CACACCAGGTCTCAATCCCACCTGATCCGCCACC,CCCACCTGATCCGCCACC,A2,100,1,2.5,40,,1.0
-2,2,oWL00252_(iaa12-prb)_forward,34,68.964,47.768,3.4,CACACCAGGTCTCAGGATGTCTTCTCTTAGTAGA,ATGTCTTCTCTTAGTAGA,A3,100,1,2.5,40,,1.0
-3,3,oWL00253_(iaa12-prb)_reverse,36,74.704,61.651,3.6,CACACCAGGTCTCAAGAATCAGTGGTGGTGGTGGTG,TCAGTGGTGGTGGTGGTG,A4,100,1,2.5,40,,1.0

@@ -1,5 +1,0 @@
-"ID Number","Name","Assembly Method","Part(s) Bin 0","Assembly Piece ID Number Bin 0","Part(s) Bin 1","Assembly Piece ID Number Bin 1","Part(s) Bin 2","Assembly Piece ID Number Bin 2","Part(s) Bin 3","Assembly Piece ID Number Bin 3","Part(s) Bin 4","Assembly Piece ID Number Bin 4"
-0,"pmas00001","Golden-gate","(pIWG)",0,"(GFP_plus_link)",1,"(iaa12-prb)",2,NA,NA,NA,NA
-1,"pmas00002","Golden-gate","(pIWG)",0,"(GFP_plus_link)",1,"(iaa12-pdar)",3,NA,NA,NA,NA
-2,"pmas00003","Golden-gate","(pIWG)",0,"(GFP_plus_link)",1,"(iaa14-prb)",4,NA,NA,NA,NA
-3,"pmas00004","Golden-gate","(pIWG)",0,"(GFP_plus_link)",1,"(iaa14-pdar)",5,NA,NA,NA,NA
