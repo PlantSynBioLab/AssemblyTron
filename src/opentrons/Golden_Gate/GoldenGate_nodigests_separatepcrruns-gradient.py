@@ -60,7 +60,7 @@ Date
 
 Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
 diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
-
+DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
 ###############################################################################################################################################
 #oligos
@@ -322,7 +322,7 @@ wellinfo = wellinfo.rename(columns={'Forward Oligo ID Number':'Reverse Oligo ID 
 pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Reverse Oligo ID Number')
 pcr_plustemplates
 
-pcr_plustemplates['total_water_toadd'] = Input_values.loc[0].at['pcrvol']-Q5-1-1-1
+pcr_plustemplates['total_water_toadd'] = Input_values.loc[0].at['pcrvol']-Q5-DMSO-1-1-1
 pcr_plustemplates
 
 #pcrstart  = len(digests['well'])
@@ -1435,7 +1435,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     
 #now mix dilute primers, dilute templates, Q5, and water in pcr tube within thermocycler
     tc_mod.open_lid()
-    
+    tc_mod.set_block_temperature(4)
 
 
 ##########################################################################################################################
@@ -1477,6 +1477,14 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             left_pipette.mix(3,3,pcrplate[pcr_plustemplates.loc[j].at['tube']])
             #left_pipette.blow_out()
             left_pipette.drop_tip()
+
+#Add DMSO
+    for j, row in pcr_plustemplates.iterrows():
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(DMSO, tuberack2['D6'], rate=2.0)
+            left_pipette.dispense(DMSO, pcrplate[pcr_plustemplates.loc[j].at['tube']], rate=2.0)    
+            left_pipette.blow_out()
+            left_pipette.drop_tip() 
 
 #add Q5 to each reaction
 #keep Q5 in tuberack1['D6']                                            
