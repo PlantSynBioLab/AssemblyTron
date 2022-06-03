@@ -61,6 +61,11 @@ pcr = pandas.read_csv('pcr.csv')
 pcr.columns = pcr.columns.str.replace("'","")
 pcr
 
+names = pandas.DataFrame(pcr['Primary Template'])
+names = names.drop_duplicates()
+names['location'] = ''
+names['pwllocation'] = ''
+
 combinations = pandas.read_csv('combinations.csv')
 combinations
 
@@ -93,6 +98,7 @@ e2slot['21'] = 'D4'
 e2slot['22'] = 'D5'
 e2slot['23'] = 'D6'
     
+temptubes = []
 
 def main():
     f = open('IVA_instructions.txt','w+')
@@ -120,18 +126,41 @@ def main():
     
     f.write('NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot \r\n')
     f.write('This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  \r\n')
-    for i, row in pcr.iterrows():
+    
+    for i, row in names.iterrows():
+        #Nextslot = Nextslot+1
+    
+        names.loc[i].at['location'] = e2slot[str(Nextslot)]
+    
+    
+    
+    # for i, row in pcr.iterrows():
         
-        if i > 0:
-            if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
-                Nextslot = Nextslot
-            else:
-                Nextslot = Nextslot+1
+    #     if i > 0:
+    #         if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
+    #             Nextslot = Nextslot
+    #         else:
+    #             Nextslot = Nextslot+1
     
         
         
-        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
-        
+        f.write('Put '+names.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        Nextslot = Nextslot+1
+
+    # if len(names) == 1:
+    #     names['pwllocation'] = [temppwl1_entry]
+    # if len(names) == 2:
+    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry] 
+    # if len(names) == 3:
+    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
+    # if len(names) == 4:
+    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4]
+    # if len(names) == 5:
+    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4, temppwl5_entry] 
+    # if len(names) == 6:
+    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4, temppwl5_entry, temppwl6_entry]    
+    
+    
    
     #f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
     
@@ -262,7 +291,8 @@ from tkinter import *
 input_csv = tk.Tk()
 input_csv.geometry('1920x1080')
 input_csv.title('Parameters for Goldengate')
-    
+
+
 def set_variables():
     global stkprm
     global stkvol
@@ -383,40 +413,40 @@ def set_variables():
     
     input_csv.destroy()
 
-label_stkprm = tk.Label(text='stkprm',font=('Helvatical bold',14))
+label_stkprm = tk.Label(text='stock primer concentration - uM',font=('Helvatical bold',14))
 label_stkprm.place(relx=0,rely=0.04)
 
-label_stkvol = tk.Label(text='stkvol',font=('Helvatical bold',14))
+label_stkvol = tk.Label(text='volume of stock primer to dilute',font=('Helvatical bold',14))
 label_stkvol.place(relx=0,rely=0.07)
 
-label_dilprm = tk.Label(text='dilprm',font=('Helvatical bold',14))
+label_dilprm = tk.Label(text='Desired conc of intermediate primer stocks',font=('Helvatical bold',14))
 label_dilprm.place(relx=0,rely=0.095)
 
-label_primerconc = tk.Label(text='primerconc',font=('Helvatical bold',14))
+label_primerconc = tk.Label(text='Conc of primers in the assembled PCR',font=('Helvatical bold',14))
 label_primerconc.place(relx=0,rely=0.12)
 
-label_pcrvol = tk.Label(text='pcrvol',font=('Helvatical bold',14))
+label_pcrvol = tk.Label(text='Total volume of PCR',font=('Helvatical bold',14))
 label_pcrvol.place(relx=0,rely=0.145)
 
-label_templatengs = tk.Label(text='templatengs',font=('Helvatical bold',14))
+label_templatengs = tk.Label(text='Conc of template in PCR - ng/uL',font=('Helvatical bold',14))
 label_templatengs.place(relx=0,rely=0.17)
 
-label_Q5 = tk.Label(text='Q5',font=('Helvatical bold',14))
+label_Q5 = tk.Label(text='Polymerase mastermix to add - uL',font=('Helvatical bold',14))
 label_Q5.place(relx=0,rely=0.2)
 
-label_DNP1 = tk.Label(text='DNP1',font=('Helvatical bold',14))
+label_DNP1 = tk.Label(text='DPN1 to add - uL',font=('Helvatical bold',14))
 label_DNP1.place(relx=0,rely=0.225)
 
-label_water = tk.Label(text='water',font=('Helvatical bold',14))
+label_water = tk.Label(text='Volume water added to DPN1 digest - uL',font=('Helvatical bold',14))
 label_water.place(relx=0,rely=0.25)
 
-label_Cutsmart = tk.Label(text='cutsmart',font=('Helvatical bold',14))
+label_Cutsmart = tk.Label(text='Volume cutsmart added to DPN1 digest - uL',font=('Helvatical bold',14))
 label_Cutsmart.place(relx=0,rely=0.275)
 
-label_Date = tk.Label(text='date',font=('Helvatical bold',14))
+label_Date = tk.Label(text='Date',font=('Helvatical bold',14))
 label_Date.place(relx=0,rely=0.3)
 
-label_ngdesired = tk.Label(text='ngdesired',font=('Helvatical bold',14))
+label_ngdesired = tk.Label(text='Nanograms template added to PCR',font=('Helvatical bold',14))
 label_ngdesired.place(relx=0,rely=0.325)
 
 # label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
@@ -431,61 +461,61 @@ label_extra1.place(relx=0,rely=0.425)
 label_extra2 = tk.Label(text='extra2',font=('Helvatical bold',14))
 label_extra2.place(relx=0,rely=0.45)
 
-label2 = tk.Label(text="Template pwl",font=('Helvatical bold',12))
+label2 = tk.Label(text="Template - Well & Name",font=('Helvatical bold',12))
 label2.place(relx=0.3,rely=0)
 
-label3 = tk.Label(text="Temp conc",font=('Helvatical bold',12))
-label3.place(relx=0.4,rely=0.)
+label3 = tk.Label(text="Template Concentration",font=('Helvatical bold',12))
+label3.place(relx=0.6,rely=0.)
 
 #Text Entries
 
 stkprm_entry = tk.Entry()
 stkprm_entry.insert(END, '100')
-stkprm_entry.place(relx=0.1,rely=0.05,width=35)
+stkprm_entry.place(relx=0.2,rely=0.05,width=35)
 
 stkvol_entry = tk.Entry()
 stkvol_entry.insert(END, '1')
-stkvol_entry.place(relx=0.1,rely=0.075,width=35)
+stkvol_entry.place(relx=0.2,rely=0.075,width=35)
 
 dilprm_entry = tk.Entry()
 dilprm_entry.insert(END, '2.5')
-dilprm_entry.place(relx=0.1,rely=0.1,width=35)
+dilprm_entry.place(relx=0.2,rely=0.1,width=35)
 
 primerconc_entry = tk.Entry()
 primerconc_entry.insert(END, '0.1')
-primerconc_entry.place(relx=0.1,rely=0.125,width=35)
+primerconc_entry.place(relx=0.2,rely=0.125,width=35)
 
 pcrvol_entry = tk.Entry()
 pcrvol_entry.insert(END, '25')
-pcrvol_entry.place(relx=0.1,rely=0.15,width=35)
+pcrvol_entry.place(relx=0.2,rely=0.15,width=35)
 
 templatengs_entry = tk.Entry()
 templatengs_entry.insert(END, '0.5')
-templatengs_entry.place(relx=0.1,rely=0.175,width=35)
+templatengs_entry.place(relx=0.2,rely=0.175,width=35)
 
 Q5_entry = tk.Entry()
 Q5_entry.insert(END, '0')
-Q5_entry.place(relx=0.1,rely=0.2,width=35)
+Q5_entry.place(relx=0.2,rely=0.2,width=35)
 
 DPNI_entry = tk.Entry()
 DPNI_entry.insert(END, '2')
-DPNI_entry.place(relx=0.1,rely=0.225,width=35)
+DPNI_entry.place(relx=0.2,rely=0.225,width=35)
 
 DPwater_entry = tk.Entry()
 DPwater_entry.insert(END, '18')
-DPwater_entry.place(relx=0.1,rely=0.250,width=35)
+DPwater_entry.place(relx=0.2,rely=0.250,width=35)
 
 cutsmart_entry = tk.Entry()
 cutsmart_entry.insert(END, '5')
-cutsmart_entry.place(relx=0.1,rely=0.275,width=35)
+cutsmart_entry.place(relx=0.2,rely=0.275,width=35)
 
 Date_entry = tk.Entry()
 Date_entry.insert(END, date)
-Date_entry.place(relx=0.1,rely=0.3,width=55)
+Date_entry.place(relx=0.2,rely=0.3,width=55)
 
 ngdesired_entry = tk.Entry()
 ngdesired_entry.insert(END, '100')
-ngdesired_entry.place(relx=0.1,rely=0.325,width=35)
+ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
 
 # pwldigesttemp_entry = tk.Entry()
 # pwldigesttemp_entry.insert(END, '0')
@@ -497,126 +527,130 @@ ngdesired_entry.place(relx=0.1,rely=0.325,width=35)
 
 extra1name_entry = tk.Entry()
 extra1name_entry.insert(END, 'variable')
-extra1name_entry.place(relx=0.1,rely=0.425,width=50)
+extra1name_entry.place(relx=0.2,rely=0.425,width=50)
 
 extra2name_entry = tk.Entry()
 extra2name_entry.insert(END, 'variable')
-extra2name_entry.place(relx=0.1,rely=0.45,width=50)
+extra2name_entry.place(relx=0.2,rely=0.45,width=50)
 
 extra1value_entry = tk.Entry()
 extra1value_entry.insert(END, '0')
-extra1value_entry.place(relx=0.15,rely=0.425,width=35)
+extra1value_entry.place(relx=0.25,rely=0.425,width=35)
 
 extra2value_entry = tk.Entry()
 extra2value_entry.insert(END, '0')
-extra2value_entry.place(relx=0.15,rely=0.45,width=35)
+extra2value_entry.place(relx=0.25,rely=0.45,width=35)
 
 ########################################################################################
 #entries for pwl number
+if len(names) == 1:
+    temppwl1_entry = tk.Entry()
+    names['pwllocation'] = [temppwl1_entry]
+if len(names) == 2:
+    temppwl1_entry = tk.Entry()
+    temppwl2_entry = tk.Entry()
+    names['pwllocation'] = [temppwl1_entry, temppwl2_entry] 
+if len(names) == 3:
+    temppwl1_entry = tk.Entry()
+    temppwl2_entry = tk.Entry()
+    temppwl3_entry = tk.Entry()
+    names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
+if len(names) == 4:
+    temppwl1_entry = tk.Entry()
+    temppwl2_entry = tk.Entry()
+    temppwl3_entry = tk.Entry()
+    temppwl4_entry = tk.Entry()
+    names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4]
+if len(names) == 5:
+    temppwl1_entry = tk.Entry()
+    temppwl2_entry = tk.Entry()
+    temppwl3_entry = tk.Entry()
+    temppwl4_entry = tk.Entry()
+    temppwl5_entry = tk.Entry()
+    names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4, temppwl5_entry] 
+if len(names) == 6:
+    temppwl1_entry = tk.Entry()
+    temppwl2_entry = tk.Entry()
+    temppwl3_entry = tk.Entry()
+    temppwl4_entry = tk.Entry()
+    temppwl5_entry = tk.Entry()
+    temppwl6_entry = tk.Entry()
+    names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry, temppwl6_entry]    
+    
 
-temppwl1_entry = tk.Entry()
-temppwl1_entry.insert(END, '0')
-temppwl1_entry.place(relx=0.3,rely=0.05,width = 35)
+rel_y = .05
 
-temppwl2_entry = tk.Entry()
-temppwl2_entry.insert(END, '0')
-temppwl2_entry.place(relx=0.3,rely=0.1,width = 35)
+for i, row in names.iterrows():
+    
+    label_extra1 = tk.Label(text=names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'],font=('Helvatical bold',14))
+    label_extra1.place(relx = 0.3, rely = rel_y)
+    
+    #names.loc[i].at['pwllocation'] = tk.Entry()
+    #names.loc[i].at['pwllocation'].insert(END,names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'])
+    #names.loc[i].at['pwllocation'].place(relx = 0.3, rely = rel_y, width = 95)
 
-temppwl3_entry = tk.Entry()
-temppwl3_entry.insert(END, '0')
-temppwl3_entry.place(relx=0.3,rely=0.15,width = 35)
+    rel_y = rel_y+.05
 
-temppwl4_entry = tk.Entry()
-temppwl4_entry.insert(END, '0')
-temppwl4_entry.place(relx=0.3,rely=0.2,width = 35)
+# temppwl1_entry = tk.Entry()
+# temppwl1_entry.insert(END, '0')
+# temppwl1_entry.place(relx=0.3,rely=0.05,width = 35)
 
-temppwl5_entry = tk.Entry()
-temppwl5_entry.insert(END, '0')
-temppwl5_entry.place(relx=0.3,rely=0.25,width = 35)
+# temppwl2_entry = tk.Entry()
+# temppwl2_entry.insert(END, '0')
+# temppwl2_entry.place(relx=0.3,rely=0.1,width = 35)
 
-temppwl6_entry = tk.Entry()
-temppwl6_entry.insert(END, '0')
-temppwl6_entry.place(relx=0.3,rely=0.3,width = 35)
+# temppwl3_entry = tk.Entry()
+# temppwl3_entry.insert(END, '0')
+# temppwl3_entry.place(relx=0.3,rely=0.15,width = 35)
+
+# temppwl4_entry = tk.Entry()
+# temppwl4_entry.insert(END, '0')
+# temppwl4_entry.place(relx=0.3,rely=0.2,width = 35)
+
+# temppwl5_entry = tk.Entry()
+# temppwl5_entry.insert(END, '0')
+# temppwl5_entry.place(relx=0.3,rely=0.25,width = 35)
+
+# temppwl6_entry = tk.Entry()
+# temppwl6_entry.insert(END, '0')
+# temppwl6_entry.place(relx=0.3,rely=0.3,width = 35)
 
 #########################################################################################3
 #entries for concentration
 conc1_entry= tk.Entry()
 conc1_entry.insert(END, '0')
-conc1_entry.place(relx=0.4,rely=0.05,width = 35)
+conc1_entry.place(relx=0.6,rely=0.05,width = 35)
 
 conc2_entry = tk.Entry()
 conc2_entry.insert(END, '0')
-conc2_entry.place(relx=0.4,rely=0.1,width = 35)
+conc2_entry.place(relx=0.6,rely=0.1,width = 35)
 
 conc3_entry = tk.Entry()
 conc3_entry.insert(END, '0')
-conc3_entry.place(relx=0.4,rely=0.15,width = 35)
+conc3_entry.place(relx=0.6,rely=0.15,width = 35)
 
 conc4_entry = tk.Entry()
 conc4_entry.insert(END, '0')
-conc4_entry.place(relx=0.4,rely=0.2,width = 35)
+conc4_entry.place(relx=0.6,rely=0.2,width = 35)
 
 conc5_entry = tk.Entry()
 conc5_entry.insert(END, '0')
-conc5_entry.place(relx=0.4,rely=0.25,width = 35)
+conc5_entry.place(relx=0.6,rely=0.25,width = 35)
 
 conc6_entry = tk.Entry()
 conc6_entry.insert(END, '0')
-conc6_entry.place(relx=0.4,rely=0.3,width = 35)
+conc6_entry.place(relx=0.6,rely=0.3,width = 35)
 
 ################################################################
 #Legend
 
-legend1 = tk.Label(text = "stkprm - concentration of the stock primer you are adding")
-legend1.place(relx=0.1,rely=0.5)
-
-legend2 = tk.Label(text = "stkvol - the volume of stock primer you are adding")
-legend2.place(relx=0.1,rely=0.525)
-
-legend3 = tk.Label(text = "dilprm - this is the concentration in uM that you want your working dilution to be")
-legend3.place(relx=0.1,rely=0.55)
-
-legend4 = tk.Label(text = "primerconc - this is the concentration you want each primer to be in the pcr reaction")
-legend4.place(relx=0.1,rely=0.575)
-
-legend5 = tk.Label(text = "pcrvol - this is the total volume of your pcr reaction")
-legend5.place(relx=0.1,rely=0.6)
-
-legend6 = tk.Label(text = "templatengs - this is the concentration of template you want in your pcr rxn in ng/uL")
-legend6.place(relx=0.1,rely=0.625)
-
-legend7 = tk.Label(text = "Q5 - How much Q5 to add")
-legend7.place(relx=0.1,rely=0.65)
-
-legend8 = tk.Label(text = "DPNI - How much DPNI to add")
-legend8.place(relx=0.1,rely=0.675)
-
-legend9 = tk.Label(text = "DPwater - How much water goes in your DPNI digestion")
-legend9.place(relx=0.1,rely=0.7)
-
-legend10 = tk.Label(text = "cutsmart - How much cutsmart goes in your DPNI digestion")
-legend10.place(relx=0.1,rely=0.725)
-
-legend11 = tk.Label(text = "date - Todays date")
-legend11.place(relx=0.1,rely=0.75)
-
-legend12 = tk.Label(text = "ngdesired - nanograms desired for reaction")
-legend12.place(relx=0.1,rely=0.775)
-
-legend13 = tk.Label(text = "pwldigesttemp - temperature for plasmid restriction enzyme digestion")
-legend13.place(relx=0.1,rely=0.8)
-
-legend14 = tk.Label(text = "concdigesttemp - concentration for plasmid digestion")
-legend14.place(relx=0.1,rely=0.825)
-
-legend15 = tk.Label(text = "For the extra variables, input the name of the new variable and then the value. Don't change the value from 0 if you don't need to.")
-legend15.place(relx=0.1,rely=0.875)
 
 confirm_button = tk.Button(text="Confirm",command=set_variables)
 confirm_button.place(relx=0.8,rely=0.8)
 
 
 input_csv.mainloop()
+
 
 
 temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
@@ -796,6 +830,8 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     if duplicate_in_tube.any():
         tes = pcr.loc[duplicate_in_tube]
         index = tes.index
+    else:
+        index = []
     index
     i = 0
     while i < len(index):
@@ -808,6 +844,8 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     if duplicate_in_tube.any():
         tes = pcr.loc[duplicate_in_tube]
         index = tes.index
+    else:
+        index = []
     index
     i = 0
     while i < len(index):
@@ -820,6 +858,8 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     if duplicate_in_tube.any():
         tes = pcr.loc[duplicate_in_tube]
         index = tes.index
+    else:
+        index = []
     index
     i = 0
     while i < len(index):
@@ -828,16 +868,18 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
         i = i + 1
 
     #repeating the duplicate correction step in case there are 5X duplicates (this might not be necessary but not sure)
-    # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-    # if duplicate_in_tube.any():
-    #     tes = pcr.loc[duplicate_in_tube]
-    #     index = tes.index
-    # index
-    # i = 0
-    # while i < len(index):
-    #     letter = pcr.loc[index[i]].at['tube']
-    #     pcr.loc[index[i],'tube'] = dupin[letter]
-    #     i = i + 1
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    else:
+        index = []
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
     
 
     pcr.to_csv('pcr.csv')

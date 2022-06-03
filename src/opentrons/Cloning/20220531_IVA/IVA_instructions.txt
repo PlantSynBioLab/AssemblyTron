@@ -1,0 +1,24 @@
+Place the coldtuberack in slot 1. 
+put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+put in a fresh pcr plate into thermocycler. 
+Instructions for setting up the coldtuberack: 
+Put oWL00395_(Backbone)_forward in A1
+Put oWL00396_(Backbone)_reverse in A2
+Put oWL00397_(ARF7_FL)_forward in A3
+Put oWL00405(398B_(ARF7_FL)_(link)_reverse) in A4
+Put oWL00399_(eGFP_or_Venus)_forward in A5
+Put oWL00407(400B_(eGFP_or_Venus)_reverse) in A6
+Put oWL00401_(mNeonGreen)_forward in B1
+Put oWL00402_(mNeonGreen)_reverse in B2
+Put oWL00409(403B_(ARF7-NOPB1)_(link)_reverse) in B3
+NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
+This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
+Put pWL90 in B4
+Put pWL90 in B4
+Put Bryant_OW_10_233 in B5
+Put pTwistENTR_AuxSy in B6
+Put pWL90 in C1
+Place DPNI in D3 
+Place cutsmart buffer in D4 
+Place Q5 DNA polymerase in D6 
+Place 24 well tuberack in slot 2. Add 17 empty 1.5 mL tubes to the rack in the same positions. 
