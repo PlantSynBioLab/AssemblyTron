@@ -1325,11 +1325,20 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #pipettes
     right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1])
     left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
+
+
+###################################################################################3
+#GOTO function allows user to jump to different stages of the script
+    def goto(line):
+        global lineNumber
+        line = lineNumber
     
 ##################################COMMANDS####################################
     
 #add water to template dilution tubes. ***df is the template description dataframe
 #Since we are just moving water I will use the same pipette tip to save plastic
+
+    goto(Input_values.loc[0].at['goo'])
 
 #add water for templates
     for i, row in df.iterrows():
