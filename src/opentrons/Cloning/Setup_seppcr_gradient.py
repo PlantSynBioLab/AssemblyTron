@@ -306,6 +306,7 @@ def set_variables():
     global cutsmart
     global Date
     global ngdesired
+    global Combinatorial_pcr_params
     # global pwldigesttemp
     # global concdigesttemp
     
@@ -338,6 +339,7 @@ def set_variables():
     cutsmart = float(cutsmart_entry.get())
     Date = Date_entry.get()
     ngdesired = float(ngdesired_entry.get())
+    Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
     # pwldigesttemp = float(pwldigesttemp_entry.get())
     # concdigesttemp = float(concdigesttemp_entry.get())
     
@@ -449,6 +451,9 @@ label_Date.place(relx=0,rely=0.3)
 label_ngdesired = tk.Label(text='Nanograms template added to PCR',font=('Helvatical bold',14))
 label_ngdesired.place(relx=0,rely=0.325)
 
+label_Combinatorial_pcr_params = tk.Label(text='Gradient pcr(2) or in OT(1)?',font=('Helvatical bold',14))
+label_Combinatorial_pcr_params.place(relx=0,rely=0.350)
+
 # label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
 # label_pwldigesttemp.place(relx=0,rely=0.35)
 
@@ -516,6 +521,10 @@ Date_entry.place(relx=0.2,rely=0.3,width=55)
 ngdesired_entry = tk.Entry()
 ngdesired_entry.insert(END, '100')
 ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
+
+Combinatorial_pcr_params_entry = tk.Entry()
+Combinatorial_pcr_params_entry.insert(END, '2')
+Combinatorial_pcr_params_entry.place(relx=0.2,rely=0.35,width=35)
 
 # pwldigesttemp_entry = tk.Entry()
 # pwldigesttemp_entry.insert(END, '0')
@@ -655,12 +664,12 @@ input_csv.mainloop()
 
 temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
 tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-test = [[0,0,0,0,0,0,0,0,0,0,0,0]]
+test = [[0,0,0,0,0,0,0,0,0,0,0,0,0]]
+lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-
-row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired]]
-variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired'],index=range(len(temppwls)))
-variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired]
+row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params]]
+variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params'],index=range(len(temppwls)))
+variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params]
 variables['template pwl number'] = temppwls
 variables['template concentrations'] = tempconcs
 
@@ -673,6 +682,45 @@ if extra2value != 0:
     variables.loc[0,extra2name] = extra2value
 
 variables
+
+variables['section'] = pd.DataFrame(lengthd,index=range(len(lengthd)))
+
+#########################################################################################
+#tkinter window to specify which parts of the protocol to run
+from tkinter import *
+
+ws = Tk() 
+ws.title('Parts to Run') 
+ws.geometry('400x300')
+
+var = StringVar()
+
+def showSelected():
+    countries = []
+    cname = lb.curselection()
+    for i in cname:
+        op = lb.get(i)
+        countries.append(op)
+    for val in countries:
+        print(val)
+    se = pandas.Series(countries)
+    variables['section'] = se
+
+show = Label(ws, text = "Choose which parts of protocol to run", font = ("Times", 14), padx = 10, pady = 10)
+show.pack() 
+lb = Listbox(ws, selectmode = "multiple")
+lb.pack(padx = 10, pady = 10, expand = YES, fill = "both") 
+
+x =["Dilution", "PCR Mix", "DPNI Digest", "Combine Fragments"]
+
+for item in range(len(x)): 
+	lb.insert(END, x[item]) 
+	lb.itemconfig(item, bg="#bdc1d6") 
+
+Button(ws, text="Confirm", command=showSelected).pack()
+ws.mainloop() 
+
+##############################################################################################################
 
 #####################################################################################################
 ##################GRADIENT OPTIMIZER################################################################
