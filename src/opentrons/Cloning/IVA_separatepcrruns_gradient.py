@@ -1282,7 +1282,7 @@ from opentrons import protocol_api
 #Metadata is a dictionary of data that is read by the server and returned to the opentrons app. 
 #give yourself credit. you are required to specify the 'apiLevel' herefrom opentrons import protocol_api
 metadata = {
-    'protocolName': 'ARF7 Deletions Protocol',
+    'protocolName': 'IVA Separate PCRs',
     'author': 'John Bryant <jbryant2@vt.edu>',
     'description': 'Protocol for performing PCR reactions and Plasmid assembly for TIR1 and AFB mutants',
     'apiLevel': '2.10'
