@@ -55,14 +55,14 @@ paths
 #Input_values = pandas.read_csv('Input.csv') 
 Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Cloning/Input.csv') 
 # Input_values
-Date = str(int(Input_values.loc[0].at['Date']))
+# Date = str(int(Input_values.loc[0].at['Date']))
 # Date
 
 Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
 diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
 DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
+# os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
 # os.getcwd()
 oligos = pandas.read_csv('oligo.csv')
 # oligos
@@ -1274,7 +1274,6 @@ Length = pcr.nlargest(1,'Length')
 # plasmid
 
 
-
 GG_dfs = pandas.read_csv('GG_dfs.csv')
        
 
@@ -1287,6 +1286,7 @@ if exists('gg3.csv'):
     gg3 = pandas.read_csv('gg3.csv')
 if exists('gg4.csv'):
     gg4 = pandas.read_csv('gg4.csv')
+
 
 
 
@@ -1776,8 +1776,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 
     ##########################################################################################################################
-    # mix up IVA reactions 
-
+    # mix up IVA reactions
 
         for i, row in GG_dfs.iterrows():
             x = GG_dfs.loc[i].at['gg#']

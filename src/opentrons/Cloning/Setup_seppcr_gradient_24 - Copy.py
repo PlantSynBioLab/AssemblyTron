@@ -436,7 +436,7 @@ label_templatengs.place(relx=0,rely=0.17)
 label_Q5 = tk.Label(text='Polymerase mastermix to add - uL',font=('Helvatical bold',14))
 label_Q5.place(relx=0,rely=0.2)
 
-label_DNP1 = tk.Label(text='DPN1 to add - uL',font=('Helvatical bold',14))
+label_DNP1 = tk.Label(text='Dpn1 to add - uL',font=('Helvatical bold',14))
 label_DNP1.place(relx=0,rely=0.225)
 
 label_water = tk.Label(text='Volume water added to DPN1 digest - uL',font=('Helvatical bold',14))
@@ -519,7 +519,7 @@ Date_entry.insert(END, date)
 Date_entry.place(relx=0.2,rely=0.3,width=55)
 
 ngdesired_entry = tk.Entry()
-ngdesired_entry.insert(END, '100')
+ngdesired_entry.insert(END, '.5')
 ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
 
 Combinatorial_pcr_params_entry = tk.Entry()
