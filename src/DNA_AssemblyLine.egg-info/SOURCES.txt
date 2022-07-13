@@ -2,6 +2,7 @@ LICENSE.txt
 README.md
 pyproject.toml
 setup.cfg
+setup.py
 src/DNA-AssemblyLine/Gibson.py
 src/DNA-AssemblyLine/__init__.py
 src/DNA-AssemblyLine/opentrons_demo_script.py

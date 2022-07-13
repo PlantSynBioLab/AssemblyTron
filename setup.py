@@ -10,12 +10,12 @@ setup(
     long_description = "file: README.md",
     long_description_content_type = "text/markdown",
     url = "https://github.com/PlantSynBioLab/opentrons",
-    packages=find_packages(where="opentrons"),
+    packages=find_packages(where="DNA-AssemblyLine"),
 #    Bug Tracker = []
     classifiers =[
         "Programming Language :: Python :: 3",
     	"Operating System :: OS Independent",
-	"license :: Apache License 2.0"],
+	    "License :: OSI Approved :: Apache Software License"],
 
 #[options]
 #package_dir =
