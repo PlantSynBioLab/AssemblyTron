@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: DNA-AssemblyLine
+Version: 0.0.2
+Summary: A package for automating DNA assembly with an Opentrons liquid handling robot
+Home-page: https://github.com/PlantSynBioLab/opentrons
+Author: John Bryant
+Author-email: jbryant2@vt.edu
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: license :: Apache License 2.0
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+file: README.md
