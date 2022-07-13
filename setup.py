@@ -10,7 +10,7 @@ setup(
     long_description = "file: README.md",
     long_description_content_type = "text/markdown",
     url = "https://github.com/PlantSynBioLab/opentrons",
-    packages=find_packages(where="src"),
+    packages=find_packages(where="opentrons"),
 #    Bug Tracker = []
     classifiers =[
         "Programming Language :: Python :: 3",

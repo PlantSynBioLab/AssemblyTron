@@ -1,0 +1,8 @@
+LICENSE.txt
+README.md
+pyproject.toml
+setup.py
+DNA_AssemblyLine.egg-info/PKG-INFO
+DNA_AssemblyLine.egg-info/SOURCES.txt
+DNA_AssemblyLine.egg-info/dependency_links.txt
+DNA_AssemblyLine.egg-info/top_level.txt
