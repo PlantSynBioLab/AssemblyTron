@@ -198,6 +198,106 @@ id2well['92'] = 'D3'
 id2well['93'] = 'D4'
 id2well['94'] = 'D5'
 id2well['95'] = 'D6'
+
+id2rack = {}
+id2rack['0'] = 'rack4'
+id2rack['1'] = 'rack4'
+id2rack['2'] = 'rack4'
+id2rack['3'] = 'rack4'
+id2rack['4'] = 'rack4'
+id2rack['5'] = 'rack4'
+id2rack['6'] = 'rack5'
+id2rack['7'] = 'rack5'
+id2rack['8'] = 'rack5'
+id2rack['9'] = 'rack5'
+id2rack['10'] = 'rack5'
+id2rack['11'] = 'rack5'
+id2rack['12'] = 'rack4'
+id2rack['13'] = 'rack4'
+id2rack['14'] = 'rack4'
+id2rack['15'] = 'rack4'
+id2rack['16'] = 'rack4'
+id2rack['17'] = 'rack4'
+id2rack['18'] = 'rack5'
+id2rack['19'] = 'rack5'
+id2rack['20'] = 'rack5'
+id2rack['21'] = 'rack5'
+id2rack['22'] = 'rack5'
+id2rack['23'] = 'rack5'
+id2rack['24'] = 'rack4'
+id2rack['25'] = 'rack4'
+id2rack['26'] = 'rack4'
+id2rack['27'] = 'rack4'
+id2rack['28'] = 'rack4'
+id2rack['29'] = 'rack4'
+id2rack['30'] = 'rack5'
+id2rack['31'] = 'rack5'
+id2rack['32'] = 'rack5'
+id2rack['33'] = 'rack5'
+id2rack['34'] = 'rack5'
+id2rack['35'] = 'rack5'
+id2rack['36'] = 'rack4'
+id2rack['37'] = 'rack4'
+id2rack['38'] = 'rack4'
+id2rack['39'] = 'rack4'
+id2rack['40'] = 'rack4'
+id2rack['41'] = 'rack4'
+id2rack['42'] = 'rack5'
+id2rack['43'] = 'rack5'
+id2rack['44'] = 'rack5'
+id2rack['45'] = 'rack5'
+id2rack['46'] = 'rack5'
+id2rack['47'] = 'rack5'
+id2rack['48'] = 'rack1'
+id2rack['49'] = 'rack1'
+id2rack['50'] = 'rack1'
+id2rack['51'] = 'rack1'
+id2rack['52'] = 'rack1'
+id2rack['53'] = 'rack1'
+id2rack['54'] = 'rack2'
+id2rack['55'] = 'rack2'
+id2rack['56'] = 'rack2'
+id2rack['57'] = 'rack2'
+id2rack['58'] = 'rack2'
+id2rack['59'] = 'rack2'
+id2rack['60'] = 'rack1'
+id2rack['61'] = 'rack1'
+id2rack['62'] = 'rack1'
+id2rack['63'] = 'rack1'
+id2rack['64'] = 'rack1'
+id2rack['65'] = 'rack1'
+id2rack['66'] = 'rack2'
+id2rack['67'] = 'rack2'
+id2rack['68'] = 'rack2'
+id2rack['69'] = 'rack2'
+id2rack['70'] = 'rack2'
+id2rack['71'] = 'rack2'
+id2rack['72'] = 'rack1'
+id2rack['73'] = 'rack1'
+id2rack['74'] = 'rack1'
+id2rack['75'] = 'rack1'
+id2rack['76'] = 'rack1'
+id2rack['77'] = 'rack1'
+id2rack['78'] = 'rack2'
+id2rack['79'] = 'rack2'
+id2rack['80'] = 'rack2'
+id2rack['81'] = 'rack2'
+id2rack['82'] = 'rack2'
+id2rack['83'] = 'rack2'
+id2rack['84'] = 'rack1'
+id2rack['85'] = 'rack1'
+id2rack['86'] = 'rack1'
+id2rack['87'] = 'rack1'
+id2rack['88'] = 'rack1'
+id2rack['89'] = 'rack1'
+id2rack['90'] = 'rack2'
+id2rack['91'] = 'rack2'
+id2rack['92'] = 'rack2'
+id2rack['93'] = 'rack2'
+id2rack['94'] = 'rack2'
+id2rack['95'] = 'rack2'
+
+
     
 temptubes = []
 
@@ -209,7 +309,7 @@ def main():
 
     f.write('Instructions for setting up the coldtuberack: \r\n')
     for i, row in oligos.iterrows():
-        f.write('Put '+oligos.loc[i].at['Name']+' in '+id2well[str(oligos.loc[i].at['ID Number'])]+'\r\n')
+        f.write('Put '+oligos.loc[i].at['Name']+' in '+id2rack[str(oligos.loc[i].at['ID Number'])]+' '+id2well[str(oligos.loc[i].at['ID Number'])]+'\r\n')
     f.close()
     
     Nextslot = len(oligos["ID Number"])
@@ -245,7 +345,7 @@ def main():
     
         
         
-        f.write('Put '+names.loc[i].at['Primary Template']+' in '+id2well[str(Nextslot)]+'\r\n')
+        f.write('Put '+names.loc[i].at['Primary Template']+' in '+id2rack[str(Nextslot)]+' '+id2well[str(Nextslot)]+'\r\n')
         Nextslot = Nextslot+1
 
     # if len(names) == 1:
