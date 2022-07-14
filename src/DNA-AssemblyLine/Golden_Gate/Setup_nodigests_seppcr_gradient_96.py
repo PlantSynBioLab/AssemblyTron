@@ -2711,3 +2711,55 @@ dis_tube = pandas.DataFrame(data=dt)
 # for i, row in plasmid.iterrows():
 #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
 # plasmid
+
+ggdf2spot = {}
+ggdf2spot['gg1'] = 'B8'
+ggdf2spot['gg2'] = 'B9'
+ggdf2spot['gg3'] = 'B10'
+ggdf2spot['gg4'] = 'B11'
+ggdf2spot['gg5'] = 'B12'
+
+def main():
+    f = open('Tubeplacement_instructions.txt','w+')
+    f.write('PCR gradient tube positions: \r\n')
+
+    for i, row in pcr.iterrows():
+        f.write('Put a tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+    f.write('Final assembly tube: \r\n')
+
+    for i, row in GG_dfs.iterrows():
+        f.write('Put a tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
+
+    f.write('Fragment dilution tubes: \r\n')
+
+    if len(combinations['ID Number']) >= 1:
+        if gg1.loc[0].at['final amount to add'] > 1:
+            for i, row in gg1.iterrows():
+                f.write('Put a tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+
+    if len(combinations['ID Number']) >= 2: 
+        if gg2.loc[0].at['final amount to add'] > 1:
+            for i, row in gg1.iterrows():
+                f.write('Put a tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+
+    if len(combinations['ID Number']) >= 3:
+        if gg3.loc[0].at['final amount to add'] > 1:
+            for i, row in gg3.iterrows():
+                f.write('Put a tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+
+    if len(combinations['ID Number']) >= 4:
+        if gg4.loc[0].at['final amount to add'] > 1:
+            for i, row in gg4.iterrows():
+                f.write('Put a tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+    
+    f.close()
+
+if __name__== "__main__":
+    main()
+
+os.system("notepad.exe Tubeplacement_instructions.txt")
+#don't need to shutil cause we are already in the right directory. 
+# shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+# shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+
+
