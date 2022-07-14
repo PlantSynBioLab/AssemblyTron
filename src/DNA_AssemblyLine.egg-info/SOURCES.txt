@@ -6,6 +6,7 @@ setup.py
 src/DNA-AssemblyLine/Gibson.py
 src/DNA-AssemblyLine/__init__.py
 src/DNA-AssemblyLine/opentrons_demo_script.py
+src/DNA-AssemblyLine/pathswriter.py
 src/DNA-AssemblyLine/todaysdate.py
 src/DNA-AssemblyLine/Cloning/IVA.py
 src/DNA-AssemblyLine/Cloning/IVA_separatepcrruns_gradient-old.py
