@@ -72,31 +72,232 @@ combinations
 
 ######################################################################################################3
 #make instructions file
-e2slot = {}
-e2slot['0'] = 'A1'
-e2slot['1'] = 'A2'
-e2slot['2'] = 'A3'
-e2slot['3'] = 'A4'
-e2slot['4'] = 'A5'
-e2slot['5'] = 'A6'
-e2slot['6'] = 'B1'
-e2slot['7'] = 'B2'
-e2slot['8'] = 'B3'
-e2slot['9'] = 'B4'
-e2slot['10'] = 'B5'
-e2slot['11'] = 'B6'
-e2slot['12'] = 'C1'
-e2slot['13'] = 'C2'
-e2slot['14'] = 'C3'
-e2slot['15'] = 'C4'
-e2slot['16'] = 'C5'
-e2slot['17'] = 'C6'
-e2slot['18'] = 'D1'
-e2slot['19'] = 'D2'
-e2slot['20'] = 'D3'
-e2slot['21'] = 'D4'
-e2slot['22'] = 'D5'
-e2slot['23'] = 'D6'
+# e2slot = {}
+# e2slot['0'] = 'A1'
+# e2slot['1'] = 'A2'
+# e2slot['2'] = 'A3'
+# e2slot['3'] = 'A4'
+# e2slot['4'] = 'A5'
+# e2slot['5'] = 'A6'
+# e2slot['6'] = 'B1'
+# e2slot['7'] = 'B2'
+# e2slot['8'] = 'B3'
+# e2slot['9'] = 'B4'
+# e2slot['10'] = 'B5'
+# e2slot['11'] = 'B6'
+# e2slot['12'] = 'C1'
+# e2slot['13'] = 'C2'
+# e2slot['14'] = 'C3'
+# e2slot['15'] = 'C4'
+# e2slot['16'] = 'C5'
+# e2slot['17'] = 'C6'
+# e2slot['18'] = 'D1'
+# e2slot['19'] = 'D2'
+# e2slot['20'] = 'D3'
+# e2slot['21'] = 'D4'
+# e2slot['22'] = 'D5'
+# e2slot['23'] = 'D6'
+
+
+
+id2well = {}
+id2well['0'] = 'A1'
+id2well['1'] = 'A2'
+id2well['2'] = 'A3'
+id2well['3'] = 'A4'
+id2well['4'] = 'A5'
+id2well['5'] = 'A6'
+id2well['6'] = 'A1'
+id2well['7'] = 'A2'
+id2well['8'] = 'A3'
+id2well['9'] = 'A4'
+id2well['10'] = 'A5'
+id2well['11'] = 'A6'
+id2well['12'] = 'B1'
+id2well['13'] = 'B2'
+id2well['14'] = 'B3'
+id2well['15'] = 'B4'
+id2well['16'] = 'B5'
+id2well['17'] = 'B6'
+id2well['18'] = 'B1'
+id2well['19'] = 'B2'
+id2well['20'] = 'B3'
+id2well['21'] = 'B4'
+id2well['22'] = 'B5'
+id2well['23'] = 'B6'
+id2well['24'] = 'C1'
+id2well['25'] = 'C2'
+id2well['26'] = 'C3'  ############
+id2well['27'] = 'C4'
+id2well['28'] = 'C5'
+id2well['29'] = 'C6'
+id2well['30'] = 'C1'
+id2well['31'] = 'C2'
+id2well['32'] = 'C3'
+id2well['33'] = 'C4'
+id2well['34'] = 'C5'
+id2well['35'] = 'C6'
+id2well['36'] = 'D1'
+id2well['37'] = 'D2'
+id2well['38'] = 'D3'
+id2well['39'] = 'D4'
+id2well['40'] = 'D5'
+id2well['41'] = 'D6'
+id2well['42'] = 'D1'
+id2well['43'] = 'D2'
+id2well['44'] = 'D3'
+id2well['45'] = 'D4'
+id2well['46'] = 'D5'
+id2well['47'] = 'D6'
+id2well['48'] = 'A1'
+id2well['49'] = 'A2'
+id2well['50'] = 'A3'
+id2well['51'] = 'A4'
+id2well['52'] = 'A5'
+id2well['53'] = 'A6'
+id2well['54'] = 'A1'
+id2well['55'] = 'A2'
+id2well['56'] = 'A3'
+id2well['57'] = 'A4'
+id2well['58'] = 'A5'
+id2well['59'] = 'A6'
+id2well['60'] = 'B1'
+id2well['61'] = 'B2'
+id2well['62'] = 'B3'
+id2well['63'] = 'B4'
+id2well['64'] = 'B5'
+id2well['65'] = 'B6'
+id2well['66'] = 'B1'
+id2well['67'] = 'B2'
+id2well['68'] = 'B3'
+id2well['69'] = 'B4'
+id2well['70'] = 'B5'
+id2well['71'] = 'B6'
+id2well['72'] = 'C1'
+id2well['73'] = 'C2'
+id2well['74'] = 'C3'
+id2well['75'] = 'C4'
+id2well['76'] = 'C5'
+id2well['77'] = 'C6'
+id2well['78'] = 'C1'
+id2well['79'] = 'C2'
+id2well['80'] = 'C3'
+id2well['81'] = 'C4'
+id2well['82'] = 'C5'
+id2well['83'] = 'C6'
+id2well['84'] = 'D1'
+id2well['85'] = 'D2'
+id2well['86'] = 'D3'
+id2well['87'] = 'D4'
+id2well['88'] = 'D5'
+id2well['89'] = 'D6'
+id2well['90'] = 'D1'
+id2well['91'] = 'D2'
+id2well['92'] = 'D3'
+id2well['93'] = 'D4'
+id2well['94'] = 'D5'
+id2well['95'] = 'D6'
+
+
+id2rack = {}
+id2rack['0'] = 'rack4'
+id2rack['1'] = 'rack4'
+id2rack['2'] = 'rack4'
+id2rack['3'] = 'rack4'
+id2rack['4'] = 'rack4'
+id2rack['5'] = 'rack4'
+id2rack['6'] = 'rack5'
+id2rack['7'] = 'rack5'
+id2rack['8'] = 'rack5'
+id2rack['9'] = 'rack5'
+id2rack['10'] = 'rack5'
+id2rack['11'] = 'rack5'
+id2rack['12'] = 'rack4'
+id2rack['13'] = 'rack4'
+id2rack['14'] = 'rack4'
+id2rack['15'] = 'rack4'
+id2rack['16'] = 'rack4'
+id2rack['17'] = 'rack4'
+id2rack['18'] = 'rack5'
+id2rack['19'] = 'rack5'
+id2rack['20'] = 'rack5'
+id2rack['21'] = 'rack5'
+id2rack['22'] = 'rack5'
+id2rack['23'] = 'rack5'
+id2rack['24'] = 'rack4'
+id2rack['25'] = 'rack4'
+id2rack['26'] = 'rack4'
+id2rack['27'] = 'rack4'
+id2rack['28'] = 'rack4'
+id2rack['29'] = 'rack4'
+id2rack['30'] = 'rack5'
+id2rack['31'] = 'rack5'
+id2rack['32'] = 'rack5'
+id2rack['33'] = 'rack5'
+id2rack['34'] = 'rack5'
+id2rack['35'] = 'rack5'
+id2rack['36'] = 'rack4'
+id2rack['37'] = 'rack4'
+id2rack['38'] = 'rack4'
+id2rack['39'] = 'rack4'
+id2rack['40'] = 'rack4'
+id2rack['41'] = 'rack4'
+id2rack['42'] = 'rack5'
+id2rack['43'] = 'rack5'
+id2rack['44'] = 'rack5'
+id2rack['45'] = 'rack5'
+id2rack['46'] = 'rack5'
+id2rack['47'] = 'rack5'
+id2rack['48'] = 'rack1'
+id2rack['49'] = 'rack1'
+id2rack['50'] = 'rack1'
+id2rack['51'] = 'rack1'
+id2rack['52'] = 'rack1'
+id2rack['53'] = 'rack1'
+id2rack['54'] = 'rack2'
+id2rack['55'] = 'rack2'
+id2rack['56'] = 'rack2'
+id2rack['57'] = 'rack2'
+id2rack['58'] = 'rack2'
+id2rack['59'] = 'rack2'
+id2rack['60'] = 'rack1'
+id2rack['61'] = 'rack1'
+id2rack['62'] = 'rack1'
+id2rack['63'] = 'rack1'
+id2rack['64'] = 'rack1'
+id2rack['65'] = 'rack1'
+id2rack['66'] = 'rack2'
+id2rack['67'] = 'rack2'
+id2rack['68'] = 'rack2'
+id2rack['69'] = 'rack2'
+id2rack['70'] = 'rack2'
+id2rack['71'] = 'rack2'
+id2rack['72'] = 'rack1'
+id2rack['73'] = 'rack1'
+id2rack['74'] = 'rack1'
+id2rack['75'] = 'rack1'
+id2rack['76'] = 'rack1'
+id2rack['77'] = 'rack1'
+id2rack['78'] = 'rack2'
+id2rack['79'] = 'rack2'
+id2rack['80'] = 'rack2'
+id2rack['81'] = 'rack2'
+id2rack['82'] = 'rack2'
+id2rack['83'] = 'rack2'
+id2rack['84'] = 'rack1'
+id2rack['85'] = 'rack1'
+id2rack['86'] = 'rack1'
+id2rack['87'] = 'rack1'
+id2rack['88'] = 'rack1'
+id2rack['89'] = 'rack1'
+id2rack['90'] = 'rack2'
+id2rack['91'] = 'rack2'
+id2rack['92'] = 'rack2'
+id2rack['93'] = 'rack2'
+id2rack['94'] = 'rack2'
+id2rack['95'] = 'rack2'
+
+
     
 
 def main():
@@ -107,7 +308,7 @@ def main():
 
     f.write('Instructions for setting up the coldtuberack: \r\n')
     for i, row in oligos.iterrows():
-        f.write('Put '+oligos.loc[i].at['Name']+' in '+e2slot[str(oligos.loc[i].at['ID Number'])]+'\r\n')
+        f.write('Put '+oligos.loc[i].at['Name']+' in '+id2rack[str(oligos.loc[i].at['ID Number'])]+' '+id2well[str(oligos.loc[i].at['ID Number'])]+'\r\n')
     f.close()
     
     Nextslot = len(oligos["ID Number"])
@@ -115,7 +316,7 @@ def main():
     # No digest in this protocol
     # f = open('Golden_Gate_instructions.txt','a+')
     # for i, row in digests.iterrows():
-    #     f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
+    #     f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+id2well[str(Nextslot)]+'\r\n')
     #     Nextslot = Nextslot+1
     # f.close()
     
@@ -135,7 +336,7 @@ def main():
     
         
         
-        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+id2rack[str(Nextslot)]+' '+id2well[str(Nextslot)]+'\r\n')
         
    
     f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
@@ -925,9 +1126,9 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
 
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
 variables.to_csv('Input.csv')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'Golden_Gate/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
-os.system("notepad.exe GoldenGate_instructions.txt")
+#os.system("notepad.exe GoldenGate_instructions.txt")
 
 #variables:
 #primer dilutions:
@@ -995,7 +1196,7 @@ DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
 ###############################################################################################################################################
 #oligos
-os.chdir(paths.loc[0].at['opentrons_repo']+'Golden_Gate/'+Date+'_GoldenGate')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+'_GoldenGate')
 oligos = pandas.read_csv('oligo.csv')
 oligos
 

@@ -925,9 +925,9 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
 
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
 variables.to_csv('Input.csv')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'Golden_Gate/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
-os.system("notepad.exe GoldenGate_instructions.txt")
+#os.system("notepad.exe GoldenGate_instructions.txt")
 
 #variables:
 #primer dilutions:
@@ -995,7 +995,7 @@ DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
 ###############################################################################################################################################
 #oligos
-os.chdir(paths.loc[0].at['opentrons_repo']+'Golden_Gate/'+Date+'_GoldenGate')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+'_GoldenGate')
 oligos = pandas.read_csv('oligo.csv')
 oligos
 

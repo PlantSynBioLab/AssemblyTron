@@ -949,9 +949,9 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
 
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA')
 variables.to_csv('Input.csv')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/Input.csv', paths.loc[0].at['opentrons_repo']+'Cloning/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/Input.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
 
-os.system("notepad.exe IVA_instructions.txt")
+#os.system("notepad.exe IVA_instructions.txt")
 
 ##############################################################################################
 ###############################################################################################
