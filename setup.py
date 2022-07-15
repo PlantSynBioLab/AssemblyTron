@@ -16,6 +16,8 @@ setup(
         "Programming Language :: Python :: 3",
     	"Operating System :: OS Independent",
 	    "License :: OSI Approved :: Apache Software License"],
+    package_data={'': ['*.r', '*.R']},
+    include_package_data=True,
 
 #[options]
 #package_dir =
