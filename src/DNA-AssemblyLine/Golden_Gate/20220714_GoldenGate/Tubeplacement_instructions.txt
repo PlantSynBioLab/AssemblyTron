@@ -1,0 +1,30 @@
+PCR gradient tube positions: 
+Put a tube in A4
+Put a tube in A2
+Put a tube in A3
+Put a tube in B4
+Put a tube in B2
+Put a tube in C2
+Put a tube in A7
+Final assembly tube: 
+Put a tube in B8
+Put a tube in B9
+Put a tube in B10
+Put a tube in B11
+Fragment dilution tubes: 
+Put a tube in F4
+Put a tube in F3
+Put a tube in F2
+Put a tube in G4
+Put a tube in F4
+Put a tube in F3
+Put a tube in G2
+Put a tube in G4
+Put a tube in F4
+Put a tube in F3
+Put a tube in H2
+Put a tube in G4
+Put a tube in F4
+Put a tube in F3
+Put a tube in F7
+Put a tube in G4
