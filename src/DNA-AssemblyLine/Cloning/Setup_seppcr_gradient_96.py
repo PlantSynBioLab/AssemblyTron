@@ -67,6 +67,7 @@ names = pandas.DataFrame(pcr['Primary Template'])
 names = names.drop_duplicates()
 names['location'] = ''
 names['pwllocation'] = ''
+names['rack'] = ''
 
 combinations = pandas.read_csv('combinations.csv')
 combinations
@@ -332,6 +333,7 @@ def main():
         #Nextslot = Nextslot+1
     
         names.loc[i].at['location'] = id2well[str(Nextslot)]
+        names.loc[i].at['rack'] = id2rack[str(Nextslot)]
     
     
     
@@ -796,7 +798,7 @@ rel_y = .05
 
 for i, row in names.iterrows():
     
-    label_extra1 = tk.Label(text=names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'],font=('Helvatical bold',14))
+    label_extra1 = tk.Label(text=names.loc[i].at['rack']+' '+names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'],font=('Helvatical bold',14))
     label_extra1.place(relx = 0.3, rely = rel_y)
     
     #names.loc[i].at['pwllocation'] = tk.Entry()

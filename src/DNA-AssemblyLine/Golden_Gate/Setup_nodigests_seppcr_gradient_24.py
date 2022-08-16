@@ -125,18 +125,18 @@ def main():
     
     f.write('NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot \r\n')
     f.write('This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  \r\n')
-    for i, row in pcr.iterrows():
+    for i, row in names.iterrows():
         
-        if i > 0:
-            if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
-                Nextslot = Nextslot
-            else:
-                Nextslot = Nextslot+1
+        # if i > 0:
+        #     if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
+        #         Nextslot = Nextslot
+        #     else:
+        #         Nextslot = Nextslot+1
     
         
         
-        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
-        
+        f.write('Put '+names.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        Nextslot = Nextslot+1
    
     f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
     

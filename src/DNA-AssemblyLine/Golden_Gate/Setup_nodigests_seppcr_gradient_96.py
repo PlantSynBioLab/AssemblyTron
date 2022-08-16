@@ -65,6 +65,7 @@ names = pandas.DataFrame(pcr['Primary Template'])
 names = names.drop_duplicates()
 names['location'] = ''
 names['pwllocation'] = ''
+names['rack'] = ''
 
 combinations = pandas.read_csv('combinations.csv')
 combinations
@@ -326,19 +327,21 @@ def main():
     
     f.write('NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot \r\n')
     f.write('This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  \r\n')
-    for i, row in pcr.iterrows():
+    for i, row in names.iterrows():
         
-        if i > 0:
-            if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
-                Nextslot = Nextslot
-            else:
-                Nextslot = Nextslot+1
+        # if i > 0:
+        #     if pcr.loc[i].at['Primary Template'] == pcr.loc[i-1].at['Primary Template']:
+        #         Nextslot = Nextslot
+        #     else:
+        #         Nextslot = Nextslot+1
     
+        names.loc[i].at['location'] = id2well[str(Nextslot)]
+        names.loc[i].at['rack'] = id2rack[str(Nextslot)]
         
-        
-        f.write('Put '+pcr.loc[i].at['Primary Template']+' in '+id2rack[str(Nextslot)]+' '+id2well[str(Nextslot)]+'\r\n')
-        
+        f.write('Put '+names.loc[i].at['Primary Template']+' in '+id2rack[str(Nextslot)]+' '+id2well[str(Nextslot)]+'\r\n')
+        Nextslot = Nextslot+1
    
+    f.write('After Dilutions, place the following reagets in 24 tube rack in slot 1. \r\n')
     f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
     
     f.write('Place T4 ligase in C5 \r\n')
@@ -774,7 +777,7 @@ rel_y = .05
 
 for i, row in names.iterrows():
     
-    label_extra1 = tk.Label(text=names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'],font=('Helvatical bold',14))
+    label_extra1 = tk.Label(text=names.loc[i].at['rack']+' '+names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'],font=('Helvatical bold',14))
     label_extra1.place(relx = 0.3, rely = rel_y)
     
     #names.loc[i].at['pwllocation'] = tk.Entry()
