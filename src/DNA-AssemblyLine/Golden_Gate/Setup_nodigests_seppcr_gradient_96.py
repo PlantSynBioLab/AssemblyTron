@@ -34,7 +34,7 @@ mainloop()
 
 #name = 'JAB-j5__20210603140838kG6Y-Synthetic-GFP-IAA'
 
-goback = os.getcwd() 
+
 
 
 
@@ -53,9 +53,17 @@ def walk_up_folder(path, depth=1):
 paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
 paths
 
+##########################################################################################################################
+###Run R script via python
 shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
-subprocess.call(name+'/j5_to_csvs.R', shell=True)
+goback = os.getcwd() 
+os.chdir(name)
 
+retcode = subprocess.call(['C:/Users/opentrons/R/R-4.2.1/bin/x64/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+retcode
+
+os.chdir(goback)
+#######################################################################################################################
 
 shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')

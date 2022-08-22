@@ -76,3 +76,4 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   write.csv(digests_read, file = paste0(path,"/digests.csv"), row.names = FALSE)
 }
 
+parse_j5()

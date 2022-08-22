@@ -14,6 +14,7 @@
 #'
 #' @examples
 #' parse_j5(path = "./J5_EricZirkle_GH3_mCherry")
+
 parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
 {
   file <- list.files(path = path, pattern = file, full.names = TRUE)
@@ -68,3 +69,5 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   write.csv(combinations_read, file = paste0(path,"/combinations.csv"), row.names = FALSE)
 }
 
+
+parse_j5()
