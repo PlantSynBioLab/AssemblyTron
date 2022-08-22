@@ -2,6 +2,7 @@ import os
 import pandas
 import shutil
 import numpy as np
+import subprocess
 
 from tkinter import filedialog
 from tkinter import *
@@ -33,7 +34,14 @@ mainloop()
 
 #name = 'JAB-j5__20210603140838kG6Y-Synthetic-GFP-IAA'
 
-os.getcwd()
+goback = os.getcwd() 
+
+
+
+
+
+
+
 
 def walk_up_folder(path, depth=1):
     _cur_depth = 1        
@@ -44,6 +52,10 @@ def walk_up_folder(path, depth=1):
 
 paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
 paths
+
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
+subprocess.call(name+'/j5_to_csvs.R', shell=True)
+
 
 shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
