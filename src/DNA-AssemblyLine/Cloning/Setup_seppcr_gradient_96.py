@@ -2,6 +2,18 @@ import os
 import pandas
 import shutil
 import numpy as np
+import subprocess
+
+from datetime import date
+from datetime import datetime
+now = datetime.now()
+
+time = str(now.strftime('%H%M'))
+
+today = date.today()
+
+date = str(today.strftime('%Y%m%d'))
+date
 
 from tkinter import filedialog
 from tkinter import *
@@ -44,6 +56,18 @@ def walk_up_folder(path, depth=1):
 
 paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
 paths
+
+##########################################################################################################################
+###Run R script via python
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
+goback = os.getcwd() 
+os.chdir(name)
+
+retcode = subprocess.call(['C:/Users/opentrons/R/R-4.2.1/bin/x64/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+retcode
+
+os.chdir(goback)
+#######################################################################################################################
 
 shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
 shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
@@ -303,7 +327,10 @@ id2rack['95'] = 'rack2'
 temptubes = []
 
 def main():
-    f = open('IVA_instructions.txt','w+')
+    f = open('reagent_setup.txt','w+')
+    f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+    f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
+
     f.write('Place the coldtuberack in slot 1. \r\n')
     f.write('put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
     f.write('put in a fresh pcr plate into thermocycler. \r\n')
@@ -324,7 +351,7 @@ def main():
     
     #Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
     
-    f = open('IVA_instructions.txt','a+')
+    f = open('reagent_setup.txt','a+')
     
     f.write('NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot \r\n')
     f.write('This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  \r\n')
@@ -392,7 +419,7 @@ def main():
 if __name__== "__main__":
     main()
 
-os.system("notepad.exe IVA_instructions.txt")
+os.system("notepad.exe reagent_setup.txt")
 
 # def main():
 #     f = open('Golden_Gate_instructions.txt','w+')
@@ -459,35 +486,33 @@ os.system("notepad.exe IVA_instructions.txt")
 import tkinter as tk
 import csv
 import pandas as pd
-from datetime import date
+
 import os
 import shutil
 
-today = date.today()
 
-date = str(today.strftime('%Y%m%d'))
-date
 
 #make the run folder of the day
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/')
-os.mkdir(date+'_IVA')
+os.mkdir(date+time+'_IVA')
 
 #copy the temp GoldenGate.py to the new folder
-dst = '/'+date+'IVA'
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/IVA_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/dilution_96.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
+#dst = '/'+date+'IVA'
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/IVA_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/dilution_96.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
 
 #now rename the script with the date
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA')
-os.rename('IVA_separatepcrruns_gradient.py', date+'_IVA.py')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA')
+os.rename('IVA_separatepcrruns_gradient.py', str(2)+'_'+date+time+'_IVA.py')
+os.rename('dilution_96.py', str(1)+'_'+date+time+'_dilution_96.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
 # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
-#shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/IVA_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/reagent_setup.txt',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
 
 
 ###############################################################################################################################################################################################3
@@ -514,6 +539,7 @@ def set_variables():
     global Date
     global ngdesired
     global Combinatorial_pcr_params
+    global Time
     # global pwldigesttemp
     # global concdigesttemp
     
@@ -547,6 +573,7 @@ def set_variables():
     Date = Date_entry.get()
     ngdesired = float(ngdesired_entry.get())
     Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
+    Time = Time_entry.get()
     # pwldigesttemp = float(pwldigesttemp_entry.get())
     # concdigesttemp = float(concdigesttemp_entry.get())
     
@@ -661,6 +688,9 @@ label_ngdesired.place(relx=0,rely=0.325)
 label_Combinatorial_pcr_params = tk.Label(text='Gradient pcr(2) or in OT(1)?',font=('Helvatical bold',14))
 label_Combinatorial_pcr_params.place(relx=0,rely=0.350)
 
+label_Time = tk.Label(text='Time',font=('Helvatical bold',14))
+label_Time.place(relx=0,rely=0.375)
+
 # label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
 # label_pwldigesttemp.place(relx=0,rely=0.35)
 
@@ -732,6 +762,10 @@ ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
 Combinatorial_pcr_params_entry = tk.Entry()
 Combinatorial_pcr_params_entry.insert(END, '2')
 Combinatorial_pcr_params_entry.place(relx=0.2,rely=0.35,width=35)
+
+Time_entry = tk.Entry()
+Time_entry.insert(END, time)
+Time_entry.place(relx=0.2,rely=0.375,width=55)
 
 # pwldigesttemp_entry = tk.Entry()
 # pwldigesttemp_entry.insert(END, '0')
@@ -871,12 +905,12 @@ input_csv.mainloop()
 
 temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
 tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-test = [[0,0,0,0,0,0,0,0,0,0,0,0,0]]
+test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
 lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params]]
-variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params'],index=range(len(temppwls)))
-variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params]
+row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]]
+variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time'],index=range(len(temppwls)))
+variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]
 variables['template pwl number'] = temppwls
 variables['template concentrations'] = tempconcs
 
@@ -1138,9 +1172,9 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     
 
     pcr.to_csv('pcr.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
     gradient.to_csv('gradient.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
 
 
 
@@ -1148,9 +1182,9 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
 
 
 
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA')
 variables.to_csv('Input.csv')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/Input.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/Input.csv', paths.loc[0].at['opentrons_repo']+'/Cloning/')
 
 #os.system("notepad.exe IVA_instructions.txt")
 
@@ -1191,7 +1225,7 @@ shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+'_IVA/Input.csv'
 import pandas
 import numpy as np
 import os
-from datetime import date
+
  
 #for this to work you need to run the python script on the same day that you make the new directory
 #today = date.today()
@@ -1215,14 +1249,14 @@ from datetime import date
 #Input_values = pandas.read_csv('Input.csv') 
 Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Cloning/Input.csv') 
 Input_values
-Date = str(int(Input_values.loc[0].at['Date']))
-Date
+# Date = str(int(Input_values.loc[0].at['Date']))
+# Date
 
 Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
 diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
 DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA')
 os.getcwd()
 oligos = pandas.read_csv('oligo.csv')
 oligos
@@ -1790,6 +1824,32 @@ os.getcwd()
 combinations = pandas.read_csv('combinations.csv')
 combinations
 
+
+if len(combinations.columns) == 5:
+    combinations['Part(s) Bin 1'] = 'nan'
+    combinations['Assembly Piece ID Number Bin 1'] = 'nan'
+    combinations['Part(s) Bin 2'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 2'] = 'nan'
+    combinations['Part(s) Bin 3'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+if len(combinations.columns) == 7:
+    combinations['Part(s) Bin 2'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 2'] = 'nan'
+    combinations['Part(s) Bin 3'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+if len(combinations.columns) == 9:
+    combinations['Part(s) Bin 3'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+if len(combinations.columns) == 11:
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+
 if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
     frame = combinations[pieces]
@@ -2016,7 +2076,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
     Annealing_and_extension = Annealing_and_extension.drop(columns = ['index'])
     Annealing_and_extension
 
-    Annealing_and_extension.to_csv('output_'+Date+'_Annealing_extension.csv')
+    Annealing_and_extension.to_csv('output_'+date+time+'_Annealing_extension.csv')
 
 ######################separate pcrrxns####################################
 ########################################################################
@@ -2447,8 +2507,8 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
     # annealing_extension = annealing_extension.reset_index()
     # annealing_extension
     
-    combinations = pandas.read_csv('combinations.csv')
-    combinations
+    # combinations = pandas.read_csv('combinations.csv')
+    # combinations
 
 #if Input_values.loc[0].at['Combinatorial_pcr_params'] == 'Y':
     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
@@ -2720,11 +2780,13 @@ dis_tube = pandas.DataFrame(data=dt)
 
 
 def main():
-    f = open('Tubeplacement_instructions.txt','w+')
+    f = open('reaction_setup.txt','w+')
     f.write('PCR gradient tube positions: \r\n')
+    f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+    f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
 
     for i, row in pcr.iterrows():
-        f.write('Put a tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+        f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
     f.write('Final assembly tube: \r\n')
     
     ggdf2spot = {}
@@ -2735,8 +2797,15 @@ def main():
     ggdf2spot['gg5'] = 'B12'
 
     for i, row in GG_dfs.iterrows():
-        f.write('Put a tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
+        f.write('Put a 100 uL PCR tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
     
     f.close()
+if __name__== "__main__":
+    main()
 
-os.system("notepad.exe Tubeplacement_instructions.txt")
+#shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/reaction_setup.txt',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
+#os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
+os.system("notepad.exe reaction_setup.txt")
+
+rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
+rc

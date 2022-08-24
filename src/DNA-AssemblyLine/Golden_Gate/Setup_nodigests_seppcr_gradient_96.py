@@ -4,6 +4,17 @@ import shutil
 import numpy as np
 import subprocess
 
+from datetime import date
+from datetime import datetime
+now = datetime.now()
+
+time = str(now.strftime('%H%M'))
+
+today = date.today()
+
+date = str(today.strftime('%Y%m%d'))
+date
+
 from tkinter import filedialog
 from tkinter import *
 
@@ -322,7 +333,9 @@ id2rack['95'] = 'rack2'
     
 
 def main():
-    f = open('GoldenGate_instructions.txt','w+')
+    f = open('reagent_setup.txt','w+')
+    f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+    f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
     f.write('Place the coldtuberack in slot 1. \r\n')
     f.write('put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
     f.write('put in a fresh pcr plate into thermocycler. \r\n')
@@ -343,7 +356,7 @@ def main():
     
     #Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
     
-    f = open('GoldenGate_instructions.txt','a+')
+    f = open('reagent_setup.txt','a+')
     
     f.write('NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot \r\n')
     f.write('This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  \r\n')
@@ -389,7 +402,7 @@ def main():
 if __name__== "__main__":
     main()
 
-os.system("notepad.exe GoldenGate_instructions.txt")
+os.system("notepad.exe reagent_setup.txt")
 
 # def main():
 #     f = open('Golden_Gate_instructions.txt','w+')
@@ -457,36 +470,34 @@ os.system("notepad.exe GoldenGate_instructions.txt")
 import tkinter as tk
 import csv
 import pandas as pd
-from datetime import date
+
 import os
 import shutil
 
-today = date.today()
 
-date = str(today.strftime('%Y%m%d'))
-date
 
 #make the run folder of the day
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-os.mkdir(date+'_GoldenGate')
+os.mkdir(date+time+'_GoldenGate')
 
 #copy the temp GoldenGate.py to the new folder
-dst = '/'+date+'GoldenGate'
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns-gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_96.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+dst = '/'+date+time+'GoldenGate'
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns-gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_96.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 
 
 #now rename the script with the date
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
-os.rename('GoldenGate_nodigests_separatepcrruns-gradient.py', date+'_GoldenGate.py')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+os.rename('GoldenGate_nodigests_separatepcrruns-gradient.py', str(2)+'_'+date+time+'_GoldenGate.py')
+os.rename('dilution_96.py', str(1)+'_'+date+time+'_dilution_96.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/reagent_setup.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 
 
 ###############################################################################################################################################################################################3
@@ -511,6 +522,7 @@ def set_variables():
     global DPwater
     global cutsmart
     global Date
+    global Time
     global ngdesired
     global Combinatorial_pcr_params
     # global pwldigesttemp
@@ -544,6 +556,7 @@ def set_variables():
     DPwater = float(DPwater_entry.get())
     cutsmart = float(cutsmart_entry.get())
     Date = Date_entry.get()
+    Time = Time_entry.get()
     ngdesired = float(ngdesired_entry.get())
     Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
     # pwldigesttemp = float(pwldigesttemp_entry.get())
@@ -660,6 +673,9 @@ label_ngdesired.place(relx=0,rely=0.325)
 label_Combinatorial_pcr_params = tk.Label(text='Gradient pcr(2) or in OT(1)?',font=('Helvatical bold',14))
 label_Combinatorial_pcr_params.place(relx=0,rely=0.350)
 
+label_Time = tk.Label(text='Time',font=('Helvatical bold',14))
+label_Time.place(relx=0,rely=0.375)
+
 # label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
 # label_pwldigesttemp.place(relx=0,rely=0.35)
 
@@ -731,6 +747,10 @@ ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
 Combinatorial_pcr_params_entry = tk.Entry()
 Combinatorial_pcr_params_entry.insert(END, '2')
 Combinatorial_pcr_params_entry.place(relx=0.2,rely=0.35,width=35)
+
+Time_entry = tk.Entry()
+Time_entry.insert(END, time)
+Time_entry.place(relx=0.2,rely=0.375,width=55)
 
 # pwldigesttemp_entry = tk.Entry()
 # pwldigesttemp_entry.insert(END, '0')
@@ -870,12 +890,12 @@ input_csv.mainloop()
 
 temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
 tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-test = [[0,0,0,0,0,0,0,0,0,0,0,0,0]]
+test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
 lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params]]
-variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params'],index=range(len(temppwls)))
-variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params]
+row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]]
+variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time'],index=range(len(temppwls)))
+variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]
 variables['template pwl number'] = temppwls
 variables['template concentrations'] = tempconcs
 
@@ -1137,9 +1157,9 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
     
 
     pcr.to_csv('pcr.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     gradient.to_csv('gradient.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 
 
 
@@ -1147,9 +1167,9 @@ if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
 
 
 
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
 variables.to_csv('Input.csv')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
 #os.system("notepad.exe GoldenGate_instructions.txt")
 
@@ -1186,7 +1206,7 @@ shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate
 import pandas
 import numpy as np
 import os
-from datetime import date
+
  
 #for this to work you need to run the python script on the same day that you make the new directory
 #today = date.today()
@@ -1210,8 +1230,8 @@ from datetime import date
 #Input_values = pandas.read_csv('Input.csv') 
 Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
 Input_values
-Date = str(int(Input_values.loc[0].at['Date']))
-Date
+#Date = str(int(Input_values.loc[0].at['Date']))
+#Date
 
 Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
 diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
@@ -1219,7 +1239,7 @@ DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
 ###############################################################################################################################################
 #oligos
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+'_GoldenGate')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
 oligos = pandas.read_csv('oligo.csv')
 oligos
 
@@ -1785,6 +1805,32 @@ os.getcwd()
 combinations = pandas.read_csv('combinations.csv')
 combinations
 
+if len(combinations.columns) == 5:
+    combinations['Part(s) Bin 1'] = 'nan'
+    combinations['Assembly Piece ID Number Bin 1'] = 'nan'
+    combinations['Part(s) Bin 2'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 2'] = 'nan'
+    combinations['Part(s) Bin 3'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+if len(combinations.columns) == 7:
+    combinations['Part(s) Bin 2'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 2'] = 'nan'
+    combinations['Part(s) Bin 3'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+if len(combinations.columns) == 9:
+    combinations['Part(s) Bin 3'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+if len(combinations.columns) == 11:
+    combinations['Part(s) Bin 4'] = 'nan' 
+    combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+
+
 if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
     frame = combinations[pieces]
@@ -2011,7 +2057,7 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
     Annealing_and_extension = Annealing_and_extension.drop(columns = ['index'])
     Annealing_and_extension
 
-    Annealing_and_extension.to_csv('output_'+Date+'_Annealing_extension.csv')
+    Annealing_and_extension.to_csv('output_'+date+time+'_Annealing_extension.csv')
 
 ######################separate pcrrxns####################################
 ########################################################################
@@ -2442,24 +2488,24 @@ if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
     # annealing_extension = annealing_extension.reset_index()
     # annealing_extension
     
-    combinations = pandas.read_csv('combinations.csv')
-    combinations
+    #combinations = pandas.read_csv('combinations.csv')
+    #combinations
 
 #if Input_values.loc[0].at['Combinatorial_pcr_params'] == 'Y':
     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
     frame = combinations[pieces]
 #frame2 = frame.transpose()
     frame
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 0']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 1']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 2']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 3']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 4']
+    # if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+    #     del frame['Assembly Piece ID Number Bin 0']
+    # if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+    #     del frame['Assembly Piece ID Number Bin 1']
+    # if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+    #     del frame['Assembly Piece ID Number Bin 2']
+    # if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
+    #     del frame['Assembly Piece ID Number Bin 3']
+    # if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
+    #     del frame['Assembly Piece ID Number Bin 4']
     
 
 #frame += startnum
@@ -2743,46 +2789,71 @@ ggdf2spot['gg4'] = 'B11'
 ggdf2spot['gg5'] = 'B12'
 
 def main():
-    f = open('Tubeplacement_instructions.txt','w+')
+    f = open('reaction_setup.txt','w+')
     f.write('PCR gradient tube positions: \r\n')
+    f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+    f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
 
     for i, row in pcr.iterrows():
-        f.write('Put a tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
-    f.write('Final assembly tube: \r\n')
+        f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+    f.write('Final assembly 100 uL PCR tube: \r\n')
 
     for i, row in GG_dfs.iterrows():
-        f.write('Put a tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
+        f.write('Put a 100 uL PCR tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
 
-    f.write('Fragment dilution tubes: \r\n')
+    f.write('Fragment dilution 100 uL PCR tubes: \r\n')
 
     if len(combinations['ID Number']) >= 1:
         if gg1.loc[0].at['final amount to add'] > 1:
             for i, row in gg1.iterrows():
-                f.write('Put a tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+                f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
     if len(combinations['ID Number']) >= 2: 
         if gg2.loc[0].at['final amount to add'] > 1:
             for i, row in gg1.iterrows():
-                f.write('Put a tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+                f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
 
     if len(combinations['ID Number']) >= 3:
         if gg3.loc[0].at['final amount to add'] > 1:
             for i, row in gg3.iterrows():
-                f.write('Put a tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+                f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
 
     if len(combinations['ID Number']) >= 4:
         if gg4.loc[0].at['final amount to add'] > 1:
             for i, row in gg4.iterrows():
-                f.write('Put a tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+                f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
     
     f.close()
 
 if __name__== "__main__":
     main()
 
-os.system("notepad.exe Tubeplacement_instructions.txt")
+os.system("notepad.exe reaction_setup.txt")
 #don't need to shutil cause we are already in the right directory. 
 # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
+# rc = subprocess.call(['C:/Windows/System32/bash.exe', './Copy_Cloning.sh'], shell=True)
+
+# # rc = subprocess.call(['C:/Windows/System32/bash.exe', 'scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/'], shell=True)
+
+# rc
+
+
+
+# # rc = subprocess.check_output(sys.executable + 'scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/', shell=True)
+# # rc
+
+# # import paramiko
+
+# # p = paramiko.SSHClient()
+# # p.set_missing_host_key_policy(paramiko.AutoAddPolicy())   # This script doesn't work for me unless this line is added!
+# # p.connect("root@robot", port=22, username="opentrons", password="wrightlab")
+# # stdin, stdout, stderr = p.exec_command("scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/")
+
+# subprocess.Popen('C:/Windows/System32/bash.exe', 'scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/', shell=True)
+
+rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
+rc
