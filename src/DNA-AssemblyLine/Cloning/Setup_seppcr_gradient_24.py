@@ -63,7 +63,7 @@ shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
 goback = os.getcwd() 
 os.chdir(name)
 
-retcode = subprocess.call(['C:/Users/opentrons/R/R-4.2.1/bin/x64/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+retcode = subprocess.call([paths.loc[0].at['r_path'], '--vanilla', name+'/j5_to_csvs.R'], shell=True)
 retcode
 
 os.chdir(goback)
