@@ -29,14 +29,24 @@ def browse_button():
     name = filename
 
 root = Tk()
-root.geometry("800x800")
+root.geometry("800x150")
 folder_path = StringVar()
 lbl1 = Label(master=root,textvariable=folder_path)
 lbl1.grid(row=0, column=1)
 button2 = Button(text="Browse", command=browse_button)
 button2.grid(row=0, column=3)
 
+label_extra1 = Label(text='Navigate to the folder containing your j5 design.',font=('Helvatical bold',14))
+label_extra1.place(relx=0,rely=0.2)
 
+def Close():
+    root.destroy()
+  
+  
+# Button for closing
+exit_button = Button(root, text="Confirm", command=Close)
+#exit_button.pack(pady=20)
+exit_button.place(relx=.5,rely=.4)
 
 mainloop()
 
@@ -337,8 +347,8 @@ def main():
     f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
     f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
     f.write('Place the coldtuberack in slot 1. \r\n')
-    f.write('put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
-    f.write('put in a fresh pcr plate into thermocycler. \r\n')
+    f.write('Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
+    f.write('Put in a fresh pcr plate into thermocycler. \r\n')
 
     f.write('Instructions for setting up the coldtuberack: \r\n')
     for i, row in oligos.iterrows():
@@ -931,11 +941,13 @@ def showSelected():
         print(val)
     se = pandas.Series(countries)
     variables['section'] = se
+    ws.destroy()
 
 show = Label(ws, text = "Choose which parts of protocol to run", font = ("Times", 14), padx = 10, pady = 10)
 show.pack() 
 lb = Listbox(ws, selectmode = "multiple")
-lb.pack(padx = 10, pady = 10, expand = YES, fill = "both") 
+lb.pack(padx = 10, pady = 10, expand = YES, fill = "both")
+
 
 x =["Dilution", "PCR Mix", "DPNI Digest", "Golden Gate Setup", "Golden Gate Run"]
 
@@ -945,6 +957,29 @@ for item in range(len(x)):
 
 Button(ws, text="Confirm", command=showSelected).pack()
 ws.mainloop() 
+
+# lock_button = Button(ws, text="Lock in selection",command=showSelected)
+# lock_button.pack(pady=10)
+
+
+# def Close():
+#     ws.destroy()
+  
+  
+# # Button for closing
+# exit_button = Button(ws, text="Move to next step", command=Close)
+# exit_button.pack(pady=40)
+
+# def Close():
+#     root.destroy()
+  
+  
+# # Button for closing
+# exit_button = Button(root, text="Confirm", command=Close)
+# #exit_button.pack(pady=20)
+# exit_button.place(relx=.5,rely=.4)
+
+#ws.mainloop() 
 
 ##############################################################################################################
 
