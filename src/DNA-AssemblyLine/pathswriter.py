@@ -33,7 +33,7 @@ button2.grid(row=0, column=3)
 label_extra1 = Label(text='Navigate to the folder containing your Rspript.exe',font=('Helvatical bold',14))
 label_extra1.place(relx=0,rely=0.2)
 
-label_extra1 = Label(text='Example: C:/Users/opentrons/AppData/Local/Programs/R/R-4.2.1/bin/x64/Rscript.exe',font=('Helvatical bold',14))
+label_extra1 = Label(text='Example: C:/Users/opentrons/AppData/Local/Programs/R/R-4.2.1/bin/Rscript.exe',font=('Helvatical bold',14))
 label_extra1.place(relx=0,rely=0.4)
 
 def Close():

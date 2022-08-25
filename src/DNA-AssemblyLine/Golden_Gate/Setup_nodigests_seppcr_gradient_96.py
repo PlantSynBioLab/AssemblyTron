@@ -80,7 +80,7 @@ shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
 goback = os.getcwd() 
 os.chdir(name)
 
-retcode = subprocess.call([paths.loc[0].at['r_path'], '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
 retcode
 
 os.chdir(goback)
@@ -348,7 +348,6 @@ def main():
     f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
     f.write('Place the coldtuberack in slot 1. \r\n')
     f.write('Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
-    f.write('Put in a fresh pcr plate into thermocycler. \r\n')
 
     f.write('Instructions for setting up the coldtuberack: \r\n')
     for i, row in oligos.iterrows():

@@ -15,6 +15,7 @@
 #' @examples
 #' parse_j5(path = "./J5_EricZirkle_GH3_mCherry")
 
+
 parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
 {
   file <- list.files(path = path, pattern = file, full.names = TRUE)
@@ -68,6 +69,6 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   #feather::write_feather(combinations_read, path = paste0(path,"/combinations.feather"))#Creates feather file for Oligo Synthesis information
   write.csv(combinations_read, file = paste0(path,"/combinations.csv"), row.names = FALSE)
 }
-
-
+install.packages("readr", repos='http://cran.us.r-project.org')
+library(readr)
 parse_j5()

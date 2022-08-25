@@ -1,0 +1,5 @@
+"ID Number","Name","Assembly Method","Part(s) Bin 0","Assembly Piece ID Number Bin 0","Part(s) Bin 1","Assembly Piece ID Number Bin 1","Part(s) Bin 2","Assembly Piece ID Number Bin 2","Part(s) Bin 3","Assembly Piece ID Number Bin 3"
+0,"pmas00001","Golden-gate","(backbone)",0,"(Yukon)",1,"(bb2)",2,"(AmpR)",3
+1,"pmas00002","Golden-gate","(backbone)",0,"(fuGFP)",4,"(bb2)",2,"(AmpR)",3
+2,"pmas00003","Golden-gate","(backbone)",0,"(tsPurple)",5,"(bb2)",2,"(AmpR)",3
+3,"pmas00004","Golden-gate","(backbone)",0,"(eforCP)",6,"(bb2)",2,"(AmpR)",3
