@@ -6,12 +6,10 @@ import os
 paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
 paths
 
-Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
+Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Cloning/Input.csv') 
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
-Time = str(int(Input_values.loc[0].at['Time']))
-Time
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+Time+'_GoldenGate')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
 oligos = pandas.read_csv('oligo.csv')
 assembly = pandas.read_csv('assembly.csv')
 pcr = pandas.read_csv('pcr.csv')
@@ -42,10 +40,10 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
     tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
-    deckslot4 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','4') 
-    deckslot5 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','5')
-    deckslot1 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','1')
-    deckslot2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2')
+    rack4 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','4') 
+    rack5 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','5')
+    rack1 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','1')
+    rack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2')
     plate96 = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', '3')
     watertuberack = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical', '8')
     

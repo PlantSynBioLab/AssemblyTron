@@ -307,13 +307,11 @@ os.mkdir(date+time+'_IVA')
 #dst = '/'+date+'IVA'
 shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/IVA_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
 shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Cloning/dilution_24.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
 
 #now rename the script with the date
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA')
-os.rename('IVA_separatepcrruns_gradient.py', str(3)+'_'+date+time+'_IVA.py')
-os.rename('dilution_24.py', str(2)+'_'+date+time+'_dilution_24.py')
-os.rename('Update_Input.py', str(1)+'_Update_Input.py')
+os.rename('IVA_separatepcrruns_gradient.py', str(2)+'_'+date+time+'_IVA.py')
+os.rename('dilution_24.py', str(1)+'_'+date+time+'_dilution_24.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')

@@ -9,9 +9,7 @@ paths
 Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Cloning/Input.csv') 
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
-Time = str(int(Input_values.loc[0].at['Time']))
-
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+Time+'_IVA')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
 oligos = pandas.read_csv('oligo.csv')
 assembly = pandas.read_csv('assembly.csv')
 pcr = pandas.read_csv('pcr.csv')

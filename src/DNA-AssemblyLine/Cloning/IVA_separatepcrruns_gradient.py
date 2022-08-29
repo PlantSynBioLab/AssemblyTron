@@ -30,7 +30,7 @@
 #import pyarrow.feather as ft
 import pandas
 import numpy as np
-import os
+#import os
 #from datetime import date
  
 #for this to work you need to run the python script on the same day that you make the new directory
@@ -56,15 +56,13 @@ paths
 Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Cloning/Input.csv') 
 # Input_values
 Date = str(int(Input_values.loc[0].at['Date']))
-Time = str(int(Input_values.loc[0].at['Time']))
-
 # Date
 
 Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
 diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
 DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+Time+'_IVA')
+os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+'_IVA')
 # os.getcwd()
 oligos = pandas.read_csv('oligo.csv')
 # oligos

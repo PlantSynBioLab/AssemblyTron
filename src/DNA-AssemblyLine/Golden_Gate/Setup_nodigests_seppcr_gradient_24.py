@@ -283,13 +283,12 @@ os.mkdir(date+time+'_GoldenGate')
 dst = '/'+date+'GoldenGate'
 shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns-gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_24.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+
 
 #now rename the script with the date
 os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
-os.rename('GoldenGate_nodigests_separatepcrruns-gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
-os.rename('dilution_24.py', str(2)+'_'+date+time+'_dilution_24.py')
-os.rename('Update_Input.py', str(1)+'_Update_Input.py')
+os.rename('GoldenGate_nodigests_separatepcrruns-gradient.py', str(2)+'_'+date+time+'_GoldenGate.py')
+os.rename('dilution_24.py', str(1)+'_'+date+time+'_dilution_24.py')
 os.chdir(walk_up_folder(os.getcwd(), 2))
 
 #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
@@ -541,7 +540,7 @@ Date_entry.insert(END, date)
 Date_entry.place(relx=0.2,rely=0.3,width=55)
 
 ngdesired_entry = tk.Entry()
-ngdesired_entry.insert(END, '100')
+ngdesired_entry.insert(END, '.5')
 ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
 
 Combinatorial_pcr_params_entry = tk.Entry()
