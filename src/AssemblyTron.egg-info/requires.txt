@@ -1,0 +1,8 @@
+pandas
+os
+shutil
+numpy
+subprocess
+datetime
+tkinter
+csv
