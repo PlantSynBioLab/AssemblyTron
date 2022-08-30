@@ -1,7 +1,0 @@
-,stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,template pwl number,template concentrations,section
-0,100,1,2.5,0.1,25,0.5,0,2,18,5,20220823,0.5,2,,44.0,Dilution
-1,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0.0,0,,44.0,PCR Mix
-2,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0.0,0,,44.0,DPNI Digest
-3,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0.0,0,,44.0,Golden Gate Setup
-4,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0.0,0,,44.0,Golden Gate Run
-5,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0.0,0,,44.0,

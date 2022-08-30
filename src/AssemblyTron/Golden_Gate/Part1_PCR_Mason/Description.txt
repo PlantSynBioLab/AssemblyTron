@@ -1,5 +1,0 @@
-We are developing a pcr reaction script for the assembly:
-
-JAB-j5__20210603140838kG6Y-Synthetic-GFP-IAA
-
-found in j5_files folder on google drive
