@@ -26,7 +26,7 @@ setup(
 #packages = find:
     python_requires = ">=3.6",
     install_requires=[
-      'pandas', 'os','shutil','numpy','subprocess','datetime','tkinter','csv'
+      'pandas', 'os','shutil','numpy','subprocess','datetime','csv'
   ],
   )
 
