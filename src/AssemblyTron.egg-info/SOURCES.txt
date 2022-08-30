@@ -6,6 +6,7 @@ setup.py
 src/AssemblyTron/Copy Cloning.bat
 src/AssemblyTron/Copy_Cloning.sh
 src/AssemblyTron/Gibson.py
+src/AssemblyTron/Update_Input.py
 src/AssemblyTron/__init__.py
 src/AssemblyTron/j5_to_csvs+digests.R
 src/AssemblyTron/j5_to_csvs.R
@@ -44,3 +45,4 @@ src/AssemblyTron/Golden_Gate/Setup_nodigests_seppcr_gradient_96.py
 src/AssemblyTron/Golden_Gate/__init__.py
 src/AssemblyTron/Golden_Gate/dilution_24.py
 src/AssemblyTron/Golden_Gate/dilution_96.py
+src/AssemblyTron/Golden_Gate/old_dilution_96.py
