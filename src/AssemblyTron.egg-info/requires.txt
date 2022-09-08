@@ -4,5 +4,4 @@ shutil
 numpy
 subprocess
 datetime
-tkinter
 csv

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: AssemblyTron
-Version: 0.0.1
+Version: 0.0.2
 Summary: A package for automating DNA assembly with an Opentrons liquid handling robot
 Home-page: https://github.com/PlantSynBioLab/opentrons
 Author: John Bryant
