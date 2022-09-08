@@ -4,7 +4,7 @@ from setuptools import find_packages
 
 setup(
     name = "AssemblyTron",
-    version = "0.0.2",
+    version = "0.0.5",
     author = "John Bryant",
     author_email = "jbryant2@vt.edu",
     description = "A package for automating DNA assembly with an Opentrons liquid handling robot",
@@ -26,7 +26,7 @@ setup(
 #packages = find:
     python_requires = ">=3.6",
     install_requires=[
-      'pandas', 'os','shutil','numpy','subprocess','datetime','csv'
+      'pandas','numpy','datetime'
   ],
   )
 
