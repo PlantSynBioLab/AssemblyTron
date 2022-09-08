@@ -4,7 +4,7 @@ from setuptools import find_packages
 
 setup(
     name = "AssemblyTron",
-    version = "0.0.5",
+    version = "0.0.6",
     author = "John Bryant",
     author_email = "jbryant2@vt.edu",
     description = "A package for automating DNA assembly with an Opentrons liquid handling robot",
