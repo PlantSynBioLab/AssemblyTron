@@ -1,3 +1,8 @@
+'''This is a demo script that can be used to show the OT-2 in action
+
+
+'''
+
 from opentrons import protocol_api
 
 #Metadata is a dictionary of data that is read by the server and returned to the opentrons app. 
