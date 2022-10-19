@@ -1,17 +1,15 @@
-'''Golden Gate Assembly Setup Script
+'''Setup script for Golden Gate Assembly with 24 tube capacity
 
-This script walks the user through processing assembly design files and making a directory for perfoming Golden Gate Assembly with AssemblyTron.
+This script walks the user through setup of a Golden Gate assembly with up to 24 combined primers and templates. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
 
-This script requires the user to have an assembly design built with j5. The main combinatorial design file required is a CSV.
+This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.
 
-This script require `pandas`, `numpy`, to be installed in the python environment in which you are running this script.
+This script requires `pandas` and `numpy` to be installed in the python environment where running. 
 
-This file can also be imported as a module and cotains the following function:
-
-    *
-
+This script can also be called as a module by calling `AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24`.
 
 '''
+
 if __name__ == '__main__':
     import os
     import pandas
@@ -299,13 +297,13 @@ if __name__ == '__main__':
 
     #copy the temp GoldenGate.py to the new folder
     dst = '/'+date+'GoldenGate'
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns-gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_24.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 
     #now rename the script with the date
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
-    os.rename('GoldenGate_nodigests_separatepcrruns-gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
+    os.rename('GoldenGate_nodigests_separatepcrruns_gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
     os.rename('dilution_24.py', str(2)+'_'+date+time+'_dilution_24.py')
     os.rename('Update_Input.py', str(1)+'_Update_Input.py')
     os.chdir(walk_up_folder(os.getcwd(), 2))
