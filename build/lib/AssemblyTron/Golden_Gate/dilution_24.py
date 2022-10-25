@@ -1,23 +1,15 @@
+'''Dilution Script for up to 24 primers and templates
+
+This script contains a protocol for diluting up to 96 primers and templates to concentrations specified in the AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24 module. 
+
+This script runs on the OT-2 via the run app. It calls CSVs which must be transferred to the OT-2 processor prior to running. This script is not designed to run a personal computer on the command line.
+
+'''
+
 
 import pandas
 import numpy as np
 import os
-
-paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
-paths
-
-Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
-Date = str(int(Input_values.loc[0].at['Date']))
-Date
-Time = str(int(Input_values.loc[0].at['Time']))
-Time
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+Time+'_GoldenGate')
-oligos = pandas.read_csv('oligo.csv')
-assembly = pandas.read_csv('assembly.csv')
-pcr = pandas.read_csv('pcr.csv')
-combinations = pandas.read_csv('combinations.csv')
-df = pandas.read_csv('templates.csv')
-
 from opentrons import protocol_api
 
 #Metadata is a dictionary of data that is read by the server and returned to the opentrons app. 
@@ -38,7 +30,20 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 #from opentrons import simulate
 #protocol = simulate.get_protocol_api('2.2')
-    
+    paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
+    paths
+
+    Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
+    Date = str(int(Input_values.loc[0].at['Date']))
+    Date
+    Time = str(int(Input_values.loc[0].at['Time']))
+    Time
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+Time+'_GoldenGate')
+    oligos = pandas.read_csv('oligo.csv')
+    assembly = pandas.read_csv('assembly.csv')
+    pcr = pandas.read_csv('pcr.csv')
+    combinations = pandas.read_csv('combinations.csv')
+    df = pandas.read_csv('templates.csv')
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
     #tiprack2 = protocol.load_labware("opentrons_96_tiprack_10ul",'6')

@@ -1,22 +1,17 @@
+'''Dilution Script for up to 96 primers and templates
+
+This script contains a protocol for diluting up to 96 primers and templates to concentrations specified in the AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96 module. 
+
+This script runs on the OT-2 via the run app. It calls CSVs which must be transferred to the OT-2 processor prior to running. This script is not designed to run a personal computer on the command line.
+
+'''
+
 
 import pandas
 import numpy as np
 import os
 
-paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
-paths
 
-Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
-Date = str(int(Input_values.loc[0].at['Date']))
-Date
-Time = str(int(Input_values.loc[0].at['Time']))
-Time
-os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+Time+'_GoldenGate')
-oligos = pandas.read_csv('oligo.csv')
-assembly = pandas.read_csv('assembly.csv')
-pcr = pandas.read_csv('pcr.csv')
-combinations = pandas.read_csv('combinations.csv')
-df = pandas.read_csv('templates.csv')
 
 from opentrons import protocol_api
 
@@ -38,7 +33,22 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 #from opentrons import simulate
 #protocol = simulate.get_protocol_api('2.2')
-    
+
+    paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
+    paths
+
+    Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
+    Date = str(int(Input_values.loc[0].at['Date']))
+    Date
+    Time = str(int(Input_values.loc[0].at['Time']))
+    Time
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+Date+Time+'_GoldenGate')
+    oligos = pandas.read_csv('oligo.csv')
+    assembly = pandas.read_csv('assembly.csv')
+    pcr = pandas.read_csv('pcr.csv')
+    combinations = pandas.read_csv('combinations.csv')
+    df = pandas.read_csv('templates.csv')
+
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
     tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
@@ -49,7 +59,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     plate96 = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul', '3')
     watertuberack = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical', '8')
     
-   
+
 # #########Some notes:    
 # #specify the order of stock primers and template in tuberack1 here:
 # #good place to add the pop-up window
