@@ -146,7 +146,10 @@ def run(protocol: protocol_api.ProtocolContext):
         tiprack2 = protocol.load_labware('opentrons_96_tiprack_10ul',5)
         r=0
         while r < 96:
-            left_pipette.pick_up_tip(tiprack1[id2well[r]])  
+            left_pipette.pick_up_tip(tiprack1[id2well[r]])
+            left_pipette.move_to(solutionrack['B4'].top())
+            left_pipette.blow_out()
+            left_pipette.blow_out()
             left_pipette.mix(3,10,solutionrack['B4'])
             left_pipette.move_to(solutionrack['B4'].top())
             left_pipette.blow_out()
