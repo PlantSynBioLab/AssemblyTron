@@ -1,0 +1,37 @@
+PCR gradient tube positions: 
+Date: 20230203 Time: 1825 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Cloning\202302031825_IVA 
+Put a 100 uL PCR tube in A2
+Put a 100 uL PCR tube in A4
+Put a 100 uL PCR tube in B2
+Put a 100 uL PCR tube in B4
+Put a 100 uL PCR tube in C2
+Put a 100 uL PCR tube in C4
+Put a 100 uL PCR tube in D2
+Put a 100 uL PCR tube in D4
+Put a 100 uL PCR tube in A3
+Put a 100 uL PCR tube in B3
+Put a 100 uL PCR tube in E2
+Put a 100 uL PCR tube in C3
+Put a 100 uL PCR tube in E2
+Put a 100 uL PCR tube in D3
+Put a 100 uL PCR tube in E2
+Put a 100 uL PCR tube in E4
+Put a 100 uL PCR tube in E2
+Put a 100 uL PCR tube in E4
+Put a 100 uL PCR tube in E2
+Put a 100 uL PCR tube in E3
+Put a 100 uL PCR tube in E3
+Put a 100 uL PCR tube in E4
+Final assembly tube: 
+Put a 100 uL PCR tube in B8
+Put a 100 uL PCR tube in B9
+Put a 100 uL PCR tube in B10
+Put a 100 uL PCR tube in B11
+Put a 100 uL PCR tube in B12
+Put a 100 uL PCR tube in C8
+Put a 100 uL PCR tube in C9
+Put a 100 uL PCR tube in C10
+Put a 100 uL PCR tube in C11
+Put a 100 uL PCR tube in C12
+Put a 100 uL PCR tube in D8
