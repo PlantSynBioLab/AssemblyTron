@@ -112,6 +112,22 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         gg3 = pandas.read_csv('gg3.csv')
     if exists('gg4.csv'):
         gg4 = pandas.read_csv('gg4.csv')
+    if exists('gg5.csv'):
+        gg5 = pandas.read_csv('gg5.csv')
+    if exists('gg6.csv'):
+        gg6 = pandas.read_csv('gg6.csv')
+    if exists('gg7.csv'):
+        gg7 = pandas.read_csv('gg7.csv')
+    if exists('gg8.csv'):
+        gg8 = pandas.read_csv('gg8.csv')
+    if exists('gg9.csv'):
+        gg9 = pandas.read_csv('gg9.csv')
+    if exists('gg10.csv'):
+        gg10 = pandas.read_csv('gg10.csv')
+    if exists('gg11.csv'):
+        gg11 = pandas.read_csv('gg11.csv')
+    if exists('gg12.csv'):
+        gg12 = pandas.read_csv('gg12.csv')
 
     if '96well' in pcr.columns:
         pcr = pcr.rename(columns={"96well": "well", "96well2": "well2"})
@@ -129,6 +145,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     else:
         tuberack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2') # holds dilute primers and templates
     
+    secondarydils = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul','4')
     tc_mod = protocol.load_module('Thermocycler Module')
     pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
     temp_module = protocol.load_module('temperature module', 1)
