@@ -598,15 +598,29 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         
         #add all fragments to the GG tube
             for i, row in locals()[x].iterrows():
+                right_pipette.pick_up_tip()
+                right_pipette.aspirate(50, pcrplate[locals()[x].loc[i].at['frag_loc']])
+                right_pipette.dispense(50, secondarydils[locals()[x].loc[i].at['frag_loc']])
+                right_pipette.blow_out()
+                right_pipette.drop_tip()
+    
+        
+        protocol.pause('clear thermocycler tubes and arrange the final assembly tubes according to the instructions file')
+
+
+        for i, row in GG_dfs.iterrows():
+            x = GG_dfs.loc[i].at['gg#']
+
+            for i, row in locals()[x].iterrows():
                 if locals()[x].loc[i].at['final amount to add'] < 10:
                     left_pipette.pick_up_tip()
-                    left_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['frag_loc']])
+                    left_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], secondarydils[locals()[x].loc[i].at['frag_loc']])
                     left_pipette.dispense(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
                     left_pipette.blow_out()
                     left_pipette.drop_tip()
                 else:
                     right_pipette.pick_up_tip()
-                    right_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['frag_loc']])
+                    right_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], secondarydils[locals()[x].loc[i].at['frag_loc']])
                     right_pipette.dispense(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
                     right_pipette.blow_out()
                     right_pipette.drop_tip()

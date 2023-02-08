@@ -2771,47 +2771,49 @@ if __name__ == '__main__':
     gg3 = pandas.DataFrame()
     gg4 = pandas.DataFrame()
 
-    dil_tu = {}
-    dil_tu['A1'] = 'F1'
-    dil_tu['A2'] = 'F2'
-    dil_tu['A3'] = 'F3'
-    dil_tu['A4'] = 'F4'
-    dil_tu['A5'] = 'F5'
-    dil_tu['A6'] = 'F6'
-    dil_tu['A7'] = 'F7'
-    dil_tu['A8'] = 'F8'
-    dil_tu['B1'] = 'G1'
-    dil_tu['B2'] = 'G2'
-    dil_tu['B3'] = 'G3'
-    dil_tu['B4'] = 'G4'
-    dil_tu['B5'] = 'G5'
-    dil_tu['B6'] = 'G6'
-    dil_tu['B7'] = 'G7'
-    dil_tu['B8'] = 'G8'
-    dil_tu['C1'] = 'H1'
-    dil_tu['C2'] = 'H2'
-    dil_tu['C3'] = 'H3'
-    dil_tu['C4'] = 'H4'
-    dil_tu['C5'] = 'H5'
-    dil_tu['C6'] = 'H6'
-    dil_tu['C7'] = 'H7'
-    dil_tu['C8'] = 'H8'
-    dil_tu['D1'] = 'H2'
-    dil_tu['D2'] = 'H3'
-    dil_tu['D3'] = 'H4'
-    dil_tu['D4'] = 'H5'
-    dil_tu['D5'] = 'H6'
-    dil_tu['D6'] = 'H7'
-    dil_tu['D7'] = 'H8'
-    dil_tu['D8'] = 'H9'
-    dil_tu['E1'] = 'H3'
-    dil_tu['E2'] = 'H4'
-    dil_tu['E3'] = 'H5'
-    dil_tu['E4'] = 'H6'
-    dil_tu['E5'] = 'H7'
-    dil_tu['E6'] = 'H8'
-    dil_tu['E7'] = 'H9'
-    dil_tu['E8'] = 'H10'
+    
+    #Not used because fragments don't get diluted for IVA
+    # dil_tu = {}
+    # dil_tu['A1'] = 'F1'
+    # dil_tu['A2'] = 'F2'
+    # dil_tu['A3'] = 'F3'
+    # dil_tu['A4'] = 'F4'
+    # dil_tu['A5'] = 'F5'
+    # dil_tu['A6'] = 'F6'
+    # dil_tu['A7'] = 'F7'
+    # dil_tu['A8'] = 'F8'
+    # dil_tu['B1'] = 'G1'
+    # dil_tu['B2'] = 'G2'
+    # dil_tu['B3'] = 'G3'
+    # dil_tu['B4'] = 'G4'
+    # dil_tu['B5'] = 'G5'
+    # dil_tu['B6'] = 'G6'
+    # dil_tu['B7'] = 'G7'
+    # dil_tu['B8'] = 'G8'
+    # dil_tu['C1'] = 'H1'
+    # dil_tu['C2'] = 'H2'
+    # dil_tu['C3'] = 'H3'
+    # dil_tu['C4'] = 'H4'
+    # dil_tu['C5'] = 'H5'
+    # dil_tu['C6'] = 'H6'
+    # dil_tu['C7'] = 'H7'
+    # dil_tu['C8'] = 'H8'
+    # dil_tu['D1'] = 'H2'
+    # dil_tu['D2'] = 'H3'
+    # dil_tu['D3'] = 'H4'
+    # dil_tu['D4'] = 'H5'
+    # dil_tu['D5'] = 'H6'
+    # dil_tu['D6'] = 'H7'
+    # dil_tu['D7'] = 'H8'
+    # dil_tu['D8'] = 'H9'
+    # dil_tu['E1'] = 'H3'
+    # dil_tu['E2'] = 'H4'
+    # dil_tu['E3'] = 'H5'
+    # dil_tu['E4'] = 'H6'
+    # dil_tu['E5'] = 'H7'
+    # dil_tu['E6'] = 'H8'
+    # dil_tu['E7'] = 'H9'
+    # dil_tu['E8'] = 'H10'
 
     #dil_tu['B7'] = 'C7'
     #dil_tu['B8'] = 'C8'
@@ -2821,7 +2823,7 @@ if __name__ == '__main__':
 
     #next_tc_tube = len(assembly.index)
     #changing next_tc_tube to 6 just to make room for a solid six fragment gradient every time
-    next_tc_tube = 6
+    next_tc_tube = 0
 
 
         
@@ -2844,8 +2846,9 @@ if __name__ == '__main__':
         #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
             
             
-        for i, row in locals()[x].iterrows():
-            locals()[x].loc[i,'dil_tube'] = dil_tu[locals()[x].loc[i,'frag_loc']]
+        #Not necessary to have a "dilution tube" if you are just relocating to other PCR block
+        #for i, row in locals()[x].iterrows():
+        #    locals()[x].loc[i,'dil_tube'] = dil_tu[locals()[x].loc[i,'frag_loc']]
 
         for i, row in locals()[x].iterrows():
             locals()[x].loc[i, "final amount to add"] = 50/len(partss.columns)
@@ -2924,20 +2927,23 @@ if __name__ == '__main__':
 
         for i, row in pcr.iterrows():
             f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+        
+        f.write('Make the exact same arrangement of PCR tubes in deckslot 4 \r\n')
+
         f.write('Final assembly tube: \r\n')
         
         ggdf2spot = {}
-        ggdf2spot['gg1'] = 'B8'
-        ggdf2spot['gg2'] = 'B9'
-        ggdf2spot['gg3'] = 'B10'
-        ggdf2spot['gg4'] = 'B11'
-        ggdf2spot['gg5'] = 'B12'
-        ggdf2spot['gg6'] = 'C8'
-        ggdf2spot['gg7'] = 'C9'
-        ggdf2spot['gg8'] = 'C10'
-        ggdf2spot['gg9'] = 'C11'
-        ggdf2spot['gg10'] = 'C12'
-        ggdf2spot['gg11'] = 'D8'
+        ggdf2spot['gg1'] = 'B2'
+        ggdf2spot['gg2'] = 'B3'
+        ggdf2spot['gg3'] = 'B4'
+        ggdf2spot['gg4'] = 'B5'
+        ggdf2spot['gg5'] = 'B6'
+        ggdf2spot['gg6'] = 'B7'
+        ggdf2spot['gg7'] = 'B8'
+        ggdf2spot['gg8'] = 'B9'
+        ggdf2spot['gg9'] = 'B10'
+        ggdf2spot['gg10'] = 'B11'
+        ggdf2spot['gg11'] = 'C2'
 
         for i, row in GG_dfs.iterrows():
             f.write('Put a 100 uL PCR tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
