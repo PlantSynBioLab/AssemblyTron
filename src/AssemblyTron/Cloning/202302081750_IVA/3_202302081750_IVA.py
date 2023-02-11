@@ -103,7 +103,6 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     combinations = pandas.read_csv('combinations.csv')
     Length = pcr.nlargest(1,'Length')
     GG_dfs = pandas.read_csv('GG_dfs.csv')
-    section = pandas.read_csv('section.csv')
         
     if exists('gg1.csv'):
         gg1 = pandas.read_csv('gg1.csv')
@@ -309,7 +308,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 ##########################################################################################################################
 
     x = 'PCR Mix'
-    if x in section['parts'].values:
+    if x in Input_values['section'].values:
 
 #add water first
         for j, row in pcr.iterrows():
@@ -413,163 +412,41 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     #     right_pipette.dispense(Input_values.loc[0].at['pcrvol'],pcrplate[pcr.loc[i].at['frag_pcr_tube']],2)
     #     right_pipette.blow_out()
     #     right_pipette.drop_tip()
-    t=0
+
     x = 'DPNI Digest'
-    if x in section['parts'].values:
-        tiprackposition = {}
-        tiprackposition[0] = 'A1'
-        tiprackposition[1] = 'A2'
-        tiprackposition[2] = 'A3'
-        tiprackposition[3] = 'A4'
-        tiprackposition[4] = 'A5'
-        tiprackposition[5] = 'A6'
-        tiprackposition[6] = 'A7'
-        tiprackposition[7] = 'A8'
-        tiprackposition[8] = 'A9'
-        tiprackposition[9] = 'A10'
-        tiprackposition[10] = 'A11'
-        tiprackposition[11] = 'A12'
-        tiprackposition[12] = 'B1'
-        tiprackposition[13] = 'B2'
-        tiprackposition[14] = 'B3'
-        tiprackposition[15] = 'B4'
-        tiprackposition[16] = 'B5'
-        tiprackposition[17] = 'B6'
-        tiprackposition[18] = 'B7'
-        tiprackposition[19] = 'B8'
-        tiprackposition[20] = 'B9'
-        tiprackposition[21] = 'B10'
-        tiprackposition[22] = 'B11'
-        tiprackposition[23] = 'B12'
-        tiprackposition[24] = 'C1'
-        tiprackposition[25] = 'C2'
-        tiprackposition[26] = 'C3'
-        tiprackposition[27] = 'C4'
-        tiprackposition[28] = 'C5'
-        tiprackposition[29] = 'C6'
-        tiprackposition[30] = 'C7'
-        tiprackposition[31] = 'C8'
-        tiprackposition[32] = 'C9'
-        tiprackposition[33] = 'C10'
-        tiprackposition[34] = 'C11'
-        tiprackposition[35] = 'C12'
-        tiprackposition[36] = 'D1'
-        tiprackposition[37] = 'D2'
-        tiprackposition[38] = 'D3'
-        tiprackposition[39] = 'D4'
-        tiprackposition[40] = 'D5'
-        tiprackposition[41] = 'D6'
-        tiprackposition[42] = 'D7'
-        tiprackposition[43] = 'D8'
-        tiprackposition[44] = 'D9'
-        tiprackposition[45] = 'D10'
-        tiprackposition[46] = 'D11'
-        tiprackposition[47] = 'D12'
-        tiprackposition[48] = 'E1'
-        tiprackposition[49] = 'E2'
-        tiprackposition[50] = 'E3'
-        tiprackposition[51] = 'E4'
-        tiprackposition[52] = 'E5'
-        tiprackposition[53] = 'E6'
-        tiprackposition[54] = 'E7'
-        tiprackposition[55] = 'E8'
-        tiprackposition[56] = 'E9'
-        tiprackposition[57] = 'E10'
-        tiprackposition[58] = 'E11'
-        tiprackposition[59] = 'E12'
-        tiprackposition[60] = 'F1'
-        tiprackposition[61] = 'F2'
-        tiprackposition[62] = 'F3'
-        tiprackposition[63] = 'F4'
-        tiprackposition[64] = 'F5'
-        tiprackposition[65] = 'F6'
-        tiprackposition[66] = 'F7'
-        tiprackposition[67] = 'F8'
-        tiprackposition[68] = 'F9'
-        tiprackposition[69] = 'F10'
-        tiprackposition[70] = 'F11'
-        tiprackposition[71] = 'F12'
-        tiprackposition[72] = 'G1'
-        tiprackposition[73] = 'G2'
-        tiprackposition[74] = 'G3'
-        tiprackposition[75] = 'G4'
-        tiprackposition[76] = 'G5'
-        tiprackposition[77] = 'G6'
-        tiprackposition[78] = 'G7'
-        tiprackposition[79] = 'G8'
-        tiprackposition[80] = 'G9'
-        tiprackposition[81] = 'G10'
-        tiprackposition[82] = 'G11'
-        tiprackposition[83] = 'G12'
-        tiprackposition[84] = 'H1'
-        tiprackposition[85] = 'H2'
-        tiprackposition[86] = 'H3'
-        tiprackposition[87] = 'H4'
-        tiprackposition[88] = 'H5'
-        tiprackposition[89] = 'H6'
-        tiprackposition[90] = 'H7'
-        tiprackposition[91] = 'H8'
-        tiprackposition[92] = 'H9'
-        tiprackposition[93] = 'H10'
-        tiprackposition[94] = 'H11'
-        tiprackposition[95] = 'H12' 
-        #right_pipette.reset()
-        #rack= protocol.load_labware('tiprack',7) 
-        #del protocol.deck['9']
-        #tiprack = protocol.load_labware('biorad_96_wellplate_200ul_pcr',9) 
-        
-        #del protocol.deck[9]
-        #tiprack1.reset()
-        #m300_tip_count = 0
-
-        #tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', 9)
-        
-        
-        #del protocol.tiprack1
-        #tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
-        #tiprack1.reset()
-
-        
-        #left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
-
-        
-        protocol.pause('REFILL TIP RACKS, and wait until its time to dispense the product')
+    if x in Input_values['section'].values:
 
 #Now add DPNI for digestion
 
         for i, row in pcr.iterrows():
-            right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+            right_pipette.pick_up_tip()
             right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
             right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[pcr.loc[i].at['tube']], rate=2.0)
             #right_pipette.blow_out()
             right_pipette.drop_tip()
-            t+=1
 
         for i, row in pcr.iterrows():
-            left_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+            left_pipette.pick_up_tip()
             left_pipette.aspirate(Input_values.loc[0].at['cutsmart'], cold_tuberack['D4'], rate=2.0)
             left_pipette.dispense(Input_values.loc[0].at['cutsmart'], pcrplate[pcr.loc[i].at['tube']], rate=2.0)
             #left_pipette.mix(3,10,pcrplate[pcr.loc[i].at['tube']])
             #left_pipette.blow_out()
             left_pipette.drop_tip() 
-            t+=1
 
         for i, row in pcr.iterrows():
-            left_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+            left_pipette.pick_up_tip()
             left_pipette.aspirate(Input_values.loc[0].at['DPNI'], cold_tuberack['D3'], rate=2.0)
             left_pipette.dispense(Input_values.loc[0].at['DPNI'], pcrplate[pcr.loc[i].at['tube']], rate=2.0)
             left_pipette.mix(3,10,pcrplate[pcr.loc[i].at['tube']])
             #left_pipette.blow_out()
             left_pipette.drop_tip()
-            t+=1
 
     #mix up
         for i, row in pcr.iterrows():
-            right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+            right_pipette.pick_up_tip()
             right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[pcr.loc[i].at['tube']])
             right_pipette.blow_out()
             right_pipette.drop_tip()
-            t+=1
 
 #Do the bsa1 Digestion
 ##########################################################################################################################
@@ -648,9 +525,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         tc_mod.set_block_temperature(4, block_max_volume = 50)
         tc_mod.open_lid()
 
-    t=0
     x = 'Combine Fragments'
-    if x in section['parts'].values:
+    if x in Input_values['section'].values:
     
     #tiprack3.reset_tipracks(self)
     #left_pipette.reset()
@@ -660,7 +536,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         #left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
 
         
-        protocol.pause('REFILL BOTH TIP RACKS, and wait until its time to dispense the product')
+        protocol.pause('REFILL TIP RACKS, and wait until its time to dispense the product')
 
         temp_module.set_temperature(4)
 
@@ -722,12 +598,11 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         
         #add all fragments to the GG tube
             for i, row in locals()[x].iterrows():
-                right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+                right_pipette.pick_up_tip()
                 right_pipette.aspirate(50, pcrplate[locals()[x].loc[i].at['frag_loc']])
                 right_pipette.dispense(50, secondarydils[locals()[x].loc[i].at['frag_loc']])
                 right_pipette.blow_out()
                 right_pipette.drop_tip()
-                t+=1
     
         
         protocol.pause('clear thermocycler tubes and arrange the final assembly tubes according to the instructions file')
@@ -744,12 +619,11 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                     left_pipette.blow_out()
                     left_pipette.drop_tip()
                 else:
-                    right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+                    right_pipette.pick_up_tip()
                     right_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], secondarydils[locals()[x].loc[i].at['frag_loc']])
                     right_pipette.dispense(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
                     right_pipette.blow_out()
                     right_pipette.drop_tip()
-                    t+=1
     
         # one more mix
             # right_pipette.pick_up_tip()

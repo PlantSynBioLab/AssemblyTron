@@ -1249,10 +1249,12 @@ if __name__ == '__main__':
 
     variables
 
-    variables['section'] = pd.DataFrame(lengthd,index=range(len(lengthd)))
+    #variables['section'] = pd.DataFrame(lengthd,index=range(len(lengthd)))
 
     #########################################################################################
     #tkinter window to specify which parts of the protocol to run
+    section = pandas.DataFrame()
+    
     from tkinter import *
 
     ws = Tk() 
@@ -1270,7 +1272,7 @@ if __name__ == '__main__':
         for val in countries:
             print(val)
         se = pandas.Series(countries)
-        variables['section'] = se
+        section['parts'] = se
         ws.destroy()
 
     show = Label(ws, text = "Choose which parts of protocol to run", font = ("Times", 14), padx = 10, pady = 10)
@@ -1286,7 +1288,9 @@ if __name__ == '__main__':
 
     Button(ws, text="Confirm", command=showSelected).pack()
     ws.mainloop() 
-
+    
+    section.to_csv('section.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/section.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
     ##############################################################################################################
 
     #####################################################################################################
@@ -1389,7 +1393,7 @@ if __name__ == '__main__':
 
 
         gradient = pandas.DataFrame(FV, columns=['temp'])
-        wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
+        wells = ['A1','B1','C1','D1','E1','F1','G1','H1']
         gradient['tube'] = wells
         
         for i, row in pcr.iterrows():
@@ -1529,173 +1533,173 @@ if __name__ == '__main__':
 
         
         #once this while loop works, need to delete all of those commented out repeated lines 
-        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
         
-        while duplicate_in_tube.any():
+        # while duplicate_in_tube.any():
             
-            if duplicate_in_tube.any():
-                tes = pcr.loc[duplicate_in_tube]
-                index = tes.index
-            else:
-                index = []
-            index
-            i = 0
-            while i < len(index):
-                letter = pcr.loc[index[i]].at['tube']
-                pcr.loc[index[i],'tube'] = dupin[letter]
-                i = i + 1
+        #     if duplicate_in_tube.any():
+        #         tes = pcr.loc[duplicate_in_tube]
+        #         index = tes.index
+        #     else:
+        #         index = []
+        #     index
+        #     i = 0
+        #     while i < len(index):
+        #         letter = pcr.loc[index[i]].at['tube']
+        #         pcr.loc[index[i],'tube'] = dupin[letter]
+        #         i = i + 1
             
-            duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        #     duplicate_in_tube = pcr.duplicated(subset=['tube'])
 
 
 
 
 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
+  
+        #repeating the duplicate correction step in case there are triple duplicates
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # #repeating the duplicate correction step in case there are triple duplicates
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        #repeating the duplicate correction step in case there are quadruple duplicates 
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # #repeating the duplicate correction step in case there are quadruple duplicates 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        #repeating the duplicate correction step in case there are 5X duplicates 
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # #repeating the duplicate correction step in case there are 5X duplicates 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
 
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
-
-        # duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        # if duplicate_in_tube.any():
-        #     tes = pcr.loc[duplicate_in_tube]
-        #     index = tes.index
-        # else:
-        #     index = []
-        # index
-        # i = 0
-        # while i < len(index):
-        #     letter = pcr.loc[index[i]].at['tube']
-        #     pcr.loc[index[i],'tube'] = dupin[letter]
-        #     i = i + 1
+        duplicate_in_tube = pcr.duplicated(subset=['tube'])
+        if duplicate_in_tube.any():
+            tes = pcr.loc[duplicate_in_tube]
+            index = tes.index
+        else:
+            index = []
+        index
+        i = 0
+        while i < len(index):
+            letter = pcr.loc[index[i]].at['tube']
+            pcr.loc[index[i],'tube'] = dupin[letter]
+            i = i + 1
         
 
         pcr.to_csv('pcr.csv')
