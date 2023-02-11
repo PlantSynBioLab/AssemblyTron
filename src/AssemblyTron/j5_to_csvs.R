@@ -37,6 +37,7 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   combinations <- grep(pattern = "Combinations of Assembly Pieces",j5lines, fixed = TRUE)
   #Reads the Oligo Synthesis portion of the CSV file
   oligo_read <- readr::read_csv(file, col_names = c("ID Number", "Name", "Length", "Tm", "Tm (3' only)", "Cost", "Sequence", "Sequence (3' only)"),skip = oligo+1,n_max = pcr-oligo-3)
+  oligo_read <- oligo_read %>% select(-starts_with("X"))
   #TODO Suppress messages from read_csv
   #return(oligo_read)
   #feather::write_feather(oligo_read, path = paste0(path,"/oligo.feather"))#Creates feather file for Oligo Synthesis information
@@ -51,6 +52,7 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
     readr::read_csv(file, col_names = c("Reaction ID Number", "Primary Template", "Alternate Template", "Forward Oligo ID Number", "Forward Oligo Name", "Reverse Oligo ID Number","Reverse Oligo Name", "Notes", "Mean Oligo Tm", "Delta Oligo Tm", "Mean Oligo Tm (3' Only)", "Delta Oligo Tm (3'Only)", "Length", "Sequence"), skip = pcr+1,n_max = gibson-pcr-3)
   }
   #feather::write_feather(pcr_read, path = paste0(path,"/pcr.feather"))#Creates feather file for Oligo Synthesis information
+  pcr_read <- pcr_read %>% select(-starts_with("X"))
   write.csv(pcr_read, file = paste0(path,"/pcr.csv"), row.names = FALSE)
   
   #Reads the Assembly Pieces portion of the CSV file
@@ -63,12 +65,16 @@ parse_j5 <- function(path = getwd(), file = "_combinatorial.csv")
   }
   #return(assembly_read)
   #feather::write_feather(assembly_read, path = paste0(path,"/assembly.feather"))#Creates feather file for Oligo Synthesis information
+  assembly_read <- assembly_read %>% select(-starts_with("X"))
   write.csv(assembly_read, file = paste0(path,"/assembly.csv"), row.names = FALSE)
   
   combinations_read <- readr::read_csv(file, col_names = c("ID Number", "Name","Assembly Method", "Part(s) Bin 0", "Assembly Piece ID Number Bin 0", "Part(s) Bin 1", "Assembly Piece ID Number Bin 1","Part(s) Bin 2", "Assembly Piece ID Number Bin 2","Part(s) Bin 3","Assembly Piece ID Number Bin 3","Part(s) Bin 4","Assembly Piece ID Number Bin 4"), skip = combinations+2, na = c(""))
   #feather::write_feather(combinations_read, path = paste0(path,"/combinations.feather"))#Creates feather file for Oligo Synthesis information
+  combinations_read <- combinations_read %>% select(-starts_with("X"))
   write.csv(combinations_read, file = paste0(path,"/combinations.csv"), row.names = FALSE)
 }
 install.packages("readr", repos='http://cran.us.r-project.org')
+install.packages("dplyr", repos='http://cran.us.r-project.org')
 library(readr)
+library(dplyr)
 parse_j5()
