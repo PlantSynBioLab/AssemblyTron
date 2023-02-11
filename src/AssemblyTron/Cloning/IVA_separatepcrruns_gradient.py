@@ -347,7 +347,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     #Add DMSO
         for j, row in pcr.iterrows():
             left_pipette.pick_up_tip()
-            left_pipette.aspirate(DMSO, tuberack2['D6'], rate=2.0)
+            left_pipette.aspirate(DMSO, tuberack2['H12'], rate=2.0)
             left_pipette.dispense(DMSO, pcrplate[pcr.loc[j].at['tube']], rate=2.0)    
             left_pipette.blow_out()
             left_pipette.drop_tip() 
@@ -357,18 +357,22 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         for j, row in pcr.iterrows():
             right_pipette.pick_up_tip()
             right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-            right_pipette.aspirate(Q5, pcrplate[pcr.loc[j].at['tube']], rate=2.0)
+            right_pipette.dispense(Q5, pcrplate[pcr.loc[j].at['tube']], rate=2.0)
+            right_pipette.mix(3,Q5+3,pcrplate[pcr.loc[j].at['tube']])
             #right_pipette.mix(3,Q5+3,pcrplate[pcr.loc[i].at['frag_pcr_tube']])
             right_pipette.blow_out()
             right_pipette.drop_tip()
 
     #mix up
-        for j, row in pcr.iterrows():
-            right_pipette.pick_up_tip()
-            right_pipette.mix(3,Q5+3,pcrplate[pcr.loc[j].at['tube']])
-            right_pipette.blow_out()
-            right_pipette.drop_tip()
+        # for j, row in pcr.iterrows():
+        #     right_pipette.pick_up_tip()
+        #     right_pipette.mix(3,Q5+3,pcrplate[pcr.loc[j].at['tube']])
+        #     right_pipette.blow_out()
+        #     right_pipette.drop_tip()
         
+        protocol.pause('take out enzymes before cold stuff shuts off.')
+
+
         tc_mod.deactivate()
         temp_module.deactivate()
         
@@ -564,12 +568,12 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             t+=1
 
     #mix up
-        for i, row in pcr.iterrows():
-            right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
-            right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[pcr.loc[i].at['tube']])
-            right_pipette.blow_out()
-            right_pipette.drop_tip()
-            t+=1
+        # for i, row in pcr.iterrows():
+        #     right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+        #     right_pipette.mix(3,Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'],pcrplate[pcr.loc[i].at['tube']])
+        #     right_pipette.blow_out()
+        #     right_pipette.drop_tip()
+        #     t+=1
 
 #Do the bsa1 Digestion
 ##########################################################################################################################
@@ -660,7 +664,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         #left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
 
         
-        protocol.pause('REFILL BOTH TIP RACKS, and wait until its time to dispense the product')
+        protocol.pause('REFILL BOTH TIP RACKS, move 96 well block to deckslot 4, setting tube configuration the same as the Gradient arrangement')
 
         temp_module.set_temperature(4)
 
@@ -730,7 +734,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 t+=1
     
         
-        protocol.pause('clear thermocycler tubes and arrange the final assembly tubes according to the instructions file')
+        protocol.pause('clear thermocycler tubes and arrange the final assembly tubes according to the reaction_setup file')
 
 
         for i, row in GG_dfs.iterrows():

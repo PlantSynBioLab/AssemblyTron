@@ -1,7 +1,7 @@
-Date: 20230208 Time: 1750 
+Date: 20230211 Time: 1755 
 Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Cloning 
-Place the coldtuberack in slot 1. 
-Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+Place 4 24 tuberacks in deckslots 1, 2, 4, and 5. 
+Put 300uL tips in slot 9, and 10uL tips in slot 6. 
 Put mas00001_(UpstreamTIR_P350L)_forward in deckslot4 A1
 Put mas00002_(UpstreamTIR_P350L)_(P350L_ttg_4223-4225)_reverse in deckslot4 A2
 Put mas00003_(DownstreamTIR_P350L)_forward in deckslot4 A3
@@ -26,11 +26,3 @@ Put mas00021_(UpstreamTIR_G521S)_(G521S_tcc_4736-4738)_reverse in deckslot5 B3
 Put mas00022_(DownstreamTIR_G521S)_forward in deckslot5 B4
 Put mas00023_(UpstreamAFB_L403I)_(L403I_ata_4379-4381)_reverse in deckslot5 B5
 Put mas00024_(DownstreamAFB_L403I)_forward in deckslot5 B6
-NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
-This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
-Put pWL274_TIR1Biosensor in deckslot4 C1
-Put pWL273 in deckslot4 C2
-Place DPNI in D3 
-Place cutsmart buffer in D4 
-Place Q5 DNA polymerase in D6 
-Place 24 well tuberack in slot 2. Add 48 empty 1.5 mL tubes to the rack in the same positions. 

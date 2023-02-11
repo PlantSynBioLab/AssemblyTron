@@ -350,12 +350,12 @@ if __name__ == '__main__':
     temptubes = []
 
     def main():
-        f = open('reagent_setup.txt','w+')
+        f = open('primer_setup.txt','w+')
         f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
         f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
 
-        f.write('Place the coldtuberack in slot 1. \r\n')
-        f.write('Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. \r\n')
+        f.write('Place 4 24 tuberacks in deckslots 1, 2, 4, and 5. \r\n')
+        f.write('Put 300uL tips in slot 9, and 10uL tips in slot 6. \r\n')
 
         for i, row in oligos.iterrows():
             f.write('Put '+oligos.loc[i].at['Name']+' in '+id2rack[str(oligos.loc[i].at['ID Number'])]+' '+id2well[str(oligos.loc[i].at['ID Number'])]+'\r\n')
@@ -398,37 +398,49 @@ if __name__ == '__main__':
             f.write('Put '+names.loc[i].at['Primary Template']+' in '+id2rack[str(Nextslot)]+' '+id2well[str(Nextslot)]+'\r\n')
             Nextslot = Nextslot+1
 
-        # if len(names) == 1:
-        #     names['pwllocation'] = [temppwl1_entry]
-        # if len(names) == 2:
-        #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry] 
-        # if len(names) == 3:
-        #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
-        # if len(names) == 4:
-        #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4]
-        # if len(names) == 5:
-        #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4, temppwl5_entry] 
-        # if len(names) == 6:
-        #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4, temppwl5_entry, temppwl6_entry]    
-        
-        
-    
-        #f.write('Place empty tube in C4 for the T4/BSA mix \r\n')
-        
-        #f.write('Place T4 ligase in C5 \r\n')
-
-        #f.write('Place 100X BSA in C6 \r\n')
-        
-        #f.write('Place T4 buffer in D2 \r\n')
-        f.write('Place DPNI in D3 \r\n')
-        f.write('Place cutsmart buffer in D4 \r\n')
-        #f.write('Place BsaI in D5 \r\n')
-        f.write('Place Q5 DNA polymerase in D6 \r\n')
-        
         
         totaltubes= Nextslot + len(pcr['Primary Template'])
         
-        f.write('Place 24 well tuberack in slot 2. Add '+str(totaltubes)+' empty 1.5 mL tubes to the rack in the same positions. \r\n')
+        
+        
+   
+        f.close()
+
+    if __name__== "__main__":
+        main()
+
+    os.system("notepad.exe primer_setup.txt")
+
+
+
+
+    def main():
+        f = open('reagent_setup.txt','w+')
+        f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+        f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
+
+        f.write('These are instructions for setting up the deck for the PCR run, DPNI digest, and fragment assembly. \r\n')
+        f.write('Place cold tuberack i in deckslot 1. \r\n')
+        f.write('Place PCR tube block in deckslot 2 to start. \r\n')
+        f.write('Put 300uL tips in slot 9, and 10uL tips in slot 5 & 6. \r\n')
+        f.write('Put 10 tuberack with 10uL water in A1. \r\n')
+        f.write('Attach thermocycler. \r\n')
+        
+
+        f.write('Place DPNI in D3 of cold tuberack \r\n')
+        f.write('Place cutsmart buffer in D4 of cold tuberack \r\n')
+
+        f.write('Place DNA polymerase in D6 of cold tuberack \r\n')
+        f.write('Put 50uL of DMSO in a PCR tube in H12 of PCR block in deckslot 4. \r\n')
+        
+        
+        # Nextslot = len(oligos["ID Number"])
+        # for i, row in names.iterrows():
+        #     Nextslot = Nextslot+1
+        
+        # totaltubes= Nextslot + len(pcr['Primary Template'])
+        
+        f.write('Place 96 well PCR block in deckslot 4 and Add empty PCR tubes in same configuration as thermocycler deck configuration. \r\n')
         
         
         
@@ -536,7 +548,7 @@ if __name__ == '__main__':
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/reagent_setup.txt',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
-
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/primer_setup.txt',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
 
     ###############################################################################################################################################################################################3
     #tkinter window

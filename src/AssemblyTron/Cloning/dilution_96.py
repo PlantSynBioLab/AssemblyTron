@@ -47,6 +47,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     pcr = pandas.read_csv('pcr.csv')
     combinations = pandas.read_csv('combinations.csv')
     df = pandas.read_csv('templates.csv')
+    section = pandas.read_csv('section.csv')
     #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
     tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
@@ -78,7 +79,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #Since we are just moving water I will use the same pipette tip to save plastic
 
     x = 'Dilution'
-    if x in Input_values['section'].values:
+    if x in section['parts'].values:
 
 #add water for templates
         for i, row in df.iterrows():
