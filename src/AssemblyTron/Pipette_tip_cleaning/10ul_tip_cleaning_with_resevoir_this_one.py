@@ -137,15 +137,15 @@ def run(protocol: protocol_api.ProtocolContext):
     #from opentrons import simulate
     #protocol= simulate.get_protocol_api('2.0')
     left_pipette = protocol.load_instrument('p10_single','left')
-    solutionrack = protocol.load_labware('opentrons_10_tuberack_nest_4x50ml_6x15ml_conical',2)#verify location
-    reservoir = protocol.load_labware('nest_1_reservoir_195ml',5)#verify location
+    solutionrack = protocol.load_labware('opentrons_10_tuberack_nest_4x50ml_6x15ml_conical',3)#verify location
+    reservoir = protocol.load_labware('nest_1_reservoir_195ml',6)#verify location
     if Wellcount > 0:
-        tiprack1 = protocol.load_labware('opentrons_96_tiprack_10ul',1)#verify location
-        tiprack2 = protocol.load_labware('opentrons_96_tiprack_10ul',4)#verify location
+        tiprack1 = protocol.load_labware('opentrons_96_tiprack_10ul',2)#verify location
+        tiprack2 = protocol.load_labware('opentrons_96_tiprack_10ul',5)#verify location
         r=0
         while r < 96:
             left_pipette.pick_up_tip(tiprack1[id2well[r]])  
-            left_pipette.mix(1,10,solutionrack['B4'].bottom(z=5))
+            left_pipette.mix(1,10,solutionrack['B4'].bottom(z=22))
             left_pipette.move_to(solutionrack['B4'].top())
             left_pipette.blow_out()
             left_pipette.mix(1,10,reservoir['A1'].bottom(z=5))
