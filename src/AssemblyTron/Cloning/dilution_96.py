@@ -83,11 +83,19 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 #add water for templates
         for i, row in df.iterrows():
-            if df.loc[i].at['water to add'] > 10:
+            if df.loc[i].at['water to add'] > 20:
                 right_pipette.pick_up_tip()
                 right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
                 right_pipette.dispense(df.loc[i].at['water to add'], plate96[df.loc[i].at['template_well']], rate=2.0)
                 right_pipette.drop_tip()
+            
+            if 10 < df.loc[i].at['water to add'] < 20:
+
+                right_pipette.pick_up_tip()
+                right_pipette.aspirate(2*(df.loc[i].at['water to add']), watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                right_pipette.dispense(2*(df.loc[i].at['water to add']), plate96[df.loc[i].at['template_well']], rate=2.0)
+                right_pipette.drop_tip() 
+            
             if 3.333 < df.loc[i].at['water to add'] < 10:
                 if 3*(df.loc[i].at['water to add']) < 10:
                     left_pipette.pick_up_tip()
@@ -129,13 +137,21 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         
     #add stock templates to dilution tubes
         for i, row in df.iterrows():
-            if df.loc[i].at['water to add'] > 10:
+            if df.loc[i].at['water to add'] > 20:
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(df.loc[i].at['amount of template to add'], locals()[df.loc[i].at['rack']][df.loc[i].at['template_origin']], rate=2.0) #dilution well corresponds to stock well
                 left_pipette.dispense(df.loc[i].at['amount of template to add'], plate96[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
                 left_pipette.mix(3,5,plate96[df.loc[i].at['template_well']])
                 #left_pipette.blow_out()
                 left_pipette.drop_tip()
+            if 10 < df.loc[i].at['water to add'] < 20:
+                left_pipette.pick_up_tip()
+                left_pipette.aspirate(2*(df.loc[i].at['amount of template to add']), locals()[df.loc[i].at['rack']][df.loc[i].at['template_origin']], rate=2.0) #dilution well corresponds to stock well
+                left_pipette.dispense(2*(df.loc[i].at['amount of template to add']), plate96[df.loc[i].at['template_well']], rate=2.0) #makes a 12.5ng/uL template
+                left_pipette.mix(3,5,plate96[df.loc[i].at['template_well']])
+                #left_pipette.blow_out()
+                left_pipette.drop_tip()
+            
             if 3.333 < df.loc[i].at['water to add'] < 10:
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(3*(df.loc[i].at['amount of template to add']), locals()[df.loc[i].at['rack']][df.loc[i].at['template_origin']], rate=2.0) #dilution well corresponds to stock well
