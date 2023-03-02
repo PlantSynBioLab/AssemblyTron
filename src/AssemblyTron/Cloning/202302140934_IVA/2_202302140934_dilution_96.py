@@ -41,10 +41,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     Date
     Time = str(int(Input_values.loc[0].at['Time']))
 
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+Time+'_IVA')
-    
-
-    
+    #os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/'+Date+Time+'_IVA')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Cloning/202302140934_IVA')
     oligos = pandas.read_csv('oligo.csv')
     assembly = pandas.read_csv('assembly.csv')
     pcr = pandas.read_csv('pcr.csv')
