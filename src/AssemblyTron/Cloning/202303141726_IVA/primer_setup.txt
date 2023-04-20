@@ -1,0 +1,10 @@
+Date: 20230314 Time: 1726 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Cloning 
+Place 4 24 tuberacks in deckslots 1, 2, 4, and 5. 
+Put 300uL tips in slot 9, and 10uL tips in slot 6. 
+Put mas00001_(UpstreamAFB_P88Ldegron)_forward in deckslot4 A1
+Put mas00002_(UpstreamAFB_P88Ldegron)_(P88L_cta_2681-2683)_reverse in deckslot4 A2
+Put mas00003_(DownstreamAFB_P88Ldegron)_forward in deckslot4 A3
+Put mas00004_(DownstreamAFB_P88Ldegron)_reverse in deckslot4 A4
+Put mas00005_(UpstreamAFB_GAPPVdegron)_(GAPPV_gcg_2675-2677)_reverse in deckslot4 A5
+Put mas00006_(DownstreamAFB_GAPPVdegron)_forward in deckslot4 A6

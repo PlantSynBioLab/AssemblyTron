@@ -1,4 +1,4 @@
-Date: 20230214 Time: 0934 
+Date: 20230314 Time: 1726 
 Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Cloning 
 These are instructions for setting up the deck for the PCR run, DPNI digest, and fragment assembly. 
 Place cold tuberack i in deckslot 1. 
