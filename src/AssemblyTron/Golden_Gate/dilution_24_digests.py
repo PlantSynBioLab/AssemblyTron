@@ -44,7 +44,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     pcr = pandas.read_csv('pcr.csv')
     combinations = pandas.read_csv('combinations.csv')
     df = pandas.read_csv('templates.csv')
-    #digests = pandas.read_csv('digests.csv')
+    digests = pandas.read_csv('digests.csv')
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
     #tiprack2 = protocol.load_labware("opentrons_96_tiprack_10ul",'6')
@@ -92,9 +92,9 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 right_pipette.dispense(3*(df.loc[i].at['water to add']), tuberack2[df.loc[i].at['template_well']], rate=1.0)
         #right_pipette.blow_out()
     #digestions water
-        # for i, row in digests.iterrows():
-        #     right_pipette.aspirate(volume = digests.loc[i].at['water to add'], location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
-        #     right_pipette.dispense(digests.loc[i].at['water to add'], tuberack2[digests.loc[i].at['well']], rate=1.0)
+        for i, row in digests.iterrows():
+            right_pipette.aspirate(volume = digests.loc[i].at['water to add'], location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
+            right_pipette.dispense(digests.loc[i].at['water to add'], tuberack2[digests.loc[i].at['well']], rate=1.0)
             #right_pipette.blow_out()
 
     #add water to primer dilution tubes
@@ -122,12 +122,12 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 left_pipette.drop_tip()
 
     #add stock templates for digests:
-        # for i, row in digests.iterrows():
-        #     left_pipette.pick_up_tip()
-        #     left_pipette.aspirate(digests.loc[i].at['amount of template to add'], cold_tuberack[digests.loc[i].at['well']], rate=1.0) #dilution well corresponds to stock well
-        #     left_pipette.dispense(digests.loc[i].at['amount of template to add'], tuberack2[digests.loc[i].at['well']], rate=1.0) #makes a 12.5ng/uL template
-        #     #left_pipette.blow_out()
-        #     left_pipette.drop_tip()
+        for i, row in digests.iterrows():
+            left_pipette.pick_up_tip()
+            left_pipette.aspirate(digests.loc[i].at['amount of template to add'], cold_tuberack[digests.loc[i].at['well']], rate=1.0) #dilution well corresponds to stock well
+            left_pipette.dispense(digests.loc[i].at['amount of template to add'], tuberack2[digests.loc[i].at['well']], rate=1.0) #makes a 12.5ng/uL template
+            #left_pipette.blow_out()
+            left_pipette.drop_tip()
         
     #add stock primers to dilution tube
         for i, row in oligos.iterrows():
@@ -151,11 +151,11 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 #right_pipette.blow_out()
                 right_pipette.drop_tip()
 
-        # for i, row in digests.iterrows():
-        #     right_pipette.pick_up_tip()
-        #     right_pipette.mix(3,digests.loc[i].at['water to add'],tuberack2[digests.loc[i].at['well']])
-        #     #right_pipette.blow_out()
-        #     right_pipette.drop_tip()
+        for i, row in digests.iterrows():
+            right_pipette.pick_up_tip()
+            right_pipette.mix(3,digests.loc[i].at['water to add'],tuberack2[digests.loc[i].at['well']])
+            #right_pipette.blow_out()
+            right_pipette.drop_tip()
             
         for i, row in oligos.iterrows():
             right_pipette.pick_up_tip()

@@ -9,8 +9,8 @@ This script requires `pandas` and `numpy` to be installed in the python environm
 This script can also be called as a module by calling `AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24`.
 
 '''
-
 if __name__ == '__main__':
+        
     import os
     import pandas
     import shutil
@@ -290,6 +290,10 @@ if __name__ == '__main__':
     import os
     import shutil
 
+    today = date.today()
+
+    date = str(today.strftime('%Y%m%d'))
+    date
 
     #make the run folder of the day
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
@@ -972,7 +976,6 @@ if __name__ == '__main__':
             pcr.loc[index[i],'tube'] = dupin[letter]
             i = i + 1
         
-
         pcr.to_csv('pcr.csv')
         shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
         gradient.to_csv('gradient.csv')
