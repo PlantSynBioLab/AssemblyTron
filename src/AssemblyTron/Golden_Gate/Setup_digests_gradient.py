@@ -86,11 +86,11 @@ if __name__ == '__main__':
 
     ##########################################################################################################################
     ###Run R script via python
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs+digests.R', name)
     goback = os.getcwd() 
     os.chdir(name)
 
-    retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+    retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs+digests.R'], shell=True)
     retcode
 
     os.chdir(goback)
@@ -288,7 +288,7 @@ if __name__ == '__main__':
     import tkinter as tk
     import csv
     import pandas as pd
-
+    from datetime import date
     import os
     import shutil
 
