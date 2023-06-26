@@ -117,6 +117,11 @@ if __name__ == '__main__':
     names['location'] = ''
     names['pwllocation'] = ''
 
+    digestnames = pandas.DataFrame(digests['Sequence Source'])
+    digestnames = digestnames.drop_duplicates()
+    digestnames['location'] = ''
+    digestnames['pwllocation'] = ''
+
     combinations = pandas.read_csv('combinations.csv')
     combinations
 
@@ -288,14 +293,14 @@ if __name__ == '__main__':
     import tkinter as tk
     import csv
     import pandas as pd
-    from datetime import date
+    
     import os
     import shutil
 
-    today = date.today()
+    #today = date.today()
 
-    date = str(today.strftime('%Y%m%d'))
-    date
+    #date = str(today.strftime('%Y%m%d'))
+    #date
 
     #make the run folder of the day
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
@@ -314,7 +319,7 @@ if __name__ == '__main__':
     os.rename('Update_Input.py', str(1)+'_Update_Input.py')
     os.chdir(walk_up_folder(os.getcwd(), 2))
 
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
@@ -347,8 +352,6 @@ if __name__ == '__main__':
         global ngdesired
         global Combinatorial_pcr_params
         global Time
-        global pwldigesttemp
-        global concdigesttemp
         
         global extra1value
         global extra1name
@@ -381,8 +384,6 @@ if __name__ == '__main__':
         ngdesired = float(ngdesired_entry.get())
         Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
         Time = Time_entry.get()
-        pwldigesttemp = float(pwldigesttemp_entry.get())
-        concdigesttemp = float(concdigesttemp_entry.get())
         
         extra1value = float(extra1value_entry.get())
         extra1name = str(extra1name_entry.get())
@@ -390,68 +391,232 @@ if __name__ == '__main__':
         extra2name = str(extra2name_entry.get())
 
 
-        
-        if temppwl1_entry.get() == '':
-            temppwl1 = ''
-        else:
-            temppwl1 = int(temppwl1_entry.get())
-        
-        if temppwl2_entry.get() == '':
-            temppwl2 = ''
-        else:
-            temppwl2 = int(temppwl2_entry.get())
-        
-        if temppwl3_entry.get() == '':
-            temppwl3 = ''
-        else:
-            temppwl3 = int(temppwl3_entry.get())
-        
-        if temppwl4_entry.get() == '':
-            temppwl4 = ''
-        else:
-            temppwl4 = int(temppwl4_entry.get())
-        
-        if temppwl5_entry.get() == '':
-            temppwl5 = ''
-        else:
-            temppwl5 = int(temppwl5_entry.get())
-        
-        if temppwl6_entry.get() == '':
-            temppwl6 = ''
-        else:
-            temppwl6 = int(temppwl6_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 1:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+        
+        if len(pandas.unique(names['Primary Template'])) == 2:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+ 
         
-        if conc1_entry.get() == '':
-            conc1 = ''
-        else:
-            conc1 = float(conc1_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 3:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+
         
-        if conc2_entry.get() == '':
-            conc2 = ''
-        else:
-            conc2 = float(conc2_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 4:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+            
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+
         
-        if conc3_entry.get() == '':
-            conc3 = ''
-        else:
-            conc3 = float(conc3_entry.get())
         
-        if conc4_entry.get() == '':
-            conc4 = ''
-        else:
-            conc4 = float(conc4_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 5:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+            
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
+            
+            if temppwl5_entry.get() == '':
+                temppwl5 = ''
+            else:
+                temppwl5 = int(temppwl5_entry.get())
+                
+    
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+            
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
+
         
-        if conc5_entry.get() == '':
-            conc5 = ''
-        else:
-            conc5 = float(conc5_entry.get())
-        
-        if conc6_entry.get() == '':
-            conc6 = ''
-        else:
-            conc6 = float(conc6_entry.get())
+
+        if len(pandas.unique(names['Primary Template'])) == 6:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+            
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
+            
+            if temppwl5_entry.get() == '':
+                temppwl5 = ''
+            else:
+                temppwl5 = int(temppwl5_entry.get())
+            
+            if temppwl6_entry.get() == '':
+                temppwl6 = ''
+            else:
+                temppwl6 = int(temppwl6_entry.get())
+                
+                
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+            
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
+            
+            if conc6_entry.get() == '':
+                conc6 = ''
+            else:
+                conc6 = float(conc6_entry.get())
         
         
         input_csv.destroy()
@@ -498,17 +663,11 @@ if __name__ == '__main__':
     label_Time = tk.Label(text='Time',font=('Helvatical bold',14))
     label_Time.place(relx=0,rely=0.375)
 
-    label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
-    label_pwldigesttemp.place(relx=0,rely=0.35)
-
-    label_concdigesttemp = tk.Label(text='concdigesttemp',font=('Helvatical bold',14))
-    label_concdigesttemp.place(relx=0,rely=0.375)
-
     label_extra1 = tk.Label(text='extra1',font=('Helvatical bold',14))
-    label_extra1.place(relx=0,rely=0.425)
+    label_extra1.place(relx=0,rely=0.40)
 
     label_extra2 = tk.Label(text='extra2',font=('Helvatical bold',14))
-    label_extra2.place(relx=0,rely=0.45)
+    label_extra2.place(relx=0,rely=0.425)
 
     label2 = tk.Label(text="Template - Well & Name",font=('Helvatical bold',12))
     label2.place(relx=0.3,rely=0)
@@ -574,66 +733,141 @@ if __name__ == '__main__':
     Time_entry.insert(END, time)
     Time_entry.place(relx=0.2,rely=0.375,width=55)
 
-    pwldigesttemp_entry = tk.Entry()
-    pwldigesttemp_entry.insert(END, '0')
-    pwldigesttemp_entry.place(relx=0.2,rely=0.4,width=35)
-
-    concdigesttemp_entry = tk.Entry()
-    concdigesttemp_entry.insert(END, '0')
-    concdigesttemp_entry.place(relx=0.2,rely=0.425,width=35)
-
     extra1name_entry = tk.Entry()
     extra1name_entry.insert(END, 'variable')
-    extra1name_entry.place(relx=0.2,rely=0.45,width=50)
+    extra1name_entry.place(relx=0.2,rely=0.4,width=50)
 
     extra2name_entry = tk.Entry()
     extra2name_entry.insert(END, 'variable')
-    extra2name_entry.place(relx=0.2,rely=0.475,width=50)
+    extra2name_entry.place(relx=0.2,rely=0.425,width=50)
 
     extra1value_entry = tk.Entry()
     extra1value_entry.insert(END, '0')
-    extra1value_entry.place(relx=0.2,rely=0.5,width=35)
+    extra1value_entry.place(relx=0.2,rely=0.45,width=35)
 
     extra2value_entry = tk.Entry()
     extra2value_entry.insert(END, '0')
-    extra2value_entry.place(relx=0.2,rely=0.525,width=35)
+    extra2value_entry.place(relx=0.2,rely=0.475,width=35)
 
     ########################################################################################
     #entries for pwl number
-    if len(names) == 1:
+    if len(pandas.unique(names['Primary Template'])) == 1:
         temppwl1_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        
         names['pwllocation'] = [temppwl1_entry]
-    if len(names) == 2:
+        
+    
+    if len(pandas.unique(names['Primary Template'])) == 2:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry] 
-    if len(names) == 3:
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry= tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry]
+        
+    
+    if len(pandas.unique(names['Primary Template'])) == 3:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
         temppwl3_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        
         names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
-    if len(names) == 4:
+        
+    
+    if len(pandas.unique(names['Primary Template'])) == 4:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
         temppwl3_entry = tk.Entry()
         temppwl4_entry = tk.Entry()
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4]
-    if len(names) == 5:
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry]
+        
+    
+    if len(pandas.unique(names['Primary Template'])) == 5:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
         temppwl3_entry = tk.Entry()
         temppwl4_entry = tk.Entry()
         temppwl5_entry = tk.Entry()
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4, temppwl5_entry] 
-    if len(names) == 6:
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+        
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry, temppwl5_entry]
+         
+    
+    if len(pandas.unique(names['Primary Template'])) == 6:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
         temppwl3_entry = tk.Entry()
         temppwl4_entry = tk.Entry()
         temppwl5_entry = tk.Entry()
         temppwl6_entry = tk.Entry()
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry, temppwl6_entry]    
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
         
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry, temppwl6_entry]
+            
+
 
     rel_y = .05
 
@@ -674,29 +908,29 @@ if __name__ == '__main__':
 
     #########################################################################################3
     #entries for concentration
-    conc1_entry= tk.Entry()
-    conc1_entry.insert(END, '0')
-    conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+    # conc1_entry= tk.Entry()
+    # conc1_entry.insert(END, '0')
+    # conc1_entry.place(relx=0.6,rely=0.05,width = 35)
 
-    conc2_entry = tk.Entry()
-    conc2_entry.insert(END, '0')
-    conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+    # conc2_entry = tk.Entry()
+    # conc2_entry.insert(END, '0')
+    # conc2_entry.place(relx=0.6,rely=0.1,width = 35)
 
-    conc3_entry = tk.Entry()
-    conc3_entry.insert(END, '0')
-    conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+    # conc3_entry = tk.Entry()
+    # conc3_entry.insert(END, '0')
+    # conc3_entry.place(relx=0.6,rely=0.15,width = 35)
 
-    conc4_entry = tk.Entry()
-    conc4_entry.insert(END, '0')
-    conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+    # conc4_entry = tk.Entry()
+    # conc4_entry.insert(END, '0')
+    # conc4_entry.place(relx=0.6,rely=0.2,width = 35)
 
-    conc5_entry = tk.Entry()
-    conc5_entry.insert(END, '0')
-    conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+    # conc5_entry = tk.Entry()
+    # conc5_entry.insert(END, '0')
+    # conc5_entry.place(relx=0.6,rely=0.25,width = 35)
 
-    conc6_entry = tk.Entry()
-    conc6_entry.insert(END, '0')
-    conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+    # conc6_entry = tk.Entry()
+    # conc6_entry.insert(END, '0')
+    # conc6_entry.place(relx=0.6,rely=0.3,width = 35)
 
     ################################################################
     #Legend
@@ -708,16 +942,50 @@ if __name__ == '__main__':
 
     input_csv.mainloop()
 
+    if len(pandas.unique(names['Primary Template'])) == 1:
+        
+        tempconcs = [conc1]
+        
+        temppwls = [temppwl1]
+    
+    if len(pandas.unique(names['Primary Template'])) == 2:
+        
+        tempconcs = [conc1,conc2]
+        
+        temppwls = [temppwl1,temppwl2] 
+    
+    if len(pandas.unique(names['Primary Template'])) == 3:
+        
+        tempconcs = [conc1,conc2,conc3]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3]
+    
+    if len(pandas.unique(names['Primary Template'])) == 4:
+        
+        tempconcs = [conc1,conc2,conc3,conc4]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4]
+    
+    if len(pandas.unique(names['Primary Template'])) == 5:
+        
+        tempconcs = [conc1,conc2,conc3,conc4,conc5]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5] 
+    
+    if len(pandas.unique(names['Primary Template'])) == 6:
+        
+        tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]    
 
-
-    temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
-    tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
+    #temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
+    #tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
     test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
     lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,pwldigesttemp,concdigesttemp]]
-    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time','pwldigesttemp','concdigesttemp'],index=range(len(temppwls)))
-    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,pwldigesttemp,concdigesttemp]
+    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]]
+    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time'],index=range(len(temppwls)))
+    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]
     variables['template pwl number'] = temppwls
     variables['template concentrations'] = tempconcs
 
@@ -732,6 +1000,508 @@ if __name__ == '__main__':
     variables
 
     variables['section'] = pd.DataFrame(lengthd,index=range(len(lengthd)))
+###############################################################################################
+##Entry vector selection window
+    input_csv = tk.Tk()
+    input_csv.geometry('1920x1080')
+    input_csv.title('Parameters for Goldengate')
+
+
+    def set_variables():
+        
+        global temppwl1
+        global temppwl2
+        global temppwl3
+        global temppwl4
+        global temppwl5
+        global temppwl6
+        global conc1
+        global conc2
+        global conc3
+        global conc4
+        global conc5
+        global conc6
+
+        if len(pandas.unique(digestnames['Sequence Source'])) == 1:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+        
+        if len(pandas.unique(digestnames['Sequence Source'])) == 2:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+ 
+        
+        if len(pandas.unique(digestnames['Sequence Source'])) == 3:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+
+        
+        if len(pandas.unique(digestnames['Sequence Source'])) == 4:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+            
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+
+        
+        
+        if len(pandas.unique(digestnames['Sequence Source'])) == 5:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+            
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
+            
+            if temppwl5_entry.get() == '':
+                temppwl5 = ''
+            else:
+                temppwl5 = int(temppwl5_entry.get())
+                
+    
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+            
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
+
+        
+
+        if len(pandas.unique(digestnames['Sequence Source'])) == 6:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
+            
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
+            
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
+            
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
+            
+            if temppwl5_entry.get() == '':
+                temppwl5 = ''
+            else:
+                temppwl5 = int(temppwl5_entry.get())
+            
+            if temppwl6_entry.get() == '':
+                temppwl6 = ''
+            else:
+                temppwl6 = int(temppwl6_entry.get())
+                
+                
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+            
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
+            
+            if conc6_entry.get() == '':
+                conc6 = ''
+            else:
+                conc6 = float(conc6_entry.get())
+        
+        
+        input_csv.destroy()
+
+    
+    #Text Entries
+
+    
+    ########################################################################################
+    #entries for pwl number
+    if len(pandas.unique(digestnames['Sequence Source'])) == 1:
+        temppwl1_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        
+        digestnames['pwllocation'] = [temppwl1_entry]
+        
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 2:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry= tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        
+        digestnames['pwllocation'] = [temppwl1_entry, temppwl2_entry]
+        
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 3:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        
+        digestnames['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
+        
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 4:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        temppwl4_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        
+        digestnames['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry]
+        
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 5:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        temppwl4_entry = tk.Entry()
+        temppwl5_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+        
+        digestnames['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry, temppwl5_entry]
+         
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 6:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        temppwl4_entry = tk.Entry()
+        temppwl5_entry = tk.Entry()
+        temppwl6_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+        
+        digestnames['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry, temppwl6_entry]
+            
+
+
+    rel_y = .05
+
+    for i, row in digestnames.iterrows():
+        
+        label_extra1 = tk.Label(text=digestnames.loc[i].at['location']+' '+digestnames.loc[i].at['Sequence Source'],font=('Helvatical bold',14))
+        label_extra1.place(relx = 0.3, rely = rel_y)
+        
+        #names.loc[i].at['pwllocation'] = tk.Entry()
+        #names.loc[i].at['pwllocation'].insert(END,names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'])
+        #names.loc[i].at['pwllocation'].place(relx = 0.3, rely = rel_y, width = 95)
+
+        rel_y = rel_y+.05
+
+    # temppwl1_entry = tk.Entry()
+    # temppwl1_entry.insert(END, '0')
+    # temppwl1_entry.place(relx=0.3,rely=0.05,width = 35)
+
+    # temppwl2_entry = tk.Entry()
+    # temppwl2_entry.insert(END, '0')
+    # temppwl2_entry.place(relx=0.3,rely=0.1,width = 35)
+
+    # temppwl3_entry = tk.Entry()
+    # temppwl3_entry.insert(END, '0')
+    # temppwl3_entry.place(relx=0.3,rely=0.15,width = 35)
+
+    # temppwl4_entry = tk.Entry()
+    # temppwl4_entry.insert(END, '0')
+    # temppwl4_entry.place(relx=0.3,rely=0.2,width = 35)
+
+    # temppwl5_entry = tk.Entry()
+    # temppwl5_entry.insert(END, '0')
+    # temppwl5_entry.place(relx=0.3,rely=0.25,width = 35)
+
+    # temppwl6_entry = tk.Entry()
+    # temppwl6_entry.insert(END, '0')
+    # temppwl6_entry.place(relx=0.3,rely=0.3,width = 35)
+
+    #########################################################################################3
+    #entries for concentration
+    # conc1_entry= tk.Entry()
+    # conc1_entry.insert(END, '0')
+    # conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+
+    # conc2_entry = tk.Entry()
+    # conc2_entry.insert(END, '0')
+    # conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+
+    # conc3_entry = tk.Entry()
+    # conc3_entry.insert(END, '0')
+    # conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+
+    # conc4_entry = tk.Entry()
+    # conc4_entry.insert(END, '0')
+    # conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+
+    # conc5_entry = tk.Entry()
+    # conc5_entry.insert(END, '0')
+    # conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+
+    # conc6_entry = tk.Entry()
+    # conc6_entry.insert(END, '0')
+    # conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+
+    ################################################################
+    #Legend
+
+
+    confirm_button = tk.Button(text="Confirm",command=set_variables)
+    confirm_button.place(relx=0.8,rely=0.8)
+
+
+    input_csv.mainloop()
+
+    if len(pandas.unique(digestnames['Sequence Source'])) == 1:
+        
+        tempconcs = [conc1]
+        
+        temppwls = [temppwl1]
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 2:
+        
+        tempconcs = [conc1,conc2]
+        
+        temppwls = [temppwl1,temppwl2] 
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 3:
+        
+        tempconcs = [conc1,conc2,conc3]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3]
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 4:
+        
+        tempconcs = [conc1,conc2,conc3,conc4]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4]
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 5:
+        
+        tempconcs = [conc1,conc2,conc3,conc4,conc5]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5] 
+    
+    if len(pandas.unique(digestnames['Sequence Source'])) == 6:
+        
+        tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
+        
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]    
+
+    #temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
+    #tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
+    test = [[0,0]]
+    lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
+    variables2 = pd.DataFrame(test,columns=['EV pwl number','EV concentrations'],index=range(len(temppwls)))
+    variables2['template pwl number'] = digestnames['Sequence Source']
+    variables2['template concentrations'] = tempconcs
+
+
+
+    variables2
+
+    #variables['section'] = pd.DataFrame(lengthd,index=range(len(lengthd)))
+
+##########################################################################################
+#################################################################################
+
 
     #########################################################################################
     #tkinter window to specify which parts of the protocol to run
@@ -1014,6 +1784,8 @@ if __name__ == '__main__':
 
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
     variables.to_csv('Input.csv')
+    variables2.to_csv('Entryvecs.csv')
+
     shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
     #os.system("notepad.exe GoldenGate_instructions.txt")
@@ -1077,7 +1849,6 @@ if __name__ == '__main__':
     Input_values
     # Date = str(int(Input_values.loc[0].at['Date']))
     # Date
-
     Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
     diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
     DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
@@ -1085,6 +1856,7 @@ if __name__ == '__main__':
     ###############################################################################################################################################
     #oligos
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+    entryvecs = pandas.read_csv('Entryvecs.csv')
     oligos = pandas.read_csv('oligo.csv')
     oligos
 
@@ -1184,16 +1956,26 @@ if __name__ == '__main__':
     assembly = pandas.read_csv('assembly.csv')
     assembly
 
+    digestloc = {}
+    digestloc['0'] = 'E11'
+    digestloc['1'] = 'F11'
+    digestloc['2'] = 'G11'
+    digestloc['3'] = 'A11'
+    digestloc['4'] = 'C11'
+    digestloc['5'] = 'D11'
+
     # for i, row in assembly.iterrows():
     #     assembly.loc[i,'pcr_frag_tube'] = id2pcrrr[i]
     # assembly
 
+    dig=0
     sub = 0
     for i, row in assembly.iterrows():
         if assembly.loc[i,'Reaction Type'] == 'PCR':
             assembly.loc[i,'pcr_frag_tube'] = id2pcrrr[i-sub]
         else:
-            assembly.loc[i,'pcr_frag_tube'] = np.nan
+            assembly.loc[i,'pcr_frag_tube'] = digestloc[str(dig)]
+            dig = dig + 1
             sub = sub + 1
     assembly
 
@@ -1207,10 +1989,12 @@ if __name__ == '__main__':
     digests = pandas.read_csv('digests.csv')
     digests
     #digest_conc=138 #automate digest concentration entry with inputs.py
-    digest_conc = Input_values.loc[0].at['concdigesttemp']
-    digests['digest_conc']=digest_conc
-    digests
+    # digest_conc = Input_values.loc[0].at['concdigesttemp']
+    # digests['digest_conc']=digest_conc
+    # digests
+    digests['digest_conc'] = entryvecs["template concentrations"]
     startnum = len(oligos['well'])
+    
     for i, row in digests.iterrows():
         digests.loc[i,'well'] = id2well[str(startnum+ i)]
     digests
@@ -1230,9 +2014,9 @@ if __name__ == '__main__':
 
     digests['water to add']= digests['volume of dilute template prepared']-digests['amount of template to add']
     digests
-
+    
     for i, row in digests.iterrows():
-        digests.loc[i,'frag_pcr_tube'] = id2well[str(i)]
+        digests.loc[i,'frag_pcr_tube'] = digestloc[str(i)]
     digests
 
     digests.to_csv('digests.csv')
@@ -2220,6 +3004,12 @@ if __name__ == '__main__':
     dil_tu['E6'] = 'H8'
     dil_tu['E7'] = 'H9'
     dil_tu['E8'] = 'H10'
+    dil_tu['A11'] = 'A12'
+    dil_tu['C11'] = 'C12'
+    dil_tu['D11'] = 'D12'
+    dil_tu['E11'] = 'E12'
+    dil_tu['F11'] = 'F12'
+    dil_tu['G11'] = 'G12'
 
     #dil_tu['B7'] = 'C7'
     #dil_tu['B8'] = 'C8'
@@ -2294,56 +3084,57 @@ if __name__ == '__main__':
     #########################################################################################################################
     #plasmid dataframe object for the digestion
     plasmid = pandas.DataFrame()
-    plasmid['Plasmid'] = Input_values['pwldigesttemp']
-    plasmid['Concentration'] = Input_values['concdigesttemp']
+    plasmid['Plasmid'] = entryvecs['template pwl number']
+    plasmid['Concentration'] = Input_values['template concentrations']
     #plasmid = pandas.DataFrame(plasmid)
     plasmid
+    plasmid = plasmid[(plasmid != 0).all(1)]
 
     plasmid['Buffer'] = float('5')
     plasmid['BSA1'] = float('1')
     plasmid['Volume of Plasmid'] = ''
     plasmid['Volume of Water'] = ''
 
-    plasmid['Volume of Plasmid'] = (1/(plasmid['Concentration'])) * 1000 * 1
+    plasmid['Volume of Plasmid'] = (1/(plasmid['Concentration'])) * 1500 * 1
     plasmid['Volume of Water'] = 50- plasmid['Volume of Plasmid'] - plasmid['Buffer'] - plasmid['BSA1']
 
     plasmid['total volume'] = float(50)
 
 
     #plasmid templates arranged in an "L" formation
-    row2well= {}
-    row2well['0'] = 'A2'
-    row2well['1'] = 'B2'
-    row2well['2'] = 'C2'
-    row2well['3'] = 'D2'
-    row2well['4'] = 'D3'
-    row2well['5'] = 'D4'
-    row2well['6'] = 'D5'
-    row2well['7'] = 'D6'
+    # row2well= {}
+    # row2well['0'] = 'A2'
+    # row2well['1'] = 'B2'
+    # row2well['2'] = 'C2'
+    # row2well['3'] = 'A3'
+    # row2well['4'] = 'A4'
+    # row2well['5'] = 'A5'
+    # row2well['6'] = 'D5'
+    # row2well['7'] = 'D6'
 
     plasmid['Plasmid Location'] = ''
     plasmid
 
     for i, row in plasmid.iterrows():
-        plasmid.loc[i,'Plasmid Location'] = id2well[str(i+startnum)]
+        plasmid.loc[i,'Plasmid Location'] = id2well[str(len(oligos['well'])+i)]
     plasmid
 
-    pcr2final= {}
-    pcr2final['0'] = 'D6'
-    pcr2final['1'] = 'D5'
-    pcr2final['2'] = 'D4'
-    pcr2final['3'] = 'D3'
-    pcr2final['4'] = 'D2'
-    pcr2final['5'] = 'D1'
-    pcr2final['6'] = 'C6'
-    pcr2final['7'] = 'C5'
-    pcr2final['8'] = 'C4'
+    # pcr2final= {}
+    # pcr2final['0'] = 'D6'
+    # pcr2final['1'] = 'D5'
+    # pcr2final['2'] = 'D4'
+    # pcr2final['3'] = 'D3'
+    # pcr2final['4'] = 'D2'
+    # pcr2final['5'] = 'D1'
+    # pcr2final['6'] = 'C6'
+    # pcr2final['7'] = 'C5'
+    # pcr2final['8'] = 'C4'
 
-    plasmid['final tube'] = ''
+    # plasmid['final tube'] = ''
 
-    for i, row in plasmid.iterrows():
-        plasmid.loc[i,'final tube'] = pcr2final[str(i)]
-    plasmid
+    # for i, row in plasmid.iterrows():
+    #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
+    # plasmid
     plasmid.to_csv('plasmid.csv')
 
 
