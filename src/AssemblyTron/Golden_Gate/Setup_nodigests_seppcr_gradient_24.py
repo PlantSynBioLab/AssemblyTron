@@ -290,10 +290,10 @@ if __name__ == '__main__':
     import os
     import shutil
 
-    today = date.today()
+    #today = date.today()
 
-    date = str(today.strftime('%Y%m%d'))
-    date
+    #date = str(today.strftime('%Y%m%d'))
+    #date
 
     #make the run folder of the day
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')

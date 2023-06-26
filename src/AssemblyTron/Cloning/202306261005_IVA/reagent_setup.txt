@@ -1,0 +1,21 @@
+Date: 20230626 Time: 1005 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Cloning 
+Place the coldtuberack in slot 1. 
+Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+Instructions for setting up the coldtuberack: 
+Put oWL592_(TPL-IAA14)_forward in A1
+Put oWL593_(TPL-IAA14)_reverse in A2
+Put oWL594_(IAA14-pb1)_forward in A3
+Put oWL595_(IAA14-pb1)_reverse in A4
+Put oWL596_(ARF7)_forward in A5
+Put oWL597_(ARF7)_reverse in A6
+Put oWL598_(ARF7-pb1)_forward in B1
+Put oWL599_(ARF7-pb1)_reverse in B2
+NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
+This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
+Put pwl248 in B3
+Put pwl90 in B4
+Place DPNI in D3 
+Place cutsmart buffer in D4 
+Place Q5 DNA polymerase in D6 
+Place 24 well tuberack in slot 2. Add 14 empty 1.5 mL tubes to the rack in the same positions. 
