@@ -353,18 +353,60 @@ if __name__ == '__main__':
         global extra2value
         global extra2name
         
-        global temppwl1
-        global temppwl2
-        global temppwl3
-        global temppwl4
-        global temppwl5
-        global temppwl6
-        global conc1
-        global conc2
-        global conc3
-        global conc4
-        global conc5
-        global conc6
+        if len(pandas.unique(names['Primary Template'])) == 1:
+            global temppwl1
+            global conc1
+
+        if len(pandas.unique(names['Primary Template'])) == 2:
+            global temppwl1
+            global temppwl2
+            global conc1
+            global conc2
+        
+        if len(pandas.unique(names['Primary Template'])) == 3:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global conc1
+            global conc2
+            global conc3
+
+        if len(pandas.unique(names['Primary Template'])) == 4:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global temppwl4
+            global conc1
+            global conc2
+            global conc3
+            global conc4
+        
+        if len(pandas.unique(names['Primary Template'])) == 5:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global temppwl4
+            global temppwl5
+            global conc1
+            global conc2
+            global conc3
+            global conc4
+            global conc5
+
+        if len(pandas.unique(names['Primary Template'])) == 6:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global temppwl4
+            global temppwl5
+            global temppwl6
+            global conc1
+            global conc2
+            global conc3
+            global conc4
+            global conc5
+            global conc6
+
         stkprm = float(stkprm_entry.get())
         stkvol = float(stkvol_entry.get())
         dilprm = float(dilprm_entry.get())
@@ -420,8 +462,7 @@ if __name__ == '__main__':
                 conc2 = ''
             else:
                 conc2 = float(conc2_entry.get())
- 
-        
+
         if len(pandas.unique(names['Primary Template'])) == 3:
             if temppwl1_entry.get() == '':
                 temppwl1 = ''
@@ -496,8 +537,7 @@ if __name__ == '__main__':
             else:
                 conc4 = float(conc4_entry.get())
 
-        
-        
+            
         if len(pandas.unique(names['Primary Template'])) == 5:
             if temppwl1_entry.get() == '':
                 temppwl1 = ''
@@ -549,8 +589,6 @@ if __name__ == '__main__':
                 conc5 = ''
             else:
                 conc5 = float(conc5_entry.get())
-
-        
 
         if len(pandas.unique(names['Primary Template'])) == 6:
             if temppwl1_entry.get() == '':
@@ -761,19 +799,13 @@ if __name__ == '__main__':
     extra2value_entry.place(relx=0.25,rely=0.45,width=35)
 
     ########################################################################################
-    #entries for pwl number
-    
-    #n = len(pandas.unique(names['Primary Template']))
-    
+    #entries for pwl number and concentration
     if len(pandas.unique(names['Primary Template'])) == 1:
         temppwl1_entry = tk.Entry()
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
         conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-        
         names['pwllocation'] = [temppwl1_entry]
-        
-    
     if len(pandas.unique(names['Primary Template'])) == 2:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
@@ -783,10 +815,7 @@ if __name__ == '__main__':
         conc2_entry= tk.Entry()
         conc2_entry.insert(END, '0')
         conc2_entry.place(relx=0.6,rely=0.1,width = 35)
-        
         names['pwllocation'] = [temppwl1_entry, temppwl2_entry]
-        
-    
     if len(pandas.unique(names['Primary Template'])) == 3:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
@@ -800,10 +829,7 @@ if __name__ == '__main__':
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
         conc3_entry.place(relx=0.6,rely=0.15,width = 35)
-        
         names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
-        
-    
     if len(pandas.unique(names['Primary Template'])) == 4:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
@@ -821,10 +847,7 @@ if __name__ == '__main__':
         conc4_entry = tk.Entry()
         conc4_entry.insert(END, '0')
         conc4_entry.place(relx=0.6,rely=0.2,width = 35)
-        
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry]
-        
-    
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry]
     if len(pandas.unique(names['Primary Template'])) == 5:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
@@ -849,10 +872,7 @@ if __name__ == '__main__':
         conc6_entry = tk.Entry()
         conc6_entry.insert(END, '0')
         conc6_entry.place(relx=0.6,rely=0.3,width = 35)
-        
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry, temppwl5_entry]
-         
-    
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry]
     if len(pandas.unique(names['Primary Template'])) == 6:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
@@ -878,10 +898,7 @@ if __name__ == '__main__':
         conc6_entry = tk.Entry()
         conc6_entry.insert(END, '0')
         conc6_entry.place(relx=0.6,rely=0.3,width = 35)
-        
         names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry, temppwl6_entry]
-            
-        
 
     rel_y = .05
 
@@ -896,56 +913,6 @@ if __name__ == '__main__':
 
         rel_y = rel_y+.05
 
-    # temppwl1_entry = tk.Entry()
-    # temppwl1_entry.insert(END, '0')
-    # temppwl1_entry.place(relx=0.3,rely=0.05,width = 35)
-
-    # temppwl2_entry = tk.Entry()
-    # temppwl2_entry.insert(END, '0')
-    # temppwl2_entry.place(relx=0.3,rely=0.1,width = 35)
-
-    # temppwl3_entry = tk.Entry()
-    # temppwl3_entry.insert(END, '0')
-    # temppwl3_entry.place(relx=0.3,rely=0.15,width = 35)
-
-    # temppwl4_entry = tk.Entry()
-    # temppwl4_entry.insert(END, '0')
-    # temppwl4_entry.place(relx=0.3,rely=0.2,width = 35)
-
-    # temppwl5_entry = tk.Entry()
-    # temppwl5_entry.insert(END, '0')
-    # temppwl5_entry.place(relx=0.3,rely=0.25,width = 35)
-
-    # temppwl6_entry = tk.Entry()
-    # temppwl6_entry.insert(END, '0')
-    # temppwl6_entry.place(relx=0.3,rely=0.3,width = 35)
-
-    #########################################################################################3
-    #entries for concentration
-    # conc1_entry= tk.Entry()
-    # conc1_entry.insert(END, '0')
-    # conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-
-    # conc2_entry = tk.Entry()
-    # conc2_entry.insert(END, '0')
-    # conc2_entry.place(relx=0.6,rely=0.1,width = 35)
-
-    # conc3_entry = tk.Entry()
-    # conc3_entry.insert(END, '0')
-    # conc3_entry.place(relx=0.6,rely=0.15,width = 35)
-
-    # conc4_entry = tk.Entry()
-    # conc4_entry.insert(END, '0')
-    # conc4_entry.place(relx=0.6,rely=0.2,width = 35)
-
-    # conc5_entry = tk.Entry()
-    # conc5_entry.insert(END, '0')
-    # conc5_entry.place(relx=0.6,rely=0.25,width = 35)
-
-    # conc6_entry = tk.Entry()
-    # conc6_entry.insert(END, '0')
-    # conc6_entry.place(relx=0.6,rely=0.3,width = 35)
-
     ################################################################
     #Legend
 
@@ -953,47 +920,29 @@ if __name__ == '__main__':
     confirm_button = tk.Button(text="Confirm",command=set_variables)
     confirm_button.place(relx=0.8,rely=0.8)
 
-
     input_csv.mainloop()
 
     if len(pandas.unique(names['Primary Template'])) == 1:
-        
         tempconcs = [conc1]
-        
         temppwls = [temppwl1]
-    
     if len(pandas.unique(names['Primary Template'])) == 2:
-        
         tempconcs = [conc1,conc2]
-        
         temppwls = [temppwl1,temppwl2] 
-    
     if len(pandas.unique(names['Primary Template'])) == 3:
-        
         tempconcs = [conc1,conc2,conc3]
-        
         temppwls = [temppwl1,temppwl2,temppwl3]
-    
     if len(pandas.unique(names['Primary Template'])) == 4:
-        
         tempconcs = [conc1,conc2,conc3,conc4]
-        
         temppwls = [temppwl1,temppwl2,temppwl3,temppwl4]
-    
     if len(pandas.unique(names['Primary Template'])) == 5:
-        
         tempconcs = [conc1,conc2,conc3,conc4,conc5]
-        
         temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5] 
-    
     if len(pandas.unique(names['Primary Template'])) == 6:
-        
         tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-        
-        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]    
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
 
-    #temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
-    #tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
+    # temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
+    # tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
     test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
     lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
