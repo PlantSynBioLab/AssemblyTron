@@ -1045,14 +1045,14 @@ if __name__ == '__main__':
         temppwl2_entry = tk.Entry()
         temppwl3_entry = tk.Entry()
         temppwl4_entry = tk.Entry()
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4]
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry]
     if len(names) == 5:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
         temppwl3_entry = tk.Entry()
         temppwl4_entry = tk.Entry()
         temppwl5_entry = tk.Entry()
-        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl1_entry4, temppwl5_entry] 
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry] 
     if len(names) == 6:
         temppwl1_entry = tk.Entry()
         temppwl2_entry = tk.Entry()
