@@ -1186,7 +1186,7 @@ if __name__ == '__main__':
     #########################################################################################
     #tkinter window to specify which parts of the protocol to run
     section = pandas.DataFrame()
-    
+
     from tkinter import *
 
     ws = Tk() 
@@ -1219,8 +1219,8 @@ if __name__ == '__main__':
         lb.itemconfig(item, bg="#bdc1d6") 
 
     Button(ws, text="Confirm", command=showSelected).pack()
-    ws.mainloop() 
-    
+    ws.mainloop()
+
     section.to_csv('section.csv')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/section.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
     ##############################################################################################################

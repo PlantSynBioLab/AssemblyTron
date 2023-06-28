@@ -191,14 +191,14 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #     for i, row in df.iterrows():
 #         if df.loc[i].at['water to add'] > 8:
 #             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(df.loc[i].at['amount of template to add'], globals()df.loc[i].at['rack'][df.loc[i].at['template_origin']], rate=1.0) #dilution well corresponds to stock well
+#             left_pipette.aspirate(df.loc[i].at['amount of template to add'], locals()df.loc[i].at['rack'][df.loc[i].at['template_origin']], rate=1.0) #dilution well corresponds to stock well
 #             left_pipette.dispense(df.loc[i].at['amount of template to add'], plate96[df.loc[i].at['template_well']], rate=1.0) #makes a 12.5ng/uL template
 #             left_pipette.mix(3,5,plate96[df.loc[i].at['template_well']])
 #         #left_pipette.blow_out()
 #             left_pipette.drop_tip()
 #         if df.loc[i].at['water to add'] < 8:
 #             left_pipette.pick_up_tip()
-#             left_pipette.aspirate(3*(df.loc[i].at['amount of template to add']), globals()df.loc[i].at['rack'][df.loc[i].at['template_origin']], rate=1.0) #dilution well corresponds to stock well
+#             left_pipette.aspirate(3*(df.loc[i].at['amount of template to add']), locals()df.loc[i].at['rack'][df.loc[i].at['template_origin']], rate=1.0) #dilution well corresponds to stock well
 #             left_pipette.dispense(3*(df.loc[i].at['amount of template to add']), plate96[df.loc[i].at['template_well']], rate=1.0) #makes a 12.5ng/uL template
 #             left_pipette.mix(3,5,plate96[df.loc[i].at['template_well']])
 #             #left_pipette.blow_out()
@@ -215,7 +215,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 # #add stock primers to dilution tube
 #     for i, row in oligos.iterrows():
 #         left_pipette.pick_up_tip() #add in an iterrows function
-#         left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], globals()df.loc[i].at['rack'][oligos.loc[i].at['24well']], rate=1.0)
+#         left_pipette.aspirate(oligos.loc[i].at['volume of stock primer to add'], locals()df.loc[i].at['rack'][oligos.loc[i].at['24well']], rate=1.0)
 #         left_pipette.dispense(oligos.loc[i].at['volume of stock primer to add'], plate96[oligos.loc[i].at['96well']], rate=1.0)
 #         left_pipette.mix(3,5,plate96[oligos.loc[i].at['well']])
 #         #left_pipette.blow_out()
@@ -569,88 +569,88 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         
         for i, row in GG_dfs.iterrows():
             x = GG_dfs.loc[i].at['gg#']
-            #wawa = 15 - round(globals()[x].loc[:,'final amount to add'].sum(),2) - 1 - 1 - 1.65
+            #wawa = 15 - round(locals()[x].loc[:,'final amount to add'].sum(),2) - 1 - 1 - 1.65
 
-            for i, row in globals()[x].iterrows():
+            for i, row in locals()[x].iterrows():
                 
-                if globals()[x].loc[i].at['initial required amount'] <1:
+                if locals()[x].loc[i].at['initial required amount'] <1:
     #########################################################################################################
     ############adding h20
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
+                    if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
                         right_pipette.pick_up_tip()
-                        right_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
-                        right_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        right_pipette.aspirate(locals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
+                        right_pipette.dispense(locals()[x].loc[i].at['H20 to add to 1uL of fragment'], secondarydils[locals()[x].loc[i].at['frag_loc']])
                         #right_pipette.blow_out()
                         right_pipette.drop_tip()
 
-                    if 8 < globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
+                    if 8 < locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
                         left_pipette.pick_up_tip()
-                        left_pipette.aspirate(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
-                        left_pipette.dispense(globals()[x].loc[i].at['H20 to add to 1uL of fragment'], secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        left_pipette.aspirate(locals()[x].loc[i].at['H20 to add to 1uL of fragment'], watertuberack['A1'])
+                        left_pipette.dispense(locals()[x].loc[i].at['H20 to add to 1uL of fragment'], secondarydils[locals()[x].loc[i].at['frag_loc']])
                         #left_pipette.blow_out()
                         left_pipette.drop_tip()
 
-                    if 5< globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    if 5< locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
                         right_pipette.pick_up_tip()
-                        right_pipette.aspirate(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), watertuberack['A1'])
-                        right_pipette.dispense(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        right_pipette.aspirate(4*(locals()[x].loc[i].at['H20 to add to 1uL of fragment']), watertuberack['A1'])
+                        right_pipette.dispense(4*(locals()[x].loc[i].at['H20 to add to 1uL of fragment']), secondarydils[locals()[x].loc[i].at['frag_loc']])
                         #right_pipette.blow_out()
                         right_pipette.drop_tip()
 
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
+                    if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
                         right_pipette.pick_up_tip()
-                        right_pipette.aspirate(6*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), watertuberack['A1'])
-                        right_pipette.dispense(6*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']), secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        right_pipette.aspirate(6*(locals()[x].loc[i].at['H20 to add to 1uL of fragment']), watertuberack['A1'])
+                        right_pipette.dispense(6*(locals()[x].loc[i].at['H20 to add to 1uL of fragment']), secondarydils[locals()[x].loc[i].at['frag_loc']])
                         #right_pipette.blow_out()
                         right_pipette.drop_tip()
     #####################################################################################################
     ############adding temp
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 8:
+                    if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 8:
                         left_pipette.pick_up_tip()
-                        left_pipette.aspirate(1, pcrplate[globals()[x].loc[i].at['frag_loc']])
-                        left_pipette.dispense(1, secondarydils[globals()[x].loc[i].at['frag_loc']])
-                        left_pipette.mix(3,3,secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        left_pipette.aspirate(1, pcrplate[locals()[x].loc[i].at['frag_loc']])
+                        left_pipette.dispense(1, secondarydils[locals()[x].loc[i].at['frag_loc']])
+                        left_pipette.mix(3,3,secondarydils[locals()[x].loc[i].at['frag_loc']])
                         #left_pipette.blow_out()
                         left_pipette.drop_tip()
 
-                    if 5< globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    if 5< locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
                         left_pipette.pick_up_tip()
-                        left_pipette.aspirate(4, pcrplate[globals()[x].loc[i].at['frag_loc']])
-                        left_pipette.dispense(4, secondarydils[globals()[x].loc[i].at['frag_loc']])
-                        left_pipette.mix(3,3,secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        left_pipette.aspirate(4, pcrplate[locals()[x].loc[i].at['frag_loc']])
+                        left_pipette.dispense(4, secondarydils[locals()[x].loc[i].at['frag_loc']])
+                        left_pipette.mix(3,3,secondarydils[locals()[x].loc[i].at['frag_loc']])
                         #left_pipette.blow_out()
                         left_pipette.drop_tip()
 
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
+                    if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
                         left_pipette.pick_up_tip()
-                        left_pipette.aspirate(6, pcrplate[globals()[x].loc[i].at['frag_loc']])
-                        left_pipette.dispense(6, secondarydils[globals()[x].loc[i].at['frag_loc']])
-                        left_pipette.mix(3,3,secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        left_pipette.aspirate(6, pcrplate[locals()[x].loc[i].at['frag_loc']])
+                        left_pipette.dispense(6, secondarydils[locals()[x].loc[i].at['frag_loc']])
+                        left_pipette.mix(3,3,secondarydils[locals()[x].loc[i].at['frag_loc']])
                         #left_pipette.blow_out()
                         left_pipette.drop_tip()
                     
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
+                    if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
                         right_pipette.pick_up_tip()
-                        right_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],secondarydils[globals()[x].loc[i].at['frag_loc']])
+                        right_pipette.mix(3,locals()[x].loc[i].at['H20 to add to 1uL of fragment'],secondarydils[locals()[x].loc[i].at['frag_loc']])
                         right_pipette.drop_tip()
 
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
-                        if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] >5:
+                    if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
+                        if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] >5:
                             left_pipette.pick_up_tip()
-                            left_pipette.mix(3,globals()[x].loc[i].at['H20 to add to 1uL of fragment'],secondarydils[globals()[x].loc[i].at['frag_loc']])
+                            left_pipette.mix(3,locals()[x].loc[i].at['H20 to add to 1uL of fragment'],secondarydils[locals()[x].loc[i].at['frag_loc']])
                             left_pipette.drop_tip()
-                        if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
+                        if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
                             left_pipette.pick_up_tip()
-                            left_pipette.mix(3,2*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']),secondarydils[globals()[x].loc[i].at['frag_loc']])
+                            left_pipette.mix(3,2*(locals()[x].loc[i].at['H20 to add to 1uL of fragment']),secondarydils[locals()[x].loc[i].at['frag_loc']])
                             left_pipette.drop_tip()
-                    #if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
+                    #if locals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
                         #print('skip') #do nothing
 
                     
                 else:
                     left_pipette.pick_up_tip()
-                    left_pipette.aspirate(20, pcrplate[globals()[x].loc[i].at['frag_loc']])
-                    left_pipette.dispense(20, secondarydils[globals()[x].loc[i].at['frag_loc']])
+                    left_pipette.aspirate(20, pcrplate[locals()[x].loc[i].at['frag_loc']])
+                    left_pipette.dispense(20, secondarydils[locals()[x].loc[i].at['frag_loc']])
                     left_pipette.blow_out()
                     left_pipette.drop_tip()
 
@@ -659,49 +659,49 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
         for i, row in GG_dfs.iterrows():
             x = GG_dfs.loc[i].at['gg#']
-            #wawa = 15 - round(globals()[x].loc[:,'final amount to add'].sum(),2) - 1 - 1 - 1.65
-            for i, row in globals()[x].iterrows():
+            #wawa = 15 - round(locals()[x].loc[:,'final amount to add'].sum(),2) - 1 - 1 - 1.65
+            for i, row in locals()[x].iterrows():
             
                 #how much water you need to add
                 left_pipette.pick_up_tip()
-                left_pipette.aspirate(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65, watertuberack['A1'])
-                left_pipette.dispense(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65, pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.aspirate(15 - round(locals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65, watertuberack['A1'])
+                left_pipette.dispense(15 - round(locals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65, pcrplate[locals()[x].loc[0].at['location_of_assembly']])
                 left_pipette.blow_out()
                 left_pipette.drop_tip()
                     
                 left_pipette.pick_up_tip()
-                left_pipette.aspirate(globals()[x].loc[i].at['final amount to add'], secondarydils[globals()[x].loc[i].at['frag_loc']])
-                left_pipette.dispense(globals()[x].loc[i].at['final amount to add'], pcrplate[globals()[x].loc[i].at['location_of_assembly']])
+                left_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], secondarydils[locals()[x].loc[i].at['frag_loc']])
+                left_pipette.dispense(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
                 left_pipette.blow_out()
                 left_pipette.drop_tip()
             
             #pipette the T4 BSA combo into GG assemblies
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(1.65,cold_tuberack['C4'])
-                left_pipette.dispense(1.65,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-                left_pipette.mix(3,8,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.dispense(1.65,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.mix(3,8,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
                 #left_pipette.blow_out()
                 left_pipette.drop_tip()
             
             #pipette the BsaI in
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(1,cold_tuberack['D5'])
-                left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-                left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.dispense(1,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.mix(3,9,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
                 #left_pipette.blow_out()
                 left_pipette.drop_tip()
             
             #pipette the T4 ligase in
                 left_pipette.pick_up_tip()
                 left_pipette.aspirate(1,cold_tuberack['C5'])
-                left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-                left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.dispense(1,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.mix(3,9,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
                 #left_pipette.blow_out()
                 left_pipette.drop_tip()
             
             # one more mix
                 right_pipette.pick_up_tip()
-                right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                right_pipette.mix(3,15,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
                 right_pipette.blow_out()
                 right_pipette.drop_tip()
         
@@ -729,7 +729,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         #     x = GG_dfs.loc[i].at['gg#']
         
         #     right_pipette.pick_up_tip()
-        #     right_pipette.aspirate(15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+        #     right_pipette.aspirate(15,pcrplate[locals()[x].loc[0].at['location_of_assembly']])
         #     right_pipette.dispense(15,tuberack2[dis_tube.loc[i].at['dispense_tube']])
         #     right_pipette.blow_out()
         #     right_pipette.drop_tip()

@@ -1381,6 +1381,8 @@ if __name__ == '__main__':
 
     #########################################################################################
     #tkinter window to specify which parts of the protocol to run
+    section = pandas.DataFrame()
+
     from tkinter import *
 
     ws = Tk() 
@@ -1398,7 +1400,7 @@ if __name__ == '__main__':
         for val in countries:
             print(val)
         se = pandas.Series(countries)
-        variables['section'] = se
+        section['parts'] = se
         ws.destroy()
 
     show = Label(ws, text = "Choose which parts of protocol to run", font = ("Times", 14), padx = 10, pady = 10)
@@ -1413,8 +1415,10 @@ if __name__ == '__main__':
         lb.itemconfig(item, bg="#bdc1d6") 
 
     Button(ws, text="Confirm", command=showSelected).pack()
-    ws.mainloop() 
+    ws.mainloop()
 
+    section.to_csv('section.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/section.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     ##############################################################################################################
 
     #####################################################################################################
@@ -2256,12 +2260,12 @@ if __name__ == '__main__':
         annealing=[]
         for i, row in params_tables.iterrows():
             x = params_tables.loc[i].at['parmx']
-    #locals()[x]
-            locals()[x]['Upper_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] + locals()[x]['Delta Oligo Tm (3Only)']
-            locals()[x]['Lower_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] - locals()[x]['Delta Oligo Tm (3Only)']
-            HL = locals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
+    #globals()[x]
+            globals()[x]['Upper_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] + globals()[x]['Delta Oligo Tm (3Only)']
+            globals()[x]['Lower_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] - globals()[x]['Delta Oligo Tm (3Only)']
+            HL = globals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
             HL = HL['Upper_temp'].values.tolist()
-            LH = locals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
+            LH = globals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
             LH = LH['Lower_temp'].values.tolist()    
             if LH[0] > HL[0]:
                 annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
@@ -2901,54 +2905,54 @@ if __name__ == '__main__':
         
     for i, row in GG_dfs.iterrows():
         x = GG_dfs.loc[i].at['gg#']
-        locals()[x] = combs_short[[i]]
-        locals()[x].loc[:,'conc_assumed']= 60
+        globals()[x] = combs_short[[i]]
+        globals()[x].loc[:,'conc_assumed']= 60
 
         bps = assembly[['Sequence Length','pcr_frag_tube']]
 
         bps = bps.rename(columns={'pcr_frag_tube':i})
-        locals()[x] = locals()[x].merge(bps, on= i)
+        globals()[x] = globals()[x].merge(bps, on= i)
         
-        backbone_length=locals()[x]["Sequence Length"].max()
+        backbone_length=globals()[x]["Sequence Length"].max()
         backbone_length
             
-        locals()[x] = locals()[x].rename(columns={0:'frag_loc',1:'frag_loc',2:'frag_loc',3:'frag_loc',4:'frag_loc',5:'frag_loc'})
+        globals()[x] = globals()[x].rename(columns={0:'frag_loc',1:'frag_loc',2:'frag_loc',3:'frag_loc',4:'frag_loc',5:'frag_loc'})
         
         #for i, row in plasmid.iterrows():
         #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
             
             
-        for i, row in locals()[x].iterrows():
-            locals()[x].loc[i,'dil_tube'] = dil_tu[locals()[x].loc[i,'frag_loc']]
+        for i, row in globals()[x].iterrows():
+            globals()[x].loc[i,'dil_tube'] = dil_tu[globals()[x].loc[i,'frag_loc']]
             
-        for i, row in locals()[x].iterrows():
-            locals()[x].loc[i,"equimolar ratio"]=locals()[x].loc[i,"Sequence Length"]/backbone_length
-            locals()[x].loc[i,"inverse of conc"]=1/locals()[x].loc[i,"conc_assumed"]
-            locals()[x].loc[i,"initial required amount"]=Input_values.loc[0].at['ngdesired']*locals()[x].loc[i,"equimolar ratio"]*locals()[x].loc[i,"inverse of conc"]
+        for i, row in globals()[x].iterrows():
+            globals()[x].loc[i,"equimolar ratio"]=globals()[x].loc[i,"Sequence Length"]/backbone_length
+            globals()[x].loc[i,"inverse of conc"]=1/globals()[x].loc[i,"conc_assumed"]
+            globals()[x].loc[i,"initial required amount"]=Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*globals()[x].loc[i,"inverse of conc"]
         
-            if locals()[x].loc[i,"initial required amount"] > 1: 
-                locals()[x].loc[i,"H20 to add to 1uL of fragment"] = np.nan
-            if locals()[x].loc[i,"initial required amount"] < 1:
-                locals()[x].loc[i,"H20 to add to 1uL of fragment"]=(2/locals()[x].loc[i,"initial required amount"])-1    
+            if globals()[x].loc[i,"initial required amount"] > 1: 
+                globals()[x].loc[i,"H20 to add to 1uL of fragment"] = np.nan
+            if globals()[x].loc[i,"initial required amount"] < 1:
+                globals()[x].loc[i,"H20 to add to 1uL of fragment"]=(2/globals()[x].loc[i,"initial required amount"])-1    
         
-            locals()[x].loc[i,"new Conc"] = locals()[x].loc[i,"conc_assumed"]/(locals()[x].loc[i,"H20 to add to 1uL of fragment"]+1)
-            locals()[x].loc[i,"new required amount"] = Input_values.loc[0].at['ngdesired']*locals()[x].loc[i,"equimolar ratio"]*(1/locals()[x].loc[i,"new Conc"])
+            globals()[x].loc[i,"new Conc"] = globals()[x].loc[i,"conc_assumed"]/(globals()[x].loc[i,"H20 to add to 1uL of fragment"]+1)
+            globals()[x].loc[i,"new required amount"] = Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*(1/globals()[x].loc[i,"new Conc"])
         
-            locals()[x].loc[i,"final amount to add"] = ''
-            if locals()[x].loc[i,"initial required amount"] > 1:
-                locals()[x].loc[i,"final amount to add"] = locals()[x].loc[i,"initial required amount"]
+            globals()[x].loc[i,"final amount to add"] = ''
+            if globals()[x].loc[i,"initial required amount"] > 1:
+                globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i,"initial required amount"]
             else:
-                locals()[x].loc[i,"final amount to add"] = locals()[x].loc[i, "new required amount"]
+                globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i, "new required amount"]
                     
     #GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
     #GG_dfs = pandas.DataFrame(data=GG_dfs)
         
     #for i, row in GG_dfs.iterrows():
         #x = GG_dfs.loc[i].at['gg#']
-        #for i, row in locals()[x].iterrows():
-            locals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
+        #for i, row in globals()[x].iterrows():
+            globals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
         
-        locals()[x].to_csv(x+'.csv')
+        globals()[x].to_csv(x+'.csv')
 
         next_tc_tube = next_tc_tube + 1
 

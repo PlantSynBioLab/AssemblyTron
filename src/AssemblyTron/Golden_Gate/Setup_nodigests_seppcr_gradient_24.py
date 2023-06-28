@@ -966,6 +966,8 @@ if __name__ == '__main__':
 
     #########################################################################################
     #tkinter window to specify which parts of the protocol to run
+    section = pandas.DataFrame()
+
     from tkinter import *
 
     ws = Tk() 
@@ -983,7 +985,7 @@ if __name__ == '__main__':
         for val in countries:
             print(val)
         se = pandas.Series(countries)
-        variables['section'] = se
+        section['parts'] = se
         ws.destroy()
 
     show = Label(ws, text = "Choose which parts of protocol to run", font = ("Times", 14), padx = 10, pady = 10)
@@ -1000,6 +1002,8 @@ if __name__ == '__main__':
     Button(ws, text="Confirm", command=showSelected).pack()
     ws.mainloop() 
 
+    section.to_csv('section.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Cloning/section.csv',paths.loc[0].at['opentrons_repo']+'/Cloning/'+date+time+'_IVA/')
     ##############################################################################################################
 
     #####################################################################################################
