@@ -6,60 +6,83 @@ This script runs on the OT-2 via the run app. It calls CSVs which must be transf
 
 '''
 
-    
-#variables:
-#primer dilutions:
-#stkprm = 100 #concentration of the stock primer you are adding
-#stkvol = 1 #the volume of stock primer you are adding
-#dilprm = 2.5 #this is the concentration in uM that you want your working dilution to be
-
-#pcr reaction
-# need to get this from the df##Numprimers = 4 #this is how many primers go in each pcr reaction.
-#primerconcentration = 0.1 #this is the concentration you want each primer to be in the pcr reaction
-#pcrvol = 25 #this is the total volume of your pcr reaction 
-#templatengs = .5 #this is the concentration of template you want in your pcr rxn in ng/uL
-
-#template dilutions tells you what the temps need to be diluted to initially so that you can just add 1 uL of template to the pcr:
-#need to fill in stock template values further down the script
-#diltemp = (templatengs)*(pcrvol)/1
-
-#total_volume = 25
-#Q5 = total_volume - (0.5*(total_volume)) #How much Q5 to add
-#DPNI = 1 #How much DPNI to add
-#DPwater = 19
-#cutsmart = 5
-
-#goldengate param inputs
-#ngdesired=100
-
-
-
-#first import information from the j5 spreadsheet in order to perform appropriate steps
-#import feather
-#import pyarrow.feather as ft
 import pandas
 import numpy as np
 import os
 from os.path import exists
-#from datetime import date
 
-#for this to work you need to run the python script on the same day that you make the new directory
-#today = date.today()
-#starter_date = str(today.strftime('%Y%m%d'))
-#if folder was created on diff date:
-#starter_date = 'typedatehere'
-# pwd = str(os.getcwd())
+Input_values = pandas.read_csv('Input.csv') 
+# Input_values
+Date = str(int(Input_values.loc[0].at['Date']))
+Date
+Time = str(int(Input_values.loc[0].at['Time']))
+Time
 
-# def walk_up_folder(path, depth=1):
-#     _cur_depth = 1        
-#     while _cur_depth < depth:
-#         path = os.path.dirname(path)
-#         _cur_depth += 1
-#     return path   
+Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
+diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
+DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
+
+os.chdir(Date+Time+'_GoldenGate')
+oligos = pandas.read_csv('oligo.csv')
+
+gradient = pandas.read_csv('gradient.csv')
+pcr = pandas.read_csv('pcr.csv')
+assembly = pandas.read_csv('assembly.csv')
+combinations = pandas.read_csv('combinations.csv')
+Length = pcr.nlargest(1,'Length')
+GG_dfs = pandas.read_csv('GG_dfs.csv')
+section = pandas.read_csv('section.csv')
+
+if exists('gg1.csv'):
+    gg1 = pandas.read_csv('gg1.csv')
+if exists('gg2.csv'):
+    gg2 = pandas.read_csv('gg2.csv')
+if exists('gg3.csv'):
+    gg3 = pandas.read_csv('gg3.csv')
+if exists('gg4.csv'):
+    gg4 = pandas.read_csv('gg4.csv')
+
+if '96well' in pcr.columns:
+    pcr = pcr.rename(columns={"96well": "well", "96well2": "well2"})
+    rackchanger = 'Y'
+else:
+    rackchanger = 'N'
+
+def main():
+    f = open('GG_nodigests.py','w+')
+    f.write(
+        "from opentrons import protocol_api \r\n"
+        "metadata = { \r\n"
+        "    'protocolName': 'Golden Gate', \r\n"
+        "    'author': 'John Bryant <jbryant2@vt.edu>', \r\n"
+        "    'description': 'Protocol for performing PCR reactions and Plasmid assembly for TIR1 and AFB mutants', \r\n"
+        "    'apiLevel': '2.10' \r\n"
+        "    } \r\n"
+
+        "def run(protocol: protocol_api.ProtocolContext): \r\n"
+
+        "    tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9') \r\n"
+        "    tiprack3 = protocol.load_labware('opentrons_96_tiprack_10ul', '5') \r\n"
+        "    watertuberack = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical','3') \r\n"
+    )
+
+    if rackchanger == 'Y':
+        f.write(
+            "    tuberack2 = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul','2') \r\n"
+         )
+    else:
+         f.write(
+            "    tuberack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2') \r\n"
+         )
+
+    f.write(
+        "    secondarydils = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul','4') \r\n"
+        "    "
+
+    )
 
 
-#########################################################################################################################################
-#########actual commands#############3
+
 
 from opentrons import protocol_api
 
@@ -81,45 +104,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 #from opentrons import simulate
 #protocol = simulate.get_protocol_api('2.2')
-    paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
-    paths
 
-    Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
-    # Input_values
-    Date = str(int(Input_values.loc[0].at['Date']))
-    Date
-    Time = str(int(Input_values.loc[0].at['Time']))
-    Time
-
-    Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
-    diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
-    DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
-
-    os.chdir(paths.loc[0].at['opentrons_repo']+'Golden_Gate/'+Date+Time+'_GoldenGate')
-    oligos = pandas.read_csv('oligo.csv')
-
-    gradient = pandas.read_csv('gradient.csv')
-    pcr = pandas.read_csv('pcr.csv')
-    assembly = pandas.read_csv('assembly.csv')
-    combinations = pandas.read_csv('combinations.csv')
-    Length = pcr.nlargest(1,'Length')
-    GG_dfs = pandas.read_csv('GG_dfs.csv')
-        
-
-    if exists('gg1.csv'):
-        gg1 = pandas.read_csv('gg1.csv')
-    if exists('gg2.csv'):
-        gg2 = pandas.read_csv('gg2.csv')
-    if exists('gg3.csv'):
-        gg3 = pandas.read_csv('gg3.csv')
-    if exists('gg4.csv'):
-        gg4 = pandas.read_csv('gg4.csv')
-
-    if '96well' in pcr.columns:
-        pcr = pcr.rename(columns={"96well": "well", "96well2": "well2"})
-        rackchanger = 'Y'
-    else:
-        rackchanger = 'N'
 
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')

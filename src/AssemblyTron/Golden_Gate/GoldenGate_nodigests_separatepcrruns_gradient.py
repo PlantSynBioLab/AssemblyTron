@@ -104,7 +104,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     combinations = pandas.read_csv('combinations.csv')
     Length = pcr.nlargest(1,'Length')
     GG_dfs = pandas.read_csv('GG_dfs.csv')
-        
+    section = pandas.read_csv('section.csv')
 
     if exists('gg1.csv'):
         gg1 = pandas.read_csv('gg1.csv')
@@ -260,7 +260,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #    for i in range(0,pcr['run'].sum()+1):
 
     x = 'PCR Mix'
-    if x in Input_values['section'].values:
+    if x in section['parts'].values:
 
 #add water first
         for j, row in pcr.iterrows():
@@ -367,7 +367,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
 
     x = 'DPNI Digest'
-    if x in Input_values['section'].values:
+    if x in section['parts'].values:
 #Now add DPNI for digestion
 
         for i, row in pcr.iterrows():
@@ -542,7 +542,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 ##########################################################################################################################
 
     x = 'Golden Gate Setup'
-    if x in Input_values['section'].values:
+    if x in section['parts'].values:
     #set up goldengate
     #here i'm trying to slow dow aspirate rate for the viscous 100X BSA
         left_pipette.flow_rate.aspirate = 50
@@ -705,7 +705,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 right_pipette.drop_tip()
         
     x = 'Golden Gate Run'
-    if x in Input_values['section'].values:
+    if x in section['parts'].values:
     
         tc_mod.close_lid()
         tc_mod.set_lid_temperature(temperature = 105)
