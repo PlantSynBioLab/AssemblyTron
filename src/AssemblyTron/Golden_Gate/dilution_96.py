@@ -48,6 +48,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     pcr = pandas.read_csv('pcr.csv')
     combinations = pandas.read_csv('combinations.csv')
     df = pandas.read_csv('templates.csv')
+    section = pandas.read_csv('section.csv')
 
 #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
@@ -80,16 +81,16 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #Since we are just moving water I will use the same pipette tip to save plastic
 
     x = 'Dilution'
-    if x in Input_values['section'].values:
+    if x in section['parts'].values:
 
 #add water for templates
         right_pipette.pick_up_tip()
         for i, row in df.iterrows():
             if df.loc[i].at['water to add'] > 8:
-                right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
+                right_pipette.aspirate(df.loc[i].at['water to add'], watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
                 right_pipette.dispense(df.loc[i].at['water to add'], plate96[df.loc[i].at['template_well']], rate=1.0)
             if df.loc[i].at['water to add'] < 8:
-                right_pipette.aspirate(volume = 3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
+                right_pipette.aspirate(3*(df.loc[i].at['water to add']), watertuberack['A1'], rate=1.0) #total vol dilute template - vol stock template to add
                 right_pipette.dispense(3*(df.loc[i].at['water to add']), plate96[df.loc[i].at['template_well']], rate=1.0)
         #right_pipette.blow_out()
     #digestions water

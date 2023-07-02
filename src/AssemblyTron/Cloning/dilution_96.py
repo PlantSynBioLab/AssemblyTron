@@ -51,6 +51,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     combinations = pandas.read_csv('combinations.csv')
     df = pandas.read_csv('templates.csv')
     section = pandas.read_csv('section.csv')
+
     #labware:
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9')
     tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
@@ -88,7 +89,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         for i, row in df.iterrows():
             if df.loc[i].at['water to add'] > 20:
                 right_pipette.pick_up_tip()
-                right_pipette.aspirate(volume = df.loc[i].at['water to add'], location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                right_pipette.aspirate(df.loc[i].at['water to add'], watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
                 right_pipette.dispense(df.loc[i].at['water to add'], plate96[df.loc[i].at['template_well']], rate=2.0)
                 right_pipette.drop_tip()
             
@@ -102,28 +103,28 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
             if 3.333 < df.loc[i].at['water to add'] < 10:
                 if 3*(df.loc[i].at['water to add']) < 10:
                     left_pipette.pick_up_tip()
-                    left_pipette.aspirate(3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                    left_pipette.aspirate(3*(df.loc[i].at['water to add']), watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
                     left_pipette.dispense(3*(df.loc[i].at['water to add']), plate96[df.loc[i].at['template_well']], rate=2.0)
                     left_pipette.drop_tip()
                 else:
                     right_pipette.pick_up_tip()
-                    right_pipette.aspirate(3*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                    right_pipette.aspirate(3*(df.loc[i].at['water to add']), watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
                     right_pipette.dispense(3*(df.loc[i].at['water to add']), plate96[df.loc[i].at['template_well']], rate=2.0)
                     right_pipette.drop_tip()
             if 1 < df.loc[i].at['water to add'] < 3.333:
                 if 4*(df.loc[i].at['water to add']) < 10:
                     left_pipette.pick_up_tip()
-                    left_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                    left_pipette.aspirate(4*(df.loc[i].at['water to add']), watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
                     left_pipette.dispense(4*(df.loc[i].at['water to add']), plate96[df.loc[i].at['template_well']], rate=2.0)
                     left_pipette.drop_tip()
                 else:
                     right_pipette.pick_up_tip()
-                    right_pipette.aspirate(4*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                    right_pipette.aspirate(4*(df.loc[i].at['water to add']), watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
                     right_pipette.dispense(4*(df.loc[i].at['water to add']), plate96[df.loc[i].at['template_well']], rate=2.0)
                     right_pipette.drop_tip()
             if df.loc[i].at['water to add'] < 1:
                 left_pipette.pick_up_tip()
-                left_pipette.aspirate(6*(df.loc[i].at['water to add']), location = watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
+                left_pipette.aspirate(6*(df.loc[i].at['water to add']), watertuberack['A1'], rate=2.0) #total vol dilute template - vol stock template to add
                 left_pipette.dispense(6*(df.loc[i].at['water to add']), plate96[df.loc[i].at['template_well']], rate=2.0)
                 left_pipette.drop_tip()
 

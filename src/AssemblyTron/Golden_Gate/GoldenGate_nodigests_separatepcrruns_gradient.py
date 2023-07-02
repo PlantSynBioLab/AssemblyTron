@@ -308,7 +308,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         for j, row in pcr.iterrows():
                 right_pipette.pick_up_tip()
                 right_pipette.aspirate(Q5, cold_tuberack['D6'], rate=2.0)
-                right_pipette.aspirate(Q5, pcrplate[pcr.loc[j].at['tube']], rate=2.0)
+                right_pipette.dispense(Q5, pcrplate[pcr.loc[j].at['tube']], rate=2.0)
                 #right_pipette.mix(3,Q5+3,pcrplate[pcr.loc[i].at['frag_pcr_tube']])
                 right_pipette.blow_out()
                 right_pipette.drop_tip()

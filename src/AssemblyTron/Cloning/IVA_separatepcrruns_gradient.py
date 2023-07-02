@@ -347,7 +347,10 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     #Add DMSO
         for j, row in pcr.iterrows():
             left_pipette.pick_up_tip()
-            left_pipette.aspirate(DMSO, tuberack2['H12'], rate=2.0)
+            if rackchanger == 'Y':
+                left_pipette.aspirate(DMSO, tuberack2['H12'], rate=2.0)
+            else:
+                left_pipette.aspirate(DMSO, tuberack2['D6'], rate=2.0)
             left_pipette.dispense(DMSO, pcrplate[pcr.loc[j].at['tube']], rate=2.0)    
             left_pipette.blow_out()
             left_pipette.drop_tip() 
@@ -370,7 +373,7 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         #     right_pipette.blow_out()
         #     right_pipette.drop_tip()
         
-        protocol.pause('take out enzymes before cold stuff shuts off.')
+        protocol.pause('take out enzymes before cold stuff shuts off. Also restock tip racks')
 
 
         tc_mod.deactivate()
@@ -417,7 +420,8 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
     #     right_pipette.dispense(Input_values.loc[0].at['pcrvol'],pcrplate[pcr.loc[i].at['frag_pcr_tube']],2)
     #     right_pipette.blow_out()
     #     right_pipette.drop_tip()
-    t=0
+    t300=0
+    t10 =0
     x = 'DPNI Digest'
     if x in section['parts'].values:
         tiprackposition = {}
@@ -542,30 +546,30 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 #Now add DPNI for digestion
 
         for i, row in pcr.iterrows():
-            right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+            right_pipette.pick_up_tip(tiprack1[tiprackposition[t300]])
             right_pipette.aspirate(Input_values.loc[0].at['DPwater'], watertuberack['A1'], rate=2.0)
             right_pipette.dispense(Input_values.loc[0].at['DPwater'], pcrplate[pcr.loc[i].at['tube']], rate=2.0)
             #right_pipette.blow_out()
             right_pipette.drop_tip()
-            t+=1
+            t300+=1
 
         for i, row in pcr.iterrows():
-            left_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+            left_pipette.pick_up_tip(tiprack3[tiprackposition[t10]])
             left_pipette.aspirate(Input_values.loc[0].at['cutsmart'], cold_tuberack['D4'], rate=2.0)
             left_pipette.dispense(Input_values.loc[0].at['cutsmart'], pcrplate[pcr.loc[i].at['tube']], rate=2.0)
             #left_pipette.mix(3,10,pcrplate[pcr.loc[i].at['tube']])
             #left_pipette.blow_out()
             left_pipette.drop_tip() 
-            t+=1
+            t10+=1
 
         for i, row in pcr.iterrows():
-            left_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+            left_pipette.pick_up_tip(tiprack3[tiprackposition[t10]])
             left_pipette.aspirate(Input_values.loc[0].at['DPNI'], cold_tuberack['D3'], rate=2.0)
             left_pipette.dispense(Input_values.loc[0].at['DPNI'], pcrplate[pcr.loc[i].at['tube']], rate=2.0)
             left_pipette.mix(3,10,pcrplate[pcr.loc[i].at['tube']])
             #left_pipette.blow_out()
             left_pipette.drop_tip()
-            t+=1
+            t10+=1
 
     #mix up
         # for i, row in pcr.iterrows():
@@ -652,15 +656,16 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         tc_mod.set_block_temperature(4, block_max_volume = 50)
         tc_mod.open_lid()
 
-    t=0
+    t300=0
+    t10=0
     x = 'Combine Fragments'
     if x in section['parts'].values:
     
     #tiprack3.reset_tipracks(self)
     #left_pipette.reset()
-        tiprack3.reset()
+        # tiprack3.reset()
 
-        tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
+        # tiprack3 = protocol.load_labware("opentrons_96_tiprack_10ul", '6')
         #left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3])
 
         
@@ -726,12 +731,12 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
         
         #add all fragments to the GG tube
             for i, row in locals()[x].iterrows():
-                right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+                right_pipette.pick_up_tip(tiprack1[tiprackposition[t300]])
                 right_pipette.aspirate(50, pcrplate[locals()[x].loc[i].at['frag_loc']])
                 right_pipette.dispense(50, secondarydils[locals()[x].loc[i].at['frag_loc']])
                 right_pipette.blow_out()
                 right_pipette.drop_tip()
-                t+=1
+                t300+=1
     
         
         protocol.pause('clear thermocycler tubes and arrange the final assembly tubes according to the reaction_setup file')
@@ -742,18 +747,19 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
 
             for i, row in locals()[x].iterrows():
                 if locals()[x].loc[i].at['final amount to add'] < 10:
-                    left_pipette.pick_up_tip()
+                    left_pipette.pick_up_tip(tiprack3[tiprackposition[t10]])
                     left_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], secondarydils[locals()[x].loc[i].at['frag_loc']])
                     left_pipette.dispense(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
                     left_pipette.blow_out()
                     left_pipette.drop_tip()
+                    t10+=1
                 else:
-                    right_pipette.pick_up_tip(tiprack1[tiprackposition[t]])
+                    right_pipette.pick_up_tip(tiprack1[tiprackposition[t300]])
                     right_pipette.aspirate(locals()[x].loc[i].at['final amount to add'], secondarydils[locals()[x].loc[i].at['frag_loc']])
                     right_pipette.dispense(locals()[x].loc[i].at['final amount to add'], pcrplate[locals()[x].loc[i].at['location_of_assembly']])
                     right_pipette.blow_out()
                     right_pipette.drop_tip()
-                    t+=1
+                    t300+=1
     
         # one more mix
             # right_pipette.pick_up_tip()
