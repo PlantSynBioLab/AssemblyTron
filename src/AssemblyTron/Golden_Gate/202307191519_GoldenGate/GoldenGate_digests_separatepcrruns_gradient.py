@@ -676,34 +676,34 @@ def run(protocol: protocol_api.ProtocolContext): #for actually running the scrip
                 left_pipette.drop_tip()
             
             #pipette the T4 BSA combo into GG assemblies
-            left_pipette.pick_up_tip()
-            left_pipette.aspirate(1.65,cold_tuberack['C4'])
-            left_pipette.dispense(1.65,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-            left_pipette.mix(3,8,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-            #left_pipette.blow_out()
-            left_pipette.drop_tip()
-        
+                left_pipette.pick_up_tip()
+                left_pipette.aspirate(1.65,cold_tuberack['C4'])
+                left_pipette.dispense(1.65,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.mix(3,8,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                #left_pipette.blow_out()
+                left_pipette.drop_tip()
+            
             #pipette the BsaI in
-            left_pipette.pick_up_tip()
-            left_pipette.aspirate(1,cold_tuberack['D5'])
-            left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-            left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-            #left_pipette.blow_out()
-            left_pipette.drop_tip()
-        
+                left_pipette.pick_up_tip()
+                left_pipette.aspirate(1,cold_tuberack['D5'])
+                left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                #left_pipette.blow_out()
+                left_pipette.drop_tip()
+            
             #pipette the T4 ligase in
-            left_pipette.pick_up_tip()
-            left_pipette.aspirate(1,cold_tuberack['C5'])
-            left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-            left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-            #left_pipette.blow_out()
-            left_pipette.drop_tip()
-        
+                left_pipette.pick_up_tip()
+                left_pipette.aspirate(1,cold_tuberack['C5'])
+                left_pipette.dispense(1,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                left_pipette.mix(3,9,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                #left_pipette.blow_out()
+                left_pipette.drop_tip()
+            
             # one more mix
-            right_pipette.pick_up_tip()
-            right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
-            right_pipette.blow_out()
-            right_pipette.drop_tip()
+                right_pipette.pick_up_tip()
+                right_pipette.mix(3,15,pcrplate[globals()[x].loc[0].at['location_of_assembly']])
+                right_pipette.blow_out()
+                right_pipette.drop_tip()
         
     x = 'Golden Gate Run'
     if x in section['parts'].values:

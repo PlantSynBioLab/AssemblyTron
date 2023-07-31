@@ -1,0 +1,3 @@
+,frag_loc,conc_assumed,Sequence Length,dil_tube,equimolar ratio,inverse of conc,initial required amount,H20 to add to 1uL of fragment,new Conc,new required amount,final amount to add,location_of_assembly
+0,A11,60,4789,A12,1.0,0.016666666666666666,1.6666666666666667,,,,1.6666666666666667,B11
+1,B2,60,1085,G2,0.22656086865733974,0.016666666666666666,0.3776014477622329,4.296589861751151,11.328043432866988,2.0,2.0,B11

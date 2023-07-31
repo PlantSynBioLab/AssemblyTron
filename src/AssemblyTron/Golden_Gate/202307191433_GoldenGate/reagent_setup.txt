@@ -1,4 +1,4 @@
-Date: 20230719 Time: 1829 
+Date: 20230719 Time: 1433 
 Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Golden_Gate 
 Place the coldtuberack in slot 1. 
 Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
@@ -15,8 +15,8 @@ Put pwl_411 in B3
 Put pwl_412 in B4
 NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
 This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
-Put pwl90 in B5
-Put pwl248 in B5
+Put pwl90 in C4
+Put pwl248 in C5
 Place empty tube in C4 for the T4/BSA mix 
 Place T4 ligase in C5 
 Place 100X BSA in C6 
@@ -25,4 +25,4 @@ Place DPNI in D3
 Place cutsmart buffer in D4 
 Place BsaI in D5 
 Place Q5 DNA polymerase in D6 
-Place 24 well tuberack in slot 2. Add 17 empty 1.5 mL tubes to the rack in the same positions. 
+Place 24 well tuberack in slot 2. Add 18 empty 1.5 mL tubes to the rack in the same positions. 

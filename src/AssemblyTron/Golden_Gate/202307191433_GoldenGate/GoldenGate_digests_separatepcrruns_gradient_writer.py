@@ -133,7 +133,7 @@ def main():
             f.write(
                 "    left_pipette.pick_up_tip() \r\n"
                 "    left_pipette.aspirate("+str(DMSO)+", tuberack2['D6'], rate=2.0) \r\n"
-                "    left_pipette.dispense("+str(DMSO)+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
+                "    left_pipette.aspirate("+str(DMSO)+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
                 "    left_pipette.blow_out() \r\n"
                 "    left_pipette.drop_tip() \r\n"
             )
@@ -184,16 +184,6 @@ def main():
                 "    left_pipette.pick_up_tip() \r\n"
                 "    left_pipette.aspirate("+str(Input_values.loc[0].at['cutsmart'])+", cold_tuberack['D4'], rate=2.0) \r\n"
                 "    left_pipette.dispense("+str(Input_values.loc[0].at['cutsmart'])+", pcrplate['"+str(pcr.loc[i].at['tube'])+"'], rate=2.0) \r\n"
-                "    left_pipette.mix(3,10,pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-            )
-
-        #Add DpnI
-        for i, row in pcr.iterrows():
-            f.write(
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate("+str(Input_values.loc[0].at['DPNI'])+", cold_tuberack['D3'], rate=2.0) \r\n"
-                "    left_pipette.dispense("+str(Input_values.loc[0].at['DPNI'])+", pcrplate['"+str(pcr.loc[i].at['tube'])+"'], rate=2.0) \r\n"
                 "    left_pipette.mix(3,10,pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
                 "    left_pipette.drop_tip() \r\n"
             )

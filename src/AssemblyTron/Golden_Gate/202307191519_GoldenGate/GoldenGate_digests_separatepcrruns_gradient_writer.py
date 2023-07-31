@@ -87,6 +87,7 @@ def main():
         "    cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes') \r\n"
         "    temp_module.set_temperature(4) \r\n"
         "    tc_mod.open_lid() \r\n"
+        "    tc_mod.set_temperature(4) \r\n"
 
         "    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1]) \r\n"
         "    left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3]) \r\n"
@@ -184,7 +185,7 @@ def main():
                 "    left_pipette.pick_up_tip() \r\n"
                 "    left_pipette.aspirate("+str(Input_values.loc[0].at['cutsmart'])+", cold_tuberack['D4'], rate=2.0) \r\n"
                 "    left_pipette.dispense("+str(Input_values.loc[0].at['cutsmart'])+", pcrplate['"+str(pcr.loc[i].at['tube'])+"'], rate=2.0) \r\n"
-                "    left_pipette.mix(3,10,pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
+                #"    left_pipette.mix(3,10,pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
                 "    left_pipette.drop_tip() \r\n"
             )
 

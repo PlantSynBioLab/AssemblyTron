@@ -47,10 +47,6 @@ if exists('gg3.csv'):
     gg3 = pandas.read_csv('gg3.csv')
 if exists('gg4.csv'):
     gg4 = pandas.read_csv('gg4.csv')
-if exists('gg5.csv'):
-    gg5 = pandas.read_csv('gg5.csv')
-if exists('gg6.csv'):
-    gg6 = pandas.read_csv('gg6.csv')
 
 if '96well' in pcr.columns:
     pcr = pcr.rename(columns={"96well": "well", "96well2": "well2"})
@@ -132,8 +128,7 @@ def main():
         for j, row in pcr.iterrows():
             f.write(
                 "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate("+str(DMSO)+", tuberack2['D6'], rate=2.0) \r\n"
-                "    left_pipette.dispense("+str(DMSO)+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
+                "    left_pipette.aspirate("+str(DMSO)+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
                 "    left_pipette.blow_out() \r\n"
                 "    left_pipette.drop_tip() \r\n"
             )
@@ -184,16 +179,6 @@ def main():
                 "    left_pipette.pick_up_tip() \r\n"
                 "    left_pipette.aspirate("+str(Input_values.loc[0].at['cutsmart'])+", cold_tuberack['D4'], rate=2.0) \r\n"
                 "    left_pipette.dispense("+str(Input_values.loc[0].at['cutsmart'])+", pcrplate['"+str(pcr.loc[i].at['tube'])+"'], rate=2.0) \r\n"
-                "    left_pipette.mix(3,10,pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-            )
-
-        #Add DpnI
-        for i, row in pcr.iterrows():
-            f.write(
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate("+str(Input_values.loc[0].at['DPNI'])+", cold_tuberack['D3'], rate=2.0) \r\n"
-                "    left_pipette.dispense("+str(Input_values.loc[0].at['DPNI'])+", pcrplate['"+str(pcr.loc[i].at['tube'])+"'], rate=2.0) \r\n"
                 "    left_pipette.mix(3,10,pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
                 "    left_pipette.drop_tip() \r\n"
             )
