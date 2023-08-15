@@ -22,11 +22,11 @@ Time = str(int(Input_values.loc[0].at['Time']))
 Time
 #os.chdir('/Golden_Gate/'+Date+Time+'_GoldenGate')
 oligos = pandas.read_csv('oligo.csv')
-assembly = pandas.read_csv('assembly.csv')
+# assembly = pandas.read_csv('assembly.csv')
 pcr = pandas.read_csv('pcr.csv')
-combinations = pandas.read_csv('combinations.csv')
+# combinations = pandas.read_csv('combinations.csv')
 df = pandas.read_csv('templates.csv')
-digests = pandas.read_csv('digests.csv')
+# digests = pandas.read_csv('digests.csv')
 section = pandas.read_csv('section.csv')
 
 def main():
@@ -74,11 +74,11 @@ def main():
                     "    right_pipette.dispense("+str(3*(df.loc[i].at['water to add']))+", tuberack2['"+str(df.loc[i].at['template_well'])+"'], rate=1.0) \r\n"
                 )
             
-        for i, row in digests.iterrows():
-            f.write(
-                "    right_pipette.aspirate(volume = "+str(digests.loc[i].at['water to add'])+", location = watertuberack['A1'], rate=1.0) \r\n"
-                "    right_pipette.dispense("+str(digests.loc[i].at['water to add'])+", tuberack2['"+str(digests.loc[i].at['well'])+"'], rate=1.0) \r\n"
-            )
+        # for i, row in digests.iterrows():
+        #     f.write(
+        #         "    right_pipette.aspirate(volume = "+str(digests.loc[i].at['water to add'])+", location = watertuberack['A1'], rate=1.0) \r\n"
+        #         "    right_pipette.dispense("+str(digests.loc[i].at['water to add'])+", tuberack2['"+str(digests.loc[i].at['well'])+"'], rate=1.0) \r\n"
+        #     )
         for i, row in oligos.iterrows():
             f.write(
                 "    right_pipette.aspirate("+str(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'])+", watertuberack['A1'], rate=1.0) \r\n"
@@ -107,13 +107,13 @@ def main():
                     "    left_pipette.drop_tip() \r\n"
                 )
         #add stock templates for digests:
-        for i, row in digests.iterrows():
-            f.write(
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate("+str(digests.loc[i].at['amount of template to add'])+", cold_tuberack['"+str(digests.loc[i].at['well'])+"'], rate=1.0) \r\n"
-                "    left_pipette.dispense("+str(digests.loc[i].at['amount of template to add'])+", tuberack2['"+str(digests.loc[i].at['well'])+"'], rate=1.0) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-            )
+        # for i, row in digests.iterrows():
+        #     f.write(
+        #         "    left_pipette.pick_up_tip() \r\n"
+        #         "    left_pipette.aspirate("+str(digests.loc[i].at['amount of template to add'])+", cold_tuberack['"+str(digests.loc[i].at['well'])+"'], rate=1.0) \r\n"
+        #         "    left_pipette.dispense("+str(digests.loc[i].at['amount of template to add'])+", tuberack2['"+str(digests.loc[i].at['well'])+"'], rate=1.0) \r\n"
+        #         "    left_pipette.drop_tip() \r\n"
+        #     )
 
         #add stock primers to dilution tube
         for i, row in oligos.iterrows():
@@ -140,12 +140,12 @@ def main():
                     "    right_pipette.drop_tip() \r\n"
                 )
             
-        for i, row in digests.iterrows():
-            f.write(
-                "    right_pipette.pick_up_tip() \r\n"
-                "    right_pipette.mix(3,"+str(digests.loc[i].at['water to add'])+",tuberack2['"+str(digests.loc[i].at['well'])+"']) \r\n"
-                "    right_pipette.drop_tip() \r\n"
-            )
+        # for i, row in digests.iterrows():
+            # f.write(
+            #     "    right_pipette.pick_up_tip() \r\n"
+            #     "    right_pipette.mix(3,"+str(digests.loc[i].at['water to add'])+",tuberack2['"+str(digests.loc[i].at['well'])+"']) \r\n"
+            #     "    right_pipette.drop_tip() \r\n"
+            # )
 
         for i, row in oligos.iterrows():
             f.write(

@@ -12,23 +12,25 @@ import numpy as np
 import os
 
 
+# paths = pandas.read_csv('/data/user_storage/robotpaths.csv')
+# paths
 
 Input_values = pandas.read_csv('Input.csv') 
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
 Time = str(int(Input_values.loc[0].at['Time']))
 Time
-os.chdir(Date+Time+'_GoldenGate')
+#os.chdir('/Golden_Gate/'+Date+Time+'_GoldenGate')
 oligos = pandas.read_csv('oligo.csv')
-assembly = pandas.read_csv('assembly.csv')
+# assembly = pandas.read_csv('assembly.csv')
 pcr = pandas.read_csv('pcr.csv')
-combinations = pandas.read_csv('combinations.csv')
+# combinations = pandas.read_csv('combinations.csv')
 df = pandas.read_csv('templates.csv')
 # digests = pandas.read_csv('digests.csv')
 section = pandas.read_csv('section.csv')
 
 def main():
-    f = open('GG_digests.py','w+')
+    f = open('GG_dilutions.py','w+')
     f.write(
         "from opentrons import protocol_api \r\n"
         "metadata = { \r\n"
@@ -57,7 +59,6 @@ def main():
 
     x = 'Dilution'
     if x in section['parts'].values:
-        #add water for templates
         f.write(
             "    right_pipette.pick_up_tip() \r\n"
         )
@@ -72,21 +73,20 @@ def main():
                     "    right_pipette.aspirate(volume = "+str(3*(df.loc[i].at['water to add']))+", location = watertuberack['A1'], rate=1.0) \r\n"
                     "    right_pipette.dispense("+str(3*(df.loc[i].at['water to add']))+", tuberack2['"+str(df.loc[i].at['template_well'])+"'], rate=1.0) \r\n"
                 )
-        
-        #digestions water
+            
         # for i, row in digests.iterrows():
         #     f.write(
         #         "    right_pipette.aspirate(volume = "+str(digests.loc[i].at['water to add'])+", location = watertuberack['A1'], rate=1.0) \r\n"
         #         "    right_pipette.dispense("+str(digests.loc[i].at['water to add'])+", tuberack2['"+str(digests.loc[i].at['well'])+"'], rate=1.0) \r\n"
         #     )
-        # for i, row in oligos.iterrows():
-        #     f.write(
-        #         "    right_pipette.aspirate("+str(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'])+", watertuberack['A1'], rate=1.0) \r\n"
-        #         "    right_pipette.dispense("+str(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'])+", tuberack2['"+str(oligos.loc[i].at['well'])+"'], rate=1.0) \r\n"
-        #     )
-        # f.write(
-        #     "    right_pipette.drop_tip() \r\n"
-        # )
+        for i, row in oligos.iterrows():
+            f.write(
+                "    right_pipette.aspirate("+str(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'])+", watertuberack['A1'], rate=1.0) \r\n"
+                "    right_pipette.dispense("+str(oligos.loc[i].at['volume of diluted primer']-oligos.loc[i].at['volume of stock primer to add'])+", tuberack2['"+str(oligos.loc[i].at['well'])+"'], rate=1.0) \r\n"
+            )
+        f.write(
+            "    right_pipette.drop_tip() \r\n"
+        )
 
         #add stock templates to dilution tubes
         for i, row in df.iterrows():
@@ -141,11 +141,11 @@ def main():
                 )
             
         # for i, row in digests.iterrows():
-        #     f.write(
-        #         "    right_pipette.pick_up_tip() \r\n"
-        #         "    right_pipette.mix(3,"+str(digests.loc[i].at['water to add'])+",tuberack2['"+str(digests.loc[i].at['well'])+"']) \r\n"
-        #         "    right_pipette.drop_tip() \r\n"
-        #     )
+            # f.write(
+            #     "    right_pipette.pick_up_tip() \r\n"
+            #     "    right_pipette.mix(3,"+str(digests.loc[i].at['water to add'])+",tuberack2['"+str(digests.loc[i].at['well'])+"']) \r\n"
+            #     "    right_pipette.drop_tip() \r\n"
+            # )
 
         for i, row in oligos.iterrows():
             f.write(
@@ -156,3 +156,9 @@ def main():
         f.write(
             "    protocol.pause('Take all stock primers and templates out. Add Q5 to D6, BsaI to D5, and cutsmart to D4. Then proceed') \r\n"
         )
+
+    f.close()
+if __name__== "__main__":
+    main()
+    
+os.system("notepad.exe GG_dilutions.py")

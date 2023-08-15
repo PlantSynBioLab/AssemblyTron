@@ -99,8 +99,8 @@ if __name__ == '__main__':
     # shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
     # shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
     # shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-    shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-    shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+    shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
+    shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
 
     oligos = pandas.read_csv('oligo.csv')
     oligos
@@ -173,13 +173,13 @@ if __name__ == '__main__':
         Nextslot = len(oligos["ID Number"])
         
         
-        f = open('reagent_setup.txt','a+')
-        for i, row in digests.iterrows():
-            f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
-            Nextslot = Nextslot+1
-        f.close()
+        # f = open('reagent_setup.txt','a+')
+        # for i, row in digests.iterrows():
+        #     f.write('Put '+digests.loc[i].at['Sequence Source']+' in '+e2slot[str(Nextslot)]+'\r\n')
+        #     Nextslot = Nextslot+1
+        # f.close()
         
-        Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
+        # Nextslot2 = Nextslot + len(digests["Sequence Source"])-1
         
         f = open('reagent_setup.txt','a+')
         
@@ -213,7 +213,7 @@ if __name__ == '__main__':
         f.write('Place Q5 DNA polymerase in D6 \r\n')
         
         
-        totaltubes= Nextslot2 + len(pcr['Primary Template'])
+        totaltubes= Nextslot + len(pcr['Primary Template'])
         
         f.write('Place 24 well tuberack in slot 2. Add '+str(totaltubes)+' empty 1.5 mL tubes to the rack in the same positions. \r\n')
         
@@ -249,17 +249,17 @@ if __name__ == '__main__':
     #date
 
     #make the run folder of the day
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
     os.mkdir(date+time+'_GoldenGate')
 
     #copy the temp GoldenGate.py to the new folder
     dst = '/'+date+'GoldenGate'
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_digests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_24_digests.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/GoldenGate_digests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_24_digests.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
 
     #now rename the script with the date
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate')
     os.rename('GoldenGate_digests_separatepcrruns_gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
     os.rename('dilution_24_digests.py', str(2)+'_'+date+time+'_dilution_24.py')
     os.rename('Update_Input.py', str(1)+'_Update_Input.py')
@@ -269,7 +269,7 @@ if __name__ == '__main__':
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 
     #####################################################################################################################################################################################################
@@ -537,7 +537,7 @@ if __name__ == '__main__':
 
     for i, row in pcr.iterrows():
 
-        label_extra1 = tk.Label(text='Temp: '+pcr.loc[i].at['Primary Template']+'ID: '+str(pcr.loc[i].at['ID Number']),font=('Helvatical bold',14))
+        label_extra1 = tk.Label(text='Temp: '+pcr.loc[i].at['Primary Template']+'ID: '+str(pcr.loc[i].at['Reaction ID Number']),font=('Helvatical bold',14))
         label_extra1.place(relx = 0.3, rely = rel_y)
     
     #names.loc[i].at['pwllocation'] = tk.Entry()
@@ -604,7 +604,7 @@ if __name__ == '__main__':
         global ngdesired
         global Combinatorial_pcr_params
         global Time
-        global Error_Rate
+        global ErrorRate
         global Taq_buffer
         global BSA
         
@@ -681,7 +681,7 @@ if __name__ == '__main__':
         ngdesired = float(ngdesired_entry.get())
         Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
         Time = Time_entry.get()
-        Error_Rate = float(Error_Rate_entry.get())
+        ErrorRate = float(ErrorRate_entry.get())
         Taq_buffer = float(Taq_buffer_entry.get())
         BSA = float(BSA_entry.get())
         
@@ -955,7 +955,7 @@ if __name__ == '__main__':
     label_Time = tk.Label(text='Time',font=('Helvatical bold',14))
     label_Time.place(relx=0,rely=0.375)
 
-    label_Error_Rate = tk.Label(text='Error Rate',font=('Helvatical bold',14))
+    label_ErrorRate = tk.Label(text='Error Rate',font=('Helvatical bold',14))
     label_Time.place(relx=0,rely=0.400)
 
     label_Taq_buffer = tk.Label(text='5X Taq Buffer',font=('Helvatical bold',14))
@@ -1034,9 +1034,9 @@ if __name__ == '__main__':
     Time_entry.insert(END, time)
     Time_entry.place(relx=0.2,rely=0.375,width=55)
 
-    Error_Rate = tk.Entry()
-    Error_Rate_entry.insert(END, '1.0')
-    Error_Rate_entry.place(relx=0.2,rely=0.4,width=55)
+    ErrorRate_entry = tk.Entry()
+    ErrorRate_entry.insert(END, '1.0')
+    ErrorRate_entry.place(relx=0.2,rely=0.4,width=55)
 
     Taq_buffer_entry = tk.Entry()
     Taq_buffer_entry.insert(END, '20')
@@ -1209,9 +1209,9 @@ if __name__ == '__main__':
     test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
     lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,Error_Rate,Taq_buffer,BSA]]
-    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time','Error_Rate','Taq_buffer','BSA'],index=range(len(temppwls)))
-    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,Error_Rate,Taq_buffer,BSA]
+    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,ErrorRate,Taq_buffer,BSA]]
+    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time','ErrorRate','Taq_buffer','BSA'],index=range(len(temppwls)))
+    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,ErrorRate,Taq_buffer,BSA]
     variables['template pwl number'] = temppwls
     variables['template concentrations'] = tempconcs
 
@@ -1697,7 +1697,7 @@ if __name__ == '__main__':
     ws.mainloop()
 
     section.to_csv('section.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/section.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/section.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
     ##############################################################################################################
 
     #####################################################################################################
@@ -1908,34 +1908,34 @@ if __name__ == '__main__':
             i = i + 1
         
         
-        digests['tube'] = ''
-        tubes_bro = pcr['tube'].tolist()
+        # digests['tube'] = ''
+        # tubes_bro = pcr['tube'].tolist()
 
-        if pcr['tube'].isin(['A1']).any() == False:
-            digests.at[0, 'tube'] = 'A1'
-        elif pcr['tube'].isin(['A2']).any() == False:
-            digests.at[0, 'tube'] = 'A2'
-        elif pcr['tube'].isin(['A3']).any() == False:
-            digests.at[0, 'tube'] = 'A3'
-        elif pcr['tube'].isin(['A4']).any() == False:
-            digests.at[0, 'tube'] = 'A4'
-        elif pcr['tube'].isin(['A5']).any() == False:
-            digests.at[0, 'tube'] = 'A5'
-        elif pcr['tube'].isin(['A6']).any() == False:
-            digests.at[0, 'tube'] = 'A6'
-        elif pcr['tube'].isin(['A7']).any() == False:
-            digests.at[0, 'tube'] = 'A7'
-        elif pcr['tube'].isin(['A8']).any() == False:
-            digests.at[0, 'tube'] = 'A8'
+        # if pcr['tube'].isin(['A1']).any() == False:
+        #     digests.at[0, 'tube'] = 'A1'
+        # elif pcr['tube'].isin(['A2']).any() == False:
+        #     digests.at[0, 'tube'] = 'A2'
+        # elif pcr['tube'].isin(['A3']).any() == False:
+        #     digests.at[0, 'tube'] = 'A3'
+        # elif pcr['tube'].isin(['A4']).any() == False:
+        #     digests.at[0, 'tube'] = 'A4'
+        # elif pcr['tube'].isin(['A5']).any() == False:
+        #     digests.at[0, 'tube'] = 'A5'
+        # elif pcr['tube'].isin(['A6']).any() == False:
+        #     digests.at[0, 'tube'] = 'A6'
+        # elif pcr['tube'].isin(['A7']).any() == False:
+        #     digests.at[0, 'tube'] = 'A7'
+        # elif pcr['tube'].isin(['A8']).any() == False:
+        #     digests.at[0, 'tube'] = 'A8'
 
-        digests.to_csv('digests.csv')
-        shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+        # digests.to_csv('digests.csv')
+        # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
         pcr.to_csv('pcr.csv')
-        shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+        shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
         gradient.to_csv('gradient.csv')
-        shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_digests_separatepcrruns_gradient_writer.py',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_24_digests_writer.py',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+        shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/GoldenGate_digests_separatepcrruns_gradient_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_24_digests_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
 
 
 
@@ -1943,11 +1943,11 @@ if __name__ == '__main__':
 
 
 
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate')
     variables.to_csv('Input.csv')
-    variables2.to_csv('Entryvecs.csv')
+    #variables2.to_csv('Entryvecs.csv')
 
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
 
     #os.system("notepad.exe GoldenGate_instructions.txt")
 
@@ -2006,7 +2006,7 @@ if __name__ == '__main__':
 
 
     #Input_values = pandas.read_csv('Input.csv') 
-    Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
+    Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Input.csv') 
     Input_values
     # Date = str(int(Input_values.loc[0].at['Date']))
     # Date
@@ -2015,7 +2015,7 @@ if __name__ == '__main__':
     BSA = Input_values.loc[0].at['BSA']
     Taq_buffer = Input_values.loc[0].at['Taq_buffer']
 
-    if Input_values.loc[0].at['Error_Rate'] == 1.0:
+    if Input_values.loc[0].at['ErrorRate'] == 1.0:
         dATP = 1.2
         dCTP = 1
         dGTP = 3.6
@@ -2025,8 +2025,8 @@ if __name__ == '__main__':
 
     ###############################################################################################################################################
     #oligos
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
-    entryvecs = pandas.read_csv('Entryvecs.csv')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate')
+    #entryvecs = pandas.read_csv('Entryvecs.csv')
     oligos = pandas.read_csv('oligo.csv')
     oligos
 
@@ -2186,8 +2186,8 @@ if __name__ == '__main__':
     #df = df[df.line_race != 0]
 
 
-    #startnum = len(oligos['well'])
-    startnum = next_startnum
+    startnum = len(oligos['well'])
+    #startnum = next_startnum
 
     for i, row in df.iterrows():
         df.loc[i,'template_well'] = id2well[str(startnum+i)]
@@ -2929,7 +2929,7 @@ if __name__ == '__main__':
     #     #rxns_tables = pandas.DataFrame(data=rxns_tables)
     #     # for i, row in rxns_tables.iterrows():
     #     #     x = rxns_tables.loc[i].at['rxn']
-    #     Length = pcr_plustemplates.nlargest(1,'Length')
+    Length = pcr_plustemplates.nlargest(1,'Length')
         
     #     #L = l.values.tolist()
     #     #L[0] 
