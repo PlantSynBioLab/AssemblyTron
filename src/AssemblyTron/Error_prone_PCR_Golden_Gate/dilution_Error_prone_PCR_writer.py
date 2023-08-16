@@ -30,11 +30,11 @@ df = pandas.read_csv('templates.csv')
 section = pandas.read_csv('section.csv')
 
 def main():
-    f = open('GG_dilutions.py','w+')
+    f = open('Error_prone_PCR_dilutions.py','w+')
     f.write(
         "from opentrons import protocol_api \r\n"
         "metadata = { \r\n"
-        "    'protocolName': 'ARF7 Deletions Protocol', \r\n"
+        "    'protocolName': 'Error prone PCR', \r\n"
         "    'author': 'John Bryant <jbryant2@vt.edu>', \r\n"
         "    'description': 'Protocol for performing PCR reactions and Plasmid assembly for TIR1 and AFB mutants', \r\n"
         "    'apiLevel': '2.10' \r\n"
@@ -161,4 +161,4 @@ def main():
 if __name__== "__main__":
     main()
     
-os.system("notepad.exe GG_dilutions.py")
+os.system("notepad.exe Error_prone_PCR_dilutions.py")

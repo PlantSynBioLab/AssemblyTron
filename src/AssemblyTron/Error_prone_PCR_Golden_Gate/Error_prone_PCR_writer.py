@@ -49,7 +49,8 @@ section = pandas.read_csv('section.csv')
 
 low_annealing_temp = pcr.nsmallest(1,'Mean Oligo Tm (3 Only)').reset_index()
 high_annealing_temp = pcr.nlargest(1,'Mean Oligo Tm (3 Only)').reset_index()
-delta = (high_annealing_temp - low_annealing_temp)/34
+
+delta = (float(high_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']) - float(low_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']))/34
 
 # if exists('gg1.csv'):
 #     gg1 = pandas.read_csv('gg1.csv')
@@ -71,7 +72,7 @@ else:
     rackchanger = 'N'
 
 def main():
-    f = open('GG_digests.py','w+')
+    f = open('Error_prone_PCR.py','w+')
     f.write(
         "from opentrons import protocol_api \r\n"
         "metadata = { \r\n"
@@ -241,7 +242,7 @@ def main():
         
         f.write(
             "    tc_mod.close_lid() \r\n"
-            "    tc_mod.set_lid_temperature(temperature = 95) \r\n"
+            "    tc_mod.set_lid_temperature(temperature = 105) \r\n"
             "    tc_mod.set_block_temperature(95, hold_time_seconds=30, block_max_volume=100) \r\n"
         )
         
@@ -251,11 +252,13 @@ def main():
 
             f.write(
                 "    tc_mod.set_block_temperature(95, hold_time_seconds=20, block_max_volume=100) \r\n"
-                "    tc_mod.set_block_temperature("+str(low_annealing_temp+x)+", hold_time_seconds=40, block_max_volume=100) \r\n"
+                "    tc_mod.set_block_temperature("+str(float(low_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)'])+x)+", hold_time_seconds=40, block_max_volume=100) \r\n"
                 "    tc_mod.set_block_temperature(68, hold_time_seconds="+str(float((Length['Length']/1000)*60))+", block_max_volume=100) \r\n"
             )
-            cycle =+ 1
-            x =+ delta
+            cycle = cycle + 1
+            x = x + delta
+            print(cycle)
+            print(delta)
 
         f.write(
             "    tc_mod.set_block_temperature(68, hold_time_minutes=5, block_max_volume=100) \r\n"
@@ -271,4 +274,4 @@ def main():
 if __name__== "__main__":
     main()
     
-os.system("notepad.exe GG_digests.py")    
+os.system("notepad.exe Error_prone_PCR.py")    
