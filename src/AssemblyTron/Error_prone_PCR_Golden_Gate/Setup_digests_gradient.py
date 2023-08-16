@@ -2274,6 +2274,8 @@ if __name__ == '__main__':
     pcr_plustemplates = pcr_plustemplates.merge(prvol, on='well2')
     pcr_plustemplates
 
+    pcr_plustemplates = pcr_plustemplates.loc[pcr_plustemplates["include"] == 1 ]
+
     pcr_plustemplates.to_csv('pcr.csv')
 
     #######################################################################################################################################################################################################################
