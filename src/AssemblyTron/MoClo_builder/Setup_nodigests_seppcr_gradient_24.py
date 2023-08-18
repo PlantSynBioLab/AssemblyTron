@@ -80,30 +80,40 @@ if __name__ == '__main__':
         global part_and_loc
         part_and_loc = 2
         parts_and_locs.append(part_and_loc)
+        ConL2button.configure(bg="red")
+
 
     def ConL3_button():
         #Has a numeric code for the part and location
         global part_and_loc
         part_and_loc = 3
         parts_and_locs.append(part_and_loc)
+        ConL3button.configure(bg="red")
+
 
     def ConL4_button():
         #Has a numeric code for the part and location
         global part_and_loc
         part_and_loc = 4
         parts_and_locs.append(part_and_loc)
+        ConL4button.configure(bg="red")
+
 
     def ConL5_button():
         #Has a numeric code for the part and location
         global part_and_loc
         part_and_loc = 5
-        parts_and_locs.append(part_and_loc)        
+        parts_and_locs.append(part_and_loc)
+        ConL5button.configure(bg="red")
+        
 
-    def ConL5prim_button():
+    def ConLSprim_button():
         #Has a numeric code for the part and location
         global part_and_loc
         part_and_loc = 6
         parts_and_locs.append(part_and_loc)
+        ConLSprimbutton.configure(bg="red")
+
 
 
     def pREV1_button():
@@ -113,12 +123,199 @@ if __name__ == '__main__':
         parts_and_locs.append(part_and_loc)
         pREV1button.configure(bg="red")
 
+    def pRNR2_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 8
+        parts_and_locs.append(part_and_loc)
+        pRNR2button.configure(bg="red")
+
+    def pRPL18B_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 9
+        parts_and_locs.append(part_and_loc)
+        pRPL18Bbutton.configure(bg="red")
+
+    def pTDH3_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 10
+        parts_and_locs.append(part_and_loc)
+        pTDH3button.configure(bg="red")
+
 
     def paqCIDO_button():
         #Has a numeric code for the part and location
         global part_and_loc
         part_and_loc = 11
         parts_and_locs.append(part_and_loc)
+        paqCIDObutton.configure(bg="red")
+
+    def IAA14_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 12
+        parts_and_locs.append(part_and_loc)
+        IAA14button.configure(bg="red")
+
+    def IAA12_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 13
+        parts_and_locs.append(part_and_loc)
+        IAA12button.configure(bg="red")
+
+
+    def tADH1_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 14
+        parts_and_locs.append(part_and_loc)
+        tADH1button.configure(bg="red")
+
+
+    def ConR1_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 15
+        parts_and_locs.append(part_and_loc)
+        ConR1button.configure(bg="red")
+
+    def ConR2_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 16
+        parts_and_locs.append(part_and_loc)
+        ConR2button.configure(bg="red")
+
+    def ConR3_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 17
+        parts_and_locs.append(part_and_loc)
+        ConR3button.configure(bg="red")
+
+    def ConR4_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 18
+        parts_and_locs.append(part_and_loc)
+        ConR4button.configure(bg="red")
+
+    def ConR5_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 19
+        parts_and_locs.append(part_and_loc)
+        ConR5button.configure(bg="red")
+
+    def ConRE_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 20
+        parts_and_locs.append(part_and_loc)
+        ConREbutton.configure(bg="red")
+
+    def ConREprim_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 21
+        parts_and_locs.append(part_and_loc)
+        ConREprimbutton.configure(bg="red")
+
+
+    def URA3_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 22
+        parts_and_locs.append(part_and_loc)
+        URA3button.configure(bg="red")
+
+    def LEU2_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 23
+        parts_and_locs.append(part_and_loc)
+        LEU2button.configure(bg="red")
+
+    def HIS3_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 24
+        parts_and_locs.append(part_and_loc)
+        HIS3button.configure(bg="red")
+
+    def TRP1_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 25
+        parts_and_locs.append(part_and_loc)
+        TRP1button.configure(bg="red")
+
+
+    def CENARS_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 26
+        parts_and_locs.append(part_and_loc)
+        CENARSbutton.configure(bg="red")
+
+
+    def AmpColE1_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 27
+        parts_and_locs.append(part_and_loc)
+        AmpColE1button.configure(bg="red")
+
+
+    def YFP_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 28
+        parts_and_locs.append(part_and_loc)
+        YFPbutton.configure(bg="red")
+
+
+    def paqCIDOb_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 29
+        parts_and_locs.append(part_and_loc)
+        paqCIDObbutton.configure(bg="red")
+
+    def IAA14b_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 30
+        parts_and_locs.append(part_and_loc)
+        IAA14bbutton.configure(bg="red")
+
+    def IAA12b_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 31
+        parts_and_locs.append(part_and_loc)
+        IAA12bbutton.configure(bg="red")
+
+
+    def ERBVVENUS_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 32
+        parts_and_locs.append(part_and_loc)
+        ERBVVENUSbutton.configure(bg="red")
+
+
+    def tADH1b_button():
+        #Has a numeric code for the part and location
+        global part_and_loc
+        part_and_loc = 33
+        parts_and_locs.append(part_and_loc)
+        tADH1bbutton.configure(bg="red")
+
+
 
 
 
@@ -148,53 +345,133 @@ if __name__ == '__main__':
 
     label_extra1 = Label(text='E. coli marker/ori (8)',font=('Helvatical bold',12))
     label_extra1.place(relx=0.875,rely=0.03125)
+
+
+    label_extra1 = Label(text='N-terminal \n CDS (3a)',font=('Helvatical bold',12))
+    label_extra1.place(relx=0.225,rely=0.53125)
+
+    label_extra1 = Label(text='CDS (3b)',font=('Helvatical bold',12))
+    label_extra1.place(relx=0.2875,rely=0.53125)
+
+    label_extra1 = Label(text='C-terminal \n CDS (4a)',font=('Helvatical bold',12))
+    label_extra1.place(relx=0.35,rely=0.53125)
+
+    label_extra1 = Label(text='Terminator (4b)',font=('Helvatical bold',12))
+    label_extra1.place(relx=0.4125,rely=0.53125)
 ##############################################################################################################
 
-    
-    #This code allows you to run two functions simultaneously...
-    # def combine_funcs(*funcs):
-  
-    # # this function will call the passed functions
-    # # with the arguments that are passed to the functions
-    #     def inner_combined_func(*args, **kwargs):
-    #         for f in funcs:
-  
-    #         # Calling functions with arguments, if any
-    #             f(*args, **kwargs)
-  
-    # # returning the reference of inner_combined_func
-    # # this reference will have the called result of all
-    # # the functions that are passed to the combined_funcs
-    #     return inner_combined_func
-  
-    # # def change():
-    # #     ConLSbutton.configure(bg="red")
-
-
-
-    ConLSbutton = Button(root, text="ConLS",activebackground="magenta",  bg="blue", command=ConLS_button)
+    ConLSbutton = Button(root, text="ConLS",activebackground="magenta",fg="white",  bg="blue", command=ConLS_button)
     ConLSbutton.place(x=50, y=59.375)
 
-    ConL1button = Button(root, text="ConL1",activebackground="magenta", bg = "blue",command=ConL1_button)
+    ConL1button = Button(root, text="ConL1",activebackground="magenta",fg="white", bg = "blue",command=ConL1_button)
     ConL1button.place(x=50, y=118.75)
 
+    ConL2button = Button(root, text="ConL2",activebackground="magenta",fg="white", bg = "blue",command=ConL2_button)
+    ConL2button.place(x=50, y=178.125)
 
-    pREV1button = Button(root, text="pREV1",activebackground="magenta", bg = "blue",command=pREV1_button)
+    ConL3button = Button(root, text="ConL3",activebackground="magenta",fg="white", bg = "blue",command=ConL3_button)
+    ConL3button.place(x=50, y=237.475)
+
+    ConL4button = Button(root, text="ConL4",activebackground="magenta",fg="white", bg = "blue",command=ConL4_button)
+    ConL4button.place(x=50, y=296.85)
+
+    ConL5button = Button(root, text="ConL5",activebackground="magenta",fg="white", bg = "blue",command=ConL5_button)
+    ConL5button.place(x=50, y=356.225)
+
+    ConLSprimbutton = Button(root, text="ConLS'",activebackground="magenta",fg="white", bg = "blue",command=ConLSprim_button)
+    ConLSprimbutton.place(x=50, y=415.6)
+
+
+    pREV1button = Button(root, text="pREV1",activebackground="magenta",fg="white", bg = "green",command=pREV1_button)
     pREV1button.place(x=265, y=59.375)
 
+    pRNR2button = Button(root, text="pRNR2",activebackground="magenta",fg="white", bg = "green",command=pRNR2_button)
+    pRNR2button.place(x=265, y=118.75)
+
+    pRPL18Bbutton = Button(root, text="pRPL18B",activebackground="magenta",fg="white", bg = "green",command=pRPL18B_button)
+    pRPL18Bbutton.place(x=265, y=178.125)
+
+    pTDH3button = Button(root, text="pTDH3",activebackground="magenta",fg="white", bg = "green",command=pTDH3_button)
+    pTDH3button.place(x=265, y=237.475)
+
     
-    paqCIDObutton = Button(root, text="paqCI DO", command=paqCIDO_button)
+    paqCIDObutton = Button(root, text="paqCI DO",activebackground="magenta", bg = "yellow", command=paqCIDO_button)
     paqCIDObutton.place(x=475, y=59.375)
 
+    IAA14button = Button(root, text="Aux/IAA 14",activebackground="magenta", bg = "yellow", command=IAA14_button)
+    IAA14button.place(x=475, y=118.75)
+
+    IAA12button = Button(root, text="Aux/IAA 12",activebackground="magenta", bg = "yellow", command=IAA12_button)
+    IAA12button.place(x=475, y=178.125)
 
 
+    tADH1button = Button(root, text="tADH1",activebackground="yellow",fg="white", bg = "magenta", command=tADH1_button)
+    tADH1button.place(x=750, y=59.375)
 
-    
-    #button2 = Button(text="Browse", command=browse_button)
-    #button2.grid(row=0, column=3)
 
-    label_extra1 = Label(text='Navigate to the folder containing your j5 design.',font=('Helvatical bold',14))
-    label_extra1.place(relx=0,rely=0.2)
+    ConR1button = Button(root, text="ConR1",activebackground="magenta",fg="white",  bg="purple", command=ConR1_button)
+    ConR1button.place(x=1000, y=59.375)
+
+    ConR2button = Button(root, text="ConR2",activebackground="magenta",fg="white", bg = "purple",command=ConR2_button)
+    ConR2button.place(x=1000, y=118.75)
+
+    ConR3button = Button(root, text="ConR3",activebackground="magenta",fg="white", bg = "purple",command=ConR3_button)
+    ConR3button.place(x=1000, y=178.125)
+
+    ConR4button = Button(root, text="ConR4",activebackground="magenta",fg="white", bg = "purple",command=ConR4_button)
+    ConR4button.place(x=1000, y=237.475)
+
+    ConR5button = Button(root, text="ConR5",activebackground="magenta",fg="white", bg = "purple",command=ConR5_button)
+    ConR5button.place(x=1000, y=296.85)
+
+    ConREbutton = Button(root, text="ConRE",activebackground="magenta",fg="white", bg = "purple",command=ConRE_button)
+    ConREbutton.place(x=1000, y=356.225)
+
+    ConREprimbutton = Button(root, text="ConRE'",activebackground="magenta",fg="white", bg = "purple",command=ConREprim_button)
+    ConREprimbutton.place(x=1000, y=415.6)
+
+
+    URA3button = Button(root, text="URA3",activebackground="magenta",  bg="orange", command=URA3_button)
+    URA3button.place(x=1225, y=59.375)
+
+    LEU2button = Button(root, text="LEU2",activebackground="magenta", bg = "orange",command=LEU2_button)
+    LEU2button.place(x=1225, y=118.75)
+
+    HIS3button = Button(root, text="HIS3",activebackground="magenta", bg = "orange",command=HIS3_button)
+    HIS3button.place(x=1225, y=178.125)
+
+    TRP1button = Button(root, text="TRP1",activebackground="magenta", bg = "orange",command=TRP1_button)
+    TRP1button.place(x=1225, y=237.475)
+
+
+    CENARSbutton = Button(root, text="CEN6/ARS4",activebackground="magenta",fg="white",  bg="brown", command=CENARS_button)
+    CENARSbutton.place(x=1450, y=59.375)
+
+
+    AmpColE1button = Button(root, text="AmpR-ColE1",activebackground="magenta",fg="white", bg = "grey",command=AmpColE1_button)
+    AmpColE1button.place(x=1700, y=59.375)
+
+
+    YFPbutton = Button(root, text="YFP 3a",activebackground="magenta", bg = "yellow", command=YFP_button)
+    YFPbutton.place(x=450, y=610)
+
+    paqCIDObbutton = Button(root, text="paqCI DO 3b",activebackground="magenta", bg = "yellow", command=paqCIDOb_button)
+    paqCIDObbutton.place(x=550, y=610)
+
+    IAA14bbutton = Button(root, text="Aux/IAA14 3b",activebackground="magenta", bg = "yellow", command=IAA14b_button)
+    IAA14bbutton.place(x=550, y=669.375)
+
+    IAA12bbutton = Button(root, text="Aux/IAA12 3b",activebackground="magenta", bg = "yellow", command=IAA12b_button)
+    IAA12bbutton.place(x=550, y=728.75)
+
+
+    ERBVVENUSbutton = Button(root, text="ERBV-Venus",activebackground="yellow", bg = "magenta", command=ERBVVENUS_button)
+    ERBVVENUSbutton.place(x=675, y=610)
+
+
+    tADH1bbutton = Button(root, text="tADH1 4b",activebackground="yellow", bg = "magenta", command=tADH1b_button)
+    tADH1bbutton.place(x=800, y=610)    
+
 
     def Close():
         root.destroy()
@@ -203,11 +480,95 @@ if __name__ == '__main__':
     # Button for closing
     exit_button = Button(root, text="Confirm", command=Close)
     #exit_button.pack(pady=20)
-    exit_button.place(relx=.5,rely=.4)
+    exit_button.place(relx=.5,rely=.9)
 
     root.mainloop()
 
-    print(parts_and_locs)
+
+
+    parts_df = pandas.DataFrame(parts_and_locs, columns=['ID'])
+    
+
+    num2well = {}
+    num2well['0'] = 'A1'
+    num2well['1'] = 'A2'
+    num2well['2'] = 'A3'
+    num2well['3'] = 'A4'
+    num2well['4'] = 'A5'
+    num2well['5'] = 'A6'
+    num2well['6'] = 'A7'
+    num2well['7'] = 'A8'
+    num2well['8'] = 'A9'
+    num2well['9'] = 'A10'
+    num2well['10'] = 'A11'
+    num2well['11'] = 'A12'
+    num2well['12'] = 'B1'
+    num2well['13'] = 'B2'
+    num2well['14'] = 'B3'
+    num2well['15'] = 'B4'
+    num2well['16'] = 'B5'
+    num2well['17'] = 'B6'
+    num2well['18'] = 'B7'
+    num2well['19'] = 'B8'
+    num2well['20'] = 'B9'
+    num2well['21'] = 'B10'
+    num2well['22'] = 'B11'
+    num2well['23'] = 'B12' 
+    num2well['24'] = 'C1'
+    num2well['25'] = 'C2'
+    num2well['26'] = 'C3'
+    num2well['27'] = 'C4'
+    num2well['28'] = 'C5'
+    num2well['29'] = 'C6'
+    num2well['30'] = 'C7'
+    num2well['31'] = 'C8'
+    num2well['32'] = 'C9'
+    num2well['33'] = 'C10'
+
+    num2part = {}
+    num2part['0'] = 'ConLS'
+    num2part['1'] = 'ConL1'
+    num2part['2'] = 'ConL2'
+    num2part['3'] = 'ConL3'
+    num2part['4'] = 'ConL4'
+    num2part['5'] = 'ConL5'
+    num2part['6'] = 'ConLSprime'
+    num2part['7'] = 'pREV1'
+    num2part['8'] = 'pRNR2'
+    num2part['9'] = 'pRPL18B'
+    num2part['10'] = 'pTDH3'
+    num2part['11'] = 'paqCIDO'
+    num2part['12'] = 'IAA14'
+    num2part['13'] = 'IAA12'
+    num2part['14'] = 'tADH1'
+    num2part['15'] = 'ConR1'
+    num2part['16'] = 'ConR2'
+    num2part['17'] = 'ConR3'
+    num2part['18'] = 'ConR4'
+    num2part['19'] = 'ConR5'
+    num2part['20'] = 'ConRE'
+    num2part['21'] = 'ConREprime'
+    num2part['22'] = 'URA3'
+    num2part['23'] = 'LEU2' 
+    num2part['24'] = 'HIS3'
+    num2part['25'] = 'TRP1'
+    num2part['26'] = 'CENARS'
+    num2part['27'] = 'AmpRColE1'
+    num2part['28'] = 'YFP3a'
+    num2part['29'] = 'paqCIDO3b'
+    num2part['30'] = 'IAA143b'
+    num2part['31'] = 'IAA123b'
+    num2part['32'] = 'ERBVVenus'
+    num2part['33'] = 'tADH1'
+
+    parts_df["well"]=""
+    parts_df["part"]=""
+    for i, row in parts_df.iterrows():
+        parts_df.loc[i,"well"] = num2well[str(parts_df.loc[i].at["ID"])]
+        parts_df.loc[i,"part"] = num2part[str(parts_df.loc[i].at["ID"])]
+    
+    print(parts_df)
+
 
 #######################################################################################################################
 
