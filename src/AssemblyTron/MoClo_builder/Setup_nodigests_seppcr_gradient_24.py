@@ -33,6 +33,19 @@ if __name__ == '__main__':
     date = str(today.strftime('%Y%m%d'))
     date
 
+    os.getcwd()
+
+    def walk_up_folder(path, depth=1):
+        _cur_depth = 1        
+        while _cur_depth < depth:
+            path = os.path.dirname(path)
+            _cur_depth += 1
+        return path   
+
+    paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
+    paths
+
+
     from tkinter import filedialog
     from tkinter import *
 
@@ -568,25 +581,19 @@ if __name__ == '__main__':
         parts_df.loc[i,"part"] = num2part[str(parts_df.loc[i].at["ID"])]
     
     print(parts_df)
+    parts_df.to_csv('parts.csv')
+
+    os.mkdir(date+time+'_MoClo')
+    shutil.move('parts.csv',paths.loc[0].at['opentrons_repo']+'/MoClo_builder/'+date+time+'_MoClo/')
+    shutil.copy2('MoClo_writer.py',paths.loc[0].at['opentrons_repo']+'/MoClo_builder/'+date+time+'_MoClo/')
 
 
 #######################################################################################################################
 
 
 
-    # #name = 'JAB-j5__20210603140838kG6Y-Synthetic-GFP-IAA'
+    #name = 'JAB-j5__20210603140838kG6Y-Synthetic-GFP-IAA'
 
-    # os.getcwd()
-
-    # def walk_up_folder(path, depth=1):
-    #     _cur_depth = 1        
-    #     while _cur_depth < depth:
-    #         path = os.path.dirname(path)
-    #         _cur_depth += 1
-    #     return path   
-
-    # paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
-    # paths
 
 
     # ##########################################################################################################################

@@ -1,5 +1,0 @@
-"Part Name","Part Source (Sequence Display ID)","Reverse Compliment?","Start (bp)","End (bp)","Five Prime Internal Preferred Overhangs?","Three Prime Internal Preferred Overhangs?"
-mCherry,pWL204_pj5_0180_,FALSE,4,705,,
-Hx6Fx3,Hx6Fx3_combined,FALSE,1,63,,
-pGP6G2-ccdB_backbone,pNL1422_pGP6G2_c,FALSE,3451,2036,,"(-4,4), (-4,4)"
-HaRXL10,pDONR207,FALSE,416,1078,"(1,4)","(-4,4)"
