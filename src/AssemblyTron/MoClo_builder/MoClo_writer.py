@@ -12,20 +12,36 @@ import os
 from os.path import exists
 
 
+
+Input_values = pandas.read_csv('Input.csv') 
+# Input_values
 Date = str(int(Input_values.loc[0].at['Date']))
 Date
 Time = str(int(Input_values.loc[0].at['Time']))
 Time
 
-T4 = 1
+#Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
+#diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
+#DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
-Q5 = (0.5*Input_values.loc[0].at['pcrvol'])
-diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvol'])/1
-DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
+parts_df = pandas.read_csv('parts_df.csv')
+
+#os.chdir(Date+Time+'_GoldenGate')
+
+if exists('parts1.csv'):
+    part1 = pandas.read_csv('parts1.csv')
+if exists('parts2.csv'):
+    part2 = pandas.read_csv('parts2.csv')
+if exists('parts3.csv'):
+    part3 = pandas.read_csv('parts3.csv')
+if exists('parts4.csv'):
+    part4 = pandas.read_csv('parts4.csv')
+if exists('parts5.csv'):
+    part5 = pandas.read_csv('parts5.csv')
+if exists('parts6.csv'):
+    part6 = pandas.read_csv('parts6.csv')
 
 
-
-parts = pandas.read_csv('parts.csv')
 
 
 
@@ -46,10 +62,10 @@ def main():
         "    tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', '9') \r\n"
         "    tiprack3 = protocol.load_labware('opentrons_96_tiprack_10ul', '5') \r\n"
         "    watertuberack = protocol.load_labware('opentrons_10_tuberack_falcon_4x50ml_6x15ml_conical','3') \r\n"
-        "    tuberack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2') \r\n"
-        #"    secondarydils = protocol.load_labware('opentrons_96_aluminumblock_generic_pcr_strip_200ul','4') \r\n"
+        #"    tuberack2 = protocol.load_labware('opentrons_24_tuberack_nest_1.5ml_snapcap','2') \r\n"
+        "    moclo_plate = protocol.load_labware('nest_96_wellplate_200ul_flat','4') \r\n"
         "    tc_mod = protocol.load_module('Thermocycler Module') \r\n"
-        "    templateplate = tc_mod.load_labware('microwell plate') \r\n"
+        "    pcrplate = tc_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt') \r\n"
         "    temp_module = protocol.load_module('temperature module', 1) \r\n"
         "    cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes') \r\n"
         "    temp_module.set_temperature(4) \r\n"
@@ -60,350 +76,61 @@ def main():
     )
 
 
-    #add water first
-    for j, row in pcr.iterrows():
-        f.write(
-            "    right_pipette.pick_up_tip() \r\n"
-            "    right_pipette.aspirate("+str(pcr.loc[j].at['total_water_toadd'])+", watertuberack['A1'], rate=2.0) \r\n"
-            "    right_pipette.dispense("+str(pcr.loc[j].at['total_water_toadd'])+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
-            "    right_pipette.blow_out() \r\n"
-            "    right_pipette.drop_tip() \r\n"
-        )
-    #add 1uL of BOTH (not each) primers
-    for j, row in pcr.iterrows():
-        f.write(
-            "    left_pipette.pick_up_tip() \r\n"
-            "    left_pipette.aspirate("+str(pcr.loc[j].at['primervol_x'])+", tuberack2['"+str(pcr.loc[j].at['well'])+"'], rate=2.0) \r\n"
-            "    left_pipette.dispense("+str(pcr.loc[j].at['primervol_x'])+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
-            "    left_pipette.mix(3,2,pcrplate['"+str(pcr.loc[j].at['tube'])+"']) \r\n"
-            "    left_pipette.drop_tip() \r\n"
 
-            "    left_pipette.pick_up_tip() \r\n"
-            "    left_pipette.aspirate("+str(pcr.loc[j].at['primervol_y'])+", tuberack2['"+str(pcr.loc[j].at['well2'])+"'], rate=2.0) \r\n"
-            "    left_pipette.dispense("+str(pcr.loc[j].at['primervol_y'])+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
-            "    left_pipette.mix(3,2,pcrplate['"+pcr.loc[j].at['tube']+"']) \r\n"
-            "    left_pipette.drop_tip() \r\n"
-        )
-
-    #add 1uL of each template
-    for j, row in pcr.iterrows():
-        f.write(
-            "    left_pipette.pick_up_tip() \r\n"
-            "    left_pipette.aspirate("+str(pcr.loc[j].at['amount of template to add'])+", tuberack2['"+str(pcr.loc[j].at['template_well'])+"'], rate=2.0) \r\n"
-            "    left_pipette.dispense("+str(pcr.loc[j].at['amount of template to add'])+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
-            "    left_pipette.mix(3,3,pcrplate['"+str(pcr.loc[j].at['tube'])+"']) \r\n"
-            "    left_pipette.drop_tip() \r\n"
-        )
-
-    #Add DMSO
-    for j, row in pcr.iterrows():
-        f.write(
-            "    left_pipette.pick_up_tip() \r\n"
-            "    left_pipette.aspirate("+str(DMSO)+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
-            "    left_pipette.blow_out() \r\n"
-            "    left_pipette.drop_tip() \r\n"
-        )
-
-    #add High-Fi polymerase to each reaction
-    for j, row in pcr.iterrows():
-        f.write(
-            "    right_pipette.pick_up_tip() \r\n"
-            "    right_pipette.aspirate("+str(Q5)+", cold_tuberack['D6'], rate=2.0) \r\n"
-            "    right_pipette.dispense("+str(Q5)+", pcrplate['"+str(pcr.loc[j].at['tube'])+"'], rate=2.0) \r\n"
-            "    right_pipette.blow_out() \r\n"
-            "    right_pipette.drop_tip() \r\n"
-        )
-    
-    #mix up
-    for j, row in pcr.iterrows():
-        f.write(
-            "    right_pipette.pick_up_tip() \r\n"
-            "    right_pipette.mix(3,"+str(Q5+3)+",pcrplate['"+str(pcr.loc[j].at['tube'])+"']) \r\n"
-            "    right_pipette.blow_out() \r\n"
-            "    right_pipette.drop_tip() \r\n"
-        )
-    
-    f.write(
-        "    tc_mod.deactivate() \r\n"
-        "    temp_module.deactivate() \r\n"
-        "    protocol.pause('move to gradient thermocycler. set gradiet to be between "+str(gradient.loc[0].at['temp'])+" and "+str(gradient.loc[7].at['temp'])+". Extension time should be "+str(float((Length['Length']/1000)*30))+" seconds. Follow normal parameters for everything else. A1 is cool, A8 is hot.') \r\n"
-        "    temp_module.set_temperature(4) \r\n"
-        "    tc_mod.set_block_temperature(4) \r\n"
-    )
-    
-#######################################################################################################################################################
-
-    
-    #water for digestion
-    for i, row in pcr.iterrows():
-        f.write(
-            "    right_pipette.pick_up_tip() \r\n"
-            "    right_pipette.aspirate("+str(Input_values.loc[0].at['DPwater'])+", watertuberack['A1'], rate=2.0) \r\n"
-            "    right_pipette.dispense("+str(Input_values.loc[0].at['DPwater'])+", pcrplate['"+str(pcr.loc[i].at['tube'])+"'], rate=2.0) \r\n"
-            "    right_pipette.drop_tip() \r\n"
-        )
-
-    #cutsmart for digestion
-    for i, row in pcr.iterrows():
-        f.write(
-            "    left_pipette.pick_up_tip() \r\n"
-            "    left_pipette.aspirate("+str(Input_values.loc[0].at['cutsmart'])+", cold_tuberack['D4'], rate=2.0) \r\n"
-            "    left_pipette.dispense("+str(Input_values.loc[0].at['cutsmart'])+", pcrplate['"+str(pcr.loc[i].at['tube'])+"'], rate=2.0) \r\n"
-            "    left_pipette.mix(3,10,pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
-            "    left_pipette.drop_tip() \r\n"
-        )
-
-    #mix up
-    for i, row in pcr.iterrows():
-        f.write(
-            "    right_pipette.pick_up_tip() \r\n"
-            "    right_pipette.mix(3,"+str(Q5+Input_values.loc[0].at['DPwater']+Input_values.loc[0].at['cutsmart'])+",pcrplate['"+str(pcr.loc[i].at['tube'])+"']) \r\n"
-            "    right_pipette.blow_out() \r\n"
-            "    right_pipette.drop_tip() \r\n"
-        )
-
-##############################################################################################################################################################################
-#BsaI Digestion for Entry vectors
-
-    # #water
-    # for i, row in plasmid.iterrows():
-    #     if plasmid.loc[i].at['Concentration'] > 1:
-    #         f.write(
-    #             "    right_pipette.pick_up_tip() \r\n"
-    #             "    right_pipette.aspirate("+str(plasmid.loc[i].at['Volume of Water'])+",watertuberack['A1'],2) \r\n"
-    #             "    right_pipette.dispense("+str(plasmid.loc[i].at['Volume of Water'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"'],2) \r\n"
-    #             "    right_pipette.drop_tip() \r\n"
-    #         )
-
-    # #plasmid
-    # for i, row in plasmid.iterrows():
-    #     if plasmid.loc[i].at['Volume of Plasmid'] < 10:
-    #         f.write(
-    #             "    left_pipette.pick_up_tip() \r\n"
-    #             "    left_pipette.aspirate("+str(plasmid.loc[i].at['Volume of Plasmid'])+",tuberack2['"+str(plasmid.loc[i].at['Plasmid Location'])+"'],2) \r\n"
-    #             "    left_pipette.dispense("+str(plasmid.loc[i].at['Volume of Plasmid'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"'],2) \r\n"
-    #             "    left_pipette.mix(3,"+str(plasmid.loc[i].at['Volume of Plasmid'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"']) \r\n"
-    #             "    left_pipette.drop_tip() \r\n"
-    #         )
-
-    #     if plasmid.loc[i].at['Volume of Plasmid'] in range(10, 100):
-    #         f.write(
-    #             "    right_pipette.pick_up_tip() \r\n"
-    #             "    right_pipette.aspirate("+str(plasmid.loc[i].at['Volume of Plasmid'])+",tuberack2['"+str(plasmid.loc[i].at['Plasmid Location'])+"'],2) \r\n"
-    #             "    right_pipette.dispense("+str(plasmid.loc[i].at['Volume of Plasmid'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"'],2) \r\n"
-    #             "    right_pipette.mix(3,"+str(plasmid.loc[i].at['Volume of Plasmid'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"']) \r\n"
-    #             "    right_pipette.drop_tip() \r\n"
-    #         )
-
-    # #Cutsmart Buffer
-    # for i, row in plasmid.iterrows():
-    #     if plasmid.loc[i].at['Concentration'] > 1:
-    #         f.write(
-    #             "    left_pipette.pick_up_tip() \r\n"
-    #             "    left_pipette.aspirate("+str(plasmid.loc[i].at['Buffer'])+",cold_tuberack['D4'],2) \r\n"
-    #             "    left_pipette.dispense("+str(plasmid.loc[i].at['Buffer'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"'],2) \r\n"
-    #             "    left_pipette.mix(3,"+str(plasmid.loc[i].at['Buffer'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"']) \r\n"
-    #             "    left_pipette.drop_tip() \r\n"
-    #         )
-
-    # #Add BsaI
-    # for i, row in plasmid.iterrows():
-    #     if plasmid.loc[i].at['Concentration'] > 1:
-    #         f.write(
-    #             "    left_pipette.pick_up_tip() \r\n"
-    #             "    left_pipette.aspirate("+str(plasmid.loc[i].at['BSA1'])+",cold_tuberack['D5'],2) \r\n"
-    #             "    left_pipette.dispense("+str(plasmid.loc[i].at['BSA1'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"'],2) \r\n"
-    #             "    left_pipette.mix(3,"+str(plasmid.loc[i].at['BSA1'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"']) \r\n"
-    #             "    left_pipette.drop_tip() \r\n"
-    #         )
-
-    # #mix
-    # for i, row in plasmid.iterrows():
-    #     if plasmid.loc[i].at['Concentration'] > 1:
-    #         if plasmid.loc[i].at['total volume'] > float('10'):
-    #             f.write(
-    #                 "    right_pipette.pick_up_tip() \r\n"
-    #                 "    right_pipette.mix(3,"+str(plasmid.loc[i].at['total volume'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"']) \r\n"
-    #                 "    right_pipette.drop_tip() \r\n"
-    #             )
-    #         else:
-    #             f.write(
-    #                 "    left_pipette.pick_up_tip() \r\n"
-    #                 "    left_pipette.mix(3,"+str(plasmid.loc[i].at['total volume'])+",pcrplate['"+str(digests.loc[i].at['frag_pcr_tube'])+"']) \r\n"
-    #                 "    left_pipette.drop_tip() \r\n"
-    #             )
-
-    f.write(
-        "    tc_mod.close_lid() \r\n"
-        "    tc_mod.set_lid_temperature(105) \r\n"
-        "    tc_mod.set_block_temperature(37,0,30, block_max_volume = 50) \r\n"
-        "    tc_mod.set_block_temperature(80,0,20, block_max_volume = 50) \r\n"
-        "    tc_mod.set_block_temperature(4, block_max_volume = 50) \r\n"
-        "    tc_mod.open_lid() \r\n"
-        "    temp_module.deactivate() \r\n"
-        "    tiprack3.reset() \r\n"
-        "    tiprack3 = protocol.load_labware('opentrons_96_tiprack_10ul', '6') \r\n"
-        "    protocol.pause('REFILL TIP RACKS, and wait until its time to dispense the product') \r\n"
-        "    temp_module.set_temperature(4) \r\n"
-    )
 
 ###############################################################################################################################################################
 #Golden Gate Setup
 
-    f.write(
-        "    left_pipette.flow_rate.aspirate = 50 \r\n"
-        "    right_pipette.flow_rate.aspirate = 50 \r\n"
-        "    right_pipette.pick_up_tip() \r\n"
-        "    right_pipette.aspirate(30,cold_tuberack['D2']) \r\n"
-        "    right_pipette.dispense(30,cold_tuberack['C4']) \r\n"
-        "    right_pipette.blow_out() \r\n"
-        "    right_pipette.drop_tip() \r\n"
-        "    left_pipette.flow_rate.aspirate = 10 \r\n"
-        "    left_pipette.pick_up_tip() \r\n"
-        "    left_pipette.aspirate(3,cold_tuberack['C6']) \r\n"
-        "    left_pipette.dispense(3,cold_tuberack['C4']) \r\n"
-        "    left_pipette.mix(3,10,cold_tuberack['C4']) \r\n"
-        "    left_pipette.flow_rate.aspirate = 50 \r\n"
-        "    left_pipette.drop_tip() \r\n"
-    )
 
-    for i, row in GG_dfs.iterrows():
-        x = GG_dfs.loc[i].at['gg#']
-        for i, row in globals()[x].iterrows():  
-            if globals()[x].loc[i].at['initial required amount'] <1:
-                #adding h20
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
-                    f.write(
-                        "    right_pipette.pick_up_tip() \r\n"
-                        "    right_pipette.aspirate("+str(globals()[x].loc[i].at['H20 to add to 1uL of fragment'])+", watertuberack['A1']) \r\n"
-                        "    right_pipette.dispense("+str(globals()[x].loc[i].at['H20 to add to 1uL of fragment'])+", secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    right_pipette.drop_tip() \r\n"
-                    )
-                if 8 < globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
-                    f.write(
-                        "    left_pipette.pick_up_tip() \r\n"
-                        "    left_pipette.aspirate("+str(globals()[x].loc[i].at['H20 to add to 1uL of fragment'])+", watertuberack['A1']) \r\n"
-                        "    left_pipette.dispense("+str(globals()[x].loc[i].at['H20 to add to 1uL of fragment'])+", secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.drop_tip() \r\n"
-                    )
-                if 5< globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
-                    f.write(
-                        "    right_pipette.pick_up_tip() \r\n"
-                        "    right_pipette.aspirate("+str(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']))+", watertuberack['A1']) \r\n"
-                        "    right_pipette.dispense("+str(4*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']))+", secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    right_pipette.drop_tip() \r\n"
-                    )
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
-                    f.write(
-                        "    right_pipette.pick_up_tip() \r\n"
-                        "    right_pipette.aspirate("+str(6*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']))+", watertuberack['A1']) \r\n"
-                        "    right_pipette.dispense("+str(6*(globals()[x].loc[i].at['H20 to add to 1uL of fragment']))+", secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    right_pipette.drop_tip() \r\n"
-                    )
-                
-                #add template
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 8:
-                    f.write(
-                        "    left_pipette.pick_up_tip() \r\n"
-                        "    left_pipette.aspirate(1, pcrplate['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.dispense(1, secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.mix(3,3,secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.drop_tip() \r\n"
-                    )
-                if 5< globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 8:
-                    f.write(
-                        "    left_pipette.pick_up_tip() \r\n"
-                        "    left_pipette.aspirate(4, pcrplate['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.dispense(4, secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.mix(3,3,secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.drop_tip() \r\n"
-                    )
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
-                    f.write(
-                        "    left_pipette.pick_up_tip() \r\n"
-                        "    left_pipette.aspirate(6, pcrplate['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.dispense(6, secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.mix(3,3,secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    left_pipette.drop_tip() \r\n"
-                    )
-                
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] > 10:
-                    f.write(
-                        "    right_pipette.pick_up_tip() \r\n"
-                        "    right_pipette.mix(3,"+str(globals()[x].loc[i].at['H20 to add to 1uL of fragment'])+",secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                        "    right_pipette.drop_tip() \r\n"
-                    )
-                if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 10:
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] >5:
-                        f.write(
-                            "    left_pipette.pick_up_tip() \r\n"
-                            "    left_pipette.mix(3,"+str(globals()[x].loc[i].at['H20 to add to 1uL of fragment'])+",secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                            "    left_pipette.drop_tip() \r\n"
-                        )
-                    if globals()[x].loc[i].at['H20 to add to 1uL of fragment'] < 5:
-                        f.write(
-                            "    left_pipette.pick_up_tip() \r\n"
-                            "    left_pipette.mix(3,"+str(2*globals()[x].loc[i].at['H20 to add to 1uL of fragment'])+",secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                            "    left_pipette.drop_tip() \r\n"
-                        )
+    for i, row in parts_dfs.iterrows():
+        x = parts_dfs.loc[i].at['part#']
+        f.write(
+            #water
+            "    left_pipette.pick_up_tip() \r\n"
+            "    left_pipette.aspirate("+str(20 - len(globals()[x]['part']) - 2 - 1 - 1)+", watertuberack['A1']) \r\n"
+            "    left_pipette.dispense("+str(20 - len(globals()[x]['part']) - 2 - 1 - 1)+", pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    left_pipette.blow_out() \r\n"
+            "    left_pipette.drop_tip() \r\n"
 
-            else:
-                f.write(
-                    "    right_pipette.pick_up_tip() \r\n"
-                    "    right_pipette.aspirate(20, pcrplate['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                    "    right_pipette.dispense(20, secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                    "    right_pipette.blow_out() \r\n"
-                    "    right_pipette.drop_tip() \r\n"
-                )
+            #T4 buffer
+            "    left_pipette.pick_up_tip() \r\n"
+            "    left_pipette.aspirate(2,cold_tuberack['C4']) \r\n"
+            "    left_pipette.dispense(2,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    left_pipette.mix(3,8,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    left_pipette.drop_tip() \r\n"
 
-    f.write(
-        "    protocol.pause('Clear off PCR plate and set up final Golden Gate assembly Tubes') \r\n"
-    )
-
-    for i, row in GG_dfs.iterrows():
-        x = GG_dfs.loc[i].at['gg#']
+        )
+        
         for i, row in globals()[x].iterrows():
             f.write(
-                #water
+                #temp
                 "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65)+", watertuberack['A1']) \r\n"
-                "    left_pipette.dispense("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65)+", pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                "    left_pipette.aspirate(1, moclo_plate['"+str(globals()[x].loc[i].at['well'])+"']) \r\n"
+                "    left_pipette.dispense(1, pcrplate['"+str(globals()[x].loc[i].at['location_of_assembly'])+"']) \r\n"
                 "    left_pipette.blow_out() \r\n"
                 "    left_pipette.drop_tip() \r\n"
-
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate("+str(globals()[x].loc[i].at['final amount to add'])+", secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                "    left_pipette.dispense("+str(globals()[x].loc[i].at['final amount to add'])+", pcrplate['"+str(globals()[x].loc[i].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.blow_out() \r\n"
-                "    left_pipette.drop_tip() \r\n"
-
-                #T4+BSA buffer combo
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate(1.65,cold_tuberack['C4']) \r\n"
-                "    left_pipette.dispense(1.65,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.mix(3,8,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-
-                #BsaI
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate(1,cold_tuberack['D5']) \r\n"
-                "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-
-                #T4 ligase
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate(1,cold_tuberack['C5']) \r\n"
-                "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-
-                #one more mix
-                "    right_pipette.pick_up_tip() \r\n"
-                "    right_pipette.mix(3,15,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    right_pipette.blow_out() \r\n"
-                "    right_pipette.drop_tip() \r\n"
             )
+        f.write(
+            #BsaI
+            "    left_pipette.pick_up_tip() \r\n"
+            "    left_pipette.aspirate(1,cold_tuberack['D5']) \r\n"
+            "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    left_pipette.drop_tip() \r\n"
+
+            #T4 ligase
+            "    left_pipette.pick_up_tip() \r\n"
+            "    left_pipette.aspirate(1,cold_tuberack['C5']) \r\n"
+            "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    left_pipette.drop_tip() \r\n"
+
+            #one more mix
+            "    right_pipette.pick_up_tip() \r\n"
+            "    right_pipette.mix(3,15,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+            "    right_pipette.blow_out() \r\n"
+            "    right_pipette.drop_tip() \r\n"
+        )
 
 
     f.write(
@@ -426,4 +153,4 @@ def main():
 if __name__== "__main__":
     main()
     
-os.system("notepad.exe GG_digests.py")
+os.system("notepad.exe MoClo_assembly.py")

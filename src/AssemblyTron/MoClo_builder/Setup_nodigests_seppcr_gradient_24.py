@@ -67,525 +67,569 @@ if __name__ == '__main__':
     #well_location = StringVar()
     #part = StringVar()
     
-    parts_and_locs=[]
-    color = ""
-    root = Tk()
-    root.geometry('1920x1080')
-    root.title('MoClo parts')
 
-    def ConLS_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        global A
-        part_and_loc = 0
-        parts_and_locs.append(part_and_loc)
-        ConLSbutton.configure(bg="red")
+    
+    ################################################################################################################
+    #get number of constructs from user
+    from tkinter import *
 
-    def ConL1_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 1
-        parts_and_locs.append(part_and_loc)
-        ConL1button.configure(bg="red")
-
-    def ConL2_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 2
-        parts_and_locs.append(part_and_loc)
-        ConL2button.configure(bg="red")
+    input_csv = tk.Tk()
+    input_csv.geometry('200x200')
+    input_csv.title('Parameters for Goldengate')
 
 
-    def ConL3_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 3
-        parts_and_locs.append(part_and_loc)
-        ConL3button.configure(bg="red")
+    def set_variables():
+        #global stkprm
+        global number_constructs
+    
+        number_constructs = float(number_constructs_entry.get())
+
+        return number_constructs
+        
+        input_csv.destroy()
+
+    label_number_constructs = tk.Label(text='How many Constructs are you making?',font=('Helvatical bold',14))
+    label_number_constructs.place(relx=0.5,rely=0.4)
+
+    #Text Entries
+
+    number_constructs_entry = tk.Entry()
+    #number_constructs_entry.insert(END, '')
+    number_constructs_entry.place(relx=0.5,rely=0.6,width=35)
+
+    confirm_button = tk.Button(text="Confirm",command=set_variables)
+    confirm_button.place(relx=0.5,rely=0.8)
+
+    input_csv.mainloop()
+
+    ################################################################################################################
+    number=1
+    os.mkdir(date+time+'_MoClo')
+    shutil.copy2('MoClo_writer.py',paths.loc[0].at['opentrons_repo']+'/MoClo_builder/'+date+time+'_MoClo/')
+    while number_constructs > 0:
+        parts_and_locs=[]
+        color = ""
+
+        root = Tk()
+        root.geometry('1920x1080')
+        root.title('MoClo parts')
+
+        def ConLS_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            global A
+            part_and_loc = 0
+            parts_and_locs.append(part_and_loc)
+            ConLSbutton.configure(bg="red")
+
+        def ConL1_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 1
+            parts_and_locs.append(part_and_loc)
+            ConL1button.configure(bg="red")
+
+        def ConL2_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 2
+            parts_and_locs.append(part_and_loc)
+            ConL2button.configure(bg="red")
 
 
-    def ConL4_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 4
-        parts_and_locs.append(part_and_loc)
-        ConL4button.configure(bg="red")
+        def ConL3_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 3
+            parts_and_locs.append(part_and_loc)
+            ConL3button.configure(bg="red")
 
 
-    def ConL5_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 5
-        parts_and_locs.append(part_and_loc)
-        ConL5button.configure(bg="red")
+        def ConL4_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 4
+            parts_and_locs.append(part_and_loc)
+            ConL4button.configure(bg="red")
+
+
+        def ConL5_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 5
+            parts_and_locs.append(part_and_loc)
+            ConL5button.configure(bg="red")
+            
+
+        def ConLSprim_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 6
+            parts_and_locs.append(part_and_loc)
+            ConLSprimbutton.configure(bg="red")
+
+
+
+        def pREV1_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 7
+            parts_and_locs.append(part_and_loc)
+            pREV1button.configure(bg="red")
+
+        def pRNR2_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 8
+            parts_and_locs.append(part_and_loc)
+            pRNR2button.configure(bg="red")
+
+        def pRPL18B_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 9
+            parts_and_locs.append(part_and_loc)
+            pRPL18Bbutton.configure(bg="red")
+
+        def pTDH3_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 10
+            parts_and_locs.append(part_and_loc)
+            pTDH3button.configure(bg="red")
+
+
+        def paqCIDO_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 11
+            parts_and_locs.append(part_and_loc)
+            paqCIDObutton.configure(bg="red")
+
+        def IAA14_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 12
+            parts_and_locs.append(part_and_loc)
+            IAA14button.configure(bg="red")
+
+        def IAA12_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 13
+            parts_and_locs.append(part_and_loc)
+            IAA12button.configure(bg="red")
+
+
+        def tADH1_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 14
+            parts_and_locs.append(part_and_loc)
+            tADH1button.configure(bg="red")
+
+
+        def ConR1_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 15
+            parts_and_locs.append(part_and_loc)
+            ConR1button.configure(bg="red")
+
+        def ConR2_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 16
+            parts_and_locs.append(part_and_loc)
+            ConR2button.configure(bg="red")
+
+        def ConR3_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 17
+            parts_and_locs.append(part_and_loc)
+            ConR3button.configure(bg="red")
+
+        def ConR4_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 18
+            parts_and_locs.append(part_and_loc)
+            ConR4button.configure(bg="red")
+
+        def ConR5_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 19
+            parts_and_locs.append(part_and_loc)
+            ConR5button.configure(bg="red")
+
+        def ConRE_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 20
+            parts_and_locs.append(part_and_loc)
+            ConREbutton.configure(bg="red")
+
+        def ConREprim_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 21
+            parts_and_locs.append(part_and_loc)
+            ConREprimbutton.configure(bg="red")
+
+
+        def URA3_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 22
+            parts_and_locs.append(part_and_loc)
+            URA3button.configure(bg="red")
+
+        def LEU2_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 23
+            parts_and_locs.append(part_and_loc)
+            LEU2button.configure(bg="red")
+
+        def HIS3_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 24
+            parts_and_locs.append(part_and_loc)
+            HIS3button.configure(bg="red")
+
+        def TRP1_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 25
+            parts_and_locs.append(part_and_loc)
+            TRP1button.configure(bg="red")
+
+
+        def CENARS_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 26
+            parts_and_locs.append(part_and_loc)
+            CENARSbutton.configure(bg="red")
+
+
+        def AmpColE1_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 27
+            parts_and_locs.append(part_and_loc)
+            AmpColE1button.configure(bg="red")
+
+
+        def YFP_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 28
+            parts_and_locs.append(part_and_loc)
+            YFPbutton.configure(bg="red")
+
+
+        def paqCIDOb_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 29
+            parts_and_locs.append(part_and_loc)
+            paqCIDObbutton.configure(bg="red")
+
+        def IAA14b_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 30
+            parts_and_locs.append(part_and_loc)
+            IAA14bbutton.configure(bg="red")
+
+        def IAA12b_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 31
+            parts_and_locs.append(part_and_loc)
+            IAA12bbutton.configure(bg="red")
+
+
+        def ERBVVENUS_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 32
+            parts_and_locs.append(part_and_loc)
+            ERBVVENUSbutton.configure(bg="red")
+
+
+        def tADH1b_button():
+            #Has a numeric code for the part and location
+            global part_and_loc
+            part_and_loc = 33
+            parts_and_locs.append(part_and_loc)
+            tADH1bbutton.configure(bg="red")
+
+
+
+
+
+        
+        #label_1 = tk.Label(text='Assembly Connector (1)',font=('Helvatical bold',14))
+        #label_Cutsmart.place(relx=0.625,rely=0.3125)
+        label_extra1 = Label(text='Assembly Connector (1)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.0,rely=0.03125)
+
+        label_extra1 = Label(text='Promoter (2)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.125,rely=0.03125)
+
+        label_extra1 = Label(text='CDS (3)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.25,rely=0.03125)
+
+        label_extra1 = Label(text='Terminator (4)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.375,rely=0.03125)
+
+        label_extra1 = Label(text='Assembly Connector (5)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.5,rely=0.03125)
+
+        label_extra1 = Label(text='Yeast Marker (6)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.625,rely=0.03125)
+
+        label_extra1 = Label(text='Yeast Origin (7)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.75,rely=0.03125)
+
+        label_extra1 = Label(text='E. coli marker/ori (8)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.875,rely=0.03125)
+
+
+        label_extra1 = Label(text='N-terminal \n CDS (3a)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.225,rely=0.53125)
+
+        label_extra1 = Label(text='CDS (3b)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.2875,rely=0.53125)
+
+        label_extra1 = Label(text='C-terminal \n CDS (4a)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.35,rely=0.53125)
+
+        label_extra1 = Label(text='Terminator (4b)',font=('Helvatical bold',12))
+        label_extra1.place(relx=0.4125,rely=0.53125)
+    ##############################################################################################################
+
+        ConLSbutton = Button(root, text="ConLS",activebackground="magenta",fg="white",  bg="blue", command=ConLS_button)
+        ConLSbutton.place(x=50, y=59.375)
+
+        ConL1button = Button(root, text="ConL1",activebackground="magenta",fg="white", bg = "blue",command=ConL1_button)
+        ConL1button.place(x=50, y=118.75)
+
+        ConL2button = Button(root, text="ConL2",activebackground="magenta",fg="white", bg = "blue",command=ConL2_button)
+        ConL2button.place(x=50, y=178.125)
+
+        ConL3button = Button(root, text="ConL3",activebackground="magenta",fg="white", bg = "blue",command=ConL3_button)
+        ConL3button.place(x=50, y=237.475)
+
+        ConL4button = Button(root, text="ConL4",activebackground="magenta",fg="white", bg = "blue",command=ConL4_button)
+        ConL4button.place(x=50, y=296.85)
+
+        ConL5button = Button(root, text="ConL5",activebackground="magenta",fg="white", bg = "blue",command=ConL5_button)
+        ConL5button.place(x=50, y=356.225)
+
+        ConLSprimbutton = Button(root, text="ConLS'",activebackground="magenta",fg="white", bg = "blue",command=ConLSprim_button)
+        ConLSprimbutton.place(x=50, y=415.6)
+
+
+        pREV1button = Button(root, text="pREV1",activebackground="magenta",fg="white", bg = "green",command=pREV1_button)
+        pREV1button.place(x=265, y=59.375)
+
+        pRNR2button = Button(root, text="pRNR2",activebackground="magenta",fg="white", bg = "green",command=pRNR2_button)
+        pRNR2button.place(x=265, y=118.75)
+
+        pRPL18Bbutton = Button(root, text="pRPL18B",activebackground="magenta",fg="white", bg = "green",command=pRPL18B_button)
+        pRPL18Bbutton.place(x=265, y=178.125)
+
+        pTDH3button = Button(root, text="pTDH3",activebackground="magenta",fg="white", bg = "green",command=pTDH3_button)
+        pTDH3button.place(x=265, y=237.475)
+
+        
+        paqCIDObutton = Button(root, text="paqCI DO",activebackground="magenta", bg = "yellow", command=paqCIDO_button)
+        paqCIDObutton.place(x=475, y=59.375)
+
+        IAA14button = Button(root, text="Aux/IAA 14",activebackground="magenta", bg = "yellow", command=IAA14_button)
+        IAA14button.place(x=475, y=118.75)
+
+        IAA12button = Button(root, text="Aux/IAA 12",activebackground="magenta", bg = "yellow", command=IAA12_button)
+        IAA12button.place(x=475, y=178.125)
+
+
+        tADH1button = Button(root, text="tADH1",activebackground="yellow",fg="white", bg = "magenta", command=tADH1_button)
+        tADH1button.place(x=750, y=59.375)
+
+
+        ConR1button = Button(root, text="ConR1",activebackground="magenta",fg="white",  bg="purple", command=ConR1_button)
+        ConR1button.place(x=1000, y=59.375)
+
+        ConR2button = Button(root, text="ConR2",activebackground="magenta",fg="white", bg = "purple",command=ConR2_button)
+        ConR2button.place(x=1000, y=118.75)
+
+        ConR3button = Button(root, text="ConR3",activebackground="magenta",fg="white", bg = "purple",command=ConR3_button)
+        ConR3button.place(x=1000, y=178.125)
+
+        ConR4button = Button(root, text="ConR4",activebackground="magenta",fg="white", bg = "purple",command=ConR4_button)
+        ConR4button.place(x=1000, y=237.475)
+
+        ConR5button = Button(root, text="ConR5",activebackground="magenta",fg="white", bg = "purple",command=ConR5_button)
+        ConR5button.place(x=1000, y=296.85)
+
+        ConREbutton = Button(root, text="ConRE",activebackground="magenta",fg="white", bg = "purple",command=ConRE_button)
+        ConREbutton.place(x=1000, y=356.225)
+
+        ConREprimbutton = Button(root, text="ConRE'",activebackground="magenta",fg="white", bg = "purple",command=ConREprim_button)
+        ConREprimbutton.place(x=1000, y=415.6)
+
+
+        URA3button = Button(root, text="URA3",activebackground="magenta",  bg="orange", command=URA3_button)
+        URA3button.place(x=1225, y=59.375)
+
+        LEU2button = Button(root, text="LEU2",activebackground="magenta", bg = "orange",command=LEU2_button)
+        LEU2button.place(x=1225, y=118.75)
+
+        HIS3button = Button(root, text="HIS3",activebackground="magenta", bg = "orange",command=HIS3_button)
+        HIS3button.place(x=1225, y=178.125)
+
+        TRP1button = Button(root, text="TRP1",activebackground="magenta", bg = "orange",command=TRP1_button)
+        TRP1button.place(x=1225, y=237.475)
+
+
+        CENARSbutton = Button(root, text="CEN6/ARS4",activebackground="magenta",fg="white",  bg="brown", command=CENARS_button)
+        CENARSbutton.place(x=1450, y=59.375)
+
+
+        AmpColE1button = Button(root, text="AmpR-ColE1",activebackground="magenta",fg="white", bg = "grey",command=AmpColE1_button)
+        AmpColE1button.place(x=1700, y=59.375)
+
+
+        YFPbutton = Button(root, text="YFP 3a",activebackground="magenta", bg = "yellow", command=YFP_button)
+        YFPbutton.place(x=450, y=610)
+
+        paqCIDObbutton = Button(root, text="paqCI DO 3b",activebackground="magenta", bg = "yellow", command=paqCIDOb_button)
+        paqCIDObbutton.place(x=550, y=610)
+
+        IAA14bbutton = Button(root, text="Aux/IAA14 3b",activebackground="magenta", bg = "yellow", command=IAA14b_button)
+        IAA14bbutton.place(x=550, y=669.375)
+
+        IAA12bbutton = Button(root, text="Aux/IAA12 3b",activebackground="magenta", bg = "yellow", command=IAA12b_button)
+        IAA12bbutton.place(x=550, y=728.75)
+
+
+        ERBVVENUSbutton = Button(root, text="ERBV-Venus",activebackground="yellow", bg = "magenta", command=ERBVVENUS_button)
+        ERBVVENUSbutton.place(x=675, y=610)
+
+
+        tADH1bbutton = Button(root, text="tADH1 4b",activebackground="yellow", bg = "magenta", command=tADH1b_button)
+        tADH1bbutton.place(x=800, y=610)    
+
+
+        def Close():
+            root.destroy()
+
+
+        # Button for closing
+        exit_button = Button(root, text="Confirm", command=Close)
+        #exit_button.pack(pady=20)
+        exit_button.place(relx=.5,rely=.9)
+
+        root.mainloop()
+
+    
+
+        parts = pandas.DataFrame(parts_and_locs, columns=['ID'])
         
 
-    def ConLSprim_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 6
-        parts_and_locs.append(part_and_loc)
-        ConLSprimbutton.configure(bg="red")
-
-
-
-    def pREV1_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 7
-        parts_and_locs.append(part_and_loc)
-        pREV1button.configure(bg="red")
-
-    def pRNR2_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 8
-        parts_and_locs.append(part_and_loc)
-        pRNR2button.configure(bg="red")
-
-    def pRPL18B_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 9
-        parts_and_locs.append(part_and_loc)
-        pRPL18Bbutton.configure(bg="red")
-
-    def pTDH3_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 10
-        parts_and_locs.append(part_and_loc)
-        pTDH3button.configure(bg="red")
-
-
-    def paqCIDO_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 11
-        parts_and_locs.append(part_and_loc)
-        paqCIDObutton.configure(bg="red")
-
-    def IAA14_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 12
-        parts_and_locs.append(part_and_loc)
-        IAA14button.configure(bg="red")
-
-    def IAA12_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 13
-        parts_and_locs.append(part_and_loc)
-        IAA12button.configure(bg="red")
-
-
-    def tADH1_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 14
-        parts_and_locs.append(part_and_loc)
-        tADH1button.configure(bg="red")
-
-
-    def ConR1_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 15
-        parts_and_locs.append(part_and_loc)
-        ConR1button.configure(bg="red")
-
-    def ConR2_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 16
-        parts_and_locs.append(part_and_loc)
-        ConR2button.configure(bg="red")
-
-    def ConR3_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 17
-        parts_and_locs.append(part_and_loc)
-        ConR3button.configure(bg="red")
-
-    def ConR4_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 18
-        parts_and_locs.append(part_and_loc)
-        ConR4button.configure(bg="red")
-
-    def ConR5_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 19
-        parts_and_locs.append(part_and_loc)
-        ConR5button.configure(bg="red")
-
-    def ConRE_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 20
-        parts_and_locs.append(part_and_loc)
-        ConREbutton.configure(bg="red")
-
-    def ConREprim_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 21
-        parts_and_locs.append(part_and_loc)
-        ConREprimbutton.configure(bg="red")
-
-
-    def URA3_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 22
-        parts_and_locs.append(part_and_loc)
-        URA3button.configure(bg="red")
-
-    def LEU2_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 23
-        parts_and_locs.append(part_and_loc)
-        LEU2button.configure(bg="red")
-
-    def HIS3_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 24
-        parts_and_locs.append(part_and_loc)
-        HIS3button.configure(bg="red")
-
-    def TRP1_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 25
-        parts_and_locs.append(part_and_loc)
-        TRP1button.configure(bg="red")
-
-
-    def CENARS_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 26
-        parts_and_locs.append(part_and_loc)
-        CENARSbutton.configure(bg="red")
-
-
-    def AmpColE1_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 27
-        parts_and_locs.append(part_and_loc)
-        AmpColE1button.configure(bg="red")
-
-
-    def YFP_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 28
-        parts_and_locs.append(part_and_loc)
-        YFPbutton.configure(bg="red")
-
-
-    def paqCIDOb_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 29
-        parts_and_locs.append(part_and_loc)
-        paqCIDObbutton.configure(bg="red")
-
-    def IAA14b_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 30
-        parts_and_locs.append(part_and_loc)
-        IAA14bbutton.configure(bg="red")
-
-    def IAA12b_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 31
-        parts_and_locs.append(part_and_loc)
-        IAA12bbutton.configure(bg="red")
-
-
-    def ERBVVENUS_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 32
-        parts_and_locs.append(part_and_loc)
-        ERBVVENUSbutton.configure(bg="red")
-
-
-    def tADH1b_button():
-        #Has a numeric code for the part and location
-        global part_and_loc
-        part_and_loc = 33
-        parts_and_locs.append(part_and_loc)
-        tADH1bbutton.configure(bg="red")
-
-
-
-
-
-    
-    #label_1 = tk.Label(text='Assembly Connector (1)',font=('Helvatical bold',14))
-    #label_Cutsmart.place(relx=0.625,rely=0.3125)
-    label_extra1 = Label(text='Assembly Connector (1)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.0,rely=0.03125)
-
-    label_extra1 = Label(text='Promoter (2)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.125,rely=0.03125)
-
-    label_extra1 = Label(text='CDS (3)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.25,rely=0.03125)
-
-    label_extra1 = Label(text='Terminator (4)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.375,rely=0.03125)
-
-    label_extra1 = Label(text='Assembly Connector (5)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.5,rely=0.03125)
-
-    label_extra1 = Label(text='Yeast Marker (6)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.625,rely=0.03125)
-
-    label_extra1 = Label(text='Yeast Origin (7)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.75,rely=0.03125)
-
-    label_extra1 = Label(text='E. coli marker/ori (8)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.875,rely=0.03125)
-
-
-    label_extra1 = Label(text='N-terminal \n CDS (3a)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.225,rely=0.53125)
-
-    label_extra1 = Label(text='CDS (3b)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.2875,rely=0.53125)
-
-    label_extra1 = Label(text='C-terminal \n CDS (4a)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.35,rely=0.53125)
-
-    label_extra1 = Label(text='Terminator (4b)',font=('Helvatical bold',12))
-    label_extra1.place(relx=0.4125,rely=0.53125)
-##############################################################################################################
-
-    ConLSbutton = Button(root, text="ConLS",activebackground="magenta",fg="white",  bg="blue", command=ConLS_button)
-    ConLSbutton.place(x=50, y=59.375)
-
-    ConL1button = Button(root, text="ConL1",activebackground="magenta",fg="white", bg = "blue",command=ConL1_button)
-    ConL1button.place(x=50, y=118.75)
-
-    ConL2button = Button(root, text="ConL2",activebackground="magenta",fg="white", bg = "blue",command=ConL2_button)
-    ConL2button.place(x=50, y=178.125)
-
-    ConL3button = Button(root, text="ConL3",activebackground="magenta",fg="white", bg = "blue",command=ConL3_button)
-    ConL3button.place(x=50, y=237.475)
-
-    ConL4button = Button(root, text="ConL4",activebackground="magenta",fg="white", bg = "blue",command=ConL4_button)
-    ConL4button.place(x=50, y=296.85)
-
-    ConL5button = Button(root, text="ConL5",activebackground="magenta",fg="white", bg = "blue",command=ConL5_button)
-    ConL5button.place(x=50, y=356.225)
-
-    ConLSprimbutton = Button(root, text="ConLS'",activebackground="magenta",fg="white", bg = "blue",command=ConLSprim_button)
-    ConLSprimbutton.place(x=50, y=415.6)
-
-
-    pREV1button = Button(root, text="pREV1",activebackground="magenta",fg="white", bg = "green",command=pREV1_button)
-    pREV1button.place(x=265, y=59.375)
-
-    pRNR2button = Button(root, text="pRNR2",activebackground="magenta",fg="white", bg = "green",command=pRNR2_button)
-    pRNR2button.place(x=265, y=118.75)
-
-    pRPL18Bbutton = Button(root, text="pRPL18B",activebackground="magenta",fg="white", bg = "green",command=pRPL18B_button)
-    pRPL18Bbutton.place(x=265, y=178.125)
-
-    pTDH3button = Button(root, text="pTDH3",activebackground="magenta",fg="white", bg = "green",command=pTDH3_button)
-    pTDH3button.place(x=265, y=237.475)
-
-    
-    paqCIDObutton = Button(root, text="paqCI DO",activebackground="magenta", bg = "yellow", command=paqCIDO_button)
-    paqCIDObutton.place(x=475, y=59.375)
-
-    IAA14button = Button(root, text="Aux/IAA 14",activebackground="magenta", bg = "yellow", command=IAA14_button)
-    IAA14button.place(x=475, y=118.75)
-
-    IAA12button = Button(root, text="Aux/IAA 12",activebackground="magenta", bg = "yellow", command=IAA12_button)
-    IAA12button.place(x=475, y=178.125)
-
-
-    tADH1button = Button(root, text="tADH1",activebackground="yellow",fg="white", bg = "magenta", command=tADH1_button)
-    tADH1button.place(x=750, y=59.375)
-
-
-    ConR1button = Button(root, text="ConR1",activebackground="magenta",fg="white",  bg="purple", command=ConR1_button)
-    ConR1button.place(x=1000, y=59.375)
-
-    ConR2button = Button(root, text="ConR2",activebackground="magenta",fg="white", bg = "purple",command=ConR2_button)
-    ConR2button.place(x=1000, y=118.75)
-
-    ConR3button = Button(root, text="ConR3",activebackground="magenta",fg="white", bg = "purple",command=ConR3_button)
-    ConR3button.place(x=1000, y=178.125)
-
-    ConR4button = Button(root, text="ConR4",activebackground="magenta",fg="white", bg = "purple",command=ConR4_button)
-    ConR4button.place(x=1000, y=237.475)
-
-    ConR5button = Button(root, text="ConR5",activebackground="magenta",fg="white", bg = "purple",command=ConR5_button)
-    ConR5button.place(x=1000, y=296.85)
-
-    ConREbutton = Button(root, text="ConRE",activebackground="magenta",fg="white", bg = "purple",command=ConRE_button)
-    ConREbutton.place(x=1000, y=356.225)
-
-    ConREprimbutton = Button(root, text="ConRE'",activebackground="magenta",fg="white", bg = "purple",command=ConREprim_button)
-    ConREprimbutton.place(x=1000, y=415.6)
-
-
-    URA3button = Button(root, text="URA3",activebackground="magenta",  bg="orange", command=URA3_button)
-    URA3button.place(x=1225, y=59.375)
-
-    LEU2button = Button(root, text="LEU2",activebackground="magenta", bg = "orange",command=LEU2_button)
-    LEU2button.place(x=1225, y=118.75)
-
-    HIS3button = Button(root, text="HIS3",activebackground="magenta", bg = "orange",command=HIS3_button)
-    HIS3button.place(x=1225, y=178.125)
-
-    TRP1button = Button(root, text="TRP1",activebackground="magenta", bg = "orange",command=TRP1_button)
-    TRP1button.place(x=1225, y=237.475)
-
-
-    CENARSbutton = Button(root, text="CEN6/ARS4",activebackground="magenta",fg="white",  bg="brown", command=CENARS_button)
-    CENARSbutton.place(x=1450, y=59.375)
-
-
-    AmpColE1button = Button(root, text="AmpR-ColE1",activebackground="magenta",fg="white", bg = "grey",command=AmpColE1_button)
-    AmpColE1button.place(x=1700, y=59.375)
-
-
-    YFPbutton = Button(root, text="YFP 3a",activebackground="magenta", bg = "yellow", command=YFP_button)
-    YFPbutton.place(x=450, y=610)
-
-    paqCIDObbutton = Button(root, text="paqCI DO 3b",activebackground="magenta", bg = "yellow", command=paqCIDOb_button)
-    paqCIDObbutton.place(x=550, y=610)
-
-    IAA14bbutton = Button(root, text="Aux/IAA14 3b",activebackground="magenta", bg = "yellow", command=IAA14b_button)
-    IAA14bbutton.place(x=550, y=669.375)
-
-    IAA12bbutton = Button(root, text="Aux/IAA12 3b",activebackground="magenta", bg = "yellow", command=IAA12b_button)
-    IAA12bbutton.place(x=550, y=728.75)
-
-
-    ERBVVENUSbutton = Button(root, text="ERBV-Venus",activebackground="yellow", bg = "magenta", command=ERBVVENUS_button)
-    ERBVVENUSbutton.place(x=675, y=610)
-
-
-    tADH1bbutton = Button(root, text="tADH1 4b",activebackground="yellow", bg = "magenta", command=tADH1b_button)
-    tADH1bbutton.place(x=800, y=610)    
-
-
-    def Close():
-        root.destroy()
-
-
-    # Button for closing
-    exit_button = Button(root, text="Confirm", command=Close)
-    #exit_button.pack(pady=20)
-    exit_button.place(relx=.5,rely=.9)
-
-    root.mainloop()
-
-
-
-    parts_df = pandas.DataFrame(parts_and_locs, columns=['ID'])
-    
-
-    num2well = {}
-    num2well['0'] = 'A1'
-    num2well['1'] = 'A2'
-    num2well['2'] = 'A3'
-    num2well['3'] = 'A4'
-    num2well['4'] = 'A5'
-    num2well['5'] = 'A6'
-    num2well['6'] = 'A7'
-    num2well['7'] = 'A8'
-    num2well['8'] = 'A9'
-    num2well['9'] = 'A10'
-    num2well['10'] = 'A11'
-    num2well['11'] = 'A12'
-    num2well['12'] = 'B1'
-    num2well['13'] = 'B2'
-    num2well['14'] = 'B3'
-    num2well['15'] = 'B4'
-    num2well['16'] = 'B5'
-    num2well['17'] = 'B6'
-    num2well['18'] = 'B7'
-    num2well['19'] = 'B8'
-    num2well['20'] = 'B9'
-    num2well['21'] = 'B10'
-    num2well['22'] = 'B11'
-    num2well['23'] = 'B12' 
-    num2well['24'] = 'C1'
-    num2well['25'] = 'C2'
-    num2well['26'] = 'C3'
-    num2well['27'] = 'C4'
-    num2well['28'] = 'C5'
-    num2well['29'] = 'C6'
-    num2well['30'] = 'C7'
-    num2well['31'] = 'C8'
-    num2well['32'] = 'C9'
-    num2well['33'] = 'C10'
-
-    num2part = {}
-    num2part['0'] = 'ConLS'
-    num2part['1'] = 'ConL1'
-    num2part['2'] = 'ConL2'
-    num2part['3'] = 'ConL3'
-    num2part['4'] = 'ConL4'
-    num2part['5'] = 'ConL5'
-    num2part['6'] = 'ConLSprime'
-    num2part['7'] = 'pREV1'
-    num2part['8'] = 'pRNR2'
-    num2part['9'] = 'pRPL18B'
-    num2part['10'] = 'pTDH3'
-    num2part['11'] = 'paqCIDO'
-    num2part['12'] = 'IAA14'
-    num2part['13'] = 'IAA12'
-    num2part['14'] = 'tADH1'
-    num2part['15'] = 'ConR1'
-    num2part['16'] = 'ConR2'
-    num2part['17'] = 'ConR3'
-    num2part['18'] = 'ConR4'
-    num2part['19'] = 'ConR5'
-    num2part['20'] = 'ConRE'
-    num2part['21'] = 'ConREprime'
-    num2part['22'] = 'URA3'
-    num2part['23'] = 'LEU2' 
-    num2part['24'] = 'HIS3'
-    num2part['25'] = 'TRP1'
-    num2part['26'] = 'CENARS'
-    num2part['27'] = 'AmpRColE1'
-    num2part['28'] = 'YFP3a'
-    num2part['29'] = 'paqCIDO3b'
-    num2part['30'] = 'IAA143b'
-    num2part['31'] = 'IAA123b'
-    num2part['32'] = 'ERBVVenus'
-    num2part['33'] = 'tADH1'
-
-    parts_df["well"]=""
-    parts_df["part"]=""
-    for i, row in parts_df.iterrows():
-        parts_df.loc[i,"well"] = num2well[str(parts_df.loc[i].at["ID"])]
-        parts_df.loc[i,"part"] = num2part[str(parts_df.loc[i].at["ID"])]
-    
-    print(parts_df)
-    parts_df.to_csv('parts.csv')
-
-    os.mkdir(date+time+'_MoClo')
-    shutil.move('parts.csv',paths.loc[0].at['opentrons_repo']+'/MoClo_builder/'+date+time+'_MoClo/')
-    shutil.copy2('MoClo_writer.py',paths.loc[0].at['opentrons_repo']+'/MoClo_builder/'+date+time+'_MoClo/')
+        num2well = {}
+        num2well['0'] = 'A1'
+        num2well['1'] = 'A2'
+        num2well['2'] = 'A3'
+        num2well['3'] = 'A4'
+        num2well['4'] = 'A5'
+        num2well['5'] = 'A6'
+        num2well['6'] = 'A7'
+        num2well['7'] = 'A8'
+        num2well['8'] = 'A9'
+        num2well['9'] = 'A10'
+        num2well['10'] = 'A11'
+        num2well['11'] = 'A12'
+        num2well['12'] = 'B1'
+        num2well['13'] = 'B2'
+        num2well['14'] = 'B3'
+        num2well['15'] = 'B4'
+        num2well['16'] = 'B5'
+        num2well['17'] = 'B6'
+        num2well['18'] = 'B7'
+        num2well['19'] = 'B8'
+        num2well['20'] = 'B9'
+        num2well['21'] = 'B10'
+        num2well['22'] = 'B11'
+        num2well['23'] = 'B12' 
+        num2well['24'] = 'C1'
+        num2well['25'] = 'C2'
+        num2well['26'] = 'C3'
+        num2well['27'] = 'C4'
+        num2well['28'] = 'C5'
+        num2well['29'] = 'C6'
+        num2well['30'] = 'C7'
+        num2well['31'] = 'C8'
+        num2well['32'] = 'C9'
+        num2well['33'] = 'C10'
+
+        num2part = {}
+        num2part['0'] = 'ConLS'
+        num2part['1'] = 'ConL1'
+        num2part['2'] = 'ConL2'
+        num2part['3'] = 'ConL3'
+        num2part['4'] = 'ConL4'
+        num2part['5'] = 'ConL5'
+        num2part['6'] = 'ConLSprime'
+        num2part['7'] = 'pREV1'
+        num2part['8'] = 'pRNR2'
+        num2part['9'] = 'pRPL18B'
+        num2part['10'] = 'pTDH3'
+        num2part['11'] = 'paqCIDO'
+        num2part['12'] = 'IAA14'
+        num2part['13'] = 'IAA12'
+        num2part['14'] = 'tADH1'
+        num2part['15'] = 'ConR1'
+        num2part['16'] = 'ConR2'
+        num2part['17'] = 'ConR3'
+        num2part['18'] = 'ConR4'
+        num2part['19'] = 'ConR5'
+        num2part['20'] = 'ConRE'
+        num2part['21'] = 'ConREprime'
+        num2part['22'] = 'URA3'
+        num2part['23'] = 'LEU2' 
+        num2part['24'] = 'HIS3'
+        num2part['25'] = 'TRP1'
+        num2part['26'] = 'CENARS'
+        num2part['27'] = 'AmpRColE1'
+        num2part['28'] = 'YFP3a'
+        num2part['29'] = 'paqCIDO3b'
+        num2part['30'] = 'IAA143b'
+        num2part['31'] = 'IAA123b'
+        num2part['32'] = 'ERBVVenus'
+        num2part['33'] = 'tADH1'
+
+        parts["well"]=""
+        parts["part"]=""
+        for i, row in parts.iterrows():
+            parts.loc[i,"well"] = num2well[str(parts.loc[i].at["ID"])]
+            parts.loc[i,"part"] = num2part[str(parts.loc[i].at["ID"])]
+        
+        print(parts)
+        parts.to_csv('parts'+str(number)+'.csv')
+
+        
+        shutil.move('parts'+str(number)+'.csv',paths.loc[0].at['opentrons_repo']+'/MoClo_builder/'+date+time+'_MoClo/')
+        
+
+        number_constructs=number_constructs-1
+        number=number+1
 
 
 #######################################################################################################################
@@ -832,649 +876,649 @@ if __name__ == '__main__':
     # # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
 
 
-    # ###############################################################################################################################################################################################3
-    # #tkinter window
+    ###############################################################################################################################################################################################3
+    #tkinter window
 
-    # from tkinter import *
+    from tkinter import *
 
-    # input_csv = tk.Tk()
-    # input_csv.geometry('1920x1080')
-    # input_csv.title('Parameters for Goldengate')
+    input_csv = tk.Tk()
+    input_csv.geometry('1920x1080')
+    input_csv.title('Parameters for Goldengate')
 
 
-    # def set_variables():
-    #     global stkprm
-    #     global stkvol
-    #     global dilprm
-    #     global primerconc
-    #     global pcrvol
-    #     global templatengs
-    #     global Q5
-    #     global DPNI
-    #     global DPwater
-    #     global cutsmart
-    #     global Date
-    #     global ngdesired
-    #     global Combinatorial_pcr_params
-    #     global Time
-    #     # global pwldigesttemp
-    #     # global concdigesttemp
+    def set_variables():
+        #global stkprm
+        global stkvol
+        #global dilprm
+        #global primerconc
+        global pcrvol
+        #global templatengs
+        #global Q5
+        #global DPNI
+        global DPwater
+        global cutsmart
+        global Date
+        global ngdesired
+        global Combinatorial_pcr_params
+        global Time
+        # global pwldigesttemp
+        # global concdigesttemp
         
-    #     global extra1value
-    #     global extra1name
-    #     global extra2value
-    #     global extra2name
+        global extra1value
+        global extra1name
+        global extra2value
+        global extra2name
         
-    #     if len(pandas.unique(names['Primary Template'])) == 1:
-    #         global temppwl1
-    #         global conc1
+        if len(pandas.unique(names['Primary Template'])) == 1:
+            global temppwl1
+            global conc1
 
-    #     if len(pandas.unique(names['Primary Template'])) == 2:
-    #         global temppwl1
-    #         global temppwl2
-    #         global conc1
-    #         global conc2
+        if len(pandas.unique(names['Primary Template'])) == 2:
+            global temppwl1
+            global temppwl2
+            global conc1
+            global conc2
         
-    #     if len(pandas.unique(names['Primary Template'])) == 3:
-    #         global temppwl1
-    #         global temppwl2
-    #         global temppwl3
-    #         global conc1
-    #         global conc2
-    #         global conc3
+        if len(pandas.unique(names['Primary Template'])) == 3:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global conc1
+            global conc2
+            global conc3
 
-    #     if len(pandas.unique(names['Primary Template'])) == 4:
-    #         global temppwl1
-    #         global temppwl2
-    #         global temppwl3
-    #         global temppwl4
-    #         global conc1
-    #         global conc2
-    #         global conc3
-    #         global conc4
+        if len(pandas.unique(names['Primary Template'])) == 4:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global temppwl4
+            global conc1
+            global conc2
+            global conc3
+            global conc4
         
-    #     if len(pandas.unique(names['Primary Template'])) == 5:
-    #         global temppwl1
-    #         global temppwl2
-    #         global temppwl3
-    #         global temppwl4
-    #         global temppwl5
-    #         global conc1
-    #         global conc2
-    #         global conc3
-    #         global conc4
-    #         global conc5
+        if len(pandas.unique(names['Primary Template'])) == 5:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global temppwl4
+            global temppwl5
+            global conc1
+            global conc2
+            global conc3
+            global conc4
+            global conc5
 
-    #     if len(pandas.unique(names['Primary Template'])) == 6:
-    #         global temppwl1
-    #         global temppwl2
-    #         global temppwl3
-    #         global temppwl4
-    #         global temppwl5
-    #         global temppwl6
-    #         global conc1
-    #         global conc2
-    #         global conc3
-    #         global conc4
-    #         global conc5
-    #         global conc6
+        if len(pandas.unique(names['Primary Template'])) == 6:
+            global temppwl1
+            global temppwl2
+            global temppwl3
+            global temppwl4
+            global temppwl5
+            global temppwl6
+            global conc1
+            global conc2
+            global conc3
+            global conc4
+            global conc5
+            global conc6
 
-    #     stkprm = float(stkprm_entry.get())
-    #     stkvol = float(stkvol_entry.get())
-    #     dilprm = float(dilprm_entry.get())
-    #     primerconc = float(primerconc_entry.get())
-    #     pcrvol = float(pcrvol_entry.get())
-    #     templatengs = float(templatengs_entry.get())
-    #     Q5 = float(Q5_entry.get())
-    #     DPNI = float(DPNI_entry.get())
-    #     DPwater = float(DPwater_entry.get())
-    #     cutsmart = float(cutsmart_entry.get())
-    #     Date = Date_entry.get()
-    #     ngdesired = float(ngdesired_entry.get())
-    #     Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
-    #     Time = Time_entry.get()
-    #     # pwldigesttemp = float(pwldigesttemp_entry.get())
-    #     # concdigesttemp = float(concdigesttemp_entry.get())
+        stkprm = float(stkprm_entry.get())
+        stkvol = float(stkvol_entry.get())
+        dilprm = float(dilprm_entry.get())
+        primerconc = float(primerconc_entry.get())
+        pcrvol = float(pcrvol_entry.get())
+        templatengs = float(templatengs_entry.get())
+        Q5 = float(Q5_entry.get())
+        DPNI = float(DPNI_entry.get())
+        DPwater = float(DPwater_entry.get())
+        cutsmart = float(cutsmart_entry.get())
+        Date = Date_entry.get()
+        ngdesired = float(ngdesired_entry.get())
+        Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
+        Time = Time_entry.get()
+        # pwldigesttemp = float(pwldigesttemp_entry.get())
+        # concdigesttemp = float(concdigesttemp_entry.get())
         
-    #     extra1value = float(extra1value_entry.get())
-    #     extra1name = str(extra1name_entry.get())
-    #     extra2value = float(extra2value_entry.get())
-    #     extra2name = str(extra2name_entry.get())
+        extra1value = float(extra1value_entry.get())
+        extra1name = str(extra1name_entry.get())
+        extra2value = float(extra2value_entry.get())
+        extra2name = str(extra2name_entry.get())
 
 
-    #     if len(pandas.unique(names['Primary Template'])) == 1:
-    #         if temppwl1_entry.get() == '':
-    #             temppwl1 = ''
-    #         else:
-    #             temppwl1 = int(temppwl1_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 1:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
-    #         if conc1_entry.get() == '':
-    #             conc1 = ''
-    #         else:
-    #             conc1 = float(conc1_entry.get())
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
         
-    #     if len(pandas.unique(names['Primary Template'])) == 2:
-    #         if temppwl1_entry.get() == '':
-    #             temppwl1 = ''
-    #         else:
-    #             temppwl1 = int(temppwl1_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 2:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
-    #         if temppwl2_entry.get() == '':
-    #             temppwl2 = ''
-    #         else:
-    #             temppwl2 = int(temppwl2_entry.get())
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
             
 
-    #         if conc1_entry.get() == '':
-    #             conc1 = ''
-    #         else:
-    #             conc1 = float(conc1_entry.get())
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
             
-    #         if conc2_entry.get() == '':
-    #             conc2 = ''
-    #         else:
-    #             conc2 = float(conc2_entry.get())
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
 
-    #     if len(pandas.unique(names['Primary Template'])) == 3:
-    #         if temppwl1_entry.get() == '':
-    #             temppwl1 = ''
-    #         else:
-    #             temppwl1 = int(temppwl1_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 3:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
-    #         if temppwl2_entry.get() == '':
-    #             temppwl2 = ''
-    #         else:
-    #             temppwl2 = int(temppwl2_entry.get())
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
             
-    #         if temppwl3_entry.get() == '':
-    #             temppwl3 = ''
-    #         else:
-    #             temppwl3 = int(temppwl3_entry.get())
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
 
             
-    #         if conc1_entry.get() == '':
-    #             conc1 = ''
-    #         else:
-    #             conc1 = float(conc1_entry.get())
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
             
-    #         if conc2_entry.get() == '':
-    #             conc2 = ''
-    #         else:
-    #             conc2 = float(conc2_entry.get())
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
             
-    #         if conc3_entry.get() == '':
-    #             conc3 = ''
-    #         else:
-    #             conc3 = float(conc3_entry.get())
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
 
         
-    #     if len(pandas.unique(names['Primary Template'])) == 4:
-    #         if temppwl1_entry.get() == '':
-    #             temppwl1 = ''
-    #         else:
-    #             temppwl1 = int(temppwl1_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 4:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
-    #         if temppwl2_entry.get() == '':
-    #             temppwl2 = ''
-    #         else:
-    #             temppwl2 = int(temppwl2_entry.get())
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
             
-    #         if temppwl3_entry.get() == '':
-    #             temppwl3 = ''
-    #         else:
-    #             temppwl3 = int(temppwl3_entry.get())
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
             
-    #         if temppwl4_entry.get() == '':
-    #             temppwl4 = ''
-    #         else:
-    #             temppwl4 = int(temppwl4_entry.get())
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
             
-    #         if conc1_entry.get() == '':
-    #             conc1 = ''
-    #         else:
-    #             conc1 = float(conc1_entry.get())
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
             
-    #         if conc2_entry.get() == '':
-    #             conc2 = ''
-    #         else:
-    #             conc2 = float(conc2_entry.get())
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
             
-    #         if conc3_entry.get() == '':
-    #             conc3 = ''
-    #         else:
-    #             conc3 = float(conc3_entry.get())
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
             
-    #         if conc4_entry.get() == '':
-    #             conc4 = ''
-    #         else:
-    #             conc4 = float(conc4_entry.get())
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
 
             
-    #     if len(pandas.unique(names['Primary Template'])) == 5:
-    #         if temppwl1_entry.get() == '':
-    #             temppwl1 = ''
-    #         else:
-    #             temppwl1 = int(temppwl1_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 5:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
-    #         if temppwl2_entry.get() == '':
-    #             temppwl2 = ''
-    #         else:
-    #             temppwl2 = int(temppwl2_entry.get())
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
             
-    #         if temppwl3_entry.get() == '':
-    #             temppwl3 = ''
-    #         else:
-    #             temppwl3 = int(temppwl3_entry.get())
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
             
-    #         if temppwl4_entry.get() == '':
-    #             temppwl4 = ''
-    #         else:
-    #             temppwl4 = int(temppwl4_entry.get())
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
             
-    #         if temppwl5_entry.get() == '':
-    #             temppwl5 = ''
-    #         else:
-    #             temppwl5 = int(temppwl5_entry.get())
+            if temppwl5_entry.get() == '':
+                temppwl5 = ''
+            else:
+                temppwl5 = int(temppwl5_entry.get())
                 
     
-    #         if conc1_entry.get() == '':
-    #             conc1 = ''
-    #         else:
-    #             conc1 = float(conc1_entry.get())
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
             
-    #         if conc2_entry.get() == '':
-    #             conc2 = ''
-    #         else:
-    #             conc2 = float(conc2_entry.get())
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
             
-    #         if conc3_entry.get() == '':
-    #             conc3 = ''
-    #         else:
-    #             conc3 = float(conc3_entry.get())
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
             
-    #         if conc4_entry.get() == '':
-    #             conc4 = ''
-    #         else:
-    #             conc4 = float(conc4_entry.get())
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
             
-    #         if conc5_entry.get() == '':
-    #             conc5 = ''
-    #         else:
-    #             conc5 = float(conc5_entry.get())
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
 
-    #     if len(pandas.unique(names['Primary Template'])) == 6:
-    #         if temppwl1_entry.get() == '':
-    #             temppwl1 = ''
-    #         else:
-    #             temppwl1 = int(temppwl1_entry.get())
+        if len(pandas.unique(names['Primary Template'])) == 6:
+            if temppwl1_entry.get() == '':
+                temppwl1 = ''
+            else:
+                temppwl1 = int(temppwl1_entry.get())
             
-    #         if temppwl2_entry.get() == '':
-    #             temppwl2 = ''
-    #         else:
-    #             temppwl2 = int(temppwl2_entry.get())
+            if temppwl2_entry.get() == '':
+                temppwl2 = ''
+            else:
+                temppwl2 = int(temppwl2_entry.get())
             
-    #         if temppwl3_entry.get() == '':
-    #             temppwl3 = ''
-    #         else:
-    #             temppwl3 = int(temppwl3_entry.get())
+            if temppwl3_entry.get() == '':
+                temppwl3 = ''
+            else:
+                temppwl3 = int(temppwl3_entry.get())
             
-    #         if temppwl4_entry.get() == '':
-    #             temppwl4 = ''
-    #         else:
-    #             temppwl4 = int(temppwl4_entry.get())
+            if temppwl4_entry.get() == '':
+                temppwl4 = ''
+            else:
+                temppwl4 = int(temppwl4_entry.get())
             
-    #         if temppwl5_entry.get() == '':
-    #             temppwl5 = ''
-    #         else:
-    #             temppwl5 = int(temppwl5_entry.get())
+            if temppwl5_entry.get() == '':
+                temppwl5 = ''
+            else:
+                temppwl5 = int(temppwl5_entry.get())
             
-    #         if temppwl6_entry.get() == '':
-    #             temppwl6 = ''
-    #         else:
-    #             temppwl6 = int(temppwl6_entry.get())
+            if temppwl6_entry.get() == '':
+                temppwl6 = ''
+            else:
+                temppwl6 = int(temppwl6_entry.get())
                 
                 
             
-    #         if conc1_entry.get() == '':
-    #             conc1 = ''
-    #         else:
-    #             conc1 = float(conc1_entry.get())
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
             
-    #         if conc2_entry.get() == '':
-    #             conc2 = ''
-    #         else:
-    #             conc2 = float(conc2_entry.get())
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
             
-    #         if conc3_entry.get() == '':
-    #             conc3 = ''
-    #         else:
-    #             conc3 = float(conc3_entry.get())
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
             
-    #         if conc4_entry.get() == '':
-    #             conc4 = ''
-    #         else:
-    #             conc4 = float(conc4_entry.get())
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
             
-    #         if conc5_entry.get() == '':
-    #             conc5 = ''
-    #         else:
-    #             conc5 = float(conc5_entry.get())
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
             
-    #         if conc6_entry.get() == '':
-    #             conc6 = ''
-    #         else:
-    #             conc6 = float(conc6_entry.get())
+            if conc6_entry.get() == '':
+                conc6 = ''
+            else:
+                conc6 = float(conc6_entry.get())
         
         
-    #     input_csv.destroy()
+        input_csv.destroy()
 
-    # label_stkprm = tk.Label(text='stock primer concentration - uM',font=('Helvatical bold',14))
-    # label_stkprm.place(relx=0,rely=0.04)
+    label_stkprm = tk.Label(text='stock primer concentration - uM',font=('Helvatical bold',14))
+    label_stkprm.place(relx=0,rely=0.04)
 
-    # label_stkvol = tk.Label(text='volume of stock primer to dilute',font=('Helvatical bold',14))
-    # label_stkvol.place(relx=0,rely=0.07)
+    label_stkvol = tk.Label(text='volume of stock primer to dilute',font=('Helvatical bold',14))
+    label_stkvol.place(relx=0,rely=0.07)
 
-    # label_dilprm = tk.Label(text='Desired conc of intermediate primer stocks',font=('Helvatical bold',14))
-    # label_dilprm.place(relx=0,rely=0.095)
+    label_dilprm = tk.Label(text='Desired conc of intermediate primer stocks',font=('Helvatical bold',14))
+    label_dilprm.place(relx=0,rely=0.095)
 
-    # label_primerconc = tk.Label(text='Conc of primers in the assembled PCR',font=('Helvatical bold',14))
-    # label_primerconc.place(relx=0,rely=0.12)
+    label_primerconc = tk.Label(text='Conc of primers in the assembled PCR',font=('Helvatical bold',14))
+    label_primerconc.place(relx=0,rely=0.12)
 
-    # label_pcrvol = tk.Label(text='Total volume of PCR',font=('Helvatical bold',14))
-    # label_pcrvol.place(relx=0,rely=0.145)
+    label_pcrvol = tk.Label(text='Total volume of PCR',font=('Helvatical bold',14))
+    label_pcrvol.place(relx=0,rely=0.145)
 
-    # label_templatengs = tk.Label(text='Conc of template in PCR - ng/uL',font=('Helvatical bold',14))
-    # label_templatengs.place(relx=0,rely=0.17)
+    label_templatengs = tk.Label(text='Conc of template in PCR - ng/uL',font=('Helvatical bold',14))
+    label_templatengs.place(relx=0,rely=0.17)
 
-    # label_Q5 = tk.Label(text='Polymerase mastermix to add - uL',font=('Helvatical bold',14))
-    # label_Q5.place(relx=0,rely=0.2)
+    label_Q5 = tk.Label(text='Polymerase mastermix to add - uL',font=('Helvatical bold',14))
+    label_Q5.place(relx=0,rely=0.2)
 
-    # label_DNP1 = tk.Label(text='Dpn1 to add - uL',font=('Helvatical bold',14))
-    # label_DNP1.place(relx=0,rely=0.225)
+    label_DNP1 = tk.Label(text='Dpn1 to add - uL',font=('Helvatical bold',14))
+    label_DNP1.place(relx=0,rely=0.225)
 
-    # label_water = tk.Label(text='Volume water added to DPN1 digest - uL',font=('Helvatical bold',14))
-    # label_water.place(relx=0,rely=0.25)
+    label_water = tk.Label(text='Volume water added to DPN1 digest - uL',font=('Helvatical bold',14))
+    label_water.place(relx=0,rely=0.25)
 
-    # label_Cutsmart = tk.Label(text='Volume cutsmart added to DPN1 digest - uL',font=('Helvatical bold',14))
-    # label_Cutsmart.place(relx=0,rely=0.275)
+    label_Cutsmart = tk.Label(text='Volume cutsmart added to DPN1 digest - uL',font=('Helvatical bold',14))
+    label_Cutsmart.place(relx=0,rely=0.275)
 
-    # label_Date = tk.Label(text='Date',font=('Helvatical bold',14))
-    # label_Date.place(relx=0,rely=0.3)
+    label_Date = tk.Label(text='Date',font=('Helvatical bold',14))
+    label_Date.place(relx=0,rely=0.3)
 
-    # label_ngdesired = tk.Label(text='Nanograms template added to PCR',font=('Helvatical bold',14))
-    # label_ngdesired.place(relx=0,rely=0.325)
+    label_ngdesired = tk.Label(text='Nanograms template added to PCR',font=('Helvatical bold',14))
+    label_ngdesired.place(relx=0,rely=0.325)
 
-    # label_Combinatorial_pcr_params = tk.Label(text='Gradient pcr(2) or in OT(1)?',font=('Helvatical bold',14))
-    # label_Combinatorial_pcr_params.place(relx=0,rely=0.350)
+    label_Combinatorial_pcr_params = tk.Label(text='Gradient pcr(2) or in OT(1)?',font=('Helvatical bold',14))
+    label_Combinatorial_pcr_params.place(relx=0,rely=0.350)
 
-    # label_Time = tk.Label(text='Time',font=('Helvatical bold',14))
-    # label_Time.place(relx=0,rely=0.375)
+    label_Time = tk.Label(text='Time',font=('Helvatical bold',14))
+    label_Time.place(relx=0,rely=0.375)
 
-    # # label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
-    # # label_pwldigesttemp.place(relx=0,rely=0.35)
+    # label_pwldigesttemp = tk.Label(text='pwldigesttemp',font=('Helvatical bold',14))
+    # label_pwldigesttemp.place(relx=0,rely=0.35)
 
-    # # label_concdigesttemp = tk.Label(text='concdigesttemp',font=('Helvatical bold',14))
-    # # label_concdigesttemp.place(relx=0,rely=0.375)
+    # label_concdigesttemp = tk.Label(text='concdigesttemp',font=('Helvatical bold',14))
+    # label_concdigesttemp.place(relx=0,rely=0.375)
 
-    # label_extra1 = tk.Label(text='extra1',font=('Helvatical bold',14))
-    # label_extra1.place(relx=0,rely=0.425)
+    label_extra1 = tk.Label(text='extra1',font=('Helvatical bold',14))
+    label_extra1.place(relx=0,rely=0.425)
 
-    # label_extra2 = tk.Label(text='extra2',font=('Helvatical bold',14))
-    # label_extra2.place(relx=0,rely=0.45)
+    label_extra2 = tk.Label(text='extra2',font=('Helvatical bold',14))
+    label_extra2.place(relx=0,rely=0.45)
 
-    # label2 = tk.Label(text="Template - Well & Name",font=('Helvatical bold',12))
-    # label2.place(relx=0.3,rely=0)
+    label2 = tk.Label(text="Template - Well & Name",font=('Helvatical bold',12))
+    label2.place(relx=0.3,rely=0)
 
-    # label3 = tk.Label(text="Template Concentration",font=('Helvatical bold',12))
-    # label3.place(relx=0.6,rely=0.)
+    label3 = tk.Label(text="Template Concentration",font=('Helvatical bold',12))
+    label3.place(relx=0.6,rely=0.)
 
-    # #Text Entries
+    #Text Entries
 
-    # stkprm_entry = tk.Entry()
-    # stkprm_entry.insert(END, '100')
-    # stkprm_entry.place(relx=0.2,rely=0.05,width=35)
+    stkprm_entry = tk.Entry()
+    stkprm_entry.insert(END, '100')
+    stkprm_entry.place(relx=0.2,rely=0.05,width=35)
 
-    # stkvol_entry = tk.Entry()
-    # stkvol_entry.insert(END, '1')
-    # stkvol_entry.place(relx=0.2,rely=0.075,width=35)
+    stkvol_entry = tk.Entry()
+    stkvol_entry.insert(END, '1')
+    stkvol_entry.place(relx=0.2,rely=0.075,width=35)
 
-    # dilprm_entry = tk.Entry()
-    # dilprm_entry.insert(END, '2.5')
-    # dilprm_entry.place(relx=0.2,rely=0.1,width=35)
+    dilprm_entry = tk.Entry()
+    dilprm_entry.insert(END, '2.5')
+    dilprm_entry.place(relx=0.2,rely=0.1,width=35)
 
-    # primerconc_entry = tk.Entry()
-    # primerconc_entry.insert(END, '0.1')
-    # primerconc_entry.place(relx=0.2,rely=0.125,width=35)
+    primerconc_entry = tk.Entry()
+    primerconc_entry.insert(END, '0.1')
+    primerconc_entry.place(relx=0.2,rely=0.125,width=35)
 
-    # pcrvol_entry = tk.Entry()
-    # pcrvol_entry.insert(END, '25')
-    # pcrvol_entry.place(relx=0.2,rely=0.15,width=35)
+    pcrvol_entry = tk.Entry()
+    pcrvol_entry.insert(END, '25')
+    pcrvol_entry.place(relx=0.2,rely=0.15,width=35)
 
-    # templatengs_entry = tk.Entry()
-    # templatengs_entry.insert(END, '0.5')
-    # templatengs_entry.place(relx=0.2,rely=0.175,width=35)
+    templatengs_entry = tk.Entry()
+    templatengs_entry.insert(END, '0.5')
+    templatengs_entry.place(relx=0.2,rely=0.175,width=35)
 
-    # Q5_entry = tk.Entry()
-    # Q5_entry.insert(END, '0')
-    # Q5_entry.place(relx=0.2,rely=0.2,width=35)
+    Q5_entry = tk.Entry()
+    Q5_entry.insert(END, '0')
+    Q5_entry.place(relx=0.2,rely=0.2,width=35)
 
-    # DPNI_entry = tk.Entry()
-    # DPNI_entry.insert(END, '2')
-    # DPNI_entry.place(relx=0.2,rely=0.225,width=35)
+    DPNI_entry = tk.Entry()
+    DPNI_entry.insert(END, '2')
+    DPNI_entry.place(relx=0.2,rely=0.225,width=35)
 
-    # DPwater_entry = tk.Entry()
-    # DPwater_entry.insert(END, '18')
-    # DPwater_entry.place(relx=0.2,rely=0.250,width=35)
+    DPwater_entry = tk.Entry()
+    DPwater_entry.insert(END, '18')
+    DPwater_entry.place(relx=0.2,rely=0.250,width=35)
 
-    # cutsmart_entry = tk.Entry()
-    # cutsmart_entry.insert(END, '5')
-    # cutsmart_entry.place(relx=0.2,rely=0.275,width=35)
+    cutsmart_entry = tk.Entry()
+    cutsmart_entry.insert(END, '5')
+    cutsmart_entry.place(relx=0.2,rely=0.275,width=35)
 
-    # Date_entry = tk.Entry()
-    # Date_entry.insert(END, date)
-    # Date_entry.place(relx=0.2,rely=0.3,width=55)
+    Date_entry = tk.Entry()
+    Date_entry.insert(END, date)
+    Date_entry.place(relx=0.2,rely=0.3,width=55)
 
-    # ngdesired_entry = tk.Entry()
-    # ngdesired_entry.insert(END, '100')
-    # ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
+    ngdesired_entry = tk.Entry()
+    ngdesired_entry.insert(END, '100')
+    ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
 
-    # Combinatorial_pcr_params_entry = tk.Entry()
-    # Combinatorial_pcr_params_entry.insert(END, '2')
-    # Combinatorial_pcr_params_entry.place(relx=0.2,rely=0.35,width=35)
+    Combinatorial_pcr_params_entry = tk.Entry()
+    Combinatorial_pcr_params_entry.insert(END, '2')
+    Combinatorial_pcr_params_entry.place(relx=0.2,rely=0.35,width=35)
 
-    # Time_entry = tk.Entry()
-    # Time_entry.insert(END, time)
-    # Time_entry.place(relx=0.2,rely=0.375,width=55)
+    Time_entry = tk.Entry()
+    Time_entry.insert(END, time)
+    Time_entry.place(relx=0.2,rely=0.375,width=55)
 
-    # # pwldigesttemp_entry = tk.Entry()
-    # # pwldigesttemp_entry.insert(END, '0')
-    # # pwldigesttemp_entry.place(relx=0.1,rely=0.35,width=35)
+    # pwldigesttemp_entry = tk.Entry()
+    # pwldigesttemp_entry.insert(END, '0')
+    # pwldigesttemp_entry.place(relx=0.1,rely=0.35,width=35)
 
-    # # concdigesttemp_entry = tk.Entry()
-    # # concdigesttemp_entry.insert(END, '0')
-    # # concdigesttemp_entry.place(relx=0.1,rely=0.375,width=35)
+    # concdigesttemp_entry = tk.Entry()
+    # concdigesttemp_entry.insert(END, '0')
+    # concdigesttemp_entry.place(relx=0.1,rely=0.375,width=35)
 
-    # extra1name_entry = tk.Entry()
-    # extra1name_entry.insert(END, 'variable')
-    # extra1name_entry.place(relx=0.2,rely=0.425,width=50)
+    extra1name_entry = tk.Entry()
+    extra1name_entry.insert(END, 'variable')
+    extra1name_entry.place(relx=0.2,rely=0.425,width=50)
 
-    # extra2name_entry = tk.Entry()
-    # extra2name_entry.insert(END, 'variable')
-    # extra2name_entry.place(relx=0.2,rely=0.45,width=50)
+    extra2name_entry = tk.Entry()
+    extra2name_entry.insert(END, 'variable')
+    extra2name_entry.place(relx=0.2,rely=0.45,width=50)
 
-    # extra1value_entry = tk.Entry()
-    # extra1value_entry.insert(END, '0')
-    # extra1value_entry.place(relx=0.25,rely=0.425,width=35)
+    extra1value_entry = tk.Entry()
+    extra1value_entry.insert(END, '0')
+    extra1value_entry.place(relx=0.25,rely=0.425,width=35)
 
-    # extra2value_entry = tk.Entry()
-    # extra2value_entry.insert(END, '0')
-    # extra2value_entry.place(relx=0.25,rely=0.45,width=35)
+    extra2value_entry = tk.Entry()
+    extra2value_entry.insert(END, '0')
+    extra2value_entry.place(relx=0.25,rely=0.45,width=35)
 
-    # ########################################################################################
-    # #entries for pwl number and concentration
-    # if len(pandas.unique(names['Primary Template'])) == 1:
-    #     temppwl1_entry = tk.Entry()
-    #     conc1_entry= tk.Entry()
-    #     conc1_entry.insert(END, '0')
-    #     conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-    #     names['pwllocation'] = [temppwl1_entry]
-    # if len(pandas.unique(names['Primary Template'])) == 2:
-    #     temppwl1_entry = tk.Entry()
-    #     temppwl2_entry = tk.Entry()
-    #     conc1_entry= tk.Entry()
-    #     conc1_entry.insert(END, '0')
-    #     conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-    #     conc2_entry= tk.Entry()
-    #     conc2_entry.insert(END, '0')
-    #     conc2_entry.place(relx=0.6,rely=0.1,width = 35)
-    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry]
-    # if len(pandas.unique(names['Primary Template'])) == 3:
-    #     temppwl1_entry = tk.Entry()
-    #     temppwl2_entry = tk.Entry()
-    #     temppwl3_entry = tk.Entry()
-    #     conc1_entry= tk.Entry()
-    #     conc1_entry.insert(END, '0')
-    #     conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-    #     conc2_entry = tk.Entry()
-    #     conc2_entry.insert(END, '0')
-    #     conc2_entry.place(relx=0.6,rely=0.1,width = 35)
-    #     conc3_entry = tk.Entry()
-    #     conc3_entry.insert(END, '0')
-    #     conc3_entry.place(relx=0.6,rely=0.15,width = 35)
-    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
-    # if len(pandas.unique(names['Primary Template'])) == 4:
-    #     temppwl1_entry = tk.Entry()
-    #     temppwl2_entry = tk.Entry()
-    #     temppwl3_entry = tk.Entry()
-    #     temppwl4_entry = tk.Entry()
-    #     conc1_entry= tk.Entry()
-    #     conc1_entry.insert(END, '0')
-    #     conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-    #     conc2_entry = tk.Entry()
-    #     conc2_entry.insert(END, '0')
-    #     conc2_entry.place(relx=0.6,rely=0.1,width = 35)
-    #     conc3_entry = tk.Entry()
-    #     conc3_entry.insert(END, '0')
-    #     conc3_entry.place(relx=0.6,rely=0.15,width = 35)
-    #     conc4_entry = tk.Entry()
-    #     conc4_entry.insert(END, '0')
-    #     conc4_entry.place(relx=0.6,rely=0.2,width = 35)
-    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry]
-    # if len(pandas.unique(names['Primary Template'])) == 5:
-    #     temppwl1_entry = tk.Entry()
-    #     temppwl2_entry = tk.Entry()
-    #     temppwl3_entry = tk.Entry()
-    #     temppwl4_entry = tk.Entry()
-    #     temppwl5_entry = tk.Entry()
-    #     conc1_entry= tk.Entry()
-    #     conc1_entry.insert(END, '0')
-    #     conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-    #     conc2_entry = tk.Entry()
-    #     conc2_entry.insert(END, '0')
-    #     conc2_entry.place(relx=0.6,rely=0.1,width = 35)
-    #     conc3_entry = tk.Entry()
-    #     conc3_entry.insert(END, '0')
-    #     conc3_entry.place(relx=0.6,rely=0.15,width = 35)
-    #     conc4_entry = tk.Entry()
-    #     conc4_entry.insert(END, '0')
-    #     conc4_entry.place(relx=0.6,rely=0.2,width = 35)
-    #     conc5_entry = tk.Entry()
-    #     conc5_entry.insert(END, '0')
-    #     conc5_entry.place(relx=0.6,rely=0.25,width = 35)
-    #     conc6_entry = tk.Entry()
-    #     conc6_entry.insert(END, '0')
-    #     conc6_entry.place(relx=0.6,rely=0.3,width = 35)
-    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry]
-    # if len(pandas.unique(names['Primary Template'])) == 6:
-    #     temppwl1_entry = tk.Entry()
-    #     temppwl2_entry = tk.Entry()
-    #     temppwl3_entry = tk.Entry()
-    #     temppwl4_entry = tk.Entry()
-    #     temppwl5_entry = tk.Entry()
-    #     temppwl6_entry = tk.Entry()
-    #     conc1_entry= tk.Entry()
-    #     conc1_entry.insert(END, '0')
-    #     conc1_entry.place(relx=0.6,rely=0.05,width = 35)
-    #     conc2_entry = tk.Entry()
-    #     conc2_entry.insert(END, '0')
-    #     conc2_entry.place(relx=0.6,rely=0.1,width = 35)
-    #     conc3_entry = tk.Entry()
-    #     conc3_entry.insert(END, '0')
-    #     conc3_entry.place(relx=0.6,rely=0.15,width = 35)
-    #     conc4_entry = tk.Entry()
-    #     conc4_entry.insert(END, '0')
-    #     conc4_entry.place(relx=0.6,rely=0.2,width = 35)
-    #     conc5_entry = tk.Entry()
-    #     conc5_entry.insert(END, '0')
-    #     conc5_entry.place(relx=0.6,rely=0.25,width = 35)
-    #     conc6_entry = tk.Entry()
-    #     conc6_entry.insert(END, '0')
-    #     conc6_entry.place(relx=0.6,rely=0.3,width = 35)
-    #     names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry, temppwl6_entry]
+    ########################################################################################
+    #entries for pwl number and concentration
+    if len(pandas.unique(names['Primary Template'])) == 1:
+        temppwl1_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        names['pwllocation'] = [temppwl1_entry]
+    if len(pandas.unique(names['Primary Template'])) == 2:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry= tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry]
+    if len(pandas.unique(names['Primary Template'])) == 3:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry]
+    if len(pandas.unique(names['Primary Template'])) == 4:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        temppwl4_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry]
+    if len(pandas.unique(names['Primary Template'])) == 5:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        temppwl4_entry = tk.Entry()
+        temppwl5_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry]
+    if len(pandas.unique(names['Primary Template'])) == 6:
+        temppwl1_entry = tk.Entry()
+        temppwl2_entry = tk.Entry()
+        temppwl3_entry = tk.Entry()
+        temppwl4_entry = tk.Entry()
+        temppwl5_entry = tk.Entry()
+        temppwl6_entry = tk.Entry()
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+        names['pwllocation'] = [temppwl1_entry, temppwl2_entry, temppwl3_entry, temppwl4_entry, temppwl5_entry, temppwl6_entry]
 
-    # rel_y = .05
+    rel_y = .05
 
-    # for i, row in names.iterrows():
+    for i, row in names.iterrows():
         
-    #     label_extra1 = tk.Label(text=names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'],font=('Helvatical bold',14))
-    #     label_extra1.place(relx = 0.3, rely = rel_y)
+        label_extra1 = tk.Label(text=names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'],font=('Helvatical bold',14))
+        label_extra1.place(relx = 0.3, rely = rel_y)
         
-    #     #names.loc[i].at['pwllocation'] = tk.Entry()
-    #     #names.loc[i].at['pwllocation'].insert(END,names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'])
-    #     #names.loc[i].at['pwllocation'].place(relx = 0.3, rely = rel_y, width = 95)
+        #names.loc[i].at['pwllocation'] = tk.Entry()
+        #names.loc[i].at['pwllocation'].insert(END,names.loc[i].at['location']+' '+names.loc[i].at['Primary Template'])
+        #names.loc[i].at['pwllocation'].place(relx = 0.3, rely = rel_y, width = 95)
 
-    #     rel_y = rel_y+.05
+        rel_y = rel_y+.05
 
-    # ################################################################
-    # #Legend
+    ################################################################
+    #Legend
 
 
-    # confirm_button = tk.Button(text="Confirm",command=set_variables)
-    # confirm_button.place(relx=0.8,rely=0.8)
+    confirm_button = tk.Button(text="Confirm",command=set_variables)
+    confirm_button.place(relx=0.8,rely=0.8)
 
-    # input_csv.mainloop()
+    input_csv.mainloop()
 
-    # if len(pandas.unique(names['Primary Template'])) == 1:
-    #     tempconcs = [conc1]
-    #     temppwls = [temppwl1]
-    # if len(pandas.unique(names['Primary Template'])) == 2:
-    #     tempconcs = [conc1,conc2]
-    #     temppwls = [temppwl1,temppwl2] 
-    # if len(pandas.unique(names['Primary Template'])) == 3:
-    #     tempconcs = [conc1,conc2,conc3]
-    #     temppwls = [temppwl1,temppwl2,temppwl3]
-    # if len(pandas.unique(names['Primary Template'])) == 4:
-    #     tempconcs = [conc1,conc2,conc3,conc4]
-    #     temppwls = [temppwl1,temppwl2,temppwl3,temppwl4]
-    # if len(pandas.unique(names['Primary Template'])) == 5:
-    #     tempconcs = [conc1,conc2,conc3,conc4,conc5]
-    #     temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5] 
-    # if len(pandas.unique(names['Primary Template'])) == 6:
-    #     tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-    #     temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
+    if len(pandas.unique(names['Primary Template'])) == 1:
+        tempconcs = [conc1]
+        temppwls = [temppwl1]
+    if len(pandas.unique(names['Primary Template'])) == 2:
+        tempconcs = [conc1,conc2]
+        temppwls = [temppwl1,temppwl2] 
+    if len(pandas.unique(names['Primary Template'])) == 3:
+        tempconcs = [conc1,conc2,conc3]
+        temppwls = [temppwl1,temppwl2,temppwl3]
+    if len(pandas.unique(names['Primary Template'])) == 4:
+        tempconcs = [conc1,conc2,conc3,conc4]
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4]
+    if len(pandas.unique(names['Primary Template'])) == 5:
+        tempconcs = [conc1,conc2,conc3,conc4,conc5]
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5] 
+    if len(pandas.unique(names['Primary Template'])) == 6:
+        tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
+        temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
 
-    # # temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
-    # # tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-    # test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
-    # lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
+    # temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
+    # tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
+    test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+    lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-    # row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]]
-    # variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time'],index=range(len(temppwls)))
-    # variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]
-    # variables['template pwl number'] = temppwls
-    # variables['template concentrations'] = tempconcs
+    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]]
+    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time'],index=range(len(temppwls)))
+    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time]
+    variables['template pwl number'] = temppwls
+    variables['template concentrations'] = tempconcs
 
-    # if extra1value != 0: 
-    #     variables[extra1name] = ''
-    #     variables.loc[0,extra1name] = extra1value
+    if extra1value != 0: 
+        variables[extra1name] = ''
+        variables.loc[0,extra1name] = extra1value
 
-    # if extra2value != 0:
-    #     variables[extra2name] = ''
-    #     variables.loc[0,extra2name] = extra2value
+    if extra2value != 0:
+        variables[extra2name] = ''
+        variables.loc[0,extra2name] = extra2value
 
-    # variables
+    variables
 
-    # variables['section'] = pd.DataFrame(lengthd,index=range(len(lengthd)))
+    variables['section'] = pd.DataFrame(lengthd,index=range(len(lengthd)))
 
     # #########################################################################################
     # #tkinter window to specify which parts of the protocol to run
@@ -2821,7 +2865,26 @@ if __name__ == '__main__':
     #         GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
     #         GG_dfs = pandas.DataFrame(data=GG_dfs)
     #     GG_dfs.to_csv('GG_dfs.csv')
-        
+
+    if len(parts["well"]) == 1:
+        parts_dfs = {'part#':['part1']}
+        parts_dfs = pandas.DataFrame(data=parts_dfs)
+    if len(parts["well"]) == 2:
+        parts_dfs = {'part#':['part1','part2']}
+        parts_dfs = pandas.DataFrame(data=parts_dfs)
+    if len(parts["well"]) == 3:
+        parts_dfs = {'part#':['part1','part2','part3']}
+        parts_dfs = pandas.DataFrame(data=parts_dfs)
+    if len(parts["well"]) == 4:
+        parts_dfs = {'part#':['part1','part2','part3','part4']}
+        parts_dfs = pandas.DataFrame(data=parts_dfs)
+    if len(parts["well"]) == 5:
+        parts_dfs = {'part#':['part1','part2','part3','part4','part5']}
+        parts_dfs = pandas.DataFrame(data=parts_dfs)
+    if len(parts["well"]) == 6:
+        parts_dfs = {'part#':['part1','part2','part3','part4','part5','part6']}
+        parts_dfs = pandas.DataFrame(data=parts_dfs)
+    
 
     # ################################################################################################################################################
     # #continued combination processing to set up actual Golden Gate assembly dataframes
@@ -2831,23 +2894,23 @@ if __name__ == '__main__':
     # #fragments = pandas.read_csv('fragments.csv')
     # #fragments
 
-    # #put final goldengate assembly products on row C for good measure
+    #put final goldengate assembly products on row C for good measure
 
-    # id2wellpcr = {}
-    # id2wellpcr['0'] = 'B2'
-    # id2wellpcr['1'] = 'B3'
-    # id2wellpcr['2'] = 'B4'
-    # id2wellpcr['3'] = 'B5'
-    # id2wellpcr['4'] = 'B6'
-    # id2wellpcr['5'] = 'B7'
-    # id2wellpcr['6'] = 'B8'
-    # id2wellpcr['7'] = 'B9'
-    # id2wellpcr['8'] = 'B10'
-    # id2wellpcr['9'] = 'B11'
-    # id2wellpcr['10'] = 'C2'
-    # id2wellpcr['11'] = 'C3'
-    # id2wellpcr['12'] = 'C4'
-    # id2wellpcr['13'] = 'C5'
+    id2wellpcr = {}
+    id2wellpcr['0'] = 'B2'
+    id2wellpcr['1'] = 'B3'
+    id2wellpcr['2'] = 'B4'
+    id2wellpcr['3'] = 'B5'
+    id2wellpcr['4'] = 'B6'
+    id2wellpcr['5'] = 'B7'
+    id2wellpcr['6'] = 'B8'
+    id2wellpcr['7'] = 'B9'
+    id2wellpcr['8'] = 'B10'
+    id2wellpcr['9'] = 'B11'
+    id2wellpcr['10'] = 'C2'
+    id2wellpcr['11'] = 'C3'
+    id2wellpcr['12'] = 'C4'
+    id2wellpcr['13'] = 'C5'
 
 
     # combinations
@@ -2998,17 +3061,16 @@ if __name__ == '__main__':
     #         else:
     #             locals()[x].loc[i,"final amount to add"] = locals()[x].loc[i, "new required amount"]
                     
-    # #GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
-    # #GG_dfs = pandas.DataFrame(data=GG_dfs)
-        
-    # #for i, row in GG_dfs.iterrows():
-    #     #x = GG_dfs.loc[i].at['gg#']
-    #     #for i, row in locals()[x].iterrows():
-    #         locals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
-        
-    #     locals()[x].to_csv(x+'.csv')
 
-    #     next_tc_tube = next_tc_tube + 1
+    next_tc_tube = 0   
+    for i, row in parts_dfs.iterrows():
+        x = parts_dfs.loc[i].at['part#']
+        for i, row in locals()[x].iterrows():
+            locals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
+        
+        locals()[x].to_csv(x+'.csv')
+
+        next_tc_tube = next_tc_tube + 1
 
     # combinations.to_csv('combinations.csv')
 
