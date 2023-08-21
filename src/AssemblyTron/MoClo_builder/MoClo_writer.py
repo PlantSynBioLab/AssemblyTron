@@ -82,8 +82,8 @@ def main():
 #Golden Gate Setup
 
 
-    for i, row in parts_dfs.iterrows():
-        x = parts_dfs.loc[i].at['part#']
+    for i, row in parts_df.iterrows():
+        x = parts_df.loc[i].at['part#']
         f.write(
             #water
             "    left_pipette.pick_up_tip() \r\n"
