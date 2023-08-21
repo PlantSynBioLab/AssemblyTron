@@ -50,7 +50,7 @@ section = pandas.read_csv('section.csv')
 low_annealing_temp = pcr.nsmallest(1,'Mean Oligo Tm (3 Only)').reset_index()
 high_annealing_temp = pcr.nlargest(1,'Mean Oligo Tm (3 Only)').reset_index()
 
-delta = (float(high_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']) - float(low_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']))/34
+delta = (float(high_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']) - float(low_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']))/30
 
 # if exists('gg1.csv'):
 #     gg1 = pandas.read_csv('gg1.csv')
@@ -248,7 +248,7 @@ def main():
         
         cycle = 1
         x = 0 
-        while cycle < 35:
+        while cycle < 31:
 
             f.write(
                 "    tc_mod.set_block_temperature(95, hold_time_seconds=20, block_max_volume=100) \r\n"

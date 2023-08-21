@@ -1,7 +1,0 @@
-,ID Number,Name,Assembly Method,Part(s) Bin 0,Assembly Piece ID Number Bin 0,Part(s) Bin 1,Assembly Piece ID Number Bin 1,Part(s) Bin 2,Assembly Piece ID Number Bin 2,Part(s) Bin 3,Assembly Piece ID Number Bin 3,Part(s) Bin 4,Assembly Piece ID Number Bin 4,X14,X15,X16,X17,X18,X19,X20,X21,X22,X23,X24,X25,X26,X27,X28,X29,X30,X31,X32,X33,X34,X35,X36,X37,X38,X39,X40,X41,X42,X43,X44,X45,X46,X47,X48,pcr_frag_tube_x,pcr_frag_tube_y
-0,0,pmas00001,Golden-gate,(bb_cassetteA),0,(ARF7),1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,E11,A5
-1,1,pmas00002,Golden-gate,(bb_cassetteB),2,(ARF7),1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,F11,A5
-2,2,pmas00003,Golden-gate,(bb_cassetteC),3,(ARF7),1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,G11,A5
-3,3,pmas00004,Golden-gate,(bb_cassetteD),4,(IAA14-FL),5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,A11,B5
-4,4,pmas00005,Golden-gate,(bb_cassetteE),6,(IAA14-FL),5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,C11,B5
-5,5,pmas00006,Golden-gate,(bb_cassetteF),7,(IAA14-FL),5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,D11,B5

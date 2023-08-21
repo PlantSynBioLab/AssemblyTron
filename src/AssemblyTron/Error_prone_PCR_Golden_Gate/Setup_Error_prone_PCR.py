@@ -124,8 +124,8 @@ if __name__ == '__main__':
     from tkinter import *
 
     input_csv = tk.Tk()
-    input_csv.geometry('1920x1080')
-    input_csv.title('Parameters for Goldengate')
+    input_csv.geometry('400x400')
+    input_csv.title('PCR selector window')
 
 
     def set_variables():
@@ -1716,243 +1716,243 @@ if __name__ == '__main__':
 
     #####################################################################################################
     ##################GRADIENT OPTIMIZER################################################################
-    if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
-        runnumber = 0
+    #if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
+    runnumber = 0
 
-        # pcr_plustemplates
-        # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
-        # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
-        # pcr_plustemplates
+    # pcr_plustemplates
+    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates
 
-        temps = pcr['Mean Oligo Tm (3 Only)'].values.tolist()
+    temps = pcr['Mean Oligo Tm (3 Only)'].values.tolist()
+    
+    deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
+    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
+    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
+    
+    U = delta_temp + delta_val
+    L = delta_temp - delta_val
+
+    redo = 1
+    
+    while redo == 1:
+
+        current = 0
+        CV = 0
+
+        num = 100000
+        for x in range(num):    
+    
+            #temps = [59.499,65.4245,67.8095,62.142,62.7575]
+            #temps
+
+            one = np.random.uniform(50,70)
+            #one = round(numpy.random.uniform(50, 70), 1)
+            eight = np.random.uniform(70,90)
+            #eight = round(numpy.random.uniform(70, 90), 1)
+
+            two = one +((2-1)/(8-1)) * (eight-one)
+            three = one +((3-1)/(8-1)) * (eight-one)
+            four = one +((4-1)/(8-1)) * (eight-one)
+            five = one +((5-1)/(8-1)) * (eight-one)
+            six = one +((6-1)/(8-1)) * (eight-one)
+            seven = one +((7-1)/(8-1)) * (eight-one)
+
+            vectorfull = [one,two,three,four,five,six,seven,eight]
+            vector = [two,three,four,five,six,seven,eight]
+
+            f = []
+            i = 0
+            while i < len(vector):
+                j = 0
+                while j < len(temps):
+                    Diff = abs(vector[i]-temps[j])
+                    if Diff > 0.4:
+                        f.append(100.0)
+                    if Diff < 0.4:
+                        f.append(Diff)
+                    j = j + 1
+                i = i + 1
+            sum(f)
+    
+            #if sum(f) < 3505.0 & :
         
-        deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-        delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
-        delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
+            if current == 0:
         
-        U = delta_temp + delta_val
-        L = delta_temp - delta_val
-
-        redo = 1
-        
-        while redo == 1:
-
-            current = 0
-            CV = 0
-
-            num = 100000
-            for x in range(num):    
-        
-                #temps = [59.499,65.4245,67.8095,62.142,62.7575]
-                #temps
-
-                one = np.random.uniform(50,70)
-                #one = round(numpy.random.uniform(50, 70), 1)
-                eight = np.random.uniform(70,90)
-                #eight = round(numpy.random.uniform(70, 90), 1)
-
-                two = one +((2-1)/(8-1)) * (eight-one)
-                three = one +((3-1)/(8-1)) * (eight-one)
-                four = one +((4-1)/(8-1)) * (eight-one)
-                five = one +((5-1)/(8-1)) * (eight-one)
-                six = one +((6-1)/(8-1)) * (eight-one)
-                seven = one +((7-1)/(8-1)) * (eight-one)
-
-                vectorfull = [one,two,three,four,five,six,seven,eight]
-                vector = [two,three,four,five,six,seven,eight]
-
-                f = []
-                i = 0
-                while i < len(vector):
-                    j = 0
-                    while j < len(temps):
-                        Diff = abs(vector[i]-temps[j])
-                        if Diff > 0.4:
-                            f.append(100.0)
-                        if Diff < 0.4:
-                            f.append(Diff)
-                        j = j + 1
-                    i = i + 1
-                sum(f)
-        
-                #if sum(f) < 3505.0 & :
-            
-                if current == 0:
-            
+                current = sum(f)
+                CV = vector
+                FV = vectorfull
+    
+            else:
+                if sum(f) < current:
                     current = sum(f)
                     CV = vector
                     FV = vectorfull
-        
-                else:
-                    if sum(f) < current:
-                        current = sum(f)
-                        CV = vector
-                        FV = vectorfull
-                
-            #find upper and lower for lowest range rxn
-            #lowest delta -> upper and lower -> check temps
-            #U = 65.6955
-            #L = 65.1535
+            
+        #find upper and lower for lowest range rxn
+        #lowest delta -> upper and lower -> check temps
+        #U = 65.6955
+        #L = 65.1535
 
-            i = 0
-            while i < len(FV):
-                if L<FV[i]<U:
-                    print('good')
-                    start = str(FV[i])
-                    redo = 2
-                    break
-                else:
-                    redo = 1
-                    print(redo)
-                i = i + 1
-            # i=0
-            # while i<len(CV):
-            #     if start == '0':
-            #         redo = 1
-            #         print(redo)
-            #     i = i + 1
-
-
-        gradient = pandas.DataFrame(FV, columns=['temp'])
-        wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
-        gradient['tube'] = wells
-        
-        for i, row in pcr.iterrows():
-            diffss = []
-            for j, row in gradient.iterrows():
-                aaa = pcr.loc[i].at['Mean Oligo Tm (3 Only)']
-                bbb = gradient.loc[j].at['temp']
-                A = abs(aaa - bbb )
-                diffss.append(A)
-            min_val = min(diffss)
-            min_index = diffss.index(min_val)
-            pcr.loc[i,'tube'] = gradient.loc[min_index].at['tube']
-        pcr
-
-        dupin = {}
-        dupin['A1'] = 'B1'
-        dupin['A2'] = 'B2'
-        dupin['A3'] = 'B3'
-        dupin['A4'] = 'B4'
-        dupin['A5'] = 'B5'
-        dupin['A6'] = 'B6'
-        dupin['A7'] = 'B7'
-        dupin['A8'] = 'B8'
-        dupin['B1'] = 'C1'
-        dupin['B2'] = 'C2'
-        dupin['B3'] = 'C3'
-        dupin['B4'] = 'C4'
-        dupin['B5'] = 'C5'
-        dupin['B6'] = 'C6'
-        dupin['B7'] = 'C7'
-        dupin['B8'] = 'C8'
-        dupin['C1'] = 'D1'
-        dupin['C2'] = 'D2'
-        dupin['C3'] = 'D3'
-        dupin['C4'] = 'D4'
-        dupin['C5'] = 'D5'
-        dupin['C6'] = 'D6'
-        dupin['C7'] = 'D7'
-        dupin['C8'] = 'D8'
-        dupin['D1'] = 'E1'
-        dupin['D2'] = 'E2'
-        dupin['D3'] = 'E3'
-        dupin['D4'] = 'E4'
-        dupin['D5'] = 'E5'
-        dupin['D6'] = 'E6'
-        dupin['D7'] = 'E7'
-        dupin['D8'] = 'E8'
-
-
-
-
-        duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        if duplicate_in_tube.any():
-            tes = pcr.loc[duplicate_in_tube]
-            index = tes.index
-        else:
-            index = []
-        index
         i = 0
-        while i < len(index):
-            letter = pcr.loc[index[i]].at['tube']
-            pcr.loc[index[i],'tube'] = dupin[letter]
+        while i < len(FV):
+            if L<FV[i]<U:
+                print('good')
+                start = str(FV[i])
+                redo = 2
+                break
+            else:
+                redo = 1
+                print(redo)
             i = i + 1
+        # i=0
+        # while i<len(CV):
+        #     if start == '0':
+        #         redo = 1
+        #         print(redo)
+        #     i = i + 1
 
-        #repeating the duplicate correction step in case there are triple duplicates (this might not be necessary but not sure)
-        duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        if duplicate_in_tube.any():
-            tes = pcr.loc[duplicate_in_tube]
-            index = tes.index
-        else:
-            index = []
-        index
-        i = 0
-        while i < len(index):
-            letter = pcr.loc[index[i]].at['tube']
-            pcr.loc[index[i],'tube'] = dupin[letter]
-            i = i + 1
 
-        #repeating the duplicate correction step in case there are quadruple duplicates (this might not be necessary but not sure)
-        duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        if duplicate_in_tube.any():
-            tes = pcr.loc[duplicate_in_tube]
-            index = tes.index
-        else:
-            index = []
-        index
-        i = 0
-        while i < len(index):
-            letter = pcr.loc[index[i]].at['tube']
-            pcr.loc[index[i],'tube'] = dupin[letter]
-            i = i + 1
+    gradient = pandas.DataFrame(FV, columns=['temp'])
+    wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
+    gradient['tube'] = wells
+    
+    for i, row in pcr.iterrows():
+        diffss = []
+        for j, row in gradient.iterrows():
+            aaa = pcr.loc[i].at['Mean Oligo Tm (3 Only)']
+            bbb = gradient.loc[j].at['temp']
+            A = abs(aaa - bbb )
+            diffss.append(A)
+        min_val = min(diffss)
+        min_index = diffss.index(min_val)
+        pcr.loc[i,'tube'] = gradient.loc[min_index].at['tube']
+    pcr
 
-        #repeating the duplicate correction step in case there are 5X duplicates (this might not be necessary but not sure)
-        duplicate_in_tube = pcr.duplicated(subset=['tube'])
-        if duplicate_in_tube.any():
-            tes = pcr.loc[duplicate_in_tube]
-            index = tes.index
-        else:
-            index = []
-        index
-        i = 0
-        while i < len(index):
-            letter = pcr.loc[index[i]].at['tube']
-            pcr.loc[index[i],'tube'] = dupin[letter]
-            i = i + 1
-        
-        
-        # digests['tube'] = ''
-        # tubes_bro = pcr['tube'].tolist()
+    dupin = {}
+    dupin['A1'] = 'B1'
+    dupin['A2'] = 'B2'
+    dupin['A3'] = 'B3'
+    dupin['A4'] = 'B4'
+    dupin['A5'] = 'B5'
+    dupin['A6'] = 'B6'
+    dupin['A7'] = 'B7'
+    dupin['A8'] = 'B8'
+    dupin['B1'] = 'C1'
+    dupin['B2'] = 'C2'
+    dupin['B3'] = 'C3'
+    dupin['B4'] = 'C4'
+    dupin['B5'] = 'C5'
+    dupin['B6'] = 'C6'
+    dupin['B7'] = 'C7'
+    dupin['B8'] = 'C8'
+    dupin['C1'] = 'D1'
+    dupin['C2'] = 'D2'
+    dupin['C3'] = 'D3'
+    dupin['C4'] = 'D4'
+    dupin['C5'] = 'D5'
+    dupin['C6'] = 'D6'
+    dupin['C7'] = 'D7'
+    dupin['C8'] = 'D8'
+    dupin['D1'] = 'E1'
+    dupin['D2'] = 'E2'
+    dupin['D3'] = 'E3'
+    dupin['D4'] = 'E4'
+    dupin['D5'] = 'E5'
+    dupin['D6'] = 'E6'
+    dupin['D7'] = 'E7'
+    dupin['D8'] = 'E8'
 
-        # if pcr['tube'].isin(['A1']).any() == False:
-        #     digests.at[0, 'tube'] = 'A1'
-        # elif pcr['tube'].isin(['A2']).any() == False:
-        #     digests.at[0, 'tube'] = 'A2'
-        # elif pcr['tube'].isin(['A3']).any() == False:
-        #     digests.at[0, 'tube'] = 'A3'
-        # elif pcr['tube'].isin(['A4']).any() == False:
-        #     digests.at[0, 'tube'] = 'A4'
-        # elif pcr['tube'].isin(['A5']).any() == False:
-        #     digests.at[0, 'tube'] = 'A5'
-        # elif pcr['tube'].isin(['A6']).any() == False:
-        #     digests.at[0, 'tube'] = 'A6'
-        # elif pcr['tube'].isin(['A7']).any() == False:
-        #     digests.at[0, 'tube'] = 'A7'
-        # elif pcr['tube'].isin(['A8']).any() == False:
-        #     digests.at[0, 'tube'] = 'A8'
 
-        # digests.to_csv('digests.csv')
-        # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-       
-        
-        gradient.to_csv('gradient.csv')
-        shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
-        
-        pcr.to_csv('pcr.csv')
-        shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
-        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
-        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+
+
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    else:
+        index = []
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+
+    #repeating the duplicate correction step in case there are triple duplicates (this might not be necessary but not sure)
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    else:
+        index = []
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+
+    #repeating the duplicate correction step in case there are quadruple duplicates (this might not be necessary but not sure)
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    else:
+        index = []
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+
+    #repeating the duplicate correction step in case there are 5X duplicates (this might not be necessary but not sure)
+    duplicate_in_tube = pcr.duplicated(subset=['tube'])
+    if duplicate_in_tube.any():
+        tes = pcr.loc[duplicate_in_tube]
+        index = tes.index
+    else:
+        index = []
+    index
+    i = 0
+    while i < len(index):
+        letter = pcr.loc[index[i]].at['tube']
+        pcr.loc[index[i],'tube'] = dupin[letter]
+        i = i + 1
+    
+    
+    # digests['tube'] = ''
+    # tubes_bro = pcr['tube'].tolist()
+
+    # if pcr['tube'].isin(['A1']).any() == False:
+    #     digests.at[0, 'tube'] = 'A1'
+    # elif pcr['tube'].isin(['A2']).any() == False:
+    #     digests.at[0, 'tube'] = 'A2'
+    # elif pcr['tube'].isin(['A3']).any() == False:
+    #     digests.at[0, 'tube'] = 'A3'
+    # elif pcr['tube'].isin(['A4']).any() == False:
+    #     digests.at[0, 'tube'] = 'A4'
+    # elif pcr['tube'].isin(['A5']).any() == False:
+    #     digests.at[0, 'tube'] = 'A5'
+    # elif pcr['tube'].isin(['A6']).any() == False:
+    #     digests.at[0, 'tube'] = 'A6'
+    # elif pcr['tube'].isin(['A7']).any() == False:
+    #     digests.at[0, 'tube'] = 'A7'
+    # elif pcr['tube'].isin(['A8']).any() == False:
+    #     digests.at[0, 'tube'] = 'A8'
+
+    # digests.to_csv('digests.csv')
+    # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    
+    
+    gradient.to_csv('gradient.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+    
+    pcr.to_csv('pcr.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
 
 
     ######################################################################################################
