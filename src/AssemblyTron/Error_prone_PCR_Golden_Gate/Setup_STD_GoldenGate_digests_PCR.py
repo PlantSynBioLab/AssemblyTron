@@ -1523,11 +1523,46 @@ if __name__ == '__main__':
         #         print(redo)
         #     i = i + 1
 
+#####################################################################################################################################################
+    # gradient = pandas.DataFrame(FV, columns=['temp'])
+    # wells = ['A1','B1','C1','D1','E1','F1','G1','H1']
+    # gradient['tube'] = wells
 
-    gradient = pandas.DataFrame(FV, columns=['temp'])
-    wells = ['A1','B1','C1','D1','E1','F1','G1','H1']
-    gradient['tube'] = wells
-    
+    def browse_button():
+        # Allow user to select a directory and store it in global var
+        # called folder_path
+        global folder_path
+        global name
+        filename = filedialog.askdirectory()
+        folder_path.set(filename)
+        print(filename)
+        name = filename
+
+    root = Tk()
+    root.geometry("800x150")
+    folder_path = StringVar()
+    lbl1 = Label(master=root,textvariable=folder_path)
+    lbl1.grid(row=0, column=1)
+    button2 = Button(text="Browse", command=browse_button)
+    button2.grid(row=0, column=3)
+
+    label_extra1 = Label(text='Navigate to the folder containing your j5 design.',font=('Helvatical bold',14))
+    label_extra1.place(relx=0,rely=0.2)
+
+    def Close():
+        root.destroy()
+
+
+    # Button for closing
+    exit_button = Button(root, text="Confirm", command=Close)
+    #exit_button.pack(pady=20)
+    exit_button.place(relx=.5,rely=.4)
+
+    mainloop()
+
+    gradient = pandas.read_csv(name+'/gradient.csv')
+##################################################################################################################################################################
+   
     for i, row in pcr.iterrows():
         diffss = []
         for j, row in gradient.iterrows():
