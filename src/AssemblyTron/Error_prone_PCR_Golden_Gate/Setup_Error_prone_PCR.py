@@ -503,7 +503,7 @@ if __name__ == '__main__':
         
         f = open('reagent_setup.txt','a+')
         
-        f.write('NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot \r\n')
+        f.write('NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot \n')
         f.write('This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  \r\n')
         for i, row in names.iterrows():
 
@@ -519,6 +519,8 @@ if __name__ == '__main__':
             
             f.write('Put '+names.loc[i].at['Primary Template']+' in '+e2slot[str(Nextslot)]+'\r\n')
         
+        f.write('############################################################################################## \r\n')
+        f.write('The Following reagents go in the cold tuberack (deck slot 1) \r\n')
         f.write('Place Taq polymerase in C1 \r\n')
         f.write('Place BSA in C2 \r\n')
         
@@ -590,7 +592,7 @@ if __name__ == '__main__':
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/reagent_setup.txt',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
 
    
     ###############################################################################################################################################################################################3
@@ -618,7 +620,7 @@ if __name__ == '__main__':
         global ngdesired
         global Combinatorial_pcr_params
         global Time
-        global ErrorRate
+        # global ErrorRate
         global Taq_buffer
         global BSA
         
@@ -695,7 +697,7 @@ if __name__ == '__main__':
         ngdesired = float(ngdesired_entry.get())
         Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
         Time = Time_entry.get()
-        ErrorRate = float(ErrorRate_entry.get())
+        # ErrorRate = float(ErrorRate_entry.get())
         Taq_buffer = float(Taq_buffer_entry.get())
         BSA = float(BSA_entry.get())
         
@@ -969,8 +971,8 @@ if __name__ == '__main__':
     label_Time = tk.Label(text='Time',font=('Helvatical bold',14))
     label_Time.place(relx=0,rely=0.375)
 
-    label_ErrorRate = tk.Label(text='Error Rate',font=('Helvatical bold',14))
-    label_Time.place(relx=0,rely=0.400)
+    # label_ErrorRate = tk.Label(text='Error Rate',font=('Helvatical bold',14))
+    # label_Time.place(relx=0,rely=0.400)
 
     label_Taq_buffer = tk.Label(text='5X Taq Buffer',font=('Helvatical bold',14))
     label_Taq_buffer.place(relx=0,rely=0.425)
@@ -1048,9 +1050,9 @@ if __name__ == '__main__':
     Time_entry.insert(END, time)
     Time_entry.place(relx=0.2,rely=0.375,width=55)
 
-    ErrorRate_entry = tk.Entry()
-    ErrorRate_entry.insert(END, '1.0')
-    ErrorRate_entry.place(relx=0.2,rely=0.4,width=55)
+    # ErrorRate_entry = tk.Entry()
+    # ErrorRate_entry.insert(END, '1.0')
+    # ErrorRate_entry.place(relx=0.2,rely=0.4,width=55)
 
     Taq_buffer_entry = tk.Entry()
     Taq_buffer_entry.insert(END, '20')
@@ -1220,12 +1222,12 @@ if __name__ == '__main__':
 
     # temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
     # tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-    test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+    test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
     lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,ErrorRate,Taq_buffer,BSA]]
-    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time','ErrorRate','Taq_buffer','BSA'],index=range(len(temppwls)))
-    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,ErrorRate,Taq_buffer,BSA]
+    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,Taq_buffer,BSA]]
+    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time','Taq_buffer','BSA'],index=range(len(temppwls)))
+    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,Taq_buffer,BSA]
     variables['template pwl number'] = temppwls
     variables['template concentrations'] = tempconcs
 
@@ -1714,6 +1716,49 @@ if __name__ == '__main__':
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/section.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
     ##############################################################################################################
 
+    #Error Rate selector
+
+    ErrorRate = pandas.DataFrame()
+
+    from tkinter import *
+
+    ws = Tk() 
+    ws.title('Error Rate') 
+    ws.geometry('400x300')
+
+    var = StringVar()
+
+    def showSelected():
+        countries = []
+        cname = lb.curselection()
+        for i in cname:
+            op = lb.get(i)
+            countries.append(op)
+        for val in countries:
+            print(val)
+        se = pandas.Series(countries)
+        ErrorRate['rate'] = se
+        ws.destroy()
+
+    show = Label(ws, text = "Choose your Error Rate", font = ("Times", 14), padx = 10, pady = 10)
+    show.pack() 
+    lb = Listbox(ws, selectmode = "multiple")
+    lb.pack(padx = 10, pady = 10, expand = YES, fill = "both") 
+
+    x =["E% = 0.2","E% = 0.3","E% = 0.4","E% = 0.5","E% = 0.6","E% = 0.8","E% = 1.0","E% = 1.5"]
+
+    for item in range(len(x)): 
+        lb.insert(END, x[item]) 
+        lb.itemconfig(item, bg="#bdc1d6") 
+
+    Button(ws, text="Confirm", command=showSelected).pack()
+    ws.mainloop()
+
+    ErrorRate.to_csv('ErrorRate.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/ErrorRate.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
+
+
+
     #####################################################################################################
     ##################GRADIENT OPTIMIZER################################################################
     #if variables.loc[0].at['Combinatorial_pcr_params'] == 2:
@@ -2031,13 +2076,69 @@ if __name__ == '__main__':
     BSA = Input_values.loc[0].at['BSA']
     Taq_buffer = Input_values.loc[0].at['Taq_buffer']
 
-    if Input_values.loc[0].at['ErrorRate'] == 1.0:
+    if ErrorRate.loc[0].at['rate'] == "E% = 0.2": 
+        dATP = 3.5
+        dCTP = 4
+        dGTP = 2
+        dTTP = 1.35
+        MnCl2 = 10
+        MgCl2 = 10
+
+    if ErrorRate.loc[0].at['rate'] == "E% = 0.3": 
+        dATP = 2
+        dCTP = 2
+        dGTP = 1.8
+        dTTP = 1.26
+        MnCl2 = 10
+        MgCl2 = 8.16
+
+    if ErrorRate.loc[0].at['rate'] == "E% = 0.4": 
+        dATP = 2.2
+        dCTP = 2
+        dGTP = 2.7
+        dTTP = 1.86
+        MnCl2 = 10
+        MgCl2 = 11
+
+    if ErrorRate.loc[0].at['rate'] == "E% = 0.5": 
+        dATP = 2.2
+        dCTP = 2
+        dGTP = 3.4
+        dTTP = 2.36
+        MnCl2 = 10
+        MgCl2 = 13.28
+
+    if ErrorRate.loc[0].at['rate'] == "E% = 0.6": 
+        dATP = 2.3
+        dCTP = 2
+        dGTP = 4.2
+        dTTP = 2.9
+        MnCl2 = 10
+        MgCl2 = 15.8
+
+    if ErrorRate.loc[0].at['rate'] == "E% = 0.8": 
+        dATP = 2.3
+        dCTP = 2
+        dGTP = 5.7
+        dTTP = 4
+        MnCl2 = 10
+        MgCl2 = 20.8
+
+    if ErrorRate.loc[0].at['rate'] == "E% = 1.0": 
         dATP = 1.2
         dCTP = 1
         dGTP = 3.6
         dTTP = 2.5
         MnCl2 = 10
-        MgCl2 = 7.12
+        MgCl2 = 13.12
+
+    if ErrorRate.loc[0].at['rate'] == "E% = 1.5":
+        dATP = 1.2
+        dCTP = 1
+        dGTP = 5.5
+        dTTP = 3.85
+        MnCl2 = 10
+        MgCl2 = 19.28
 
     ###############################################################################################################################################
     #oligos
@@ -2090,7 +2191,7 @@ if __name__ == '__main__':
 
     pcr = pandas.read_csv('pcr.csv')
     id2pcrrr = pcr.set_index('Reaction ID Number').to_dict()['tube']
-
+    print(id2pcrrr)
     #id2pcrrr = {}
     #id2pcrrr['0'] = 'B2'
     #id2pcrrr['1'] = 'B3'
@@ -2273,12 +2374,14 @@ if __name__ == '__main__':
     pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Reverse Oligo ID Number')
     pcr_plustemplates
 
-    pcr_plustemplates['total_water_toadd'] = Input_values.loc[0].at['pcrvol']-Q5-BSA-Taq_buffer-dATP-dCTP-dGTP-dTTP-MnCl2-MgCl2-1-1-1
-    pcr_plustemplates
+    print(pcr)
+
+    pcr_plustemplates['total_water_toadd'] = Input_values.loc[0].at['pcrvol']-pcr.loc[0].at['primervol_x']-pcr.loc[0].at['primervol_y']-Q5-BSA-Taq_buffer-dATP-dCTP-dGTP-dTTP-MnCl2-MgCl2-1
+    print(pcr_plustemplates)
 
     #pcrstart  = len(digests['well'])
     for i, row in pcr_plustemplates.iterrows():
-        pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2pcrrr[i]
+        pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2pcrrr[pcr_plustemplates.loc[i].at["Reaction ID Number"]]
     pcr_plustemplates
 
     prvol = pandas.DataFrame()
@@ -3293,108 +3396,108 @@ if __name__ == '__main__':
 
 
 
-    # def main():
-    #     f = open('reaction_setup.txt','w+')
-    #     f.write('PCR gradient tube positions: \r\n')
-    #     f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
-    #     f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
+    def main():
+        f = open('reaction_setup.txt','w+')
+        f.write('PCR gradient tube positions: \r\n')
+        f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+        f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
 
-    #     for i, row in pcr.iterrows():
-    #         f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
-    #     f.write('Final assembly tube: \r\n')
+        for i, row in pcr.iterrows():
+            f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+        f.write('Final assembly tube: \r\n')
         
-    #     ggdf2spot = {}
-    #     ggdf2spot['gg1'] = 'B7'
-    #     ggdf2spot['gg2'] = 'B8'
-    #     ggdf2spot['gg3'] = 'B9'
-    #     ggdf2spot['gg4'] = 'B10'
-    #     ggdf2spot['gg5'] = 'B11'
-    #     ggdf2spot['gg6'] = 'B12'
+        ggdf2spot = {}
+        ggdf2spot['gg1'] = 'B7'
+        ggdf2spot['gg2'] = 'B8'
+        ggdf2spot['gg3'] = 'B9'
+        ggdf2spot['gg4'] = 'B10'
+        ggdf2spot['gg5'] = 'B11'
+        ggdf2spot['gg6'] = 'B12'
 
-    #     for i, row in GG_dfs.iterrows():
-    #         f.write('Put a 100 uL PCR tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
+        for i, row in GG_dfs.iterrows():
+            f.write('Put a 100 uL PCR tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
 
-    #     f.write('Fragment dilution tubes: \r\n')
+        # f.write('Fragment dilution tubes \r\n') THERE ARE NO DILUTION TUBES FOR THIS SCRIPT, JUST A PCR
 
-    #     if len(combinations['ID Number']) == 1:
-    #         if gg1.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg1.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+        # if len(combinations['ID Number']) == 1:
+        #     if gg1.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg1.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-    #     if len(combinations['ID Number']) == 2: 
-    #         if gg2.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg2.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg1.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg1.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+        # if len(combinations['ID Number']) == 2: 
+        #     if gg2.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg2.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg1.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg1.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-    #     if len(combinations['ID Number']) == 3:
-    #         if gg3.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg3.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg2.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg2.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg1.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg1.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+        # if len(combinations['ID Number']) == 3:
+        #     if gg3.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg3.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg2.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg2.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg1.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg1.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-    #     if len(combinations['ID Number']) == 4:
-    #         if gg4.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg4.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg3.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg3.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg2.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg2.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg1.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg1.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+        # if len(combinations['ID Number']) == 4:
+        #     if gg4.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg4.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg3.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg3.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg2.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg2.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg1.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg1.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-    #     if len(combinations['ID Number']) == 5:
-    #         if gg5.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg5.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg4.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg4.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg3.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg3.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg2.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg2.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg1.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg1.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+        # if len(combinations['ID Number']) == 5:
+        #     if gg5.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg5.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg4.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg4.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg3.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg3.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg2.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg2.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg1.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg1.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-    #     if len(combinations['ID Number']) == 6:
-    #         if gg6.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg6.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg6.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg5.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg5.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg4.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg4.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg3.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg3.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg2.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg2.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-    #         if gg1.loc[0].at['final amount to add'] > 1:
-    #             for i, row in gg1.iterrows():
-    #                 f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+        # if len(combinations['ID Number']) == 6:
+        #     if gg6.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg6.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg6.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg5.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg5.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg4.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg4.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg3.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg3.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg2.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg2.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+        #     if gg1.loc[0].at['final amount to add'] > 1:
+        #         for i, row in gg1.iterrows():
+        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
         
-    #     f.close()
-    # if __name__== "__main__":
-    #     main()
-    # os.system("notepad.exe reaction_setup.txt")
+        f.close()
+    if __name__== "__main__":
+        main()
+    os.system("notepad.exe reaction_setup.txt")
 
     # rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
     # rc
