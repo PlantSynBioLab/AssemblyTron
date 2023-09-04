@@ -124,7 +124,7 @@ if __name__ == '__main__':
     from tkinter import *
 
     input_csv = tk.Tk()
-    input_csv.geometry('400x400')
+    input_csv.geometry('1800x500')
     input_csv.title('PCR selector window')
 
 
@@ -302,86 +302,90 @@ if __name__ == '__main__':
     
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
     if len(pcr['Primary Template']) == 2:
 
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
         conc2_entry= tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc2_entry.place(relx=0.6,rely=0.35,width = 35)
     if len(pcr['Primary Template']) == 3:
   
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc2_entry.place(relx=0.6,rely=0.35,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc3_entry.place(relx=0.6,rely=0.4,width = 35)
     if len(pcr['Primary Template']) == 4:
   
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc2_entry.place(relx=0.6,rely=0.35,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc3_entry.place(relx=0.6,rely=0.4,width = 35)
         conc4_entry = tk.Entry()
         conc4_entry.insert(END, '0')
-        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc4_entry.place(relx=0.6,rely=0.45,width = 35)
     if len(pcr['Primary Template']) == 5:
       
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc1_entry.place(relx=0.6,rely=0.35,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc2_entry.place(relx=0.6,rely=0.4,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc3_entry.place(relx=0.6,rely=0.45,width = 35)
         conc4_entry = tk.Entry()
         conc4_entry.insert(END, '0')
-        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc4_entry.place(relx=0.6,rely=0.5,width = 35)
         conc5_entry = tk.Entry()
         conc5_entry.insert(END, '0')
-        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
-        conc6_entry = tk.Entry()
-        conc6_entry.insert(END, '0')
-        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+        conc5_entry.place(relx=0.6,rely=0.55,width = 35)
+        
     if len(pcr['Primary Template']) == 6:
       
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.05,width = 35)
+        conc1_entry.place(relx=0.6,rely=0.35,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.1,width = 35)
+        conc2_entry.place(relx=0.6,rely=0.4,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.15,width = 35)
+        conc3_entry.place(relx=0.6,rely=0.45,width = 35)
         conc4_entry = tk.Entry()
         conc4_entry.insert(END, '0')
-        conc4_entry.place(relx=0.6,rely=0.2,width = 35)
+        conc4_entry.place(relx=0.6,rely=0.5,width = 35)
         conc5_entry = tk.Entry()
         conc5_entry.insert(END, '0')
-        conc5_entry.place(relx=0.6,rely=0.25,width = 35)
+        conc5_entry.place(relx=0.6,rely=0.55,width = 35)
         conc6_entry = tk.Entry()
         conc6_entry.insert(END, '0')
-        conc6_entry.place(relx=0.6,rely=0.3,width = 35)
+        conc6_entry.place(relx=0.6,rely=0.6,width = 35)
 
-    rel_y = .05
+    label_extra1 = Label(text='Choose which fragments to amplify with error-prone PCR.',font=('Helvatical bold',14))
+    label_extra1.place(relx=0,rely=0.15)  
+
+    label_extra2 = Label(text='Input 1 to select PCR for error-prone amplification',font=('Helvatical bold',14))
+    label_extra2.place(relx=0,rely=0.2) 
+    
+    rel_y = .3
 
     for i, row in pcr.iterrows():
 
-        label_extra1 = tk.Label(text='Temp: '+pcr.loc[i].at['Primary Template']+'ID: '+str(pcr.loc[i].at['Reaction ID Number']),font=('Helvatical bold',14))
+        label_extra1 = tk.Label(text='Temp: '+pcr.loc[i].at['Primary Template']+' ID: '+str(pcr.loc[i].at['Reaction ID Number'])+' '+str(pcr.loc[i].at['Forward Oligo Name']),font=('Helvatical bold',14))
         label_extra1.place(relx = 0.3, rely = rel_y)
     
     #names.loc[i].at['pwllocation'] = tk.Entry()

@@ -1,0 +1,41 @@
+Date: 20230904 Time: 1524 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Error_prone_PCR_Golden_Gate 
+Place the coldtuberack in slot 1. 
+Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+Instructions for setting up the coldtuberack: 
+Put oWL00624_(ARF7)_forward in A1
+Add an empty tube to A1 on 24 well tuberack in slot 2.
+Put oWL597_(ARF7)_reverse in A2
+Add an empty tube to A2 on 24 well tuberack in slot 2.
+Put oWL598_(ARF7-pb1)_forward in A3
+Add an empty tube to A3 on 24 well tuberack in slot 2.
+Put oWL00625_(PB1_ARF7)_(stop2)_reverse in A4
+Add an empty tube to A4 on 24 well tuberack in slot 2.
+Put oWL00626_(IAA14-FL)_forward in A5
+Add an empty tube to A5 on 24 well tuberack in slot 2.
+Put oWL593_(TPL-IAA14)_reverse in A6
+Add an empty tube to A6 on 24 well tuberack in slot 2.
+Put oWL594_(IAA14-pb1)_forward in B1
+Add an empty tube to B1 on 24 well tuberack in slot 2.
+Put oWL595_(IAA14-pb1)_reverse in B2
+Add an empty tube to B2 on 24 well tuberack in slot 2.
+Add these templates directly to 24 tuberack in deckslot 2: 
+Put pwl_408 in B3
+Put pwl_411 in B4
+NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
+This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
+These go in the cold tuberack again.  
+Put pwl90 in B5
+Add an empty tube to B5on 24 well tuberack in slot 2.
+Put pwl248 in B6
+Add an empty tube to B6on 24 well tuberack in slot 2.
+Place empty tube in C4 for the T4/BSA mix 
+Place T4 ligase in C5 
+Place DMSO in D6 of tuberack2 (since it needs to be at room temp) 
+Place 100X BSA in C6 
+Place paqCI activator in D1 of cold tuberack (if needed) 
+Place T4 buffer in D2 
+Place DPNI in D3 
+Place cutsmart buffer in D4 
+Place BsaI in D5 
+Place Q5 DNA polymerase in D6 

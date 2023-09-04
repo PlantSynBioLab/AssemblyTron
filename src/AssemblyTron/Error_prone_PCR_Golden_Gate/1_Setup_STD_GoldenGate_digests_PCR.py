@@ -95,12 +95,11 @@ if __name__ == '__main__':
 
     os.chdir(goback)
     #######################################################################################################################
-
-    shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-    shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-    shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-    shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-    shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+    shutil.copy2(name+'/assembly.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
+    shutil.copy2(name+'/combinations.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
+    shutil.copy2(name+'/digests.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
+    shutil.copy2(name+'/oligo.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
+    shutil.copy2(name+'/pcr.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
 
     oligos = pandas.read_csv('oligo.csv')
     oligos
@@ -296,29 +295,29 @@ if __name__ == '__main__':
     #date
 
     #make the run folder of the day
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
-    os.mkdir(date+time+'_GoldenGate')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
+    os.mkdir(date+time+'_PCR')
 
     #copy the temp GoldenGate.py to the new folder
-    # dst = '/'+date+'GoldenGate'
-    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_digests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_24_digests.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    dst = '/'+date+'GoldenGate'
+    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/GoldenGate_digests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_Assembly/')
+    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_24_digests.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_Assembly/')
+    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
 
     #now rename the script with the date
-    # os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR')
     # os.rename('GoldenGate_digests_separatepcrruns_gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
     # os.rename('dilution_24_digests.py', str(2)+'_'+date+time+'_dilution_24.py')
     # os.rename('Update_Input.py', str(1)+'_Update_Input.py')
-    # os.chdir(walk_up_folder(os.getcwd(), 2))
+    os.chdir(walk_up_folder(os.getcwd(), 2))
 
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
     # shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/assembly.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/oligo.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_instructions.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/reagent_setup.txt',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/reagent_setup.txt',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
 
 
     ###############################################################################################################################################################################################3
@@ -759,7 +758,7 @@ if __name__ == '__main__':
     ngdesired_entry.place(relx=0.2,rely=0.325,width=35)
 
     Combinatorial_pcr_params_entry = tk.Entry()
-    Combinatorial_pcr_params_entry.insert(END, '1')
+    Combinatorial_pcr_params_entry.insert(END, '2')
     Combinatorial_pcr_params_entry.place(relx=0.2,rely=0.35,width=35)
 
     Time_entry = tk.Entry()
@@ -953,7 +952,7 @@ if __name__ == '__main__':
 ###############################################################################################
 ##Entry vector selection window
     input_csv = tk.Tk()
-    input_csv.geometry('600x450')
+    input_csv.geometry('600x600')
     input_csv.title('Parameters for Goldengate')
 
 
@@ -1410,7 +1409,7 @@ if __name__ == '__main__':
     lb = Listbox(ws, selectmode = "multiple")
     lb.pack(padx = 10, pady = 10, expand = YES, fill = "both") 
 
-    x =["Dilution", "PCR Mix", "DPNI Digest", "Golden Gate Setup", "Golden Gate Run"]
+    x =["Dilution", "PCR Mix"]
 
     for item in range(len(x)): 
         lb.insert(END, x[item]) 
@@ -1420,7 +1419,7 @@ if __name__ == '__main__':
     ws.mainloop()
 
     section.to_csv('section.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/section.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/section.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
     ##############################################################################################################
 
     ##################GRADIENT OPTIMIZER################################################################
@@ -1456,9 +1455,9 @@ if __name__ == '__main__':
             #temps = [59.499,65.4245,67.8095,62.142,62.7575]
             #temps
 
-            one = np.random.uniform(50,75)
+            one = np.random.uniform(50,70)
             #one = round(numpy.random.uniform(50, 70), 1)
-            eight = np.random.uniform(65,90)
+            eight = np.random.uniform(70,90)
             #eight = round(numpy.random.uniform(70, 90), 1)
 
             two = one +((2-1)/(8-1)) * (eight-one)
@@ -1526,7 +1525,7 @@ if __name__ == '__main__':
     gradient = pandas.DataFrame(FV, columns=['temp'])
     wells = ['A1','B1','C1','D1','E1','F1','G1','H1']
     gradient['tube'] = wells
-    
+   
     for i, row in pcr.iterrows():
         diffss = []
         for j, row in gradient.iterrows():
@@ -1685,13 +1684,13 @@ if __name__ == '__main__':
         digests.at[0, 'tube'] = 'A8'
 
     digests.to_csv('digests.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
     pcr.to_csv('pcr.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
     gradient.to_csv('gradient.csv')
-    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_digests_separatepcrruns_gradient_writer.py',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_24_digests_writer.py',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/GoldenGate_digests_separatepcrruns_gradient_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_24_digests_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
 
 
 
@@ -1699,11 +1698,11 @@ if __name__ == '__main__':
 
 
 
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR')
     variables.to_csv('Input.csv')
     variables2.to_csv('Entryvecs.csv')
 
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/Input.csv', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/Input.csv', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/')
 
     #os.system("notepad.exe GoldenGate_instructions.txt")
 
@@ -1762,7 +1761,7 @@ if __name__ == '__main__':
 
 
     #Input_values = pandas.read_csv('Input.csv') 
-    Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/Input.csv') 
+    Input_values = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Input.csv') 
     Input_values
     # Date = str(int(Input_values.loc[0].at['Date']))
     # Date
@@ -1772,7 +1771,7 @@ if __name__ == '__main__':
 
     ###############################################################################################################################################
     #oligos
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+    os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR')
     entryvecs = pandas.read_csv('Entryvecs.csv')
     oligos = pandas.read_csv('oligo.csv')
     oligos
@@ -2062,1110 +2061,1112 @@ if __name__ == '__main__':
 
     pcr_plustemplates.to_csv('pcr.csv')
 
-    #######################################################################################################################################################################################################################
-    #combinations
+#     #######################################################################################################################################################################################################################
+#     #combinations
 
-    #os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
-    os.getcwd()
-    combinations = pandas.read_csv('combinations.csv')
-    combinations
+#     #os.chdir("C:/Users/jonbr/Documents/GitHub/opentrons/Golden_Gate/Part1_PCR_Mason/")
+#     os.getcwd()
+#     combinations = pandas.read_csv('combinations.csv')
+#     combinations
 
 
-    if len(combinations.columns) == 5:
-        combinations['Part(s) Bin 1'] = 'nan'
-        combinations['Assembly Piece ID Number Bin 1'] = 'nan'
-        combinations['Part(s) Bin 2'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 2'] = 'nan'
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
-    if len(combinations.columns) == 7:
-        combinations['Part(s) Bin 2'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 2'] = 'nan'
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
-    if len(combinations.columns) == 9:
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
-    if len(combinations.columns) == 11:
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+#     if len(combinations.columns) == 5:
+#         combinations['Part(s) Bin 1'] = 'nan'
+#         combinations['Assembly Piece ID Number Bin 1'] = 'nan'
+#         combinations['Part(s) Bin 2'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 2'] = 'nan'
+#         combinations['Part(s) Bin 3'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+#         combinations['Part(s) Bin 4'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+#     if len(combinations.columns) == 7:
+#         combinations['Part(s) Bin 2'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 2'] = 'nan'
+#         combinations['Part(s) Bin 3'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+#         combinations['Part(s) Bin 4'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+#     if len(combinations.columns) == 9:
+#         combinations['Part(s) Bin 3'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 3'] = 'nan'
+#         combinations['Part(s) Bin 4'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+#     if len(combinations.columns) == 11:
+#         combinations['Part(s) Bin 4'] = 'nan' 
+#         combinations['Assembly Piece ID Number Bin 4'] = 'nan'
 
-    # Commenting this out for now because AssemblyTron will probably always either just do a gradient or touchdown.
-    # if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
-    #     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
-    #     frame = combinations[pieces]
-    #     #frame2 = frame.transpose()
-    #     frame
+#     # Commenting this out for now because AssemblyTron will probably always either just do a gradient or touchdown.
+#     # if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
+#     #     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+#     #     frame = combinations[pieces]
+#     #     #frame2 = frame.transpose()
+#     #     frame
 
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 0']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 1']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 2']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 3']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 4']
-    #     frame2 = frame.transpose()
-    #     frame
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 0']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 1']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 2']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 3']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 4']
+#     #     frame2 = frame.transpose()
+#     #     frame
 
-    #     frame += startnum
-    #     frame
-    #     frame= frame.values.astype(str)
-    #     frame = pandas.DataFrame(frame)
-    #     frame
-    #     result_1 = frame.replace(id2well)
-    #     result_1
+#     #     frame += startnum
+#     #     frame
+#     #     frame= frame.values.astype(str)
+#     #     frame = pandas.DataFrame(frame)
+#     #     frame
+#     #     result_1 = frame.replace(id2well)
+#     #     result_1
 
-    #     combinations_plustemplocs = pandas.concat([combinations, result_1], axis=1)
-    #     combinations_plustemplocs
+#     #     combinations_plustemplocs = pandas.concat([combinations, result_1], axis=1)
+#     #     combinations_plustemplocs
 
-    #     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
-    #     frame = combinations[pieces]
+#     #     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+#     #     frame = combinations[pieces]
 
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 0']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 1']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 2']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 3']
-    #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-    #         del frame['Assembly Piece ID Number Bin 4']
-    #     frame2 = frame.transpose()
-    #     frame2
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 0']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 1']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 2']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 3']
+#     #     if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
+#     #         del frame['Assembly Piece ID Number Bin 4']
+#     #     frame2 = frame.transpose()
+#     #     frame2
 
-    # #need to remove the row of linearized fragments from the digest when calculating pcr parameters
-    #     if assembly.loc[0].at['Reaction Type'] == 'Digest Linearized':
-    #         frame2 = frame2.drop(frame2.index[0])
-    #         frame2 -= 1
-    #     frame2
+#     # #need to remove the row of linearized fragments from the digest when calculating pcr parameters
+#     #     if assembly.loc[0].at['Reaction Type'] == 'Digest Linearized':
+#     #         frame2 = frame2.drop(frame2.index[0])
+#     #         frame2 -= 1
+#     #     frame2
 
-    #     pcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Mean Oligo Tm (3')]
-    #     morepcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Delta Oligo Tm (3')]
-    #     anotherpcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Length')]
-    #     pcr_info = pcr_info + morepcr_info + anotherpcr_info
-    #     pcr_info
+#     #     pcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Mean Oligo Tm (3')]
+#     #     morepcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Delta Oligo Tm (3')]
+#     #     anotherpcr_info = [columns for columns in pcr_plustemplates if columns.startswith('Length')]
+#     #     pcr_info = pcr_info + morepcr_info + anotherpcr_info
+#     #     pcr_info
 
-    #     for column in frame2:
-    #         listoffrags = frame2[column].to_list()
-    #         listoffrags
+#     #     for column in frame2:
+#     #         listoffrags = frame2[column].to_list()
+#     #         listoffrags
         
-    #         tablee = pcr_plustemplates[pcr_info]
-    #         tablee = tablee.iloc[listoffrags, :]
+#     #         tablee = pcr_plustemplates[pcr_info]
+#     #         tablee = tablee.iloc[listoffrags, :]
         
-    #         if column == 0:
-    #             params0 = tablee.copy()
-    #         if column == 1:
-    #             params1 = tablee.copy()
-    #         if column == 2:
-    #             params2 = tablee.copy()
-    #         if column == 3:
-    #             params3 = tablee.copy()
-    #         if column == 4:
-    #             params4 = tablee.copy()
-    #         if column == 5:
-    #             params5 = tablee.copy()
-    #         if column == 6:
-    #             params6 = tablee.copy()
-    #         if column == 7:
-    #             params7 = tablee.copy()
-    #         if column == 8:
-    #             params8 = tablee.copy()
-    #         if column == 9:
-    #             params9 = tablee.copy()
-    #         if column == 10:
-    #             params10 = tablee.copy()
-    #         if column == 11:
-    #             params11 = tablee.copy()
+#     #         if column == 0:
+#     #             params0 = tablee.copy()
+#     #         if column == 1:
+#     #             params1 = tablee.copy()
+#     #         if column == 2:
+#     #             params2 = tablee.copy()
+#     #         if column == 3:
+#     #             params3 = tablee.copy()
+#     #         if column == 4:
+#     #             params4 = tablee.copy()
+#     #         if column == 5:
+#     #             params5 = tablee.copy()
+#     #         if column == 6:
+#     #             params6 = tablee.copy()
+#     #         if column == 7:
+#     #             params7 = tablee.copy()
+#     #         if column == 8:
+#     #             params8 = tablee.copy()
+#     #         if column == 9:
+#     #             params9 = tablee.copy()
+#     #         if column == 10:
+#     #             params10 = tablee.copy()
+#     #         if column == 11:
+#     #             params11 = tablee.copy()
 
             
-    #     params0
+#     #     params0
 
-    #so looks like this script will be limited for finding pcr conditions for just 2 construct. have to update for more
-
-
-        if len(combinations['ID Number']) == 1:
-            Lengthparams0 = params0.nlargest(1,'Length')
-            Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
-            lengthlist = Lengthparams0['Length'].to_list()
-            finallengthlist = lengthlist
-
-            params_tables = {'parmx': ['params0']}
-            params_tables = pandas.DataFrame(data=params_tables)
-            params_tables
-
-            GG_dfs = {'gg#': ['gg1']}
-            GG_dfs = pandas.DataFrame(data=GG_dfs)
-
-        if len(combinations['ID Number']) == 2:
-            Lengthparams0 = params0.nlargest(1,'Length')
-            Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
-            lengthlist = Lengthparams0['Length'].to_list()
-
-            Lengthparams1 = params1.nlargest(1,'Length')
-            Lengthparams1['Length'] = (Lengthparams1['Length']/1000)*30
-            lengthlist1 = Lengthparams1['Length'].to_list()
-            finallengthlist = lengthlist + lengthlist1 
-
-            params_tables = {'parmx': ['params0','params1']}
-            params_tables = pandas.DataFrame(data=params_tables)
-            params_tables
-
-            GG_dfs = {'gg#': ['gg1','gg2']}
-            GG_dfs = pandas.DataFrame(data=GG_dfs)
-
-        if len(combinations['ID Number']) == 3:
-            Lengthparams0 = params0.nlargest(1,'Length')
-            Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
-            lengthlist = Lengthparams0['Length'].to_list()
-
-            Lengthparams1 = params1.nlargest(1,'Length')
-            Lengthparams1['Length'] = (Lengthparams1['Length']/1000)*30
-            lengthlist1 = Lengthparams1['Length'].to_list()
-
-            Lengthparams2 = params2.nlargest(1,'Length')
-            Lengthparams2['Length'] = (Lengthparams2['Length']/1000)*30
-            lengthlist2 = Lengthparams2['Length'].to_list()
-            finallengthlist = lengthlist + lengthlist1 +lengthlist2
-
-            params_tables = {'parmx': ['params0','params1','params2']}
-            params_tables = pandas.DataFrame(data=params_tables)
-            params_tables
-
-            GG_dfs = {'gg#': ['gg1','gg2','gg3']}
-            GG_dfs = pandas.DataFrame(data=GG_dfs)
-
-        if len(combinations['ID Number']) == 4:
-            Lengthparams0 = params0.nlargest(1,'Length')
-            Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
-            lengthlist = Lengthparams0['Length'].to_list()
-
-            Lengthparams1 = params1.nlargest(1,'Length')
-            Lengthparams1['Length'] = (Lengthparams1['Length']/1000)*30
-            lengthlist1 = Lengthparams1['Length'].to_list()
-
-            Lengthparams2 = params2.nlargest(1,'Length')
-            Lengthparams2['Length'] = (Lengthparams2['Length']/1000)*30
-            lengthlist2 = Lengthparams2['Length'].to_list()
-
-            Lengthparams3 = params3.nlargest(1,'Length')
-            Lengthparams3['Length'] = (Lengthparams3['Length']/1000)*30
-            lengthlist3 = Lengthparams3['Length'].to_list()
-            finallengthlist = lengthlist + lengthlist1 +lengthlist2 + lengthlist3
-
-            params_tables = {'parmx': ['params0','params1','params2','params3']}
-            params_tables = pandas.DataFrame(data=params_tables)
-            params_tables
-
-            GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
-            GG_dfs = pandas.DataFrame(data=GG_dfs)
-
-    #Lengthparams2 = params2.nlargest(1,'Length')
-    #   Lengthparams2['Length'] = (Lengthparams2['Length']/1000)*60
-    #   lengthlist = Lengthparams2['Length'].to_list()
-    #  print(lengthlist)
-
-    #Lengthparams3 = params0.nlargest(1,'Length')
-    #Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*60
-    #lengthlist = Lengthparams0['Length'].to_list()
-    #print(lengthlist)
-
-    #Lengthparams0 = params0.nlargest(1,'Length')
-    #Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*60
-    #lengthlist = Lengthparams0['Length'].to_list()
-    #print(lengthlist)
+#     #so looks like this script will be limited for finding pcr conditions for just 2 construct. have to update for more
 
 
+#         if len(combinations['ID Number']) == 1:
+#             Lengthparams0 = params0.nlargest(1,'Length')
+#             Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
+#             lengthlist = Lengthparams0['Length'].to_list()
+#             finallengthlist = lengthlist
 
-        combinations['Extension_time_sec'] = finallengthlist
-        combinations
+#             params_tables = {'parmx': ['params0']}
+#             params_tables = pandas.DataFrame(data=params_tables)
+#             params_tables
 
-        extens = combinations.nlargest(1,'Extension_time_sec')
-        extension_final = extens['Extension_time_sec']
-        extension_final
+#             GG_dfs = {'gg#': ['gg1']}
+#             GG_dfs = pandas.DataFrame(data=GG_dfs)
 
-    #solved the problem of not being able to loop through multiple dataframes
+#         if len(combinations['ID Number']) == 2:
+#             Lengthparams0 = params0.nlargest(1,'Length')
+#             Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
+#             lengthlist = Lengthparams0['Length'].to_list()
 
-        annealing=[]
-        for i, row in params_tables.iterrows():
-            x = params_tables.loc[i].at['parmx']
-    #globals()[x]
-            globals()[x]['Upper_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] + globals()[x]['Delta Oligo Tm (3Only)']
-            globals()[x]['Lower_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] - globals()[x]['Delta Oligo Tm (3Only)']
-            HL = globals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
-            HL = HL['Upper_temp'].values.tolist()
-            LH = globals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
-            LH = LH['Lower_temp'].values.tolist()    
-            if LH[0] > HL[0]:
-                annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-            if LH[0] < HL[0]:
-                annealing_temp = HL[0]
-            annealing.append(annealing_temp)
+#             Lengthparams1 = params1.nlargest(1,'Length')
+#             Lengthparams1['Length'] = (Lengthparams1['Length']/1000)*30
+#             lengthlist1 = Lengthparams1['Length'].to_list()
+#             finallengthlist = lengthlist + lengthlist1 
 
-    #dfff = np.array(annealing)
-        dfff = pandas.DataFrame(annealing)
-        dfff = dfff.sum(axis=1)
-        avg_annealing = dfff.mean() 
-        avg_annealing
+#             params_tables = {'parmx': ['params0','params1']}
+#             params_tables = pandas.DataFrame(data=params_tables)
+#             params_tables
 
-        Annealing_and_extension = pandas.DataFrame({'Annealing temp': avg_annealing,
-                    'extension time (seconds)': extension_final})
-        Annealing_and_extension = Annealing_and_extension.reset_index()
-        Annealing_and_extension = Annealing_and_extension.drop(columns = ['index'])
-        Annealing_and_extension
+#             GG_dfs = {'gg#': ['gg1','gg2']}
+#             GG_dfs = pandas.DataFrame(data=GG_dfs)
 
-        Annealing_and_extension.to_csv('output_'+date+time+'_Annealing_extension.csv')
+#         if len(combinations['ID Number']) == 3:
+#             Lengthparams0 = params0.nlargest(1,'Length')
+#             Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
+#             lengthlist = Lengthparams0['Length'].to_list()
 
-    ######################separate pcrrxns####################################
-    ########################################################################
-    #all of this will run
-    #if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
-    gradient = pandas.read_csv('gradient.csv')
+#             Lengthparams1 = params1.nlargest(1,'Length')
+#             Lengthparams1['Length'] = (Lengthparams1['Length']/1000)*30
+#             lengthlist1 = Lengthparams1['Length'].to_list()
+
+#             Lengthparams2 = params2.nlargest(1,'Length')
+#             Lengthparams2['Length'] = (Lengthparams2['Length']/1000)*30
+#             lengthlist2 = Lengthparams2['Length'].to_list()
+#             finallengthlist = lengthlist + lengthlist1 +lengthlist2
+
+#             params_tables = {'parmx': ['params0','params1','params2']}
+#             params_tables = pandas.DataFrame(data=params_tables)
+#             params_tables
+
+#             GG_dfs = {'gg#': ['gg1','gg2','gg3']}
+#             GG_dfs = pandas.DataFrame(data=GG_dfs)
+
+#         if len(combinations['ID Number']) == 4:
+#             Lengthparams0 = params0.nlargest(1,'Length')
+#             Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*30
+#             lengthlist = Lengthparams0['Length'].to_list()
+
+#             Lengthparams1 = params1.nlargest(1,'Length')
+#             Lengthparams1['Length'] = (Lengthparams1['Length']/1000)*30
+#             lengthlist1 = Lengthparams1['Length'].to_list()
+
+#             Lengthparams2 = params2.nlargest(1,'Length')
+#             Lengthparams2['Length'] = (Lengthparams2['Length']/1000)*30
+#             lengthlist2 = Lengthparams2['Length'].to_list()
+
+#             Lengthparams3 = params3.nlargest(1,'Length')
+#             Lengthparams3['Length'] = (Lengthparams3['Length']/1000)*30
+#             lengthlist3 = Lengthparams3['Length'].to_list()
+#             finallengthlist = lengthlist + lengthlist1 +lengthlist2 + lengthlist3
+
+#             params_tables = {'parmx': ['params0','params1','params2','params3']}
+#             params_tables = pandas.DataFrame(data=params_tables)
+#             params_tables
+
+#             GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
+#             GG_dfs = pandas.DataFrame(data=GG_dfs)
+
+#     #Lengthparams2 = params2.nlargest(1,'Length')
+#     #   Lengthparams2['Length'] = (Lengthparams2['Length']/1000)*60
+#     #   lengthlist = Lengthparams2['Length'].to_list()
+#     #  print(lengthlist)
+
+#     #Lengthparams3 = params0.nlargest(1,'Length')
+#     #Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*60
+#     #lengthlist = Lengthparams0['Length'].to_list()
+#     #print(lengthlist)
+
+#     #Lengthparams0 = params0.nlargest(1,'Length')
+#     #Lengthparams0['Length'] = (Lengthparams0['Length']/1000)*60
+#     #lengthlist = Lengthparams0['Length'].to_list()
+#     #print(lengthlist)
+
+
+
+#         combinations['Extension_time_sec'] = finallengthlist
+#         combinations
+
+#         extens = combinations.nlargest(1,'Extension_time_sec')
+#         extension_final = extens['Extension_time_sec']
+#         extension_final
+
+#     #solved the problem of not being able to loop through multiple dataframes
+
+#         annealing=[]
+#         for i, row in params_tables.iterrows():
+#             x = params_tables.loc[i].at['parmx']
+#     #globals()[x]
+#             globals()[x]['Upper_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] + globals()[x]['Delta Oligo Tm (3Only)']
+#             globals()[x]['Lower_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] - globals()[x]['Delta Oligo Tm (3Only)']
+#             HL = globals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
+#             HL = HL['Upper_temp'].values.tolist()
+#             LH = globals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
+#             LH = LH['Lower_temp'].values.tolist()    
+#             if LH[0] > HL[0]:
+#                 annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+#             if LH[0] < HL[0]:
+#                 annealing_temp = HL[0]
+#             annealing.append(annealing_temp)
+
+#     #dfff = np.array(annealing)
+#         dfff = pandas.DataFrame(annealing)
+#         dfff = dfff.sum(axis=1)
+#         avg_annealing = dfff.mean() 
+#         avg_annealing
+
+#         Annealing_and_extension = pandas.DataFrame({'Annealing temp': avg_annealing,
+#                     'extension time (seconds)': extension_final})
+#         Annealing_and_extension = Annealing_and_extension.reset_index()
+#         Annealing_and_extension = Annealing_and_extension.drop(columns = ['index'])
+#         Annealing_and_extension
+
+#         Annealing_and_extension.to_csv('output_'+date+time+'_Annealing_extension.csv')
+
+#     ######################separate pcrrxns####################################
+#     ########################################################################
+#     #all of this will run
+#     #if Input_values.loc[0].at['Combinatorial_pcr_params'] == 2:
+#     gradient = pandas.read_csv('gradient.csv')
     
-    # runnumber = 0
+#     # runnumber = 0
 
-    # pcr_plustemplates
-    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
-    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
-    # pcr_plustemplates
+#     # pcr_plustemplates
+#     # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
+#     # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+#     # pcr_plustemplates
 
-    # temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
+#     # temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
     
-    # deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-    # delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
-    # delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
+#     # deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
+#     # delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
+#     # delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
     
-    # U = delta_temp + delta_val
-    # L = delta_temp - delta_val
+#     # U = delta_temp + delta_val
+#     # L = delta_temp - delta_val
 
-    # redo = 1
+#     # redo = 1
     
-    # while redo == 1:
+#     # while redo == 1:
 
-    #     current = 0
-    #     CV = 0
+#     #     current = 0
+#     #     CV = 0
 
-    #     num = 100000
-    #     for x in range(num):    
+#     #     num = 100000
+#     #     for x in range(num):    
     
-    #         #temps = [59.499,65.4245,67.8095,62.142,62.7575]
-    #         #temps
+#     #         #temps = [59.499,65.4245,67.8095,62.142,62.7575]
+#     #         #temps
 
-    #         one = np.random.uniform(50,70)
-    #         #one = round(numpy.random.uniform(50, 70), 1)
-    #         eight = np.random.uniform(70,90)
-    #         #eight = round(numpy.random.uniform(70, 90), 1)
+#     #         one = np.random.uniform(50,70)
+#     #         #one = round(numpy.random.uniform(50, 70), 1)
+#     #         eight = np.random.uniform(70,90)
+#     #         #eight = round(numpy.random.uniform(70, 90), 1)
 
-    #         two = one +((2-1)/(8-1)) * (eight-one)
-    #         three = one +((3-1)/(8-1)) * (eight-one)
-    #         four = one +((4-1)/(8-1)) * (eight-one)
-    #         five = one +((5-1)/(8-1)) * (eight-one)
-    #         six = one +((6-1)/(8-1)) * (eight-one)
-    #         seven = one +((7-1)/(8-1)) * (eight-one)
+#     #         two = one +((2-1)/(8-1)) * (eight-one)
+#     #         three = one +((3-1)/(8-1)) * (eight-one)
+#     #         four = one +((4-1)/(8-1)) * (eight-one)
+#     #         five = one +((5-1)/(8-1)) * (eight-one)
+#     #         six = one +((6-1)/(8-1)) * (eight-one)
+#     #         seven = one +((7-1)/(8-1)) * (eight-one)
 
-    #         vector = [one,two,three,four,five,six,seven,eight]
+#     #         vector = [one,two,three,four,five,six,seven,eight]
 
-    #         f = []
-    #         i = 0
-    #         while i < len(vector):
-    #             j = 0
-    #             while j < len(temps):
-    #                 Diff = abs(vector[i]-temps[j])
-    #                 if Diff > 0.4:
-    #                     f.append(100.0)
-    #                 if Diff < 0.4:
-    #                     f.append(Diff)
-    #                 j = j + 1
-    #             i = i + 1
-    #         sum(f)
+#     #         f = []
+#     #         i = 0
+#     #         while i < len(vector):
+#     #             j = 0
+#     #             while j < len(temps):
+#     #                 Diff = abs(vector[i]-temps[j])
+#     #                 if Diff > 0.4:
+#     #                     f.append(100.0)
+#     #                 if Diff < 0.4:
+#     #                     f.append(Diff)
+#     #                 j = j + 1
+#     #             i = i + 1
+#     #         sum(f)
     
-    #         #if sum(f) < 3505.0 & :
+#     #         #if sum(f) < 3505.0 & :
         
-    #         if current == 0:
+#     #         if current == 0:
         
-    #             current = sum(f)
-    #             CV = vector
+#     #             current = sum(f)
+#     #             CV = vector
     
-    #         else:
-    #             if sum(f) < current:
-    #                 current = sum(f)
-    #                 CV = vector
+#     #         else:
+#     #             if sum(f) < current:
+#     #                 current = sum(f)
+#     #                 CV = vector
             
-    #     #find upper and lower for lowest range rxn
-    #     #lowest delta -> upper and lower -> check temps
-    #     #U = 65.6955
-    #     #L = 65.1535
+#     #     #find upper and lower for lowest range rxn
+#     #     #lowest delta -> upper and lower -> check temps
+#     #     #U = 65.6955
+#     #     #L = 65.1535
 
-    #     i = 0
-    #     while i < len(CV):
-    #         if L<CV[i]<U:
-    #             print('good')
-    #             redo = 2
-    #             break
-    #         else:
-    #             redo = 1
-    #             print(redo)
-    #         i = i + 1
+#     #     i = 0
+#     #     while i < len(CV):
+#     #         if L<CV[i]<U:
+#     #             print('good')
+#     #             redo = 2
+#     #             break
+#     #         else:
+#     #             redo = 1
+#     #             print(redo)
+#     #         i = i + 1
     
 
 
-    # gradient = pandas.DataFrame(CV, columns=['temp'])
-    # wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
-    # gradient['tube'] = wells
+#     # gradient = pandas.DataFrame(CV, columns=['temp'])
+#     # wells = ['A1','A2','A3','A4','A5','A6','A7','A8']
+#     # gradient['tube'] = wells
     
-    # for i, row in pcr_plustemplates.iterrows():
-    #     diffss = []
-    #     for j, row in gradient.iterrows():
-    #         aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)']
-    #         bbb = gradient.loc[j].at['temp']
-    #         A = abs(aaa - bbb )
-    #         diffss.append(A)
-    #     min_val = min(diffss)
-    #     min_index = diffss.index(min_val)
-    #     pcr_plustemplates.loc[i,'tube'] = gradient.loc[min_index].at['tube']
-    # pcr_plustemplates
+#     # for i, row in pcr_plustemplates.iterrows():
+#     #     diffss = []
+#     #     for j, row in gradient.iterrows():
+#     #         aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)']
+#     #         bbb = gradient.loc[j].at['temp']
+#     #         A = abs(aaa - bbb )
+#     #         diffss.append(A)
+#     #     min_val = min(diffss)
+#     #     min_index = diffss.index(min_val)
+#     #     pcr_plustemplates.loc[i,'tube'] = gradient.loc[min_index].at['tube']
+#     # pcr_plustemplates
 
-    # dupin = {}
-    # dupin['A1'] = 'B1'
-    # dupin['A2'] = 'B2'
-    # dupin['A3'] = 'B3'
-    # dupin['A4'] = 'B4'
-    # dupin['A5'] = 'B5'
-    # dupin['A6'] = 'B6'
-    # dupin['A7'] = 'B7'
-    # dupin['A8'] = 'B8'
+#     # dupin = {}
+#     # dupin['A1'] = 'B1'
+#     # dupin['A2'] = 'B2'
+#     # dupin['A3'] = 'B3'
+#     # dupin['A4'] = 'B4'
+#     # dupin['A5'] = 'B5'
+#     # dupin['A6'] = 'B6'
+#     # dupin['A7'] = 'B7'
+#     # dupin['A8'] = 'B8'
 
-    # duplicate_in_tube = pcr_plustemplates.duplicated(subset=['tube'])
-    # if duplicate_in_tube.any():
-    #     tes = pcr_plustemplates.loc[duplicate_in_tube]
-    #     index = tes.index
-    # index
-    # i = 0
-    # while i < len(index):
-    #     letter = pcr_plustemplates.loc[index[i]].at['tube']
-    #     pcr_plustemplates.loc[index[i],'tube'] = dupin[letter]
-    #     i = i + 1
-    # pcr_plustemplates
+#     # duplicate_in_tube = pcr_plustemplates.duplicated(subset=['tube'])
+#     # if duplicate_in_tube.any():
+#     #     tes = pcr_plustemplates.loc[duplicate_in_tube]
+#     #     index = tes.index
+#     # index
+#     # i = 0
+#     # while i < len(index):
+#     #     letter = pcr_plustemplates.loc[index[i]].at['tube']
+#     #     pcr_plustemplates.loc[index[i],'tube'] = dupin[letter]
+#     #     i = i + 1
+#     # pcr_plustemplates
 
-    # gradient.to_csv('gradient.csv')
-
-
+#     # gradient.to_csv('gradient.csv')
 
 
-# multiple pcr run variation.
-    # runnumber = 0
-    # annealing = []
-    # pcr_plustemplates['run'] = ''
-    # for i, row in pcr_plustemplates.iterrows():
+
+
+# # multiple pcr run variation.
+#     # runnumber = 0
+#     # annealing = []
+#     # pcr_plustemplates['run'] = ''
+#     # for i, row in pcr_plustemplates.iterrows():
     
-    #     comparison1 = pandas.DataFrame()
-    #     comparison2 = pandas.DataFrame()
-    #     comparison3 = pandas.DataFrame()
-    #     comparison4 = pandas.DataFrame()
-    #     comparison5 = pandas.DataFrame()
-    #     comparison6 = pandas.DataFrame()   
+#     #     comparison1 = pandas.DataFrame()
+#     #     comparison2 = pandas.DataFrame()
+#     #     comparison3 = pandas.DataFrame()
+#     #     comparison4 = pandas.DataFrame()
+#     #     comparison5 = pandas.DataFrame()
+#     #     comparison6 = pandas.DataFrame()   
             
-    #     if i == 0:
-    #         pcr_plustemplates.loc[i,'run'] = runnumber
-    #         annealing_temp = pcr_plustemplates.loc[i].at['Upper_temp']
-    #         annealing.append(annealing_temp)
+#     #     if i == 0:
+#     #         pcr_plustemplates.loc[i,'run'] = runnumber
+#     #         annealing_temp = pcr_plustemplates.loc[i].at['Upper_temp']
+#     #         annealing.append(annealing_temp)
             
-    #     if i == 1:
-    #         comparison1 = pcr_plustemplates.iloc[i-1,:]
-    #         comparison2 = pcr_plustemplates.iloc[i,:] #last one is the row we're on and evaluatinh
+#     #     if i == 1:
+#     #         comparison1 = pcr_plustemplates.iloc[i-1,:]
+#     #         comparison2 = pcr_plustemplates.iloc[i,:] #last one is the row we're on and evaluatinh
             
-    #         HL = comparison1['Upper_temp']
-    #         LH = comparison1['Lower_temp']   
+#     #         HL = comparison1['Upper_temp']
+#     #         LH = comparison1['Lower_temp']   
             
-    #         HL2 = comparison2['Upper_temp']
-    #         LH2 = comparison2['Lower_temp'] 
+#     #         HL2 = comparison2['Upper_temp']
+#     #         LH2 = comparison2['Lower_temp'] 
                 
-    #         if LH2 < HL:
-    #             annealing_temp = LH2
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+#     #         if LH2 < HL:
+#     #             annealing_temp = LH2
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 
-    #         elif LH2 > HL:
-    #             runnumber = runnumber + 1
-    #             annealing_temp = LH2 #pcr_plustemplates.loc[i].at['Upper_temp']#(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-    #             pcr_plustemplates.loc[i,'run'] = runnumber
+#     #         elif LH2 > HL:
+#     #             runnumber = runnumber + 1
+#     #             annealing_temp = LH2 #pcr_plustemplates.loc[i].at['Upper_temp']#(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+#     #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-    #         annealing.append(annealing_temp)
+#     #         annealing.append(annealing_temp)
                     
-    #     if i == 2:
-    #         comparison1 = pcr_plustemplates.iloc[i-2,:]
-    #         comparison2 = pcr_plustemplates.iloc[i-1,:]
-    #         comparison3 = pcr_plustemplates.iloc[i,:]
+#     #     if i == 2:
+#     #         comparison1 = pcr_plustemplates.iloc[i-2,:]
+#     #         comparison2 = pcr_plustemplates.iloc[i-1,:]
+#     #         comparison3 = pcr_plustemplates.iloc[i,:]
                     
-    #         HL = comparison1['Upper_temp']
-    #         LH = comparison1['Lower_temp']    
+#     #         HL = comparison1['Upper_temp']
+#     #         LH = comparison1['Lower_temp']    
             
-    #         HL2 = comparison2['Upper_temp']
-    #         LH2 = comparison2['Lower_temp'] 
+#     #         HL2 = comparison2['Upper_temp']
+#     #         LH2 = comparison2['Lower_temp'] 
                     
-    #         HL3 = comparison3['Upper_temp']
-    #         LH3 = comparison3['Lower_temp'] 
+#     #         HL3 = comparison3['Upper_temp']
+#     #         LH3 = comparison3['Lower_temp'] 
                     
-    #         if LH3 < HL:
-    #             annealing_temp = LH3
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+#     #         if LH3 < HL:
+#     #             annealing_temp = LH3
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 
-    #         elif LH3 < HL2:
-    #             annealing_temp = LH3
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
+#     #         elif LH3 < HL2:
+#     #             annealing_temp = LH3
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
 
-    #         elif LH3 > HL and LH3 > HL2:
-    #             runnumber = runnumber + 1
-    #             annealing_temp = LH3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-    #             pcr_plustemplates.loc[i,'run'] = runnumber
+#     #         elif LH3 > HL and LH3 > HL2:
+#     #             runnumber = runnumber + 1
+#     #             annealing_temp = LH3 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+#     #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-    #         annealing.append(annealing_temp)
+#     #         annealing.append(annealing_temp)
                     
-    #     if i == 3:
-    #         comparison1 = pcr_plustemplates.iloc[i-3,:]
-    #         comparison2 = pcr_plustemplates.iloc[i-2,:]
-    #         comparison3 = pcr_plustemplates.iloc[i-1,:]
-    #         comparison4 = pcr_plustemplates.iloc[i,:]
+#     #     if i == 3:
+#     #         comparison1 = pcr_plustemplates.iloc[i-3,:]
+#     #         comparison2 = pcr_plustemplates.iloc[i-2,:]
+#     #         comparison3 = pcr_plustemplates.iloc[i-1,:]
+#     #         comparison4 = pcr_plustemplates.iloc[i,:]
                 
-    #         HL = comparison1['Upper_temp']
-    #         LH = comparison1['Lower_temp']    
+#     #         HL = comparison1['Upper_temp']
+#     #         LH = comparison1['Lower_temp']    
             
-    #         HL2 = comparison2['Upper_temp']
-    #         LH2 = comparison2['Lower_temp'] 
+#     #         HL2 = comparison2['Upper_temp']
+#     #         LH2 = comparison2['Lower_temp'] 
             
-    #         HL3 = comparison3['Upper_temp']
-    #         LH3 = comparison3['Lower_temp'] 
+#     #         HL3 = comparison3['Upper_temp']
+#     #         LH3 = comparison3['Lower_temp'] 
             
-    #         HL4 = comparison4['Upper_temp']
-    #         LH4 = comparison4['Lower_temp']
+#     #         HL4 = comparison4['Upper_temp']
+#     #         LH4 = comparison4['Lower_temp']
                     
-    #         if LH4 < HL:
-    #             annealing_temp = LH4
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+#     #         if LH4 < HL:
+#     #             annealing_temp = LH4
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 
-    #         elif LH4 < HL2:
-    #             annealing_temp = LH4
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
+#     #         elif LH4 < HL2:
+#     #             annealing_temp = LH4
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run'] 
                 
-    #         elif LH4 < HL3:
-    #             annealing_temp = LH4
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
+#     #         elif LH4 < HL3:
+#     #             annealing_temp = LH4
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
 
-    #         elif LH4 > HL and LH4 > HL2 and LH4 > HL3:
-    #             runnumber = runnumber + 1
-    #             annealing_temp = LH4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-    #             pcr_plustemplates.loc[i,'run'] = runnumber
+#     #         elif LH4 > HL and LH4 > HL2 and LH4 > HL3:
+#     #             runnumber = runnumber + 1
+#     #             annealing_temp = LH4 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+#     #             pcr_plustemplates.loc[i,'run'] = runnumber
         
-    #         annealing.append(annealing_temp)
+#     #         annealing.append(annealing_temp)
                     
-    #     if i == 4:
-    #         comparison1 = pcr_plustemplates.iloc[i-4,:]
-    #         comparison2 = pcr_plustemplates.iloc[i-3,:]
-    #         comparison3 = pcr_plustemplates.iloc[i-2,:]
-    #         comparison4 = pcr_plustemplates.iloc[i-1,:]
-    #         comparison5 = pcr_plustemplates.iloc[i,:]
+#     #     if i == 4:
+#     #         comparison1 = pcr_plustemplates.iloc[i-4,:]
+#     #         comparison2 = pcr_plustemplates.iloc[i-3,:]
+#     #         comparison3 = pcr_plustemplates.iloc[i-2,:]
+#     #         comparison4 = pcr_plustemplates.iloc[i-1,:]
+#     #         comparison5 = pcr_plustemplates.iloc[i,:]
             
-    #         HL = comparison1['Upper_temp']
-    #         LH = comparison1['Lower_temp']    
+#     #         HL = comparison1['Upper_temp']
+#     #         LH = comparison1['Lower_temp']    
             
-    #         HL2 = comparison2['Upper_temp']
-    #         LH2 = comparison2['Lower_temp'] 
+#     #         HL2 = comparison2['Upper_temp']
+#     #         LH2 = comparison2['Lower_temp'] 
                 
-    #         HL3 = comparison3['Upper_temp']
-    #         LH3 = comparison3['Lower_temp'] 
+#     #         HL3 = comparison3['Upper_temp']
+#     #         LH3 = comparison3['Lower_temp'] 
                 
-    #         HL4 = comparison4['Upper_temp']
-    #         LH4 = comparison4['Lower_temp'] 
+#     #         HL4 = comparison4['Upper_temp']
+#     #         LH4 = comparison4['Lower_temp'] 
                 
-    #         HL5 = comparison5['Upper_temp']
-    #         LH5 = comparison5['Lower_temp'] 
+#     #         HL5 = comparison5['Upper_temp']
+#     #         LH5 = comparison5['Lower_temp'] 
             
-    #         if LH5 < HL:
-    #             annealing_temp = LH5
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+#     #         if LH5 < HL:
+#     #             annealing_temp = LH5
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
             
-    #         elif LH5 < HL2:
-    #             annealing_temp = LH5
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
+#     #         elif LH5 < HL2:
+#     #             annealing_temp = LH5
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                 
-    #         elif LH5 < HL3:
-    #             annealing_temp = LH5
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
+#     #         elif LH5 < HL3:
+#     #             annealing_temp = LH5
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run'] 
                     
-    #         elif LH5 < HL4:
-    #             annealing_temp = LH5
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
+#     #         elif LH5 < HL4:
+#     #             annealing_temp = LH5
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
 
-    #         elif LH5 > HL and LH5 > HL2 and LH5 > HL3 and LH5 > HL4:
-    #             runnumber = runnumber + 1
-    #             annealing_temp = LH5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-    #             pcr_plustemplates.loc[i,'run'] = runnumber
+#     #         elif LH5 > HL and LH5 > HL2 and LH5 > HL3 and LH5 > HL4:
+#     #             runnumber = runnumber + 1
+#     #             annealing_temp = LH5 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+#     #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-    #         annealing.append(annealing_temp)
+#     #         annealing.append(annealing_temp)
                     
                     
-    #     if i == 5:
-    #         comparison1 = pcr_plustemplates.iloc[i-5,:]
-    #         comparison1 = pcr_plustemplates.iloc[i-4,:]
-    #         comparison2 = pcr_plustemplates.iloc[i-3,:]
-    #         comparison3 = pcr_plustemplates.iloc[i-2,:]
-    #         comparison4 = pcr_plustemplates.iloc[i-1,:]
-    #         comparison5 = pcr_plustemplates.iloc[i,:]
+#     #     if i == 5:
+#     #         comparison1 = pcr_plustemplates.iloc[i-5,:]
+#     #         comparison1 = pcr_plustemplates.iloc[i-4,:]
+#     #         comparison2 = pcr_plustemplates.iloc[i-3,:]
+#     #         comparison3 = pcr_plustemplates.iloc[i-2,:]
+#     #         comparison4 = pcr_plustemplates.iloc[i-1,:]
+#     #         comparison5 = pcr_plustemplates.iloc[i,:]
             
-    #         HL = comparison1['Upper_temp']
-    #         LH = comparison1['Lower_temp']    
+#     #         HL = comparison1['Upper_temp']
+#     #         LH = comparison1['Lower_temp']    
             
-    #         HL2 = comparison2['Upper_temp']
-    #         LH2 = comparison2['Lower_temp']    
+#     #         HL2 = comparison2['Upper_temp']
+#     #         LH2 = comparison2['Lower_temp']    
             
-    #         HL3 = comparison3['Upper_temp']
-    #         LH3 = comparison3['Lower_temp'] 
+#     #         HL3 = comparison3['Upper_temp']
+#     #         LH3 = comparison3['Lower_temp'] 
                 
-    #         HL4 = comparison4['Upper_temp']
-    #         LH4 = comparison4['Lower_temp'] 
+#     #         HL4 = comparison4['Upper_temp']
+#     #         LH4 = comparison4['Lower_temp'] 
             
-    #         HL5 = comparison5['Upper_temp']
-    #         LH5 = comparison5['Lower_temp'] 
+#     #         HL5 = comparison5['Upper_temp']
+#     #         LH5 = comparison5['Lower_temp'] 
                 
-    #         HL6 = comparison6['Upper_temp']
-    #         LH6 = comparison6['Lower_temp'] 
+#     #         HL6 = comparison6['Upper_temp']
+#     #         LH6 = comparison6['Lower_temp'] 
                 
-    #         if LH6 < HL:
-    #             annealing_temp = LH6
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
+#     #         if LH6 < HL:
+#     #             annealing_temp = LH6
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[0,'run']
                 
-    #         elif LH6 < HL2:
-    #             annealing_temp = LH6
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
+#     #         elif LH6 < HL2:
+#     #             annealing_temp = LH6
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[1,'run']
                 
-    #         elif LH6 < HL3:
-    #             annealing_temp = LH6
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
+#     #         elif LH6 < HL3:
+#     #             annealing_temp = LH6
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[2,'run']
                 
-    #         elif LH6 < HL4:
-    #             annealing_temp = LH6
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
+#     #         elif LH6 < HL4:
+#     #             annealing_temp = LH6
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[3,'run'] 
                     
-    #         elif LH6 < HL5:
-    #             annealing_temp = LH6
-    #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[4,'run'] 
+#     #         elif LH6 < HL5:
+#     #             annealing_temp = LH6
+#     #             pcr_plustemplates.loc[i,'run'] = pcr_plustemplates.loc[4,'run'] 
 
-    #         elif LH6 > HL and LH6 > HL2 and LH6 > HL3 and LH6 > HL4 and LH6 > HL5:
-    #             runnumber = runnumber + 1
-    #             annealing_temp = LH6 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
-    #             pcr_plustemplates.loc[i,'run'] = runnumber
+#     #         elif LH6 > HL and LH6 > HL2 and LH6 > HL3 and LH6 > HL4 and LH6 > HL5:
+#     #             runnumber = runnumber + 1
+#     #             annealing_temp = LH6 #(LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
+#     #             pcr_plustemplates.loc[i,'run'] = runnumber
             
-    #         annealing.append(annealing_temp)
+#     #         annealing.append(annealing_temp)
                 
-    # pcr_plustemplates['annealing_temp'] = annealing  
+#     # pcr_plustemplates['annealing_temp'] = annealing  
 
-    # rxn1 = pcr_plustemplates.copy()
-    # rxn2 = pcr_plustemplates.copy()
-    # rxn3 = pcr_plustemplates.copy()
-    # rxn4 = pcr_plustemplates.copy()
+#     # rxn1 = pcr_plustemplates.copy()
+#     # rxn2 = pcr_plustemplates.copy()
+#     # rxn3 = pcr_plustemplates.copy()
+#     # rxn4 = pcr_plustemplates.copy()
 
-    # for i, row in pcr_plustemplates.iterrows():
+#     # for i, row in pcr_plustemplates.iterrows():
     
-    #     if not pcr_plustemplates.loc[i].at['run'] == 0:
-    #         rxn1.drop(i,axis=0,inplace=True)
+#     #     if not pcr_plustemplates.loc[i].at['run'] == 0:
+#     #         rxn1.drop(i,axis=0,inplace=True)
 
-    #     if not pcr_plustemplates.loc[i].at['run'] == 1:
-    #         rxn2.drop(i,axis=0,inplace=True)
+#     #     if not pcr_plustemplates.loc[i].at['run'] == 1:
+#     #         rxn2.drop(i,axis=0,inplace=True)
 
-    #     if not pcr_plustemplates.loc[i,'run'] == 2:
-    #         rxn3.drop(i,axis=0,inplace=True)
+#     #     if not pcr_plustemplates.loc[i,'run'] == 2:
+#     #         rxn3.drop(i,axis=0,inplace=True)
     
-    #     if not pcr_plustemplates.loc[i,'run'] == 3:
-    #         rxn4.drop(i,axis=0,inplace=True)
+#     #     if not pcr_plustemplates.loc[i,'run'] == 3:
+#     #         rxn4.drop(i,axis=0,inplace=True)
             
-    # rxns_tables = {'rxn': ['rxn1']}
-    # rxns_tables = pandas.DataFrame(data=rxns_tables)
-    # v=0
+#     # rxns_tables = {'rxn': ['rxn1']}
+#     # rxns_tables = pandas.DataFrame(data=rxns_tables)
+#     # v=0
     
-    # if len(rxn2.index) >= 1:
-    #     rxns_tables = {'rxn': ['rxn1','rxn2']}
-    #     rxns_tables = pandas.DataFrame(data=rxns_tables)
-    #     v=1
-    # if len(rxn2.index) < 1:
-    #     del rxn2    
+#     # if len(rxn2.index) >= 1:
+#     #     rxns_tables = {'rxn': ['rxn1','rxn2']}
+#     #     rxns_tables = pandas.DataFrame(data=rxns_tables)
+#     #     v=1
+#     # if len(rxn2.index) < 1:
+#     #     del rxn2    
 
-    # if len(rxn3.index) >= 1:
-    #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3']}
-    #     rxns_tables = pandas.DataFrame(data=rxns_tables)
-    #     v=2
-    # if len(rxn3.index) < 1:
-    #     del rxn3
+#     # if len(rxn3.index) >= 1:
+#     #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3']}
+#     #     rxns_tables = pandas.DataFrame(data=rxns_tables)
+#     #     v=2
+#     # if len(rxn3.index) < 1:
+#     #     del rxn3
 
-    # if len(rxn4.index) >= 1:
-    #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3','rxn4']}
-    #     rxns_tables = pandas.DataFrame(data=rxns_tables) 
-    #     v=3
-    # if len(rxn4.index) < 1:
-        # del rxn4
-    
-    
-    
-    #rxns_tables = {'rxn': ['rxn1','rxn2']}
-    #rxns_tables = pandas.DataFrame(data=rxns_tables)
-    # for i, row in rxns_tables.iterrows():
-    #     x = rxns_tables.loc[i].at['rxn']
-    Length = pcr_plustemplates.nlargest(1,'Length')
-    
-    #L = l.values.tolist()
-    #L[0] 
-    # if v==0:
-    #     allrxns = rxn1
-    # if v==1:
-    #     allrxns = pandas.concat([rxn1, rxn2], axis=0)
-    # if v==2:
-    #     allrxns = pandas.concat([rxn1, rxn2,rxn3], axis=0)
-    # if v==3:
-    #     allrxns = pandas.concat([rxn1, rxn2,rxn3,rxn4], axis=0)
-    
-    # allrxnsimppart = allrxns.iloc[:,[28,30]]
+#     # if len(rxn4.index) >= 1:
+#     #     rxns_tables = {'rxn': ['rxn1','rxn2','rxn3','rxn4']}
+#     #     rxns_tables = pandas.DataFrame(data=rxns_tables) 
+#     #     v=3
+#     # if len(rxn4.index) < 1:
+#         # del rxn4
     
     
-    # pcr_plustemplates = pcr_plustemplates.merge(allrxnsimppart, on= 'run', how='right')
-    # pcr_plustemplates = pcr_plustemplates.drop_duplicates(subset=['Reaction ID Number'])
-    # pcr_plustemplates = pcr_plustemplates.reset_index()
-    # pcr_plustemplates
-#allrxnsimppart
-    # id2hold = {}
-    # id2hold['0'] = 'C1'
-    # id2hold['1'] = 'C2'
-    # id2hold['2'] = 'C3'
-    # id2hold['3'] = 'C4'
-    # id2hold['4'] = 'C5'
-    # id2hold['5'] = 'C6'
-
-
-    # for i, row in pcr_plustemplates.iterrows():
-    #     pcr_plustemplates.loc[i,'holding_tube'] = id2hold[str(i)]
-    # pcr_plustemplates
-    # annealing_extension = pcr_plustemplates.iloc[:,[29,30,31]]
-    # annealing_extension = annealing_extension.drop_duplicates()
-    # annealing_extension = annealing_extension.reset_index()
-    # annealing_extension
     
-    # combinations = pandas.read_csv('combinations.csv')
-    # combinations
-
-#if Input_values.loc[0].at['Combinatorial_pcr_params'] == 'Y':
-    pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
-    frame = combinations[pieces]
-#frame2 = frame.transpose()
-    frame
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 0']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 1']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 2']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 3']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 4']
+#     #rxns_tables = {'rxn': ['rxn1','rxn2']}
+#     #rxns_tables = pandas.DataFrame(data=rxns_tables)
+#     # for i, row in rxns_tables.iterrows():
+#     #     x = rxns_tables.loc[i].at['rxn']
+#     Length = pcr_plustemplates.nlargest(1,'Length')
     
+#     #L = l.values.tolist()
+#     #L[0] 
+#     # if v==0:
+#     #     allrxns = rxn1
+#     # if v==1:
+#     #     allrxns = pandas.concat([rxn1, rxn2], axis=0)
+#     # if v==2:
+#     #     allrxns = pandas.concat([rxn1, rxn2,rxn3], axis=0)
+#     # if v==3:
+#     #     allrxns = pandas.concat([rxn1, rxn2,rxn3,rxn4], axis=0)
+    
+#     # allrxnsimppart = allrxns.iloc[:,[28,30]]
+    
+    
+#     # pcr_plustemplates = pcr_plustemplates.merge(allrxnsimppart, on= 'run', how='right')
+#     # pcr_plustemplates = pcr_plustemplates.drop_duplicates(subset=['Reaction ID Number'])
+#     # pcr_plustemplates = pcr_plustemplates.reset_index()
+#     # pcr_plustemplates
+# #allrxnsimppart
+#     # id2hold = {}
+#     # id2hold['0'] = 'C1'
+#     # id2hold['1'] = 'C2'
+#     # id2hold['2'] = 'C3'
+#     # id2hold['3'] = 'C4'
+#     # id2hold['4'] = 'C5'
+#     # id2hold['5'] = 'C6'
 
-#frame += startnum
-#frame
-    frame= frame.values.astype(str)
-    frame = pandas.DataFrame(frame)
-    frame
-    result_1 = frame.replace(id2well)
-    result_1
 
-    combinations_plustemplocs = pandas.concat([combinations, result_1], axis=1)
-    combinations_plustemplocs
-    fragnumber = 0.5*(len(combinations.iloc[0,:])-3)
-    goldengs = len(combinations['ID Number'])
-    goldengs
-    if goldengs == 1:
-        GG_dfs = {'gg#': ['gg1']}
-        GG_dfs = pandas.DataFrame(data=GG_dfs)
-    if goldengs == 2:
-        GG_dfs = {'gg#': ['gg1','gg2']}
-        GG_dfs = pandas.DataFrame(data=GG_dfs)
-    if goldengs == 3:
-        GG_dfs = {'gg#': ['gg1','gg2','gg3']}
-        GG_dfs = pandas.DataFrame(data=GG_dfs)
-    if goldengs == 4:
-        GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
-        GG_dfs = pandas.DataFrame(data=GG_dfs)
-    if goldengs == 5:
-        GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4','gg5']}
-        GG_dfs = pandas.DataFrame(data=GG_dfs)
-    if goldengs == 6:
-        GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4','gg5','gg6']}
-        GG_dfs = pandas.DataFrame(data=GG_dfs)
+#     # for i, row in pcr_plustemplates.iterrows():
+#     #     pcr_plustemplates.loc[i,'holding_tube'] = id2hold[str(i)]
+#     # pcr_plustemplates
+#     # annealing_extension = pcr_plustemplates.iloc[:,[29,30,31]]
+#     # annealing_extension = annealing_extension.drop_duplicates()
+#     # annealing_extension = annealing_extension.reset_index()
+#     # annealing_extension
+    
+#     # combinations = pandas.read_csv('combinations.csv')
+#     # combinations
 
-    GG_dfs.to_csv('GG_dfs.csv')
+# #if Input_values.loc[0].at['Combinatorial_pcr_params'] == 'Y':
+#     pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+#     frame = combinations[pieces]
+# #frame2 = frame.transpose()
+#     frame
+#     if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+#         del frame['Assembly Piece ID Number Bin 0']
+#     if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+#         del frame['Assembly Piece ID Number Bin 1']
+#     if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+#         del frame['Assembly Piece ID Number Bin 2']
+#     if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
+#         del frame['Assembly Piece ID Number Bin 3']
+#     if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
+#         del frame['Assembly Piece ID Number Bin 4']
     
 
-    ################################################################################################################################################
-    #continued combination processing to set up actual Golden Gate assembly dataframes
+# #frame += startnum
+# #frame
+#     frame= frame.values.astype(str)
+#     frame = pandas.DataFrame(frame)
+#     frame
+#     result_1 = frame.replace(id2well)
+#     result_1
 
-    #os.chdir("C:/Users/jonbr/Documents/Github/opentrons/Golden_Gate/Part2_Assembly_Cam")
-    #os.getcwd()
-    #fragments = pandas.read_csv('fragments.csv')
-    #fragments
+#     combinations_plustemplocs = pandas.concat([combinations, result_1], axis=1)
+#     combinations_plustemplocs
+#     fragnumber = 0.5*(len(combinations.iloc[0,:])-3)
+#     goldengs = len(combinations['ID Number'])
+#     goldengs
+#     if goldengs == 1:
+#         GG_dfs = {'gg#': ['gg1']}
+#         GG_dfs = pandas.DataFrame(data=GG_dfs)
+#     if goldengs == 2:
+#         GG_dfs = {'gg#': ['gg1','gg2']}
+#         GG_dfs = pandas.DataFrame(data=GG_dfs)
+#     if goldengs == 3:
+#         GG_dfs = {'gg#': ['gg1','gg2','gg3']}
+#         GG_dfs = pandas.DataFrame(data=GG_dfs)
+#     if goldengs == 4:
+#         GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
+#         GG_dfs = pandas.DataFrame(data=GG_dfs)
+#     if goldengs == 5:
+#         GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4','gg5']}
+#         GG_dfs = pandas.DataFrame(data=GG_dfs)
+#     if goldengs == 6:
+#         GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4','gg5','gg6']}
+#         GG_dfs = pandas.DataFrame(data=GG_dfs)
 
-    #put final goldengate assembly products on row C for good measure
+#     GG_dfs.to_csv('GG_dfs.csv')
+    
 
-    id2wellpcr = {}
-    id2wellpcr['0'] = 'B2'
-    id2wellpcr['1'] = 'B3'
-    id2wellpcr['2'] = 'B4'
-    id2wellpcr['3'] = 'B5'
-    id2wellpcr['4'] = 'B6'
-    id2wellpcr['5'] = 'B7'
-    id2wellpcr['6'] = 'B8'
-    id2wellpcr['7'] = 'B9'
-    id2wellpcr['8'] = 'B10'
-    id2wellpcr['9'] = 'B11'
-    id2wellpcr['10'] = 'C2'
-    id2wellpcr['11'] = 'C3'
-    id2wellpcr['12'] = 'C4'
-    id2wellpcr['13'] = 'C5'
+#     ################################################################################################################################################
+#     #continued combination processing to set up actual Golden Gate assembly dataframes
 
+#     #os.chdir("C:/Users/jonbr/Documents/Github/opentrons/Golden_Gate/Part2_Assembly_Cam")
+#     #os.getcwd()
+#     #fragments = pandas.read_csv('fragments.csv')
+#     #fragments
 
-    combinations
-    #add in the looping like in IVA here so that the GG loop will work
+#     #put final goldengate assembly products on row C for good measure
 
-    ID_tube = assembly[['Reaction ID Number','pcr_frag_tube']]
-
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Reaction ID Number':'Assembly Piece ID Number Bin 0'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 0')
-        combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
-        combs_short = combinations[combs_shor]
-        #combs_short = combinations[['pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
-
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 0':'Assembly Piece ID Number Bin 1'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 1')
-        combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
-        combs_short = combinations[combs_shor]
-        #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y']] #,'pcr_frag_tube_y','pcr_frag_tube'
-
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 1':'Assembly Piece ID Number Bin 2'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 2')
-        combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
-        combs_short = combinations[combs_shor]
-        #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
-
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 2':'Assembly Piece ID Number Bin 3'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 3')
-        combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
-        combs_short = combinations[combs_shor]
-        #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
-    combs_short = combs_short.T.drop_duplicates().T
-
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 4')
-        combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
-        combs_short = combinations[combs_shor]
-        #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
-    combs_short = combs_short.T.drop_duplicates().T
+#     id2wellpcr = {}
+#     id2wellpcr['0'] = 'B2'
+#     id2wellpcr['1'] = 'B3'
+#     id2wellpcr['2'] = 'B4'
+#     id2wellpcr['3'] = 'B5'
+#     id2wellpcr['4'] = 'B6'
+#     id2wellpcr['5'] = 'B7'
+#     id2wellpcr['6'] = 'B8'
+#     id2wellpcr['7'] = 'B9'
+#     id2wellpcr['8'] = 'B10'
+#     id2wellpcr['9'] = 'B11'
+#     id2wellpcr['10'] = 'C2'
+#     id2wellpcr['11'] = 'C3'
+#     id2wellpcr['12'] = 'C4'
+#     id2wellpcr['13'] = 'C5'
 
 
+#     combinations
+#     #add in the looping like in IVA here so that the GG loop will work
 
-    combs_short = combs_short.transpose()
-    combs_short
+#     ID_tube = assembly[['Reaction ID Number','pcr_frag_tube']]
 
-    gg1 = pandas.DataFrame()
-    gg2 = pandas.DataFrame()
-    gg3 = pandas.DataFrame()
-    gg4 = pandas.DataFrame()
+#     if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
+#         ID_tube = ID_tube.rename(columns={'Reaction ID Number':'Assembly Piece ID Number Bin 0'})
+#         combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 0')
+#         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+#         combs_short = combinations[combs_shor]
+#         #combs_short = combinations[['pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    # dil_tu = {}
-    # dil_tu['A1'] = 'F1'
-    # dil_tu['A2'] = 'F2'
-    # dil_tu['A3'] = 'F3'
-    # dil_tu['A4'] = 'F4'
-    # dil_tu['A5'] = 'F5'
-    # dil_tu['A6'] = 'F6'
-    # dil_tu['A7'] = 'F7'
-    # dil_tu['A8'] = 'F8'
-    # dil_tu['B1'] = 'G1'
-    # dil_tu['B2'] = 'G2'
-    # dil_tu['B3'] = 'G3'
-    # dil_tu['B4'] = 'G4'
-    # dil_tu['B5'] = 'G5'
-    # dil_tu['B6'] = 'G6'
-    # dil_tu['B7'] = 'G7'
-    # dil_tu['B8'] = 'G8'
-    # dil_tu['C1'] = 'H1'
-    # dil_tu['C2'] = 'H2'
-    # dil_tu['C3'] = 'H3'
-    # dil_tu['C4'] = 'H4'
-    # dil_tu['C5'] = 'H5'
-    # dil_tu['C6'] = 'H6'
-    # dil_tu['C7'] = 'H7'
-    # dil_tu['C8'] = 'H8'
-    # dil_tu['D1'] = 'H2'
-    # dil_tu['D2'] = 'H3'
-    # dil_tu['D3'] = 'H4'
-    # dil_tu['D4'] = 'H5'
-    # dil_tu['D5'] = 'H6'
-    # dil_tu['D6'] = 'H7'
-    # dil_tu['D7'] = 'H8'
-    # dil_tu['D8'] = 'H9'
-    # dil_tu['E1'] = 'H3'
-    # dil_tu['E2'] = 'H4'
-    # dil_tu['E3'] = 'H5'
-    # dil_tu['E4'] = 'H6'
-    # dil_tu['E5'] = 'H7'
-    # dil_tu['E6'] = 'H8'
-    # dil_tu['E7'] = 'H9'
-    # dil_tu['E8'] = 'H10'
-    # dil_tu['A11'] = 'A12'
-    # dil_tu['C11'] = 'C12'
-    # dil_tu['D11'] = 'D12'
-    # dil_tu['E11'] = 'E12'
-    # dil_tu['F11'] = 'F12'
-    # dil_tu['G11'] = 'G12'
+#     if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
+#         ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 0':'Assembly Piece ID Number Bin 1'})
+#         combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 1')
+#         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+#         combs_short = combinations[combs_shor]
+#         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    #dil_tu['B7'] = 'C7'
-    #dil_tu['B8'] = 'C8'
-    #dil_tu['B9'] = 'C9'
+#     if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
+#         ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 1':'Assembly Piece ID Number Bin 2'})
+#         combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 2')
+#         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+#         combs_short = combinations[combs_shor]
+#         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    e = len(combs_short.columns)
+#     if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
+#         ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 2':'Assembly Piece ID Number Bin 3'})
+#         combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 3')
+#         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+#         combs_short = combinations[combs_shor]
+#         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+#     combs_short = combs_short.T.drop_duplicates().T
 
-    #next_tc_tube = len(assembly.index)
-    #changing next_tc_tube to 6 just to make room for a solid six fragment gradient every time
-    next_tc_tube = 6
+#     if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
+#         ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
+#         combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 4')
+#         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
+#         combs_short = combinations[combs_shor]
+#         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
+#     combs_short = combs_short.T.drop_duplicates().T
+
+
+
+#     combs_short = combs_short.transpose()
+#     combs_short
+#     print(combs_short)
+
+#     gg1 = pandas.DataFrame()
+#     gg2 = pandas.DataFrame()
+#     gg3 = pandas.DataFrame()
+#     gg4 = pandas.DataFrame()
+
+#     # dil_tu = {}
+#     # dil_tu['A1'] = 'F1'
+#     # dil_tu['A2'] = 'F2'
+#     # dil_tu['A3'] = 'F3'
+#     # dil_tu['A4'] = 'F4'
+#     # dil_tu['A5'] = 'F5'
+#     # dil_tu['A6'] = 'F6'
+#     # dil_tu['A7'] = 'F7'
+#     # dil_tu['A8'] = 'F8'
+#     # dil_tu['B1'] = 'G1'
+#     # dil_tu['B2'] = 'G2'
+#     # dil_tu['B3'] = 'G3'
+#     # dil_tu['B4'] = 'G4'
+#     # dil_tu['B5'] = 'G5'
+#     # dil_tu['B6'] = 'G6'
+#     # dil_tu['B7'] = 'G7'
+#     # dil_tu['B8'] = 'G8'
+#     # dil_tu['C1'] = 'H1'
+#     # dil_tu['C2'] = 'H2'
+#     # dil_tu['C3'] = 'H3'
+#     # dil_tu['C4'] = 'H4'
+#     # dil_tu['C5'] = 'H5'
+#     # dil_tu['C6'] = 'H6'
+#     # dil_tu['C7'] = 'H7'
+#     # dil_tu['C8'] = 'H8'
+#     # dil_tu['D1'] = 'H2'
+#     # dil_tu['D2'] = 'H3'
+#     # dil_tu['D3'] = 'H4'
+#     # dil_tu['D4'] = 'H5'
+#     # dil_tu['D5'] = 'H6'
+#     # dil_tu['D6'] = 'H7'
+#     # dil_tu['D7'] = 'H8'
+#     # dil_tu['D8'] = 'H9'
+#     # dil_tu['E1'] = 'H3'
+#     # dil_tu['E2'] = 'H4'
+#     # dil_tu['E3'] = 'H5'
+#     # dil_tu['E4'] = 'H6'
+#     # dil_tu['E5'] = 'H7'
+#     # dil_tu['E6'] = 'H8'
+#     # dil_tu['E7'] = 'H9'
+#     # dil_tu['E8'] = 'H10'
+#     # dil_tu['A11'] = 'A12'
+#     # dil_tu['C11'] = 'C12'
+#     # dil_tu['D11'] = 'D12'
+#     # dil_tu['E11'] = 'E12'
+#     # dil_tu['F11'] = 'F12'
+#     # dil_tu['G11'] = 'G12'
+
+#     #dil_tu['B7'] = 'C7'
+#     #dil_tu['B8'] = 'C8'
+#     #dil_tu['B9'] = 'C9'
+
+#     e = len(combs_short.columns)
+
+#     #next_tc_tube = len(assembly.index)
+#     #changing next_tc_tube to 6 just to make room for a solid six fragment gradient every time
+#     next_tc_tube = 6
 
 
         
-    for i, row in GG_dfs.iterrows():
-        x = GG_dfs.loc[i].at['gg#']
-        globals()[x] = combs_short[[i]]
-        globals()[x].loc[:,'conc_assumed']= 60
+#     for i, row in GG_dfs.iterrows():
+#         x = GG_dfs.loc[i].at['gg#']
+#         globals()[x] = combs_short[[i]]
 
-        bps = assembly[['Sequence Length','pcr_frag_tube']]
-
-        bps = bps.rename(columns={'pcr_frag_tube':i})
-        globals()[x] = globals()[x].merge(bps, on= i)
         
-        backbone_length=globals()[x]["Sequence Length"].max()
-        backbone_length
+#         locals()[x].loc[:,'conc_assumed']= 60
+#         bps = assembly[['Sequence Length','pcr_frag_tube']]
+
+#         bps = bps.rename(columns={'pcr_frag_tube':i})
+#         globals()[x] = globals()[x].merge(bps, on= i)
+        
+#         backbone_length=globals()[x]["Sequence Length"].max()
+#         backbone_length
             
-        globals()[x] = globals()[x].rename(columns={0:'frag_loc',1:'frag_loc',2:'frag_loc',3:'frag_loc',4:'frag_loc',5:'frag_loc'})
+#         globals()[x] = globals()[x].rename(columns={0:'frag_loc',1:'frag_loc',2:'frag_loc',3:'frag_loc',4:'frag_loc',5:'frag_loc'})
         
-        #for i, row in plasmid.iterrows():
-        #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
+#         #for i, row in plasmid.iterrows():
+#         #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
             
             
-        # for i, row in globals()[x].iterrows():
-        #     globals()[x].loc[i,'dil_tube'] = dil_tu[globals()[x].loc[i,'frag_loc']]
+#         # for i, row in globals()[x].iterrows():
+#         #     globals()[x].loc[i,'dil_tube'] = dil_tu[globals()[x].loc[i,'frag_loc']]
             
-        for i, row in globals()[x].iterrows():
-            globals()[x].loc[i,"equimolar ratio"]=globals()[x].loc[i,"Sequence Length"]/backbone_length
-            globals()[x].loc[i,"inverse of conc"]=1/globals()[x].loc[i,"conc_assumed"]
-            globals()[x].loc[i,"initial required amount"]=Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*globals()[x].loc[i,"inverse of conc"]
+#         for i, row in globals()[x].iterrows():
+#             globals()[x].loc[i,"equimolar ratio"]=globals()[x].loc[i,"Sequence Length"]/backbone_length
+#             globals()[x].loc[i,"inverse of conc"]=1/globals()[x].loc[i,"conc_assumed"]
+#             globals()[x].loc[i,"initial required amount"]=Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*globals()[x].loc[i,"inverse of conc"]
         
-            if globals()[x].loc[i,"initial required amount"] > 1: 
-                globals()[x].loc[i,"H20 to add to 1uL of fragment"] = np.nan
-            if globals()[x].loc[i,"initial required amount"] < 1:
-                globals()[x].loc[i,"H20 to add to 1uL of fragment"]=(2/globals()[x].loc[i,"initial required amount"])-1    
+#             if globals()[x].loc[i,"initial required amount"] > 1: 
+#                 globals()[x].loc[i,"H20 to add to 1uL of fragment"] = np.nan
+#             if globals()[x].loc[i,"initial required amount"] < 1:
+#                 globals()[x].loc[i,"H20 to add to 1uL of fragment"]=(2/globals()[x].loc[i,"initial required amount"])-1    
         
-            globals()[x].loc[i,"new Conc"] = globals()[x].loc[i,"conc_assumed"]/(globals()[x].loc[i,"H20 to add to 1uL of fragment"]+1)
-            globals()[x].loc[i,"new required amount"] = Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*(1/globals()[x].loc[i,"new Conc"])
+#             globals()[x].loc[i,"new Conc"] = globals()[x].loc[i,"conc_assumed"]/(globals()[x].loc[i,"H20 to add to 1uL of fragment"]+1)
+#             globals()[x].loc[i,"new required amount"] = Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*(1/globals()[x].loc[i,"new Conc"])
         
-            globals()[x].loc[i,"final amount to add"] = ''
-            if globals()[x].loc[i,"initial required amount"] > 1:
-                globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i,"initial required amount"]
-            else:
-                globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i, "new required amount"]
+#             globals()[x].loc[i,"final amount to add"] = ''
+#             if globals()[x].loc[i,"initial required amount"] > 1:
+#                 globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i,"initial required amount"]
+#             else:
+#                 globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i, "new required amount"]
                     
-    #GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
-    #GG_dfs = pandas.DataFrame(data=GG_dfs)
+#     #GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
+#     #GG_dfs = pandas.DataFrame(data=GG_dfs)
         
-    #for i, row in GG_dfs.iterrows():
-        #x = GG_dfs.loc[i].at['gg#']
-        #for i, row in globals()[x].iterrows():
-            globals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
+#     #for i, row in GG_dfs.iterrows():
+#         #x = GG_dfs.loc[i].at['gg#']
+#         #for i, row in globals()[x].iterrows():
+#             globals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
         
-        globals()[x].to_csv(x+'.csv')
+#         globals()[x].to_csv(x+'.csv')
 
-        next_tc_tube = next_tc_tube + 1
+#         next_tc_tube = next_tc_tube + 1
 
-    combinations.to_csv('combinations.csv')
+#     combinations.to_csv('combinations.csv')
 
-    dt = {'dispense_tube': ['C3','C4','C5','C6']}
-    dis_tube = pandas.DataFrame(data=dt)
+#     dt = {'dispense_tube': ['C3','C4','C5','C6']}
+#     dis_tube = pandas.DataFrame(data=dt)
 
-    #########################################################################################################################
-    #plasmid dataframe object for the digestion
-    plasmid = pandas.DataFrame()
-    plasmid['Plasmid'] = entryvecs['template pwl number']
-    plasmid['Concentration'] = entryvecs['template concentrations']
-    #plasmid = pandas.DataFrame(plasmid)
-    plasmid
-    plasmid = plasmid[(plasmid != 0).all(1)]
+#     #########################################################################################################################
+#     #plasmid dataframe object for the digestion
+#     plasmid = pandas.DataFrame()
+#     plasmid['Plasmid'] = entryvecs['template pwl number']
+#     plasmid['Concentration'] = entryvecs['template concentrations']
+#     #plasmid = pandas.DataFrame(plasmid)
+#     plasmid
+#     plasmid = plasmid[(plasmid != 0).all(1)]
 
-    #plasmid['Buffer'] = float('5')
-    #plasmid['BSA1'] = float('1')
-    plasmid['Volume of Plasmid'] = ''
-    plasmid['Volume of Water'] = ''
+#     #plasmid['Buffer'] = float('5')
+#     #plasmid['BSA1'] = float('1')
+#     plasmid['Volume of Plasmid'] = ''
+#     plasmid['Volume of Water'] = ''
 
-    plasmid['Volume of Plasmid'] = (60*20)/plasmid['Concentration']
-    plasmid['Volume of Water'] = 50- plasmid['Volume of Plasmid'] 
-    plasmid['total volume'] = float(50)
-
-
-    #plasmid templates arranged in an "L" formation
-    # row2well= {}
-    # row2well['0'] = 'A2'
-    # row2well['1'] = 'B2'
-    # row2well['2'] = 'C2'
-    # row2well['3'] = 'A3'
-    # row2well['4'] = 'A4'
-    # row2well['5'] = 'A5'
-    # row2well['6'] = 'D5'
-    # row2well['7'] = 'D6'
-
-    plasmid['Plasmid Location'] = ''
-    plasmid
-
-    for i, row in plasmid.iterrows():
-        plasmid.loc[i,'Plasmid Location'] = id2well[str(len(oligos['well'])+i)]
-    plasmid
-
-    # pcr2final= {}
-    # pcr2final['0'] = 'D6'
-    # pcr2final['1'] = 'D5'
-    # pcr2final['2'] = 'D4'
-    # pcr2final['3'] = 'D3'
-    # pcr2final['4'] = 'D2'
-    # pcr2final['5'] = 'D1'
-    # pcr2final['6'] = 'C6'
-    # pcr2final['7'] = 'C5'
-    # pcr2final['8'] = 'C4'
-
-    # plasmid['final tube'] = ''
-
-    # for i, row in plasmid.iterrows():
-    #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
-    # plasmid
-    plasmid.to_csv('plasmid.csv')
+#     plasmid['Volume of Plasmid'] = (60*20)/plasmid['Concentration']
+#     plasmid['Volume of Water'] = 50- plasmid['Volume of Plasmid'] 
+#     plasmid['total volume'] = float(50)
 
 
+#     #plasmid templates arranged in an "L" formation
+#     # row2well= {}
+#     # row2well['0'] = 'A2'
+#     # row2well['1'] = 'B2'
+#     # row2well['2'] = 'C2'
+#     # row2well['3'] = 'A3'
+#     # row2well['4'] = 'A4'
+#     # row2well['5'] = 'A5'
+#     # row2well['6'] = 'D5'
+#     # row2well['7'] = 'D6'
 
-    def main():
-        f = open('reaction_setup.txt','w+')
-        f.write('PCR gradient tube positions: \r\n')
-        f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
-        f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
+#     plasmid['Plasmid Location'] = ''
+#     plasmid
 
-        for i, row in pcr.iterrows():
-            f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
-        f.write('Final assembly tube: \r\n')
+#     for i, row in plasmid.iterrows():
+#         plasmid.loc[i,'Plasmid Location'] = id2well[str(len(oligos['well'])+i)]
+#     plasmid
+
+#     # pcr2final= {}
+#     # pcr2final['0'] = 'D6'
+#     # pcr2final['1'] = 'D5'
+#     # pcr2final['2'] = 'D4'
+#     # pcr2final['3'] = 'D3'
+#     # pcr2final['4'] = 'D2'
+#     # pcr2final['5'] = 'D1'
+#     # pcr2final['6'] = 'C6'
+#     # pcr2final['7'] = 'C5'
+#     # pcr2final['8'] = 'C4'
+
+#     # plasmid['final tube'] = ''
+
+#     # for i, row in plasmid.iterrows():
+#     #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
+#     # plasmid
+#     plasmid.to_csv('plasmid.csv')
+
+
+
+#     def main():
+#         f = open('reaction_setup.txt','w+')
+#         f.write('PCR gradient tube positions: \r\n')
+#         f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+#         f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
+
+#         for i, row in pcr.iterrows():
+#             f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+#         f.write('Final assembly tube: \r\n')
         
-        ggdf2spot = {}
-        ggdf2spot['gg1'] = 'B7'
-        ggdf2spot['gg2'] = 'B8'
-        ggdf2spot['gg3'] = 'B9'
-        ggdf2spot['gg4'] = 'B10'
-        ggdf2spot['gg5'] = 'B11'
-        ggdf2spot['gg6'] = 'B12'
+#         ggdf2spot = {}
+#         ggdf2spot['gg1'] = 'B7'
+#         ggdf2spot['gg2'] = 'B8'
+#         ggdf2spot['gg3'] = 'B9'
+#         ggdf2spot['gg4'] = 'B10'
+#         ggdf2spot['gg5'] = 'B11'
+#         ggdf2spot['gg6'] = 'B12'
 
-        for i, row in GG_dfs.iterrows():
-            f.write('Put a 100 uL PCR tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
+#         for i, row in GG_dfs.iterrows():
+#             f.write('Put a 100 uL PCR tube in '+ggdf2spot[str(GG_dfs.loc[i].at['gg#'])]+'\r\n')
 
-        f.write('Fragment dilution tubes go on the PCR block at deckslot 4 in same configuration as tubes in thermocycler : \r\n')
+#         f.write('Fragment dilution tubes go on the PCR block at deckslot 4 in same configuration as tubes in thermocycler : \r\n')
 
-        # if len(combinations['ID Number']) == 1:
-        #     if gg1.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg1.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+#         # if len(combinations['ID Number']) == 1:
+#         #     if gg1.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg1.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-        # if len(combinations['ID Number']) == 2: 
-        #     if gg2.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg2.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg1.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg1.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+#         # if len(combinations['ID Number']) == 2: 
+#         #     if gg2.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg2.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg1.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg1.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-        # if len(combinations['ID Number']) == 3:
-        #     if gg3.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg3.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg2.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg2.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg1.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg1.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+#         # if len(combinations['ID Number']) == 3:
+#         #     if gg3.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg3.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg2.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg2.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg1.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg1.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-        # if len(combinations['ID Number']) == 4:
-        #     if gg4.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg4.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg3.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg3.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg2.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg2.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg1.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg1.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+#         # if len(combinations['ID Number']) == 4:
+#         #     if gg4.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg4.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg3.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg3.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg2.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg2.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg1.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg1.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-        # if len(combinations['ID Number']) == 5:
-        #     if gg5.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg5.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg4.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg4.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg3.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg3.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg2.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg2.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg1.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg1.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+#         # if len(combinations['ID Number']) == 5:
+#         #     if gg5.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg5.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg4.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg4.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg3.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg3.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg2.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg2.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg1.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg1.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
 
-        # if len(combinations['ID Number']) == 6:
-        #     if gg6.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg6.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg6.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg5.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg5.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg4.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg4.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg3.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg3.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg2.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg2.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
-        #     if gg1.loc[0].at['final amount to add'] > 1:
-        #         for i, row in gg1.iterrows():
-        #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
+#         # if len(combinations['ID Number']) == 6:
+#         #     if gg6.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg6.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg6.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg5.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg5.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg5.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg4.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg4.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg4.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg3.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg3.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg3.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg2.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg2.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg2.loc[i].at['dil_tube'])+'\r\n')
+#         #     if gg1.loc[0].at['final amount to add'] > 1:
+#         #         for i, row in gg1.iterrows():
+#         #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
         
-        f.close()
-    if __name__== "__main__":
-        main()
-    os.system("notepad.exe reaction_setup.txt")
+#         f.close()
+#     if __name__== "__main__":
+#         main()
+#     os.system("notepad.exe reaction_setup.txt")
 
-    rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
-    rc
+#     rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
+#     rc
