@@ -31,6 +31,10 @@ if __name__ == '__main__':
     date = str(today.strftime('%Y%m%d'))
     date
 
+    if len(time) < 4:
+        time = time.zfill(4)
+
+
     from tkinter import filedialog
     from tkinter import *
 
@@ -299,15 +303,15 @@ if __name__ == '__main__':
     os.mkdir(date+time+'_PCR')
 
     #copy the temp GoldenGate.py to the new folder
-    dst = '/'+date+'GoldenGate'
-    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/GoldenGate_digests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_Assembly/')
-    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_24_digests.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_Assembly/')
+ 
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Setup_Error_prone_PCR.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Setup_STD_GoldenGate_digests_Assembly.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
     # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_GoldenGate/')
 
     #now rename the script with the date
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR')
-    # os.rename('GoldenGate_digests_separatepcrruns_gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
-    # os.rename('dilution_24_digests.py', str(2)+'_'+date+time+'_dilution_24.py')
+    os.rename('Setup_Error_prone_PCR.py', str(2)+'_'+date+time+'_Setup_Error_prone_PCR.py')
+    os.rename('Setup_STD_GoldenGate_digests_Assembly.py', str(3)+'_'+date+time+'_Setup_STD_GoldenGate_digests_Assembly.py')
     # os.rename('Update_Input.py', str(1)+'_Update_Input.py')
     os.chdir(walk_up_folder(os.getcwd(), 2))
 
