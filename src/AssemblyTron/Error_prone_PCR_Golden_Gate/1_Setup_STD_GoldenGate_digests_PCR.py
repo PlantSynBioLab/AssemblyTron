@@ -3069,14 +3069,15 @@ if __name__ == '__main__':
 
 
 
-#     def main():
-#         f = open('reaction_setup.txt','w+')
-#         f.write('PCR gradient tube positions: \r\n')
-#         f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
-#         f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
+    def main():
+        f = open('reaction_setup.txt','w+')
+        f.write('PCR gradient tube positions: \r\n')
+        f.write('Date: '+str(date)+' Time: '+str(time)+' \r\n')
+        f.write('Absolute Path: '+str(os.getcwd())+' \r\n')
 
-#         for i, row in pcr.iterrows():
-#             f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+        for i, row in pcr.iterrows():
+            f.write('Put a 100 uL PCR tube in '+str(pcr.loc[i].at['tube'])+'\r\n')
+   
 #         f.write('Final assembly tube: \r\n')
         
 #         ggdf2spot = {}
@@ -3167,10 +3168,10 @@ if __name__ == '__main__':
 #         #         for i, row in gg1.iterrows():
 #         #             f.write('Put a 100 uL PCR tube in '+str(gg1.loc[i].at['dil_tube'])+'\r\n')
         
-#         f.close()
-#     if __name__== "__main__":
-#         main()
-#     os.system("notepad.exe reaction_setup.txt")
+        f.close()
+    if __name__== "__main__":
+        main()
+    os.system("notepad.exe reaction_setup.txt")
 
 #     rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
 #     rc
