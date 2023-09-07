@@ -34,7 +34,7 @@ def main():
     f.write(
         "from opentrons import protocol_api \r\n"
         "metadata = { \r\n"
-        "    'protocolName': 'ARF7 Deletions Protocol', \r\n"
+        "    'protocolName': 'Golden Gate Primer and Template Dilutions', \r\n"
         "    'author': 'John Bryant <jbryant2@vt.edu>', \r\n"
         "    'description': 'Protocol for performing PCR reactions and Plasmid assembly for TIR1 and AFB mutants', \r\n"
         "    'apiLevel': '2.10' \r\n"

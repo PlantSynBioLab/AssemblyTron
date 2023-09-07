@@ -1,3 +1,0 @@
-,ID Number,Name,Assembly Method,Part(s) Bin 0,Assembly Piece ID Number Bin 0,Part(s) Bin 1,Assembly Piece ID Number Bin 1,Part(s) Bin 2,Assembly Piece ID Number Bin 2,Part(s) Bin 3,Assembly Piece ID Number Bin 3,Part(s) Bin 4,Assembly Piece ID Number Bin 4,X14,X15,X16,X17,X18,X19,X20,X21,X22,X23,X24,X25,X26,X27,X28,X29,X30,X31,X32,X33,X34,X35,X36,X37,X38,X39,X40,X41,X42,X43,X44,X45,X46,X47,X48,pcr_frag_tube_x,pcr_frag_tube_y,pcr_frag_tube
-0,0,pmas00001,Golden-gate,(bb_cassetteC),0,(ARF7),1,(PB1_ARF7)_(stop2),2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,E11,C1,B1
-1,1,pmas00002,Golden-gate,(bb_cassetteE),3,(IAA14-FL),4,(PB1_IAA14)_(Stop_codon),5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,F11,B2,D1
