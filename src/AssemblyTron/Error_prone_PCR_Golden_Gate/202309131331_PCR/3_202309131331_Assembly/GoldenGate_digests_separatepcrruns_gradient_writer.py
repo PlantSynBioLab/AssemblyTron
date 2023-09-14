@@ -26,22 +26,31 @@ diltemp = (Input_values.loc[0].at['templatengs'])*(Input_values.loc[0].at['pcrvo
 DMSO = (0.03*Input_values.loc[0].at['pcrvol'])
 
 #os.chdir(Date+Time+'_GoldenGate')
-oligos = pandas.read_csv('oligo.csv')
+if exists('oligos.csv'):
+    oligos = pandas.read_csv('oligo.csv')
 
 gradient = pandas.read_csv('gradient.csv')
-pcr = pandas.read_csv('pcr.csv')
-assembly = pandas.read_csv('assembly.csv')
-combinations = pandas.read_csv('combinations.csv')
-Length = pcr.nlargest(1,'Length')
-GG_dfs = pandas.read_csv('GG_dfs.csv')
-digests = pandas.read_csv('digests.csv')
-plasmid = pandas.read_csv('plasmid.csv')
-section = pandas.read_csv('section.csv')
+if exists('pcr.csv'):
+    pcr = pandas.read_csv('pcr.csv')
+if exists('assembly.csv'):
+    assembly = pandas.read_csv('assembly.csv')
+if exists('combinations.csv'):
+    combinations = pandas.read_csv('combinations.csv')
+if exists('pcr.csv'):
+    Length = pcr.nlargest(1,'Length')
+if exists('GG_dfs.csv'):
+    GG_dfs = pandas.read_csv('GG_dfs.csv')
+if exists('digests.csv'):
+    digests = pandas.read_csv('digests.csv')
+if exists('plasmid.csv'):
+    plasmid = pandas.read_csv('plasmid.csv')
+if exists('section.csv'):
+    section = pandas.read_csv('section.csv')
+if exists('pcr.csv'):
+    low_annealing_temp = pcr.nsmallest(1,'Mean Oligo Tm (3 Only)').reset_index()
+    high_annealing_temp = pcr.nlargest(1,'Mean Oligo Tm (3 Only)').reset_index()
 
-low_annealing_temp = pcr.nsmallest(1,'Mean Oligo Tm (3 Only)').reset_index()
-high_annealing_temp = pcr.nlargest(1,'Mean Oligo Tm (3 Only)').reset_index()
-
-delta = (float(high_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']) - float(low_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']))/34
+    delta = (float(high_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']) - float(low_annealing_temp.loc[0].at['Mean Oligo Tm (3 Only)']))/34
 
     
 if exists('gg1.csv'):
@@ -92,7 +101,6 @@ def main():
         "    cold_tuberack = temp_module.load_labware('opentrons_24_aluminumblock_generic_2ml_screwcap', label='Temperature-Controlled Tubes') \r\n"
         "    temp_module.set_temperature(4) \r\n"
         "    tc_mod.open_lid() \r\n"
-        "    tc_mod.set_block_temperature(temperature=4) \r\n"
 
         "    right_pipette = protocol.load_instrument('p300_single','right',tip_racks=[tiprack1]) \r\n"
         "    left_pipette = protocol.load_instrument('p10_single','left',tip_racks = [tiprack3]) \r\n"
@@ -460,10 +468,7 @@ def main():
                     "    left_pipette.drop_tip() \r\n"
 
                 )
-                
-                
-                
-                
+
             if Input_values.loc[0].at['paqCI'] == 1:
                 f.write(
                     #water
