@@ -1,0 +1,5 @@
+,stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,paqCI,template pwl number,template concentrations,section
+0,100,1,2.5,0.1,25,0.02,0,2,18,5,20230918,100,2,1703,1,,51.0,frogs
+1,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,0,,63.4,frogs
+2,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,0,,54.3,frogs
+3,0,0,0.0,0.0,0,0.0,0,0,0,0,0,0,0,0,0,,54.3,frogs

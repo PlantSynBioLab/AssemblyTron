@@ -345,6 +345,7 @@ if __name__ == '__main__':
         global Combinatorial_pcr_params
         global Time
         global paqCI
+        global copies
         
         global extra1value
         global extra1name
@@ -420,6 +421,7 @@ if __name__ == '__main__':
         Combinatorial_pcr_params = float(Combinatorial_pcr_params_entry.get())
         Time = Time_entry.get()
         paqCI = paqCI_entry.get()
+        copies = copies_entry.get()
         
         extra1value = float(extra1value_entry.get())
         extra1name = str(extra1name_entry.get())
@@ -694,11 +696,14 @@ if __name__ == '__main__':
     label_paqCI = tk.Label(text='Using paqCI? 1=N 2=Y',font=('Helvatical bold',14))
     label_paqCI.place(relx=0,rely=0.4)
 
+    label_copies = tk.Label(text='Number of copies to make of each assembly',font=('Helvatical bold',14))
+    label_copies.place(relx=0,rely=0.425)
+
     label_extra1 = tk.Label(text='extra1',font=('Helvatical bold',14))
-    label_extra1.place(relx=0,rely=0.45)
+    label_extra1.place(relx=0,rely=0.475)
 
     label_extra2 = tk.Label(text='extra2',font=('Helvatical bold',14))
-    label_extra2.place(relx=0,rely=0.475)
+    label_extra2.place(relx=0,rely=0.5)
 
     label2 = tk.Label(text="Template - Well & Name",font=('Helvatical bold',12))
     label2.place(relx=0.3,rely=0)
@@ -768,21 +773,25 @@ if __name__ == '__main__':
     paqCI_entry.insert(END, '1')
     paqCI_entry.place(relx=0.2,rely=0.4,width=55)
 
+    copies_entry = tk.Entry()
+    copies_entry.insert(END, '1')
+    copies_entry.place(relx=0.2,rely=0.425,width=55)
+
     extra1name_entry = tk.Entry()
     extra1name_entry.insert(END, 'variable')
-    extra1name_entry.place(relx=0.2,rely=0.45,width=50)
+    extra1name_entry.place(relx=0.2,rely=0.475,width=50)
 
     extra2name_entry = tk.Entry()
     extra2name_entry.insert(END, 'variable')
-    extra2name_entry.place(relx=0.2,rely=0.475,width=50)
+    extra2name_entry.place(relx=0.2,rely=0.5,width=50)
 
     extra1value_entry = tk.Entry()
     extra1value_entry.insert(END, '0')
-    extra1value_entry.place(relx=0.25,rely=0.45,width=35)
+    extra1value_entry.place(relx=0.25,rely=0.475,width=35)
 
     extra2value_entry = tk.Entry()
     extra2value_entry.insert(END, '0')
-    extra2value_entry.place(relx=0.25,rely=0.475,width=35)
+    extra2value_entry.place(relx=0.25,rely=0.5,width=35)
 
     ########################################################################################
     #entries for pwl number and concentration
@@ -928,12 +937,12 @@ if __name__ == '__main__':
 
     # temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
     # tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
-    test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+    test = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
     lengthd=['frogs','frogs','frogs','frogs','frogs','frogs']
 
-    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,paqCI]]
-    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time','paqCI'])
-    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,paqCI]
+    row = [[stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,paqCI,copies]]
+    variables = pd.DataFrame(test,columns=['stkprm','stkvol','dilprm','primerconc','pcrvol','templatengs','Q5','DPNI','DPwater','cutsmart','Date','ngdesired','Combinatorial_pcr_params','Time','paqCI','copies'])
+    variables.iloc[0]= [stkprm,stkvol,dilprm,primerconc,pcrvol,templatengs,Q5,DPNI,DPwater,cutsmart,Date,ngdesired,Combinatorial_pcr_params,Time,paqCI,copies]
     # variables['template pwl number'] = temppwls
     # variables['template concentrations'] = tempconcs
 

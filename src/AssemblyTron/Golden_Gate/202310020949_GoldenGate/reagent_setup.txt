@@ -1,0 +1,33 @@
+Date: 20231002 Time: 0949 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Golden_Gate 
+Place the coldtuberack in slot 1. 
+Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+Instructions for setting up the coldtuberack: 
+Put oWL00624_(ARF7)_forward in A1
+Add an empty tube to A1 on 24 well tuberack in slot 2.
+Put oWL634_(ARF7)_(stop2)_reverse in A2
+Add an empty tube to A2 on 24 well tuberack in slot 2.
+Put oWL635_(ccdb)_forward in A3
+Add an empty tube to A3 on 24 well tuberack in slot 2.
+Put oWL636_(ccdb)_(stop2)_reverse in A4
+Add an empty tube to A4 on 24 well tuberack in slot 2.
+Add these templates directly to 24 tuberack in deckslot 2: 
+Put pwl_408 in A5
+Put pwl_411 in A6
+NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
+This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
+These go in the cold tuberack again.  
+Put pwl90 in B1
+Add an empty tube to B1on 24 well tuberack in slot 2.
+Put pwl123_pIUG_ccdb in B2
+Add an empty tube to B2on 24 well tuberack in slot 2.
+Place empty tube in C4 for the T4/BSA mix 
+Place T4 ligase in C5 
+Place DMSO in D6 of tuberack2 (since it needs to be at room temp) 
+Place 100X BSA in C6 
+Place paqCI activator in D1 of cold tuberack (if needed) 
+Place T4 buffer in D2 
+Place DPNI in D3 
+Place cutsmart buffer in D4 
+Place BsaI in D5 
+Place Q5 DNA polymerase in D6 

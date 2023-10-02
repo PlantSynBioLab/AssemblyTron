@@ -1,0 +1,13 @@
+Date: 20230925 Time: 0931 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Cloning 
+These are instructions for setting up the deck for the PCR run, DPNI digest, and fragment assembly. 
+Place cold tuberack i in deckslot 1. 
+Place PCR tube block in deckslot 2 to start. 
+Put 300uL tips in slot 9, and 10uL tips in slot 5 & 6. 
+Put 10 tuberack with 10uL water in A1. 
+Attach thermocycler. 
+Place DPNI in D3 of cold tuberack 
+Place cutsmart buffer in D4 of cold tuberack 
+Place DNA polymerase in D6 of cold tuberack 
+Put 50uL of DMSO in a PCR tube in H12 of PCR block in deckslot 4. 
+Place 96 well PCR block in deckslot 4 and Add empty PCR tubes in same configuration as thermocycler deck configuration. 

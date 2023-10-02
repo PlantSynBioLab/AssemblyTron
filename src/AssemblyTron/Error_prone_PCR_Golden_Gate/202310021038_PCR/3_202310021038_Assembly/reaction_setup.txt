@@ -1,0 +1,12 @@
+PCR gradient tube positions: 
+Date: 20231002 Time: 1038 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Error_prone_PCR_Golden_Gate\202310021038_PCR\3_202310021038_Assembly 
+Fragment ID 0 goes in E1
+Fragment ID 1 goes in D1
+Fragment ID 2 goes in E2
+Fragment ID 3 goes in H1
+Fragment ID 4 goes in B1
+Final assembly tubes: 
+Put a 100 uL PCR tube in B7
+Put a 100 uL PCR tube in B8
+Fragment dilution tubes go on the PCR block at deckslot 4 in same configuration as tubes in thermocycler. 

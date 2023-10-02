@@ -1,0 +1,8 @@
+PCR gradient tube positions: 
+Date: 20230918 Time: 1716 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Error_prone_PCR_Golden_Gate\202309181716_PCR 
+Put a 100 uL PCR tube in E1
+Put a 100 uL PCR tube in C1
+Put a 100 uL PCR tube in D1
+Put a 100 uL PCR tube in H1
+Put a 100 uL PCR tube in A1

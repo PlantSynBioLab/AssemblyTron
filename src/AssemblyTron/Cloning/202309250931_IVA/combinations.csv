@@ -1,0 +1,12 @@
+"ID Number","Name","Assembly Method","Part(s) Bin 0","Assembly Piece ID Number Bin 0","Part(s) Bin 1","Assembly Piece ID Number Bin 1","Part(s) Bin 2","Assembly Piece ID Number Bin 2","Part(s) Bin 3","Assembly Piece ID Number Bin 3","Part(s) Bin 4","Assembly Piece ID Number Bin 4"
+0,"pmas00001","SLIC/Gibson/CPEC","(UpstreamTIR_P350L)_(P350L_ttg_4223-4225)",0,"(DownstreamTIR_P350L)",1,NA,NA,NA,NA,NA,NA
+1,"pmas00002","SLIC/Gibson/CPEC","(UpstreamTIR_F351L)_(F351L_ttg_4226-4228)",2,"(DownstreamTIR_F351L)",3,NA,NA,NA,NA,NA,NA
+2,"pmas00003","SLIC/Gibson/CPEC","(UpstreamTIR_V352G)_(V352G_ggg_4229-4231)",4,"(DownstreamTIR_V352G)",5,NA,NA,NA,NA,NA,NA
+3,"pmas00004","SLIC/Gibson/CPEC","(UpstreamTIR_V377I)_(V377I_att_4304-4306)",6,"(DownstreamTIR_V377I)",7,NA,NA,NA,NA,NA,NA
+4,"pmas00005","SLIC/Gibson/CPEC","(UpstreamTIR_I407L)_(I407L_cta_4394-4396)",8,"(DownstreamTIR_I407L)",9,NA,NA,NA,NA,NA,NA
+5,"pmas00006","SLIC/Gibson/CPEC","(UpstreamTIR_E352D)_(E352D_gac_4220-4222)",10,"(DownstreamTIR_E352D)",11,NA,NA,NA,NA,NA,NA
+6,"pmas00007","SLIC/Gibson/CPEC","(UpstreamTIR_V463I)_(V463I_ata_4562-4564)",12,"(DownstreamTIR_V463I)",13,NA,NA,NA,NA,NA,NA
+7,"pmas00008","SLIC/Gibson/CPEC","(UpstreamTIR_R484K)_(R484K_aaa_4625-4627)",14,"(DownstreamTIR_R484K)",15,NA,NA,NA,NA,NA,NA
+8,"pmas00009","SLIC/Gibson/CPEC","(UpstreamTIR_K496T)_(K496T_acg_4661-4663)",16,"(DownstreamTIR_K496T)",17,NA,NA,NA,NA,NA,NA
+9,"pmas00010","SLIC/Gibson/CPEC","(UpstreamTIR_G521S)_(G521S_tcc_4736-4738)",18,"(DownstreamTIR_G521S)",19,NA,NA,NA,NA,NA,NA
+10,"pmas00011","SLIC/Gibson/CPEC","(UpstreamAFB_L403I)_(L403I_ata_4379-4381)",20,"(DownstreamAFB_L403I)",21,NA,NA,NA,NA,NA,NA

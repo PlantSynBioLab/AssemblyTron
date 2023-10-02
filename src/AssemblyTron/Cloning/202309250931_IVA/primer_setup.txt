@@ -1,0 +1,20 @@
+Date: 20230925 Time: 0931 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Cloning 
+Place 4 24 tuberacks in deckslots 1, 2, 4, and 5. 
+Put 300uL tips in slot 9, and 10uL tips in slot 6. 
+Put mas00001_(UpstreamTIR_P350L)_forward in deckslot4 A1
+Put mas00002_(UpstreamTIR_P350L)_(P350L_ttg_4223-4225)_reverse in deckslot4 A2
+Put mas00003_(DownstreamTIR_P350L)_forward in deckslot4 A3
+Put mas00004_(DownstreamTIR_P350L)_reverse in deckslot4 A4
+Put mas00009_(UpstreamTIR_V377I)_(V377I_att_4304-4306)_reverse in deckslot4 A5
+Put mas00010_(DownstreamTIR_V377I)_forward in deckslot4 A6
+Put mas00013_(UpstreamTIR_E352D)_(E352D_gac_4220-4222)_reverse in deckslot5 A1
+Put mas00014_(DownstreamTIR_E352D)_forward in deckslot5 A2
+Put mas00017_(UpstreamTIR_R484K)_(R484K_aaa_4625-4627)_reverse in deckslot5 A3
+Put mas00018_(DownstreamTIR_R484K)_forward in deckslot5 A4
+Put mas00019_(UpstreamTIR_K496T)_(K496T_acg_4661-4663)_reverse in deckslot5 A5
+Put mas00020_(DownstreamTIR_K496T)_forward in deckslot5 A6
+Put mas00021_(UpstreamTIR_G521S)_(G521S_tcc_4736-4738)_reverse in deckslot4 B1
+Put mas00022_(DownstreamTIR_G521S)_forward in deckslot4 B2
+Put mas00023_(UpstreamAFB_L403I)_(L403I_ata_4379-4381)_reverse in deckslot4 B3
+Put mas00024_(DownstreamAFB_L403I)_forward in deckslot4 B4

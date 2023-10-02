@@ -1,0 +1,30 @@
+Date: 20230918 Time: 1719 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Error_prone_PCR_Golden_Gate\202309181719_PCR 
+Place the coldtuberack in slot 1. 
+Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+Instructions for setting up the coldtuberack: 
+Put oWL00375_(backbone)_forward in A1
+Put oWL00376_(backbone)_reverse in A2
+Put oWL00379_(bb2)_forward in A3
+Put oWL00380_(bb2)_reverse in A4
+Put oWL00381_(AmpR)_forward in A5
+Put oWL00382_(AmpR)_reverse in A6
+Put oWL00387_(eforCP)_forward in B1
+Put oWL00388_(eforCP)_reverse in B2
+Put oWL00369_(eforCP)_forward in B3
+Put oWL00370_(eforCP)_reverse in B4
+NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
+This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
+Put eforCP in B5
+############################################################################################## 
+The Following reagents go in the cold tuberack (deck slot 1) 
+Place Taq polymerase in C1 
+Place BSA in C2 
+Place 5X Taq buffer in C3 
+Place dATP in C4 
+Place dCTP in C5 
+Place dGTP in C6 
+Place dTTP in D1 
+Place MnCl2 in D2 
+Place MgCl2 in D3 
+Place 24 well tuberack in slot 2. Add 11 empty 1.5 mL tubes to the rack in the same positions. 

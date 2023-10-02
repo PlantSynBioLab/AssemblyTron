@@ -1,0 +1,3 @@
+,ID Number,Name,Assembly Method,Part(s) Bin 0,Assembly Piece ID Number Bin 0,Part(s) Bin 1,Assembly Piece ID Number Bin 1,Part(s) Bin 2,Assembly Piece ID Number Bin 2,Part(s) Bin 3,Assembly Piece ID Number Bin 3,Part(s) Bin 4,Assembly Piece ID Number Bin 4,pcr_frag_tube_x,pcr_frag_tube_y,pcr_frag_tube_x,pcr_frag_tube_y
+0,0,pmas00001,Golden-gate,(backbone),0,(eforCP),3,(bb2),1,(AmpR),2,,,E1,H1,D1,E2
+1,1,pmas00002,Golden-gate,(backbone),0,(eforCP),4,(bb2),1,(AmpR),2,,,E1,B1,D1,E2

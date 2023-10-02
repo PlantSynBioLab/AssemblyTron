@@ -454,82 +454,91 @@ def main():
             "    protocol.pause('Clear off PCR plate and set up final Golden Gate assembly Tubes') \r\n"
         )
 
-        for i, row in GG_dfs.iterrows():
-            x = GG_dfs.loc[i].at['gg#']
-            for i, row in globals()[x].iterrows():
-                f.write(
+        copies = Input_values.loc[0].at['copies']
+        current = 1
+        while current <= copies:
+        
+            for i, row in GG_dfs.iterrows():
+                x = GG_dfs.loc[i].at['gg#']
+                for i, row in globals()[x].iterrows():
+                    f.write(
 
-                    #templates
+                        #templates
 
-                    "    left_pipette.pick_up_tip() \r\n"
-                    "    left_pipette.aspirate("+str(globals()[x].loc[i].at['final amount to add'])+", secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
-                    "    left_pipette.dispense("+str(globals()[x].loc[i].at['final amount to add'])+", pcrplate['"+str(globals()[x].loc[i].at['location_of_assembly'])+"']) \r\n"
-                    "    left_pipette.blow_out() \r\n"
-                    "    left_pipette.drop_tip() \r\n"
+                        "    left_pipette.pick_up_tip() \r\n"
+                        "    left_pipette.aspirate("+str(globals()[x].loc[i].at['final amount to add'])+", secondarydils['"+str(globals()[x].loc[i].at['frag_loc'])+"']) \r\n"
+                        "    left_pipette.dispense("+str(globals()[x].loc[i].at['final amount to add'])+", pcrplate['"+str(globals()[x].loc[i].at['location_of_assembly'])+"']) \r\n"
+                        "    left_pipette.blow_out() \r\n"
+                        "    left_pipette.drop_tip() \r\n"
 
-                )
+                    )
 
-            if Input_values.loc[0].at['paqCI'] == 1:
-                f.write(
-                    #water
-                    "    left_pipette.pick_up_tip() \r\n"
-                    "    left_pipette.aspirate("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65)+", watertuberack['A1']) \r\n" #accounts for activator
-                    "    left_pipette.dispense("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65)+", pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                    "    left_pipette.blow_out() \r\n"
-                    "    left_pipette.drop_tip() \r\n"
-                )
-            
-            
-            if Input_values.loc[0].at['paqCI'] == 2:
-                f.write(
-                #water
-                    "    left_pipette.pick_up_tip() \r\n"
-                    "    left_pipette.aspirate("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 -1  - 1 - 1.65)+", watertuberack['A1']) \r\n" #accounts for activator
-                    "    left_pipette.dispense("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 -1- 1 - 1.65)+", pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                    "    left_pipette.blow_out() \r\n"
-                    "    left_pipette.drop_tip() \r\n"
-                )
+                if Input_values.loc[0].at['paqCI'] == 1:
+                    f.write(
+                        #water
+                        "    left_pipette.pick_up_tip() \r\n"
+                        "    left_pipette.aspirate("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65)+", watertuberack['A1']) \r\n" #accounts for activator
+                        "    left_pipette.dispense("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 - 1 - 1.65)+", pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                        "    left_pipette.blow_out() \r\n"
+                        "    left_pipette.drop_tip() \r\n"
+                    )
                 
-            f.write(
-
-                #T4+BSA buffer combo
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate(1.65,cold_tuberack['C4']) \r\n"
-                "    left_pipette.dispense(1.65,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.mix(3,8,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-
-                #restriction enzyme
-
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate(1,cold_tuberack['D5']) \r\n"
-                "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-            )
-            
-            if Input_values.loc[0].at['paqCI'] == 2:
+                
+                if Input_values.loc[0].at['paqCI'] == 2:
+                    f.write(
+                    #water
+                        "    left_pipette.pick_up_tip() \r\n"
+                        "    left_pipette.aspirate("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 -1  - 1 - 1.65)+", watertuberack['A1']) \r\n" #accounts for activator
+                        "    left_pipette.dispense("+str(15 - round(globals()[x]['final amount to add'].sum(),2) - 1 -1- 1 - 1.65)+", pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                        "    left_pipette.blow_out() \r\n"
+                        "    left_pipette.drop_tip() \r\n"
+                    )
+                    
                 f.write(
+
+                    #T4+BSA buffer combo
                     "    left_pipette.pick_up_tip() \r\n"
-                    "    left_pipette.aspirate(1,cold_tuberack['D1']) \r\n"
+                    "    left_pipette.aspirate(1.65,cold_tuberack['C4']) \r\n"
+                    "    left_pipette.dispense(1.65,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                    "    left_pipette.mix(3,8,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                    "    left_pipette.drop_tip() \r\n"
+
+                    #restriction enzyme
+
+                    "    left_pipette.pick_up_tip() \r\n"
+                    "    left_pipette.aspirate(1,cold_tuberack['D5']) \r\n"
                     "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
                     "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
                     "    left_pipette.drop_tip() \r\n"
                 )
+                
+                if Input_values.loc[0].at['paqCI'] == 2:
+                    f.write(
+                        "    left_pipette.pick_up_tip() \r\n"
+                        "    left_pipette.aspirate(1,cold_tuberack['D1']) \r\n"
+                        "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                        "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                        "    left_pipette.drop_tip() \r\n"
+                    )
+
+                f.write(
+                    #T4 ligase
+                    "    left_pipette.pick_up_tip() \r\n"
+                    "    left_pipette.aspirate(1,cold_tuberack['C5']) \r\n"
+                    "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                    "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                    "    left_pipette.drop_tip() \r\n"
+
+                    #one more mix
+                    "    right_pipette.pick_up_tip() \r\n"
+                    "    right_pipette.mix(3,15,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
+                    "    right_pipette.blow_out() \r\n"
+                    "    right_pipette.drop_tip() \r\n"
+                )
+            current = current + 1
 
             f.write(
-                #T4 ligase
-                "    left_pipette.pick_up_tip() \r\n"
-                "    left_pipette.aspirate(1,cold_tuberack['C5']) \r\n"
-                "    left_pipette.dispense(1,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.mix(3,9,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    left_pipette.drop_tip() \r\n"
-
-                #one more mix
-                "    right_pipette.pick_up_tip() \r\n"
-                "    right_pipette.mix(3,15,pcrplate['"+str(globals()[x].loc[0].at['location_of_assembly'])+"']) \r\n"
-                "    right_pipette.blow_out() \r\n"
-                "    right_pipette.drop_tip() \r\n"
+                "    protocol.pause('move final assembly tubes aside and put in new tubes for the next copy of your assembly.') \r\n"
             )
     
     x = 'Golden Gate Run'

@@ -1459,9 +1459,9 @@ if __name__ == '__main__':
             #temps = [59.499,65.4245,67.8095,62.142,62.7575]
             #temps
 
-            one = np.random.uniform(50,70)
+            one = np.random.uniform(50,75)
             #one = round(numpy.random.uniform(50, 70), 1)
-            eight = np.random.uniform(70,90)
+            eight = np.random.uniform(65,90)
             #eight = round(numpy.random.uniform(70, 90), 1)
 
             two = one +((2-1)/(8-1)) * (eight-one)

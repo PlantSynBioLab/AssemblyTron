@@ -1,0 +1,46 @@
+Date: 20231002 Time: 1038 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Error_prone_PCR_Golden_Gate 
+Place the coldtuberack in slot 1. 
+Put 300uL tips in slot 6 & 9, and 10uL tips in slot 5. 
+Instructions for setting up the coldtuberack: 
+Put oWL00375_(backbone)_forward in A1
+Add an empty tube to A1 on 24 well tuberack in slot 2.
+Put oWL00376_(backbone)_reverse in A2
+Add an empty tube to A2 on 24 well tuberack in slot 2.
+Put oWL00379_(bb2)_forward in A3
+Add an empty tube to A3 on 24 well tuberack in slot 2.
+Put oWL00380_(bb2)_reverse in A4
+Add an empty tube to A4 on 24 well tuberack in slot 2.
+Put oWL00381_(AmpR)_forward in A5
+Add an empty tube to A5 on 24 well tuberack in slot 2.
+Put oWL00382_(AmpR)_reverse in A6
+Add an empty tube to A6 on 24 well tuberack in slot 2.
+Put oWL00387_(eforCP)_forward in B1
+Add an empty tube to B1 on 24 well tuberack in slot 2.
+Put oWL00388_(eforCP)_reverse in B2
+Add an empty tube to B2 on 24 well tuberack in slot 2.
+Put oWL00369_(eforCP)_forward in B3
+Add an empty tube to B3 on 24 well tuberack in slot 2.
+Put oWL00370_(eforCP)_reverse in B4
+Add an empty tube to B4 on 24 well tuberack in slot 2.
+NOTE: if a template is listed twice, (ie, pwl106 in B6 and C3) then skip the second position, and move remaining templates up a slot 
+This is ok because this setup sheet and df object in the script are both set up from pcr.csv, except df just takes out repeasts.  
+These go in the cold tuberack again.  
+Put aeBlue in B5
+Add an empty tube to B5on 24 well tuberack in slot 2.
+Put Sample_1_pWL87_8A-ARF19_01 in B6
+Add an empty tube to B6on 24 well tuberack in slot 2.
+Put eforCP in C1
+Add an empty tube to C1on 24 well tuberack in slot 2.
+Put eforCP_mutant in C2
+Add an empty tube to C2on 24 well tuberack in slot 2.
+Place empty tube in C4 for the T4/BSA mix 
+Place T4 ligase in C5 
+Place DMSO in D6 of tuberack2 (since it needs to be at room temp) 
+Place 100X BSA in C6 
+Place paqCI activator in D1 of cold tuberack (if needed) 
+Place T4 buffer in D2 
+Place DPNI in D3 
+Place cutsmart buffer in D4 
+Place BsaI in D5 
+Place Q5 DNA polymerase in D6 

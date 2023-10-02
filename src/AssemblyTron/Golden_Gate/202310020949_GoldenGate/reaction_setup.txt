@@ -1,0 +1,10 @@
+PCR gradient tube positions: 
+Date: 20231002 Time: 0949 
+Absolute Path: C:\Users\Public\Documents\AssemblyTron\src\AssemblyTron\Golden_Gate\202310020949_GoldenGate 
+Put a 100 uL PCR tube in A1
+Put a 100 uL PCR tube in H1
+Final assembly tube: 
+Put a 100 uL PCR tube in B7
+Put a 100 uL PCR tube in B8
+Put a 100 uL PCR tube in B9
+Fragment dilution tubes go on the PCR block at deckslot 4 in same configuration as tubes in thermocycler : 
