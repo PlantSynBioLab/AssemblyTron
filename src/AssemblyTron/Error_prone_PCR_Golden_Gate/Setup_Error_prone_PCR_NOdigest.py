@@ -1,12 +1,12 @@
-'''Setup script for Golden Gate Assembly with with a destination plasmid with restriction sites
+'''Setup script for Error prone PCR. This variation of the writer is for when no entry plasmids are being used.
 
-This script walks the user through setup of a Golden Gate assembly with a destination plasmid with restriction sites. The destination plasmid is typically the backbone fragment and does not require PCR amplification. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
+This script walks the user through setup of Error prone PCR. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
 
 This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.
 
-This script requires `pandas` and `numpy` to be installed in the python environment where running. 
+This script requires `pandas` , `numpy` , `shutil` , `tkinter to be installed in the python environment where running. 
 
-This script can also be called as a module by calling `AssemblyTron.Golden_Gate.Setup_digests_gradient`.
+This script can also be called as a module by calling `AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR_NOdigest`.
 
 '''
 if __name__ == '__main__':
@@ -15,7 +15,6 @@ if __name__ == '__main__':
     import pandas
     import shutil
     import numpy as np
-    import subprocess
 
     from datetime import date
     from datetime import datetime
@@ -87,12 +86,15 @@ if __name__ == '__main__':
 
     ##########################################################################################################################
     ###Run R script via python
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.py', os.getcwd())
     goback = os.getcwd() 
     os.chdir(name)
 
-    retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
-    retcode
+    from j5_to_csvs import *
+    parse_j5()
+
+    # retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+    # retcode
 
     os.chdir(goback)
     #######################################################################################################################
@@ -2037,6 +2039,8 @@ if __name__ == '__main__':
     shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/'+str(2)+'_'+date+time+'_EPPCR/')
     shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/'+str(2)+'_'+date+time+'_EPPCR/')
 
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
 
     ######################################################################################################
 
@@ -3536,3 +3540,14 @@ if __name__ == '__main__':
 
     # rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
     # rc
+
+    
+    from dilution_Error_prone_PCR_writer import *
+    write_dilution()
+
+    #os.rename('GG_dilutions.py', 'Initial_PCR_dilution.py')
+
+    from Error_prone_PCR_writer import *
+    write_eppcr()
+
+    #os.rename('GG_digests.py', 'Initial_PCR_run.py')

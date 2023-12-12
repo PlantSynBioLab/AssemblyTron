@@ -1,8 +1,8 @@
-''' Golden Gate Assembly Protocol Script with separate PCRs
+''' Writer script for generating Modular cloning toolkit constructs assembly protocols in OpenTrons API.
 
-This script performs Golden Gate assembly where fragments for each assembly are amplified in separate tubes and uses a gradient thermocycler. This protocol is thoroughly validated and robust, so we recommend using it. 
+This script performs Golden Gate assembly to build MoClo plasmids. Each part must come from a predetermined position in a 96 well plate. Each part is maintained as a plasmid, which should be purified prior to running this writer script. 
 
-This script runs on the OT-2 via the run app. It calls CSVs which must be transferred to the OT-2 processor prior to running. This script is not designed to run a personal computer on the command line.
+This script runs on the command line of a personal laptop. It calls CSVs to make a customized protocol script that can be transferred directly to the OT-2 via the run app.
 
 '''
 

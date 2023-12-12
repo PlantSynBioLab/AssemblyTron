@@ -1,10 +1,10 @@
-'''Setup script for Golden Gate Assembly with 96 tube capacity
+'''Setup script for Golden Gate Assembly. This variation of the writer is for when NO entry plasmids are being used and has a 96 tube capacity.
 
-This script walks the user through setup of a Golden Gate assembly with up to 96 combined primers and templates. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
+This script walks the user through setup of Golden Gate assembly. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
 
 This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.
 
-This script requires `pandas` and `numpy` to be installed in the python environment where running. 
+This script requires `pandas` , `numpy` , `shutil` , `tkinter` to be installed in the python environment where running. 
 
 This script can also be called as a module by calling `AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96`.
 
@@ -15,7 +15,6 @@ if __name__ == '__main__':
     import pandas
     import shutil
     import numpy as np
-    import subprocess
 
     from datetime import date
     from datetime import datetime
@@ -68,19 +67,26 @@ if __name__ == '__main__':
         while _cur_depth < depth:
             path = os.path.dirname(path)
             _cur_depth += 1
-        return path   
+        return path
+
+    path = walk_up_folder(os.getcwd(), 2)
+    df = pandas.DataFrame({'opentrons_repo': [path]})
+    df.to_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')   
 
     paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
     paths
 
     ##########################################################################################################################
     ###Run R script via python
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.R', name)
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.py', os.getcwd())
     goback = os.getcwd() 
     os.chdir(name)
 
-    retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
-    retcode
+    from j5_to_csvs import *
+    parse_j5()
+
+    # retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+    # retcode
 
     os.chdir(goback)
     #######################################################################################################################
@@ -488,17 +494,17 @@ if __name__ == '__main__':
     os.mkdir(date+time+'_GoldenGate')
 
     #copy the temp GoldenGate.py to the new folder
-    dst = '/'+date+time+'GoldenGate'
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_96.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    # dst = '/'+date+time+'GoldenGate'
+    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns_gradient.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_96.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+    # shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Update_Input.py', paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 
     #now rename the script with the date
-    os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
-    os.rename('GoldenGate_nodigests_separatepcrruns_gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
-    os.rename('dilution_96.py', str(2)+'_'+date+time+'_dilution_96.py')
-    os.rename('Update_Input.py', str(1)+'_Update_Input.py')
-    os.chdir(walk_up_folder(os.getcwd(), 2))
+    # os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate')
+    # os.rename('GoldenGate_nodigests_separatepcrruns_gradient.py', str(3)+'_'+date+time+'_GoldenGate.py')
+    # os.rename('dilution_96.py', str(2)+'_'+date+time+'_dilution_96.py')
+    # os.rename('Update_Input.py', str(1)+'_Update_Input.py')
+    # os.chdir(walk_up_folder(os.getcwd(), 2))
 
     #shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/digests.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+'_GoldenGate/')
     shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/combinations.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
@@ -923,7 +929,7 @@ if __name__ == '__main__':
     pcrvol_entry.place(relx=0.2,rely=0.15,width=35)
 
     templatengs_entry = tk.Entry()
-    templatengs_entry.insert(END, '0.5')
+    templatengs_entry.insert(END, '0.02')
     templatengs_entry.place(relx=0.2,rely=0.175,width=35)
 
     Q5_entry = tk.Entry()
@@ -1149,6 +1155,7 @@ if __name__ == '__main__':
 
     #########################################################################################
     #tkinter window to specify which parts of the protocol to run
+    section = pandas.DataFrame()
     from tkinter import *
 
     ws = Tk() 
@@ -1166,7 +1173,7 @@ if __name__ == '__main__':
         for val in countries:
             print(val)
         se = pandas.Series(countries)
-        variables['section'] = se
+        section['parts'] = se
         ws.destroy()
 
     show = Label(ws, text = "Choose which parts of protocol to run", font = ("Times", 14), padx = 10, pady = 10)
@@ -1183,6 +1190,9 @@ if __name__ == '__main__':
 
     Button(ws, text="Confirm", command=showSelected).pack()
     ws.mainloop() 
+
+    section.to_csv('section.csv')
+    shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/section.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
 
     # lock_button = Button(ws, text="Lock in selection",command=showSelected)
     # lock_button.pack(pady=10)
@@ -1215,18 +1225,31 @@ if __name__ == '__main__':
         runnumber = 0
 
         # pcr_plustemplates
-        # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
-        # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+        # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 only)'] + pcr_plustemplates['Delta Oligo Tm (3 only)']
+        # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 only)'] - pcr_plustemplates['Delta Oligo Tm (3 only)']
         # pcr_plustemplates
 
-        temps = pcr['Mean Oligo Tm (3 Only)'].values.tolist()
+        temps = pcr['Mean Oligo Tm (3 only)'].values.tolist()
         
-        deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-        delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
-        delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
-        
+        deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3 only)').reset_index()
+        delta_val = deltaa.loc[0].at['Delta Oligo Tm (3 only)'].tolist()
+        delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 only)'].tolist()
         U = delta_temp + delta_val
         L = delta_temp - delta_val
+
+        #range of largest temp
+        deltaa =  pcr.nlargest(1,'Mean Oligo Tm (3 only)').reset_index()
+        delta_val = .4
+        delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 only)'].tolist()
+        U2 = delta_temp + delta_val
+        L2 = delta_temp - delta_val
+
+        #range of lowest temp
+        deltaa =  pcr.nsmallest(1,'Mean Oligo Tm (3 only)').reset_index()
+        delta_val = .4
+        delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 only)'].tolist()
+        U3 = delta_temp + delta_val
+        L3 = delta_temp - delta_val
 
         redo = 1
         
@@ -1241,9 +1264,9 @@ if __name__ == '__main__':
                 #temps = [59.499,65.4245,67.8095,62.142,62.7575]
                 #temps
 
-                one = np.random.uniform(50,70)
-                #one = round(numpy.random.uniform(50, 70), 1)
-                eight = np.random.uniform(70,90)
+                one = np.random.uniform(min(temps)-.5,min(temps)+.5)
+
+                eight = np.random.uniform(max(temps)-.5,max(temps)+.5)
                 #eight = round(numpy.random.uniform(70, 90), 1)
 
                 two = one +((2-1)/(8-1)) * (eight-one)
@@ -1290,22 +1313,38 @@ if __name__ == '__main__':
             #L = 65.1535
 
             i = 0
+            complete = []
+            print(FV)
             while i < len(FV):
                 if L<FV[i]<U:
                     print('good')
                     start = str(FV[i])
-                    redo = 2
-                    break
+                    complete.append(2)
+                    # break
+                if L2<FV[i]<U2:
+                    print('good')
+                    start = str(FV[i])
+                    complete.append(10)
+                    # break
+                if L3<FV[i]<U3:
+                    print('good')
+                    start = str(FV[i])
+                    complete.append(1000)
+
                 else:
-                    redo = 1
+                    redo4 = 1
                     print(redo)
+                    complete.append(1)
                 i = i + 1
-            # i=0
-            # while i<len(CV):
-            #     if start == '0':
-            #         redo = 1
-            #         print(redo)
-            #     i = i + 1
+            
+            multiple_values = [2,10,1000]
+            print(complete)
+            if all(value in complete for value in multiple_values):
+                # 👇️ this runs
+                print('All of the values are in the list')
+                break
+            else:
+                print('Not all of the values are in the list')
 
 
         gradient = pandas.DataFrame(FV, columns=['temp'])
@@ -1315,7 +1354,7 @@ if __name__ == '__main__':
         for i, row in pcr.iterrows():
             diffss = []
             for j, row in gradient.iterrows():
-                aaa = pcr.loc[i].at['Mean Oligo Tm (3 Only)']
+                aaa = pcr.loc[i].at['Mean Oligo Tm (3 only)']
                 bbb = gradient.loc[j].at['temp']
                 A = abs(aaa - bbb )
                 diffss.append(A)
@@ -1421,6 +1460,9 @@ if __name__ == '__main__':
         shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/pcr.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
         gradient.to_csv('gradient.csv')
         shutil.move(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/gradient.csv',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/GoldenGate_nodigests_separatepcrruns_gradient_writer.py',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+        shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/dilution_96_writer.py',paths.loc[0].at['opentrons_repo']+'/Golden_Gate/'+date+time+'_GoldenGate/')
+
 
 
 
@@ -1822,7 +1864,7 @@ if __name__ == '__main__':
 
 
     pcr = pandas.read_csv('pcr.csv')
-    id2pcrrr = pcr.set_index('Reaction ID Number').to_dict()['tube']
+    id2pcrrr = pcr.set_index('ID Number').to_dict()['tube']
 
     #id2pcrrr = {}
     #id2pcrrr['0'] = 'B2'
@@ -1883,7 +1925,7 @@ if __name__ == '__main__':
 
     sub = 0
     for i, row in assembly.iterrows():
-        if assembly.loc[i,'Reaction Type'] == 'PCR':
+        if assembly.loc[i,'Type'] == 'PCR':
             assembly.loc[i,'pcr_frag_tube'] = id2pcrrr[i-sub]
         else:
             assembly.loc[i,'pcr_frag_tube'] = np.nan
@@ -1938,7 +1980,7 @@ if __name__ == '__main__':
     pcr.columns = pcr.columns.str.replace("'","")
     pcr
 
-    pcr[['Reaction ID Number','Forward Oligo ID Number','Reverse Oligo ID Number']] = pcr[['Reaction ID Number','Forward Oligo ID Number','Reverse Oligo ID Number']].astype(int)
+    pcr[['ID Number','ID Number.1','ID Number.2']] = pcr[['ID Number','ID Number.1','ID Number.2']].astype(int)
     pcr
 
     #if bumpback > 0:
@@ -2033,10 +2075,10 @@ if __name__ == '__main__':
     wellinfo = oligos[['ID Number','96well']]
     wellinfo
 
-    wellinfo = wellinfo.rename(columns={'ID Number':'Forward Oligo ID Number'})
-    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Forward Oligo ID Number')
-    wellinfo = wellinfo.rename(columns={'Forward Oligo ID Number':'Reverse Oligo ID Number','96well':'96well2'})
-    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Reverse Oligo ID Number')
+    wellinfo = wellinfo.rename(columns={'ID Number':'ID Number.1'})
+    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'ID Number.1')
+    wellinfo = wellinfo.rename(columns={'ID Number.1':'ID Number.2','96well':'96well2'})
+    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'ID Number.2')
     pcr_plustemplates
 
     pcr_plustemplates['total_water_toadd'] = Input_values.loc[0].at['pcrvol']-Q5-DMSO-1-1-1
@@ -2067,46 +2109,46 @@ if __name__ == '__main__':
     combinations
 
     if len(combinations.columns) == 5:
-        combinations['Part(s) Bin 1'] = 'nan'
-        combinations['Assembly Piece ID Number Bin 1'] = 'nan'
-        combinations['Part(s) Bin 2'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 2'] = 'nan'
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).1'] = 'nan'
+        combinations['Assembly Piece ID Number.1'] = 'nan'
+        combinations['Part(s).2'] = 'nan' 
+        combinations['Assembly Piece ID Number.2'] = 'nan'
+        combinations['Part(s).3'] = 'nan' 
+        combinations['Assembly Piece ID Number.3'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
     if len(combinations.columns) == 7:
-        combinations['Part(s) Bin 2'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 2'] = 'nan'
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).2'] = 'nan' 
+        combinations['Assembly Piece ID Number.2'] = 'nan'
+        combinations['Part(s).3'] = 'nan' 
+        combinations['Assembly Piece ID Number.3'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
     if len(combinations.columns) == 9:
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).3'] = 'nan' 
+        combinations['Assembly Piece ID Number.3'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
     if len(combinations.columns) == 11:
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
 
     if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
-        pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+        pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number')]
         frame = combinations[pieces]
         #frame2 = frame.transpose()
         frame
 
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 0']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 1']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 2']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 3']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 4']
+        if str(frame.loc[0].at['Assembly Piece ID Number']) == 'nan':
+            del frame['Assembly Piece ID Number']
+        if str(frame.loc[0].at['Assembly Piece ID Number.1']) == 'nan':
+            del frame['Assembly Piece ID Number.1']
+        if str(frame.loc[0].at['Assembly Piece ID Number.2']) == 'nan':
+            del frame['Assembly Piece ID Number.2']
+        if str(frame.loc[0].at['Assembly Piece ID Number.3']) == 'nan':
+            del frame['Assembly Piece ID Number.3']
+        if str(frame.loc[0].at['Assembly Piece ID Number.4']) == 'nan':
+            del frame['Assembly Piece ID Number.4']
         frame2 = frame.transpose()
         frame
 
@@ -2121,19 +2163,19 @@ if __name__ == '__main__':
         combinations_plustemplocs = pandas.concat([combinations, result_1], axis=1)
         combinations_plustemplocs
 
-        pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+        pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number')]
         frame = combinations[pieces]
 
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 0']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 1']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 2']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 3']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 4']
+        if str(frame.loc[0].at['Assembly Piece ID Number']) == 'nan':
+            del frame['Assembly Piece ID Number']
+        if str(frame.loc[0].at['Assembly Piece ID Number.1']) == 'nan':
+            del frame['Assembly Piece ID Number.1']
+        if str(frame.loc[0].at['Assembly Piece ID Number.2']) == 'nan':
+            del frame['Assembly Piece ID Number.2']
+        if str(frame.loc[0].at['Assembly Piece ID Number.3']) == 'nan':
+            del frame['Assembly Piece ID Number.3']
+        if str(frame.loc[0].at['Assembly Piece ID Number.4']) == 'nan':
+            del frame['Assembly Piece ID Number.4']
         frame2 = frame.transpose()
         frame2
 
@@ -2293,8 +2335,8 @@ if __name__ == '__main__':
         for i, row in params_tables.iterrows():
             x = params_tables.loc[i].at['parmx']
     #locals()[x]
-            locals()[x]['Upper_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] + locals()[x]['Delta Oligo Tm (3Only)']
-            locals()[x]['Lower_temp'] = locals()[x]['Mean Oligo Tm (3 Only)'] - locals()[x]['Delta Oligo Tm (3Only)']
+            locals()[x]['Upper_temp'] = locals()[x]['Mean Oligo Tm (3 only)'] + locals()[x]['Delta Oligo Tm (3 only)']
+            locals()[x]['Lower_temp'] = locals()[x]['Mean Oligo Tm (3 only)'] - locals()[x]['Delta Oligo Tm (3 only)']
             HL = locals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
             HL = HL['Upper_temp'].values.tolist()
             LH = locals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
@@ -2329,19 +2371,19 @@ if __name__ == '__main__':
 
 
     #if Input_values.loc[0].at['Combinatorial_pcr_params'] == 'Y':
-        pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+        pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number')]
         frame = combinations[pieces]
         frame
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 0']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 1']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 2']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 3']
-        if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-            del frame['Assembly Piece ID Number Bin 4']
+        if str(frame.loc[0].at['Assembly Piece ID Number']) == 'nan':
+            del frame['Assembly Piece ID Number']
+        if str(frame.loc[0].at['Assembly Piece ID Number.1']) == 'nan':
+            del frame['Assembly Piece ID Number.1']
+        if str(frame.loc[0].at['Assembly Piece ID Number.2']) == 'nan':
+            del frame['Assembly Piece ID Number.2']
+        if str(frame.loc[0].at['Assembly Piece ID Number.3']) == 'nan':
+            del frame['Assembly Piece ID Number.3']
+        if str(frame.loc[0].at['Assembly Piece ID Number.4']) == 'nan':
+            del frame['Assembly Piece ID Number.4']
         frame= frame.values.astype(str)
         frame = pandas.DataFrame(frame)
         frame
@@ -2351,7 +2393,7 @@ if __name__ == '__main__':
         combinations_plustemplocs = pandas.concat([combinations, result_1], axis=1)
         combinations_plustemplocs
         fragnumber = 0.5*(len(combinations.iloc[0,:])-3)
-        goldengs = len(combinations['ID Number'])
+        goldengs = len(combinations['Number'])
         goldengs
         if goldengs == 1:
             GG_dfs = {'gg#': ['gg1']}
@@ -2428,40 +2470,40 @@ if __name__ == '__main__':
     combinations
     #add in the looping like in IVA here so that the GG loop will work
 
-    ID_tube = assembly[['Reaction ID Number','pcr_frag_tube']]
+    ID_tube = assembly[['ID Number','pcr_frag_tube']]
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Reaction ID Number':'Assembly Piece ID Number Bin 0'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 0')
+    if not str(combinations.iloc[0,4]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'ID Number':'Assembly Piece ID Number'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 0':'Assembly Piece ID Number Bin 1'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 1')
+    if not str(combinations.iloc[0,6]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number':'Assembly Piece ID Number.1'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.1')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 1':'Assembly Piece ID Number Bin 2'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 2')
+    if not str(combinations.iloc[0,8]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number.1':'Assembly Piece ID Number.2'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.2')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 2':'Assembly Piece ID Number Bin 3'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 3')
+    if not str(combinations.iloc[0,10]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number.2':'Assembly Piece ID Number.3'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.3')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
     combs_short = combs_short.T.drop_duplicates().T
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 4')
+    if not str(combinations.iloc[0,12]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number.3':'Assembly Piece ID Number.4'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.4')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
@@ -2707,25 +2749,12 @@ if __name__ == '__main__':
 
     os.chdir(paths.loc[0].at['opentrons_repo']+'/Golden_Gate/')
 
-    # rc = subprocess.call(['C:/Windows/System32/bash.exe', './Copy_Cloning.sh'], shell=True)
+    from dilution_96_writer import *
+    write_dilution()
 
-    # # rc = subprocess.call(['C:/Windows/System32/bash.exe', 'scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/'], shell=True)
+    os.rename('GG_dilutions.py', 'Dilution.py')
 
-    # rc
+    from GoldenGate_nodigests_separatepcrruns_gradient_writer import *
+    write_pcr()
 
-
-
-    # # rc = subprocess.check_output(sys.executable + 'scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/', shell=True)
-    # # rc
-
-    # # import paramiko
-
-    # # p = paramiko.SSHClient()
-    # # p.set_missing_host_key_policy(paramiko.AutoAddPolicy())   # This script doesn't work for me unless this line is added!
-    # # p.connect("root@robot", port=22, username="opentrons", password="wrightlab")
-    # # stdin, stdout, stderr = p.exec_command("scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/")
-
-    # subprocess.Popen('C:/Windows/System32/bash.exe', 'scp -r C:/Users/Public/Documents/opentrons/src/DNA-AssemblyLine/Protocols/Plate_Replication/*.csv root@robot:/data/user_storage/Protocols/Plate_Replication/', shell=True)
-
-    rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
-    rc
+    os.rename('GG_nodigests.py', 'GoldenGate.py')    

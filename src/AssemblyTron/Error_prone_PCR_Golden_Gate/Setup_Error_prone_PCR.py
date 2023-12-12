@@ -1,12 +1,12 @@
-'''Setup script for Golden Gate Assembly with with a destination plasmid with restriction sites
+'''Setup script for Error prone PCR. This variation of the writer is for when no entry plasmids are being used.
 
-This script walks the user through setup of a Golden Gate assembly with a destination plasmid with restriction sites. The destination plasmid is typically the backbone fragment and does not require PCR amplification. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
+This script walks the user through setup of Error prone PCR. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
 
 This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.
 
-This script requires `pandas` and `numpy` to be installed in the python environment where running. 
+This script requires `pandas` , `numpy` , `shutil` to be installed in the python environment where running. 
 
-This script can also be called as a module by calling `AssemblyTron.Golden_Gate.Setup_digests_gradient`.
+This script can also be called as a module by calling `AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR`.
 
 '''
 if __name__ == '__main__':
@@ -15,7 +15,6 @@ if __name__ == '__main__':
     import pandas
     import shutil
     import numpy as np
-    import subprocess
 
     from datetime import date
     from datetime import datetime
@@ -87,12 +86,15 @@ if __name__ == '__main__':
 
     ##########################################################################################################################
     ###Run R script via python
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs+digests.R', name)
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs.py', os.getcwd())
     goback = os.getcwd() 
     os.chdir(name)
 
-    retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs+digests.R'], shell=True)
-    retcode
+    from j5_to_csvs import *
+    parse_j5()
+
+    # retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+    # retcode
 
     os.chdir(goback)
     #######################################################################################################################
@@ -117,9 +119,14 @@ if __name__ == '__main__':
         ###############################################################################################################################################################################################3
     #tkinter window
 
+    #pcr = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/pcr.csv')
     pcr = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/pcr.csv')
+
     pcr.columns = pcr.columns.str.replace("'","")
-    pcr
+    pcr.rename(columns={"Mean Oligo Tm (3 only)": "Mean Oligo Tm (3 Only)"}, inplace=True)
+    pcr.rename(columns={"Delta Oligo Tm (3 only)": "Delta Oligo Tm (3 Only)"}, inplace=True)
+    
+    print(pcr.columns)
 
     from tkinter import *
 
@@ -169,6 +176,29 @@ if __name__ == '__main__':
             global conc4
             global conc5
             global conc6
+
+        if len(pcr['Primary Template']) == 7:
+    
+            global conc1
+            global conc2
+            global conc3
+            global conc4
+            global conc5
+            global conc6
+            global conc7
+
+        if len(pcr['Primary Template']) == 8:
+    
+            global conc1
+            global conc2
+            global conc3
+            global conc4
+            global conc5
+            global conc6
+            global conc7
+            global conc8
+
+
 
         if len(pcr['Primary Template']) == 1:
            
@@ -291,6 +321,89 @@ if __name__ == '__main__':
             else:
                 conc6 = float(conc6_entry.get())
 
+        if len(pcr['Primary Template']) == 7:
+           
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+            
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
+            
+            if conc6_entry.get() == '':
+                conc6 = ''
+            else:
+                conc6 = float(conc6_entry.get())
+
+            if conc7_entry.get() == '':
+                conc7 = ''
+            else:
+                conc7 = float(conc7_entry.get())
+
+        if len(pcr['Primary Template']) == 8:
+           
+            
+            if conc1_entry.get() == '':
+                conc1 = ''
+            else:
+                conc1 = float(conc1_entry.get())
+            
+            if conc2_entry.get() == '':
+                conc2 = ''
+            else:
+                conc2 = float(conc2_entry.get())
+            
+            if conc3_entry.get() == '':
+                conc3 = ''
+            else:
+                conc3 = float(conc3_entry.get())
+            
+            if conc4_entry.get() == '':
+                conc4 = ''
+            else:
+                conc4 = float(conc4_entry.get())
+            
+            if conc5_entry.get() == '':
+                conc5 = ''
+            else:
+                conc5 = float(conc5_entry.get())
+            
+            if conc6_entry.get() == '':
+                conc6 = ''
+            else:
+                conc6 = float(conc6_entry.get())
+
+            if conc7_entry.get() == '':
+                conc7 = ''
+            else:
+                conc7 = float(conc7_entry.get())
+
+            if conc8_entry.get() == '':
+                conc8 = ''
+            else:
+                conc8 = float(conc8_entry.get())
+
+
+
 
         input_csv.destroy()
 
@@ -302,78 +415,129 @@ if __name__ == '__main__':
     
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
+        conc1_entry.place(relx=0.65,rely=0.3,width = 35)
     if len(pcr['Primary Template']) == 2:
 
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
+        conc1_entry.place(relx=0.65,rely=0.3,width = 35)
         conc2_entry= tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.35,width = 35)
+        conc2_entry.place(relx=0.65,rely=0.35,width = 35)
     if len(pcr['Primary Template']) == 3:
   
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
+        conc1_entry.place(relx=0.65,rely=0.3,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.35,width = 35)
+        conc2_entry.place(relx=0.65,rely=0.35,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.4,width = 35)
+        conc3_entry.place(relx=0.65,rely=0.4,width = 35)
     if len(pcr['Primary Template']) == 4:
   
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.3,width = 35)
+        conc1_entry.place(relx=0.65,rely=0.3,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.35,width = 35)
+        conc2_entry.place(relx=0.65,rely=0.35,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.4,width = 35)
+        conc3_entry.place(relx=0.65,rely=0.4,width = 35)
         conc4_entry = tk.Entry()
         conc4_entry.insert(END, '0')
-        conc4_entry.place(relx=0.6,rely=0.45,width = 35)
+        conc4_entry.place(relx=0.65,rely=0.45,width = 35)
     if len(pcr['Primary Template']) == 5:
       
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.35,width = 35)
+        conc1_entry.place(relx=0.65,rely=0.35,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.4,width = 35)
+        conc2_entry.place(relx=0.65,rely=0.4,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.45,width = 35)
+        conc3_entry.place(relx=0.65,rely=0.45,width = 35)
         conc4_entry = tk.Entry()
         conc4_entry.insert(END, '0')
-        conc4_entry.place(relx=0.6,rely=0.5,width = 35)
+        conc4_entry.place(relx=0.65,rely=0.5,width = 35)
         conc5_entry = tk.Entry()
         conc5_entry.insert(END, '0')
-        conc5_entry.place(relx=0.6,rely=0.55,width = 35)
+        conc5_entry.place(relx=0.65,rely=0.55,width = 35)
         
     if len(pcr['Primary Template']) == 6:
       
         conc1_entry= tk.Entry()
         conc1_entry.insert(END, '0')
-        conc1_entry.place(relx=0.6,rely=0.35,width = 35)
+        conc1_entry.place(relx=0.65,rely=0.35,width = 35)
         conc2_entry = tk.Entry()
         conc2_entry.insert(END, '0')
-        conc2_entry.place(relx=0.6,rely=0.4,width = 35)
+        conc2_entry.place(relx=0.65,rely=0.4,width = 35)
         conc3_entry = tk.Entry()
         conc3_entry.insert(END, '0')
-        conc3_entry.place(relx=0.6,rely=0.45,width = 35)
+        conc3_entry.place(relx=0.65,rely=0.45,width = 35)
         conc4_entry = tk.Entry()
         conc4_entry.insert(END, '0')
-        conc4_entry.place(relx=0.6,rely=0.5,width = 35)
+        conc4_entry.place(relx=0.65,rely=0.5,width = 35)
         conc5_entry = tk.Entry()
         conc5_entry.insert(END, '0')
-        conc5_entry.place(relx=0.6,rely=0.55,width = 35)
+        conc5_entry.place(relx=0.65,rely=0.55,width = 35)
         conc6_entry = tk.Entry()
         conc6_entry.insert(END, '0')
-        conc6_entry.place(relx=0.6,rely=0.6,width = 35)
+        conc6_entry.place(relx=0.65,rely=0.6,width = 35)
+
+    if len(pcr['Primary Template']) == 7:
+      
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.65,rely=0.35,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.65,rely=0.4,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.65,rely=0.45,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.65,rely=0.5,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.65,rely=0.55,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.65,rely=0.6,width = 35)
+        conc7_entry = tk.Entry()
+        conc7_entry.insert(END, '0')
+        conc7_entry.place(relx=0.65,rely=0.65,width = 35)
+
+    if len(pcr['Primary Template']) == 8:
+      
+        conc1_entry= tk.Entry()
+        conc1_entry.insert(END, '0')
+        conc1_entry.place(relx=0.65,rely=0.35,width = 35)
+        conc2_entry = tk.Entry()
+        conc2_entry.insert(END, '0')
+        conc2_entry.place(relx=0.65,rely=0.4,width = 35)
+        conc3_entry = tk.Entry()
+        conc3_entry.insert(END, '0')
+        conc3_entry.place(relx=0.65,rely=0.45,width = 35)
+        conc4_entry = tk.Entry()
+        conc4_entry.insert(END, '0')
+        conc4_entry.place(relx=0.65,rely=0.5,width = 35)
+        conc5_entry = tk.Entry()
+        conc5_entry.insert(END, '0')
+        conc5_entry.place(relx=0.65,rely=0.55,width = 35)
+        conc6_entry = tk.Entry()
+        conc6_entry.insert(END, '0')
+        conc6_entry.place(relx=0.65,rely=0.6,width = 35)
+        conc7_entry = tk.Entry()
+        conc7_entry.insert(END, '0')
+        conc7_entry.place(relx=0.65,rely=0.65,width = 35)
+        conc8_entry = tk.Entry()
+        conc8_entry.insert(END, '0')
+        conc8_entry.place(relx=0.65,rely=0.7,width = 35)
 
     label_extra1 = Label(text='Choose which fragments to amplify with error-prone PCR.',font=('Helvatical bold',14))
     label_extra1.place(relx=0,rely=0.15)  
@@ -385,7 +549,7 @@ if __name__ == '__main__':
 
     for i, row in pcr.iterrows():
 
-        label_extra1 = tk.Label(text='Temp: '+pcr.loc[i].at['Primary Template']+' ID: '+str(pcr.loc[i].at['Reaction ID Number'])+' '+str(pcr.loc[i].at['Forward Oligo Name']),font=('Helvatical bold',14))
+        label_extra1 = tk.Label(text='Temp: '+pcr.loc[i].at['Primary Template']+' ID: '+str(pcr.loc[i].at['ID Number'])+' '+str(pcr.loc[i].at['Name']),font=('Helvatical bold',14))
         label_extra1.place(relx = 0.3, rely = rel_y)
     
     #names.loc[i].at['pwllocation'] = tk.Entry()
@@ -419,6 +583,12 @@ if __name__ == '__main__':
         
     if len(pcr['Primary Template']) == 6:
         include = [conc1,conc2,conc3,conc4,conc5,conc6]
+
+    if len(pcr['Primary Template']) == 7:
+        include = [conc1,conc2,conc3,conc4,conc5,conc6,conc7]
+
+    if len(pcr['Primary Template']) == 8:
+        include = [conc1,conc2,conc3,conc4,conc5,conc6,conc7,conc8]
         
     # temppwls = [temppwl1,temppwl2,temppwl3,temppwl4,temppwl5,temppwl6]
     # tempconcs = [conc1,conc2,conc3,conc4,conc5,conc6]
@@ -1776,8 +1946,8 @@ if __name__ == '__main__':
 
     temps = pcr['Mean Oligo Tm (3 Only)'].values.tolist()
     
-    deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
+    deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3 Only)').reset_index()
+    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3 Only)'].tolist()
     delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
     
     U = delta_temp + delta_val
@@ -1881,38 +2051,70 @@ if __name__ == '__main__':
     pcr
 
     dupin = {}
-    dupin['A1'] = 'B1'
-    dupin['A2'] = 'B2'
-    dupin['A3'] = 'B3'
-    dupin['A4'] = 'B4'
-    dupin['A5'] = 'B5'
-    dupin['A6'] = 'B6'
-    dupin['A7'] = 'B7'
-    dupin['A8'] = 'B8'
-    dupin['B1'] = 'C1'
-    dupin['B2'] = 'C2'
-    dupin['B3'] = 'C3'
-    dupin['B4'] = 'C4'
-    dupin['B5'] = 'C5'
-    dupin['B6'] = 'C6'
-    dupin['B7'] = 'C7'
-    dupin['B8'] = 'C8'
-    dupin['C1'] = 'D1'
-    dupin['C2'] = 'D2'
-    dupin['C3'] = 'D3'
-    dupin['C4'] = 'D4'
-    dupin['C5'] = 'D5'
-    dupin['C6'] = 'D6'
-    dupin['C7'] = 'D7'
-    dupin['C8'] = 'D8'
-    dupin['D1'] = 'E1'
-    dupin['D2'] = 'E2'
-    dupin['D3'] = 'E3'
-    dupin['D4'] = 'E4'
-    dupin['D5'] = 'E5'
-    dupin['D6'] = 'E6'
-    dupin['D7'] = 'E7'
-    dupin['D8'] = 'E8'
+    dupin['A1'] = 'A2'
+    dupin['A2'] = 'A3'
+    dupin['A3'] = 'A4'
+    dupin['A4'] = 'A5'
+    dupin['A5'] = 'A6'
+    dupin['A6'] = 'A7'
+    dupin['A7'] = 'A8'
+    #dupin['A8'] = 'B8'
+    dupin['B1'] = 'B2'
+    dupin['B2'] = 'B3'
+    dupin['B3'] = 'B4'
+    dupin['B4'] = 'B5'
+    dupin['B5'] = 'B6'
+    dupin['B6'] = 'B7'
+    dupin['B7'] = 'B8'
+    #dupin['B8'] = 'C8'
+    dupin['C1'] = 'C2'
+    dupin['C2'] = 'C3'
+    dupin['C3'] = 'C4'
+    dupin['C4'] = 'C5'
+    dupin['C5'] = 'C6'
+    dupin['C6'] = 'C7'
+    dupin['C7'] = 'C8'
+    #dupin['C8'] = 'D8'
+    dupin['D1'] = 'D2'
+    dupin['D2'] = 'D3'
+    dupin['D3'] = 'D4'
+    dupin['D4'] = 'D5'
+    dupin['D5'] = 'D6'
+    dupin['D6'] = 'D7'
+    dupin['D7'] = 'D8'
+    #dupin['D8'] = 'E8'
+    dupin['E1'] = 'E2'
+    dupin['E2'] = 'E3'
+    dupin['E3'] = 'E4'
+    dupin['E4'] = 'E5'
+    dupin['E5'] = 'E6'
+    dupin['E6'] = 'E7'
+    dupin['E7'] = 'E8'
+    #dupin['A8'] = 'B8'
+    dupin['F1'] = 'F2'
+    dupin['F2'] = 'F3'
+    dupin['F3'] = 'F4'
+    dupin['F4'] = 'F5'
+    dupin['F5'] = 'F6'
+    dupin['F6'] = 'F7'
+    dupin['F7'] = 'F8'
+    #dupin['B8'] = 'C8'
+    dupin['G1'] = 'G2'
+    dupin['G2'] = 'G3'
+    dupin['G3'] = 'G4'
+    dupin['G4'] = 'G5'
+    dupin['G5'] = 'G6'
+    dupin['G6'] = 'G7'
+    dupin['G7'] = 'G8'
+    #dupin['C8'] = 'D8'
+    dupin['H1'] = 'H2'
+    dupin['H2'] = 'H3'
+    dupin['H3'] = 'H4'
+    dupin['H4'] = 'H5'
+    dupin['H5'] = 'H6'
+    dupin['H6'] = 'H7'
+    dupin['H7'] = 'H8'
+    #dupin['D8'] = 'E8'
 
 
 
@@ -2005,6 +2207,8 @@ if __name__ == '__main__':
     shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/'+str(2)+'_'+date+time+'_EPPCR/')
     shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/'+str(2)+'_'+date+time+'_EPPCR/')
 
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/dilution_Error_prone_PCR_writer.py',paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/')
 
     ######################################################################################################
 
@@ -2196,7 +2400,7 @@ if __name__ == '__main__':
     id2well['23'] = 'D6'
 
     pcr = pandas.read_csv(paths.loc[0].at['opentrons_repo']+'/Error_prone_PCR_Golden_Gate/'+date+time+'_PCR/pcr.csv')
-    id2pcrrr = pcr.set_index('Reaction ID Number').to_dict()['tube']
+    id2pcrrr = pcr.set_index('ID Number').to_dict()['tube']
     print(id2pcrrr)
     #id2pcrrr = {}
     #id2pcrrr['0'] = 'B2'
@@ -2283,7 +2487,7 @@ if __name__ == '__main__':
     pcr.columns = pcr.columns.str.replace("'","")
     pcr
 
-    pcr[['Reaction ID Number','Forward Oligo ID Number','Reverse Oligo ID Number']] = pcr[['Reaction ID Number','Forward Oligo ID Number','Reverse Oligo ID Number']].astype(int)
+    pcr[['ID Number','ID Number.1','ID Number.2']] = pcr[['ID Number','ID Number.1','ID Number.2']].astype(int)
     pcr
 
     #if bumpback > 0:
@@ -2374,15 +2578,15 @@ if __name__ == '__main__':
     wellinfo = oligos[['ID Number','well']]
     wellinfo
 
-    wellinfo = wellinfo.rename(columns={'ID Number':'Forward Oligo ID Number'})
-    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Forward Oligo ID Number')
-    wellinfo = wellinfo.rename(columns={'Forward Oligo ID Number':'Reverse Oligo ID Number','well':'well2'})
-    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'Reverse Oligo ID Number')
+    wellinfo = wellinfo.rename(columns={'ID Number':'ID Number.1'})
+    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'ID Number.1')
+    wellinfo = wellinfo.rename(columns={'ID Number.1':'ID Number.2','well':'well2'})
+    pcr_plustemplates = pcr_plustemplates.merge(wellinfo, on= 'ID Number.2')
     pcr_plustemplates
 
     #pcrstart  = len(digests['well'])
     for i, row in pcr_plustemplates.iterrows():
-        pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2pcrrr[pcr_plustemplates.loc[i].at["Reaction ID Number"]]
+        pcr_plustemplates.loc[i,'frag_pcr_tube'] = id2pcrrr[pcr_plustemplates.loc[i].at["ID Number"]]
     pcr_plustemplates
 
     prvol = pandas.DataFrame()
@@ -3504,3 +3708,14 @@ if __name__ == '__main__':
 
     # rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
     # rc
+
+    
+    from dilution_Error_prone_PCR_writer import *
+    write_dilution()
+
+    #os.rename('GG_dilutions.py', 'Initial_PCR_dilution.py')
+
+    from Error_prone_PCR_writer import *
+    write_eppcr()
+
+    #os.rename('GG_digests.py', 'Initial_PCR_run.py')

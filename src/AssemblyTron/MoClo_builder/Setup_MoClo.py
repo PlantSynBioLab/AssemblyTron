@@ -1,12 +1,12 @@
-'''Setup script for Golden Gate Assembly with 24 tube capacity
+'''Setup script for building MoClo plasmids.
 
-This script walks the user through setup of a Golden Gate assembly with up to 24 combined primers and templates. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
+This script walks the user through selecting how many plasmids to build, which parts to include in the plasmids, and additional parameters.
 
 This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.
 
-This script requires `pandas` and `numpy` to be installed in the python environment where running. 
+This script requires `pandas` , `numpy` , `shutil` , `tkinter` to be installed in the python environment where running. 
 
-This script can also be called as a module by calling `AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24`.
+This script can also be called as a module by calling `AssemblyTron.MoClo_builder.Setup_MoClo`.
 
 '''
 if __name__ == '__main__':
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     import pandas
     import shutil
     import numpy as np
-    import subprocess
+
 
     from datetime import date
     from datetime import datetime
@@ -40,7 +40,11 @@ if __name__ == '__main__':
         while _cur_depth < depth:
             path = os.path.dirname(path)
             _cur_depth += 1
-        return path   
+        return path
+
+    path = walk_up_folder(os.getcwd(), 2)
+    df = pandas.DataFrame({'opentrons_repo': [path]})
+    df.to_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')   
 
     paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
     paths

@@ -1,21 +1,21 @@
-'''Setup script for Golden Gate Assembly with with a destination plasmid with restriction sites
+'''Setup script for Golden Gate Assembly. This variation of the writer is for when entry plasmids are being used.
 
-This script walks the user through setup of a Golden Gate assembly with a destination plasmid with restriction sites. The destination plasmid is typically the backbone fragment and does not require PCR amplification. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
+This script walks the user through setup of Golden Gate assembly. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.
 
 This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.
 
-This script requires `pandas` and `numpy` to be installed in the python environment where running. 
+This script requires `pandas` , `numpy` , `shutil` , `tkinter` to be installed in the python environment where running. 
 
 This script can also be called as a module by calling `AssemblyTron.Golden_Gate.Setup_digests_gradient`.
 
 '''
+
 if __name__ == '__main__':
         
     import os
     import pandas
     import shutil
     import numpy as np
-    import subprocess
 
     from datetime import date
     from datetime import datetime
@@ -78,7 +78,15 @@ if __name__ == '__main__':
         while _cur_depth < depth:
             path = os.path.dirname(path)
             _cur_depth += 1
-        return path   
+        return path 
+
+    path = walk_up_folder(os.getcwd(), 2)
+    df = pandas.DataFrame({'opentrons_repo': [path]})
+    df.to_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
+
+    path = walk_up_folder(os.getcwd(), 2)
+    df = pandas.DataFrame({'opentrons_repo': [path]})
+    df.to_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')  
 
     paths = pandas.read_csv(walk_up_folder(os.getcwd(), 2)+'\paths.csv')
     paths
@@ -86,12 +94,15 @@ if __name__ == '__main__':
 
     ##########################################################################################################################
     ###Run R script via python
-    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs+digests.R', name)
+    shutil.copy2(paths.loc[0].at['opentrons_repo']+'/j5_to_csvs_digests.py', os.getcwd())
     goback = os.getcwd() 
     os.chdir(name)
 
-    retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs+digests.R'], shell=True)
-    retcode
+    from j5_to_csvs_digests import *
+    parse_j5()
+
+    # retcode = subprocess.call([paths.loc[0].at['r_path']+'/Rscript.exe', '--vanilla', name+'/j5_to_csvs.R'], shell=True)
+    # retcode
 
     os.chdir(goback)
     #######################################################################################################################
@@ -731,7 +742,7 @@ if __name__ == '__main__':
     pcrvol_entry.place(relx=0.2,rely=0.15,width=35)
 
     templatengs_entry = tk.Entry()
-    templatengs_entry.insert(END, '0.5')
+    templatengs_entry.insert(END, '0.02')
     templatengs_entry.place(relx=0.2,rely=0.175,width=35)
 
     Q5_entry = tk.Entry()
@@ -1430,18 +1441,31 @@ if __name__ == '__main__':
     runnumber = 0
 
     # pcr_plustemplates
-    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
-    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 only)'] + pcr_plustemplates['Delta Oligo Tm (3 only)']
+    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 only)'] - pcr_plustemplates['Delta Oligo Tm (3 only)']
     # pcr_plustemplates
 
-    temps = pcr['Mean Oligo Tm (3 Only)'].values.tolist()
+    temps = pcr['Mean Oligo Tm (3 only)'].values.tolist()
     
-    deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
-    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
-    
+    deltaa =  pcr.nsmallest(1,'Delta Oligo Tm (3 only)').reset_index()
+    delta_val = deltaa.loc[0].at['Delta Oligo Tm (3 only)'].tolist()
+    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 only)'].tolist()
     U = delta_temp + delta_val
     L = delta_temp - delta_val
+
+    #range of largest temp
+    deltaa =  pcr.nlargest(1,'Mean Oligo Tm (3 only)').reset_index()
+    delta_val = .4
+    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 only)'].tolist()
+    U2 = delta_temp + delta_val
+    L2 = delta_temp - delta_val
+
+    #range of lowest temp
+    deltaa =  pcr.nsmallest(1,'Mean Oligo Tm (3 only)').reset_index()
+    delta_val = .4
+    delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 only)'].tolist()
+    U3 = delta_temp + delta_val
+    L3 = delta_temp - delta_val
 
     redo = 1
     
@@ -1456,9 +1480,9 @@ if __name__ == '__main__':
             #temps = [59.499,65.4245,67.8095,62.142,62.7575]
             #temps
 
-            one = np.random.uniform(50,75)
-            #one = round(numpy.random.uniform(50, 70), 1)
-            eight = np.random.uniform(65,90)
+            one = np.random.uniform(min(temps)-.5,min(temps)+.5)
+
+            eight = np.random.uniform(max(temps)-.5,max(temps)+.5)
             #eight = round(numpy.random.uniform(70, 90), 1)
 
             two = one +((2-1)/(8-1)) * (eight-one)
@@ -1505,22 +1529,38 @@ if __name__ == '__main__':
         #L = 65.1535
 
         i = 0
+        complete = []
+        print(FV)
         while i < len(FV):
             if L<FV[i]<U:
                 print('good')
                 start = str(FV[i])
-                redo = 2
-                break
+                complete.append(2)
+                # break
+            if L2<FV[i]<U2:
+                print('good')
+                start = str(FV[i])
+                complete.append(10)
+                # break
+            if L3<FV[i]<U3:
+                print('good')
+                start = str(FV[i])
+                complete.append(1000)
+
             else:
-                redo = 1
+                redo4 = 1
                 print(redo)
+                complete.append(1)
             i = i + 1
-        # i=0
-        # while i<len(CV):
-        #     if start == '0':
-        #         redo = 1
-        #         print(redo)
-        #     i = i + 1
+        
+        multiple_values = [2,10,1000]
+        print(complete)
+        if all(value in complete for value in multiple_values):
+            # 👇️ this runs
+            print('All of the values are in the list')
+            break
+        else:
+            print('Not all of the values are in the list')
 
 
     gradient = pandas.DataFrame(FV, columns=['temp'])
@@ -1530,7 +1570,7 @@ if __name__ == '__main__':
     for i, row in pcr.iterrows():
         diffss = []
         for j, row in gradient.iterrows():
-            aaa = pcr.loc[i].at['Mean Oligo Tm (3 Only)']
+            aaa = pcr.loc[i].at['Mean Oligo Tm (3 only)']
             bbb = gradient.loc[j].at['temp']
             A = abs(aaa - bbb )
             diffss.append(A)
@@ -2072,29 +2112,29 @@ if __name__ == '__main__':
 
 
     if len(combinations.columns) == 5:
-        combinations['Part(s) Bin 1'] = 'nan'
-        combinations['Assembly Piece ID Number Bin 1'] = 'nan'
-        combinations['Part(s) Bin 2'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 2'] = 'nan'
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).1'] = 'nan'
+        combinations['Assembly Piece ID Number.1'] = 'nan'
+        combinations['Part(s).2'] = 'nan' 
+        combinations['Assembly Piece ID Number.2'] = 'nan'
+        combinations['Part(s).3'] = 'nan' 
+        combinations['Assembly Piece ID Number.3'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
     if len(combinations.columns) == 7:
-        combinations['Part(s) Bin 2'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 2'] = 'nan'
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).2'] = 'nan' 
+        combinations['Assembly Piece ID Number.2'] = 'nan'
+        combinations['Part(s).3'] = 'nan' 
+        combinations['Assembly Piece ID Number.3'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
     if len(combinations.columns) == 9:
-        combinations['Part(s) Bin 3'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 3'] = 'nan'
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).3'] = 'nan' 
+        combinations['Assembly Piece ID Number.3'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
     if len(combinations.columns) == 11:
-        combinations['Part(s) Bin 4'] = 'nan' 
-        combinations['Assembly Piece ID Number Bin 4'] = 'nan'
+        combinations['Part(s).4'] = 'nan' 
+        combinations['Assembly Piece ID Number.4'] = 'nan'
 
     # Commenting this out for now because AssemblyTron will probably always either just do a gradient or touchdown.
     # if Input_values.loc[0].at['Combinatorial_pcr_params'] == 1:
@@ -2298,12 +2338,12 @@ if __name__ == '__main__':
         annealing=[]
         for i, row in params_tables.iterrows():
             x = params_tables.loc[i].at['parmx']
-    #globals()[x]
-            globals()[x]['Upper_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] + globals()[x]['Delta Oligo Tm (3Only)']
-            globals()[x]['Lower_temp'] = globals()[x]['Mean Oligo Tm (3 Only)'] - globals()[x]['Delta Oligo Tm (3Only)']
-            HL = globals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
+    #locals()[x]
+            locals()[x]['Upper_temp'] = locals()[x]['Mean Oligo Tm (3 only)'] + locals()[x]['Delta Oligo Tm (3 only)']
+            locals()[x]['Lower_temp'] = locals()[x]['Mean Oligo Tm (3 only)'] - locals()[x]['Delta Oligo Tm (3 only)']
+            HL = locals()[x].nsmallest(1,'Upper_temp').reset_index()#.values.tolist()
             HL = HL['Upper_temp'].values.tolist()
-            LH = globals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
+            LH = locals()[x].nlargest(1,'Lower_temp').reset_index()#.values.tolist()
             LH = LH['Lower_temp'].values.tolist()    
             if LH[0] > HL[0]:
                 annealing_temp = (LH[0]+HL[0])/2 + ((LH[0]-HL[0])/3)
@@ -2334,15 +2374,15 @@ if __name__ == '__main__':
     # runnumber = 0
 
     # pcr_plustemplates
-    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] + pcr_plustemplates['Delta Oligo Tm (3Only)']
-    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 Only)'] - pcr_plustemplates['Delta Oligo Tm (3Only)']
+    # pcr_plustemplates['Upper_temp'] = pcr_plustemplates['Mean Oligo Tm (3 only)'] + pcr_plustemplates['Delta Oligo Tm (3 only)']
+    # pcr_plustemplates['Lower_temp'] = pcr_plustemplates['Mean Oligo Tm (3 only)'] - pcr_plustemplates['Delta Oligo Tm (3 only)']
     # pcr_plustemplates
 
-    # temps = pcr_plustemplates['Mean Oligo Tm (3 Only)'].values.tolist()
+    # temps = pcr_plustemplates['Mean Oligo Tm (3 only)'].values.tolist()
     
-    # deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3Only)').reset_index()
-    # delta_val = deltaa.loc[0].at['Delta Oligo Tm (3Only)'].tolist()
-    # delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 Only)'].tolist()
+    # deltaa =  pcr_plustemplates.nsmallest(1,'Delta Oligo Tm (3 only)').reset_index()
+    # delta_val = deltaa.loc[0].at['Delta Oligo Tm (3 only)'].tolist()
+    # delta_temp = deltaa.loc[0].at['Mean Oligo Tm (3 only)'].tolist()
     
     # U = delta_temp + delta_val
     # L = delta_temp - delta_val
@@ -2425,7 +2465,7 @@ if __name__ == '__main__':
     # for i, row in pcr_plustemplates.iterrows():
     #     diffss = []
     #     for j, row in gradient.iterrows():
-    #         aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 Only)']
+    #         aaa = pcr_plustemplates.loc[i].at['Mean Oligo Tm (3 only)']
     #         bbb = gradient.loc[j].at['temp']
     #         A = abs(aaa - bbb )
     #         diffss.append(A)
@@ -2759,20 +2799,20 @@ if __name__ == '__main__':
     # combinations
 
 #if Input_values.loc[0].at['Combinatorial_pcr_params'] == 'Y':
-    pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number Bin ')]
+    pieces = [columns for columns in combinations if columns.startswith('Assembly Piece ID Number')]
     frame = combinations[pieces]
 #frame2 = frame.transpose()
     frame
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 0']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 1']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 2']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 3']
-    if str(frame.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-        del frame['Assembly Piece ID Number Bin 4']
+    if str(frame.loc[0].at['Assembly Piece ID Number']) == 'nan':
+        del frame['Assembly Piece ID Number']
+    if str(frame.loc[0].at['Assembly Piece ID Number.1']) == 'nan':
+        del frame['Assembly Piece ID Number.1']
+    if str(frame.loc[0].at['Assembly Piece ID Number.2']) == 'nan':
+        del frame['Assembly Piece ID Number.2']
+    if str(frame.loc[0].at['Assembly Piece ID Number.3']) == 'nan':
+        del frame['Assembly Piece ID Number.3']
+    if str(frame.loc[0].at['Assembly Piece ID Number.4']) == 'nan':
+        del frame['Assembly Piece ID Number.4']
     
 
 #frame += startnum
@@ -2786,7 +2826,7 @@ if __name__ == '__main__':
     combinations_plustemplocs = pandas.concat([combinations, result_1], axis=1)
     combinations_plustemplocs
     fragnumber = 0.5*(len(combinations.iloc[0,:])-3)
-    goldengs = len(combinations['ID Number'])
+    goldengs = len(combinations['Number'])
     goldengs
     if goldengs == 1:
         GG_dfs = {'gg#': ['gg1']}
@@ -2842,38 +2882,38 @@ if __name__ == '__main__':
 
     ID_tube = assembly[['Reaction ID Number','pcr_frag_tube']]
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 0']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Reaction ID Number':'Assembly Piece ID Number Bin 0'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 0')
+    if not str(combinations.iloc[0,4]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Reaction ID Number':'Assembly Piece ID Number'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 1']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 0':'Assembly Piece ID Number Bin 1'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 1')
+    if not str(combinations.iloc[0,6]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number':'Assembly Piece ID Number.1'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.1')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 2']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 1':'Assembly Piece ID Number Bin 2'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 2')
+    if not str(combinations.iloc[0,8]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number.1':'Assembly Piece ID Number.2'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.2')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 3']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 2':'Assembly Piece ID Number Bin 3'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 3')
+    if not str(combinations.iloc[0,10]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number.2':'Assembly Piece ID Number.3'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.3')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
     combs_short = combs_short.T.drop_duplicates().T
 
-    if not str(combinations.loc[0].at['Assembly Piece ID Number Bin 4']) == 'nan':
-        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number Bin 3':'Assembly Piece ID Number Bin 4'})
-        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number Bin 4')
+    if not str(combinations.iloc[0,12]) == 'nan':
+        ID_tube = ID_tube.rename(columns={'Assembly Piece ID Number.3':'Assembly Piece ID Number.4'})
+        combinations = combinations.merge(ID_tube, on= 'Assembly Piece ID Number.4')
         combs_shor = [columns for columns in combinations if columns.startswith('pcr_frag_tube')]
         combs_short = combinations[combs_shor]
         #combs_short = combinations[['pcr_frag_tube_x','pcr_frag_tube_y','pcr_frag_tube']] #,'pcr_frag_tube_y','pcr_frag_tube'
@@ -2951,54 +2991,54 @@ if __name__ == '__main__':
         
     for i, row in GG_dfs.iterrows():
         x = GG_dfs.loc[i].at['gg#']
-        globals()[x] = combs_short[[i]]
-        globals()[x].loc[:,'conc_assumed']= 60
+        locals()[x] = combs_short[[i]]
+        locals()[x].loc[:,'conc_assumed']= 60
 
         bps = assembly[['Sequence Length','pcr_frag_tube']]
 
         bps = bps.rename(columns={'pcr_frag_tube':i})
-        globals()[x] = globals()[x].merge(bps, on= i)
+        locals()[x] = locals()[x].merge(bps, on= i)
         
-        backbone_length=globals()[x]["Sequence Length"].max()
+        backbone_length=locals()[x]["Sequence Length"].max()
         backbone_length
             
-        globals()[x] = globals()[x].rename(columns={0:'frag_loc',1:'frag_loc',2:'frag_loc',3:'frag_loc',4:'frag_loc',5:'frag_loc'})
+        locals()[x] = locals()[x].rename(columns={0:'frag_loc',1:'frag_loc',2:'frag_loc',3:'frag_loc',4:'frag_loc',5:'frag_loc'})
         
         #for i, row in plasmid.iterrows():
         #     plasmid.loc[i,'final tube'] = pcr2final[str(i)]
             
             
-        # for i, row in globals()[x].iterrows():
-        #     globals()[x].loc[i,'dil_tube'] = dil_tu[globals()[x].loc[i,'frag_loc']]
+        # for i, row in locals()[x].iterrows():
+        #     locals()[x].loc[i,'dil_tube'] = dil_tu[locals()[x].loc[i,'frag_loc']]
             
-        for i, row in globals()[x].iterrows():
-            globals()[x].loc[i,"equimolar ratio"]=globals()[x].loc[i,"Sequence Length"]/backbone_length
-            globals()[x].loc[i,"inverse of conc"]=1/globals()[x].loc[i,"conc_assumed"]
-            globals()[x].loc[i,"initial required amount"]=Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*globals()[x].loc[i,"inverse of conc"]
+        for i, row in locals()[x].iterrows():
+            locals()[x].loc[i,"equimolar ratio"]=locals()[x].loc[i,"Sequence Length"]/backbone_length
+            locals()[x].loc[i,"inverse of conc"]=1/locals()[x].loc[i,"conc_assumed"]
+            locals()[x].loc[i,"initial required amount"]=Input_values.loc[0].at['ngdesired']*locals()[x].loc[i,"equimolar ratio"]*locals()[x].loc[i,"inverse of conc"]
         
-            if globals()[x].loc[i,"initial required amount"] > 1: 
-                globals()[x].loc[i,"H20 to add to 1uL of fragment"] = np.nan
-            if globals()[x].loc[i,"initial required amount"] < 1:
-                globals()[x].loc[i,"H20 to add to 1uL of fragment"]=(2/globals()[x].loc[i,"initial required amount"])-1    
+            if locals()[x].loc[i,"initial required amount"] > 1: 
+                locals()[x].loc[i,"H20 to add to 1uL of fragment"] = np.nan
+            if locals()[x].loc[i,"initial required amount"] < 1:
+                locals()[x].loc[i,"H20 to add to 1uL of fragment"]=(2/locals()[x].loc[i,"initial required amount"])-1    
         
-            globals()[x].loc[i,"new Conc"] = globals()[x].loc[i,"conc_assumed"]/(globals()[x].loc[i,"H20 to add to 1uL of fragment"]+1)
-            globals()[x].loc[i,"new required amount"] = Input_values.loc[0].at['ngdesired']*globals()[x].loc[i,"equimolar ratio"]*(1/globals()[x].loc[i,"new Conc"])
+            locals()[x].loc[i,"new Conc"] = locals()[x].loc[i,"conc_assumed"]/(locals()[x].loc[i,"H20 to add to 1uL of fragment"]+1)
+            locals()[x].loc[i,"new required amount"] = Input_values.loc[0].at['ngdesired']*locals()[x].loc[i,"equimolar ratio"]*(1/locals()[x].loc[i,"new Conc"])
         
-            globals()[x].loc[i,"final amount to add"] = ''
-            if globals()[x].loc[i,"initial required amount"] > 1:
-                globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i,"initial required amount"]
+            locals()[x].loc[i,"final amount to add"] = ''
+            if locals()[x].loc[i,"initial required amount"] > 1:
+                locals()[x].loc[i,"final amount to add"] = locals()[x].loc[i,"initial required amount"]
             else:
-                globals()[x].loc[i,"final amount to add"] = globals()[x].loc[i, "new required amount"]
+                locals()[x].loc[i,"final amount to add"] = locals()[x].loc[i, "new required amount"]
                     
     #GG_dfs = {'gg#': ['gg1','gg2','gg3','gg4']}
     #GG_dfs = pandas.DataFrame(data=GG_dfs)
         
     #for i, row in GG_dfs.iterrows():
         #x = GG_dfs.loc[i].at['gg#']
-        #for i, row in globals()[x].iterrows():
-            globals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
+        #for i, row in locals()[x].iterrows():
+            locals()[x].loc[i,'location_of_assembly'] = id2wellpcr[str(next_tc_tube)]
         
-        globals()[x].to_csv(x+'.csv')
+        locals()[x].to_csv(x+'.csv')
 
         next_tc_tube = next_tc_tube + 1
 
@@ -3167,5 +3207,14 @@ if __name__ == '__main__':
         main()
     os.system("notepad.exe reaction_setup.txt")
 
-    # rc = subprocess.call([paths.loc[0].at['opentrons_repo']+'/Copy Cloning.bat'])
-    # rc
+    from dilution_24_digests_writer import *
+    write_dilution()
+
+    os.rename('GG_dilutions.py', 'Dilution.py')
+
+    from GoldenGate_digests_separatepcrruns_gradient_writer import *
+    write_pcr()
+
+    os.rename('GG_digests.py', 'GoldenGate.py')
+
+

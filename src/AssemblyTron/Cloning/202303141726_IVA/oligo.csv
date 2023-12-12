@@ -1,7 +1,0 @@
-,ID Number,Name,Length,Tm,Tm (3' only),Cost,Sequence,Sequence (3' only),24well,rack,96well,stock primer concentration,volume of stock primer to add,concentration of diluted primer,volume of diluted primer,how much of the diluted primer is left,amount primer to add to frag amplification
-0,0,mas00001_(UpstreamAFB_P88Ldegron)_forward,33,68.693,60.14,3.3,TGACTGGTGAGTACTCAACCAAGTCATTCTGAG,AGTACTCAACCAAGTCATTCTGAG,A1,deckslot4,A1,100.0,1.0,2.5,40.0,,1.0
-1,1,mas00002_(UpstreamAFB_P88Ldegron)_(P88L_cta_2681-2683)_reverse,39,73.012,60.041,3.9,CTTCCGGTATGATCTCACTAGTGGCCATCCCACAACTTG,TGGCCATCCCACAACTTG,A2,deckslot4,A2,100.0,1.0,2.5,40.0,,1.0
-2,2,mas00003_(DownstreamAFB_P88Ldegron)_forward,22,60.672,60.672,2.2,GTGAGATCATACCGGAAGAACG,GTGAGATCATACCGGAAGAACG,A3,deckslot4,A3,100.0,1.0,2.5,40.0,,1.0
-3,3,mas00004_(DownstreamAFB_P88Ldegron)_reverse,35,69.063,64.22,3.5,TTGAGTACTCACCAGTCACAGAAAAGCATCTTACG,CACCAGTCACAGAAAAGCATCTTACG,A4,deckslot4,A4,100.0,1.0,2.5,40.0,,1.0
-4,4,mas00005_(UpstreamAFB_GAPPVdegron)_(GAPPV_gcg_2675-2677)_reverse,41,78.987,63.077,4.1,GTATGATCTCACCGGTGGCGCTCCCACAACTTGTGCCTTGG,TCCCACAACTTGTGCCTTGG,A5,deckslot4,A5,100.0,1.0,2.5,40.0,,1.0
-5,5,mas00006_(DownstreamAFB_GAPPVdegron)_forward,21,64.48,64.48,2.1,CCACCGGTGAGATCATACCGG,CCACCGGTGAGATCATACCGG,A6,deckslot4,A6,100.0,1.0,2.5,40.0,,1.0
