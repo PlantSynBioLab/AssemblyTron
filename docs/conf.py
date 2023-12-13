@@ -10,8 +10,8 @@ import src.AssemblyTron.Update_Input
 import src.AssemblyTron.opentrons_demo_script
 import src.AssemblyTron.pathswriter
 import src.AssemblyTron.static_wired_IP_address
-import src.AssemblyTron.j5_to_csvs
-import src.AssemblyTron.j5_to_csvs_digests
+#import src.AssemblyTron.j5_to_csvs
+#import src.AssemblyTron.j5_to_csvs_digests
 import src.AssemblyTron
 
 import src.AssemblyTron.Golden_Gate.GoldenGate_nodigests_separatepcrruns_gradient_writer
