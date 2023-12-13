@@ -1,4 +1,4 @@
-AssemblyTron Package
+AssemblyTron package
 ====================
 
 Subpackages
@@ -8,39 +8,57 @@ Subpackages
    :maxdepth: 4
 
    AssemblyTron.Cloning
+   AssemblyTron.Error_prone_PCR_Golden_Gate
    AssemblyTron.Golden_Gate
+   AssemblyTron.MoClo_builder
 
 Submodules
 ----------
 
-AssemblyTron.Update\_Input Script
+AssemblyTron.Update\_Input module
 ---------------------------------
 
-.. automodule:: src.AssemblyTron.Update_Input
+.. automodule:: AssemblyTron.Update_Input
    :members:
    :undoc-members:
    :show-inheritance:
 
-AssemblyTron.opentrons\_demo\_script Script
+AssemblyTron.j5\_to\_csvs module
+--------------------------------
+
+.. automodule:: AssemblyTron.j5_to_csvs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+AssemblyTron.j5\_to\_csvs\_digests module
+-----------------------------------------
+
+.. automodule:: AssemblyTron.j5_to_csvs_digests
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+AssemblyTron.opentrons\_demo\_script module
 -------------------------------------------
 
-.. automodule:: src.AssemblyTron.opentrons_demo_script
+.. automodule:: AssemblyTron.opentrons_demo_script
    :members:
    :undoc-members:
    :show-inheritance:
 
-AssemblyTron.pathswriter Script
+AssemblyTron.pathswriter module
 -------------------------------
 
-.. automodule:: src.AssemblyTron.pathswriter
+.. automodule:: AssemblyTron.pathswriter
    :members:
    :undoc-members:
    :show-inheritance:
 
-AssemblyTron.static\_wired\_IP\_address Script
+AssemblyTron.static\_wired\_IP\_address module
 ----------------------------------------------
 
-.. automodule:: src.AssemblyTron.static_wired_IP_address
+.. automodule:: AssemblyTron.static_wired_IP_address
    :members:
    :undoc-members:
    :show-inheritance:
@@ -48,7 +66,7 @@ AssemblyTron.static\_wired\_IP\_address Script
 Module contents
 ---------------
 
-.. automodule:: src.AssemblyTron
+.. automodule:: AssemblyTron
    :members:
    :undoc-members:
    :show-inheritance:
