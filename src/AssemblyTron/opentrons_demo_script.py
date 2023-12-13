@@ -7,7 +7,7 @@ This script does not require any input files.
 '''
 
 
-from opentrons import protocol_api
+#from opentrons import protocol_api
 
 #Metadata is a dictionary of data that is read by the server and returned to the opentrons app. 
 #give yourself credit. you are required to specify the 'apiLevel' herefrom opentrons import protocol_api
