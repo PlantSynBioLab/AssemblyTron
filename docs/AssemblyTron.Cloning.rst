@@ -44,14 +44,6 @@ AssemblyTron.Cloning.dilution\_96\_writer module
    :undoc-members:
    :show-inheritance:
 
-AssemblyTron.Cloning.j5\_to\_csvs module
-----------------------------------------
-
-.. automodule:: AssemblyTron.Cloning.j5_to_csvs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

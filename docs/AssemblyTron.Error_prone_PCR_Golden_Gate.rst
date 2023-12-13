@@ -92,22 +92,6 @@ AssemblyTron.Error\_prone\_PCR\_Golden\_Gate.dilution\_Error\_prone\_PCR\_writer
    :undoc-members:
    :show-inheritance:
 
-AssemblyTron.Error\_prone\_PCR\_Golden\_Gate.j5\_to\_csvs module
-----------------------------------------------------------------
-
-.. automodule:: AssemblyTron.Error_prone_PCR_Golden_Gate.j5_to_csvs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-AssemblyTron.Error\_prone\_PCR\_Golden\_Gate.j5\_to\_csvs\_digests module
--------------------------------------------------------------------------
-
-.. automodule:: AssemblyTron.Error_prone_PCR_Golden_Gate.j5_to_csvs_digests
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

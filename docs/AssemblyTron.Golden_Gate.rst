@@ -68,22 +68,6 @@ AssemblyTron.Golden\_Gate.dilution\_96\_writer module
    :undoc-members:
    :show-inheritance:
 
-AssemblyTron.Golden\_Gate.j5\_to\_csvs module
----------------------------------------------
-
-.. automodule:: AssemblyTron.Golden_Gate.j5_to_csvs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-AssemblyTron.Golden\_Gate.j5\_to\_csvs\_digests module
-------------------------------------------------------
-
-.. automodule:: AssemblyTron.Golden_Gate.j5_to_csvs_digests
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 
