@@ -58,21 +58,21 @@ if __name__ == '__main__':
             elif gibson:
                 assembly_read = pd.read_csv(input_file, skiprows=gibson[0] + 1, nrows=combinations[0] - gibson[0] - 3)
             if assembly_read is not None:
-            assembly_read.to_csv(os.path.join(path, "assembly.csv"), index=False)
-            print("assembly file created successfully")
+                assembly_read.to_csv(os.path.join(path, "assembly.csv"), index=False)
+                print("assembly file created successfully")
 
             # Read Combinations section of the CSV file
             
             combinations_read = pd.read_csv(input_file, skiprows=combinations[0] + 2)
             if combinations_read is not None:
-            combinations_read.to_csv(os.path.join(path, "combinations.csv"), index=False)
-            print("combination file created successfully")
+                combinations_read.to_csv(os.path.join(path, "combinations.csv"), index=False)
+                print("combination file created successfully")
 
             # Read Digest Linearized Pieces section of the CSV file
             digests_read = pd.read_csv(input_file, skiprows=digests[0] + 1, nrows=oligo[0] - digests[0] - 3)
             if combinations_read is not None:
-            digests_read.to_csv(os.path.join(path, "digests.csv"), index=False)
-            print("digest file created successfully")
+                digests_read.to_csv(os.path.join(path, "digests.csv"), index=False)
+                print("digest file created successfully")
 
     if __name__ == "__main__":
         parse_j5()
