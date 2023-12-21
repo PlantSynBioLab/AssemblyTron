@@ -7,7 +7,7 @@ Submodules
 AssemblyTron.Error\_prone\_PCR\_Golden\_Gate.1\_Setup\_STD\_GoldenGate\_PCR module
 ----------------------------------------------------------------------------------
 
-.. automodule:: AssemblyTron.Error_prone_PCR_Golden_Gate.1_Setup_STD_GoldenGate_PCR
+.. automodule:: AssemblyTron.Error_prone_PCR_Golden_Gate._1_Setup_STD_GoldenGate_PCR
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ AssemblyTron.Error\_prone\_PCR\_Golden\_Gate.1\_Setup\_STD\_GoldenGate\_PCR modu
 AssemblyTron.Error\_prone\_PCR\_Golden\_Gate.1\_Setup\_STD\_GoldenGate\_digests\_PCR module
 -------------------------------------------------------------------------------------------
 
-.. automodule:: AssemblyTron.Error_prone_PCR_Golden_Gate.1_Setup_STD_GoldenGate_digests_PCR
+.. automodule:: AssemblyTron.Error_prone_PCR_Golden_Gate._1_Setup_STD_GoldenGate_digests_PCR
    :members:
    :undoc-members:
    :show-inheritance:
