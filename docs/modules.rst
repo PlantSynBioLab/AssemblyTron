@@ -1,7 +1,7 @@
-AssemblyTron
-============
+docs
+====
 
 .. toctree::
    :maxdepth: 4
 
-   AssemblyTron
+   conf
