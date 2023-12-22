@@ -7,7 +7,7 @@ Submodules
 AssemblyTron.MoClo\_builder.MoClo\_writer module
 ------------------------------------------------
 
-.. automodule:: AssemblyTron.MoClo_builder.MoClo_writer
+.. automodule:: src.AssemblyTron.MoClo_builder.MoClo_writer
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ AssemblyTron.MoClo\_builder.MoClo\_writer module
 AssemblyTron.MoClo\_builder.Setup\_MoClo module
 -----------------------------------------------
 
-.. automodule:: AssemblyTron.MoClo_builder.Setup_MoClo
+.. automodule:: src.AssemblyTron.MoClo_builder.Setup_MoClo
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ AssemblyTron.MoClo\_builder.Setup\_MoClo module
 Module contents
 ---------------
 
-.. automodule:: AssemblyTron.MoClo_builder
+.. automodule:: src.AssemblyTron.MoClo_builder
    :members:
    :undoc-members:
    :show-inheritance:

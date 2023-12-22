@@ -38,14 +38,22 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="assemblytron-moclo-builder-moclo-writer-module">
-<h2>AssemblyTron.MoClo_builder.MoClo_writer module<a class="headerlink" href="#assemblytron-moclo-builder-moclo-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.MoClo_builder.MoClo_writer">
+<span id="assemblytron-moclo-builder-moclo-writer-module"></span><h2>AssemblyTron.MoClo_builder.MoClo_writer module<a class="headerlink" href="#module-src.AssemblyTron.MoClo_builder.MoClo_writer" title="Permalink to this heading">¶</a></h2>
+<p>Writer script for generating Modular cloning toolkit constructs assembly protocols in OpenTrons API.</p>
+<p>This script performs Golden Gate assembly to build MoClo plasmids. Each part must come from a predetermined position in a 96 well plate. Each part is maintained as a plasmid, which should be purified prior to running this writer script.</p>
+<p>This script runs on the command line of a personal laptop. It calls CSVs to make a customized protocol script that can be transferred directly to the OT-2 via the run app.</p>
 </section>
-<section id="assemblytron-moclo-builder-setup-moclo-module">
-<h2>AssemblyTron.MoClo_builder.Setup_MoClo module<a class="headerlink" href="#assemblytron-moclo-builder-setup-moclo-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.MoClo_builder.Setup_MoClo">
+<span id="assemblytron-moclo-builder-setup-moclo-module"></span><h2>AssemblyTron.MoClo_builder.Setup_MoClo module<a class="headerlink" href="#module-src.AssemblyTron.MoClo_builder.Setup_MoClo" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for building MoClo plasmids.</p>
+<p>This script walks the user through selecting how many plasmids to build, which parts to include in the plasmids, and additional parameters.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> , <cite>tkinter</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.MoClo_builder.Setup_MoClo</cite>.</p>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.MoClo_builder">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.AssemblyTron.MoClo_builder" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 

@@ -18,7 +18,7 @@ Submodules
 AssemblyTron.Update\_Input module
 ---------------------------------
 
-.. automodule:: AssemblyTron.Update_Input
+.. automodule:: src.AssemblyTron.Update_Input
    :members:
    :undoc-members:
    :show-inheritance:
@@ -26,7 +26,7 @@ AssemblyTron.Update\_Input module
 AssemblyTron.j5\_to\_csvs module
 --------------------------------
 
-.. automodule:: AssemblyTron.j5_to_csvs
+.. automodule:: src.AssemblyTron.j5_to_csvs
    :members:
    :undoc-members:
    :show-inheritance:
@@ -34,7 +34,7 @@ AssemblyTron.j5\_to\_csvs module
 AssemblyTron.j5\_to\_csvs\_digests module
 -----------------------------------------
 
-.. automodule:: AssemblyTron.j5_to_csvs_digests
+.. automodule:: src.AssemblyTron.j5_to_csvs_digests
    :members:
    :undoc-members:
    :show-inheritance:
@@ -42,7 +42,7 @@ AssemblyTron.j5\_to\_csvs\_digests module
 AssemblyTron.opentrons\_demo\_script module
 -------------------------------------------
 
-.. automodule:: AssemblyTron.opentrons_demo_script
+.. automodule:: src.AssemblyTron.opentrons_demo_script
    :members:
    :undoc-members:
    :show-inheritance:
@@ -50,7 +50,7 @@ AssemblyTron.opentrons\_demo\_script module
 AssemblyTron.pathswriter module
 -------------------------------
 
-.. automodule:: AssemblyTron.pathswriter
+.. automodule:: src.AssemblyTron.pathswriter
    :members:
    :undoc-members:
    :show-inheritance:
@@ -58,7 +58,7 @@ AssemblyTron.pathswriter module
 AssemblyTron.static\_wired\_IP\_address module
 ----------------------------------------------
 
-.. automodule:: AssemblyTron.static_wired_IP_address
+.. automodule:: src.AssemblyTron.static_wired_IP_address
    :members:
    :undoc-members:
    :show-inheritance:
@@ -66,7 +66,7 @@ AssemblyTron.static\_wired\_IP\_address module
 Module contents
 ---------------
 
-.. automodule:: AssemblyTron
+.. automodule:: src.AssemblyTron
    :members:
    :undoc-members:
    :show-inheritance:

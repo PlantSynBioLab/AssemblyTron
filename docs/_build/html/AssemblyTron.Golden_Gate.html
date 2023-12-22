@@ -38,32 +38,74 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="assemblytron-golden-gate-goldengate-digests-separatepcrruns-gradient-writer-module">
-<h2>AssemblyTron.Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer module<a class="headerlink" href="#assemblytron-golden-gate-goldengate-digests-separatepcrruns-gradient-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer">
+<span id="assemblytron-golden-gate-goldengate-digests-separatepcrruns-gradient-writer-module"></span><h2>AssemblyTron.Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script for generating a Golden Gate Assembly Protocol Script with separate PCRs and digested entry plasmids in OpenTrons API.</p>
+<p>This script allows users to perform Golden Gate assembly where fragments for each assembly are amplified in separate tubes and uses a gradient thermocycler or on deck thermocycler.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-golden-gate-goldengate-nodigests-separatepcrruns-gradient-writer-module">
-<h2>AssemblyTron.Golden_Gate.GoldenGate_nodigests_separatepcrruns_gradient_writer module<a class="headerlink" href="#assemblytron-golden-gate-goldengate-nodigests-separatepcrruns-gradient-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.GoldenGate_nodigests_separatepcrruns_gradient_writer">
+<span id="assemblytron-golden-gate-goldengate-nodigests-separatepcrruns-gradient-writer-module"></span><h2>AssemblyTron.Golden_Gate.GoldenGate_nodigests_separatepcrruns_gradient_writer module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.GoldenGate_nodigests_separatepcrruns_gradient_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script for generating a Golden Gate Assembly Protocol Script with separate PCRs and NO digested entry plasmids in OpenTrons API.</p>
+<p>This script allows users to perform Golden Gate assembly where fragments for each assembly are amplified in separate tubes and uses a gradient thermocycler or on deck thermocycler.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-golden-gate-setup-digests-gradient-module">
-<h2>AssemblyTron.Golden_Gate.Setup_digests_gradient module<a class="headerlink" href="#assemblytron-golden-gate-setup-digests-gradient-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.Setup_digests_gradient">
+<span id="assemblytron-golden-gate-setup-digests-gradient-module"></span><h2>AssemblyTron.Golden_Gate.Setup_digests_gradient module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.Setup_digests_gradient" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for Golden Gate Assembly. This variation of the writer is for when entry plasmids are being used.</p>
+<p>This script walks the user through setup of Golden Gate assembly. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> , <cite>tkinter</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Golden_Gate.Setup_digests_gradient</cite>.</p>
 </section>
-<section id="assemblytron-golden-gate-setup-nodigests-seppcr-gradient-24-module">
-<h2>AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24 module<a class="headerlink" href="#assemblytron-golden-gate-setup-nodigests-seppcr-gradient-24-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24">
+<span id="assemblytron-golden-gate-setup-nodigests-seppcr-gradient-24-module"></span><h2>AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24 module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for Golden Gate Assembly. This variation of the writer is for when NO entry plasmids are being used and has a 24 tube capacity.</p>
+<p>This script walks the user through setup of Golden Gate assembly. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> , <cite>tkinter</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24</cite>.</p>
 </section>
-<section id="assemblytron-golden-gate-setup-nodigests-seppcr-gradient-96-module">
-<h2>AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96 module<a class="headerlink" href="#assemblytron-golden-gate-setup-nodigests-seppcr-gradient-96-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96">
+<span id="assemblytron-golden-gate-setup-nodigests-seppcr-gradient-96-module"></span><h2>AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96 module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for Golden Gate Assembly. This variation of the writer is for when NO entry plasmids are being used and has a 96 tube capacity.</p>
+<p>This script walks the user through setup of Golden Gate assembly. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> , <cite>tkinter</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96</cite>.</p>
 </section>
-<section id="assemblytron-golden-gate-dilution-24-digests-writer-module">
-<h2>AssemblyTron.Golden_Gate.dilution_24_digests_writer module<a class="headerlink" href="#assemblytron-golden-gate-dilution-24-digests-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.dilution_24_digests_writer">
+<span id="assemblytron-golden-gate-dilution-24-digests-writer-module"></span><h2>AssemblyTron.Golden_Gate.dilution_24_digests_writer module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.dilution_24_digests_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script that creates a Dilution Script in OpenTrons API for up to 24 primers and templates for the digested entry plasmid Golden Gate</p>
+<p>This script contains a protocol for diluting up to 24 primers and templates to concentrations specified in the AssemblyTron.Golden_Gate.Setup_digests_gradient module.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-golden-gate-dilution-24-writer-module">
-<h2>AssemblyTron.Golden_Gate.dilution_24_writer module<a class="headerlink" href="#assemblytron-golden-gate-dilution-24-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.dilution_24_writer">
+<span id="assemblytron-golden-gate-dilution-24-writer-module"></span><h2>AssemblyTron.Golden_Gate.dilution_24_writer module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.dilution_24_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script that creates a Dilution Script in OpenTrons API for up to 24 primers and templates when there are no digested entry plasmids included in the design.</p>
+<p>This script contains a protocol for diluting up to 24 primers and templates to concentrations specified in the AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24 module.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-golden-gate-dilution-96-writer-module">
-<h2>AssemblyTron.Golden_Gate.dilution_96_writer module<a class="headerlink" href="#assemblytron-golden-gate-dilution-96-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate.dilution_96_writer">
+<span id="assemblytron-golden-gate-dilution-96-writer-module"></span><h2>AssemblyTron.Golden_Gate.dilution_96_writer module<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate.dilution_96_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script that creates a Dilution Script in OpenTrons API for up to 96 primers and templates when there are no digested entry plasmids included in the design.</p>
+<p>This script contains a protocol for diluting up to 96 primers and templates to concentrations specified in the AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96 module.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Golden_Gate">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.AssemblyTron.Golden_Gate" title="Permalink to this heading">¶</a></h2>
+<section id="setup-nodigests-seppcr-gradient-24">
+<h3>Setup_nodigests_seppcr_gradient_24<a class="headerlink" href="#setup-nodigests-seppcr-gradient-24" title="Permalink to this heading">¶</a></h3>
+<p>This script walks the user through processing assembly design files and making a directory for perfoming Golden Gate Assembly with AssemblyTron.</p>
+<p>This script requires the user to have an assembly design built with j5. The main combinatorial design file required is a CSV.</p>
+<p>This script require <cite>pandas</cite>, <cite>numpy</cite>, to be installed in the python environment in which you are running this script.</p>
+<p>This file can also be imported as a module and cotains the following function:</p>
+<blockquote>
+<div><ul class="simple">
+<li></li>
+</ul>
+</div></blockquote>
+</section>
 </section>
 </section>
 

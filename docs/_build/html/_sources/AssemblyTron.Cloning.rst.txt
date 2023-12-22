@@ -7,7 +7,7 @@ Submodules
 AssemblyTron.Cloning.IVA\_separatepcrruns\_gradient\_writer module
 ------------------------------------------------------------------
 
-.. automodule:: AssemblyTron.Cloning.IVA_separatepcrruns_gradient_writer
+.. automodule:: src.AssemblyTron.Cloning.IVA_separatepcrruns_gradient_writer
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ AssemblyTron.Cloning.IVA\_separatepcrruns\_gradient\_writer module
 AssemblyTron.Cloning.Setup\_seppcr\_gradient\_24 module
 -------------------------------------------------------
 
-.. automodule:: AssemblyTron.Cloning.Setup_seppcr_gradient_24
+.. automodule:: src.AssemblyTron.Cloning.Setup_seppcr_gradient_24
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ AssemblyTron.Cloning.Setup\_seppcr\_gradient\_24 module
 AssemblyTron.Cloning.Setup\_seppcr\_gradient\_96 module
 -------------------------------------------------------
 
-.. automodule:: AssemblyTron.Cloning.Setup_seppcr_gradient_96
+.. automodule:: src.AssemblyTron.Cloning.Setup_seppcr_gradient_96
    :members:
    :undoc-members:
    :show-inheritance:
@@ -31,7 +31,7 @@ AssemblyTron.Cloning.Setup\_seppcr\_gradient\_96 module
 AssemblyTron.Cloning.dilution\_24\_writer module
 ------------------------------------------------
 
-.. automodule:: AssemblyTron.Cloning.dilution_24_writer
+.. automodule:: src.AssemblyTron.Cloning.dilution_24_writer
    :members:
    :undoc-members:
    :show-inheritance:
@@ -39,7 +39,7 @@ AssemblyTron.Cloning.dilution\_24\_writer module
 AssemblyTron.Cloning.dilution\_96\_writer module
 ------------------------------------------------
 
-.. automodule:: AssemblyTron.Cloning.dilution_96_writer
+.. automodule:: src.AssemblyTron.Cloning.dilution_96_writer
    :members:
    :undoc-members:
    :show-inheritance:
@@ -47,7 +47,7 @@ AssemblyTron.Cloning.dilution\_96\_writer module
 Module contents
 ---------------
 
-.. automodule:: AssemblyTron.Cloning
+.. automodule:: src.AssemblyTron.Cloning
    :members:
    :undoc-members:
    :show-inheritance:

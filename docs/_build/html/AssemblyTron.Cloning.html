@@ -38,23 +38,42 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="assemblytron-cloning-iva-separatepcrruns-gradient-writer-module">
-<h2>AssemblyTron.Cloning.IVA_separatepcrruns_gradient_writer module<a class="headerlink" href="#assemblytron-cloning-iva-separatepcrruns-gradient-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Cloning.IVA_separatepcrruns_gradient_writer">
+<span id="assemblytron-cloning-iva-separatepcrruns-gradient-writer-module"></span><h2>AssemblyTron.Cloning.IVA_separatepcrruns_gradient_writer module<a class="headerlink" href="#module-src.AssemblyTron.Cloning.IVA_separatepcrruns_gradient_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script for generating a Homology Dependent Assembly Protocol Script with separate PCRs in OpenTrons API.</p>
+<p>This script allows users to perform Homology dependent assembly where fragments for each assembly are amplified in separate tubes and uses a gradient thermocycler. This protocol is thoroughly validated and robust, so we recommend using it.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-cloning-setup-seppcr-gradient-24-module">
-<h2>AssemblyTron.Cloning.Setup_seppcr_gradient_24 module<a class="headerlink" href="#assemblytron-cloning-setup-seppcr-gradient-24-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Cloning.Setup_seppcr_gradient_24">
+<span id="assemblytron-cloning-setup-seppcr-gradient-24-module"></span><h2>AssemblyTron.Cloning.Setup_seppcr_gradient_24 module<a class="headerlink" href="#module-src.AssemblyTron.Cloning.Setup_seppcr_gradient_24" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for Homology Dependent Assembly with 24 tube capacity</p>
+<p>This script walks the user through setup of a homology dependent assembly with up to 24 combined primers and templates. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Cloning.Setup_seppcr_gradient_24</cite>.</p>
 </section>
-<section id="assemblytron-cloning-setup-seppcr-gradient-96-module">
-<h2>AssemblyTron.Cloning.Setup_seppcr_gradient_96 module<a class="headerlink" href="#assemblytron-cloning-setup-seppcr-gradient-96-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Cloning.Setup_seppcr_gradient_96">
+<span id="assemblytron-cloning-setup-seppcr-gradient-96-module"></span><h2>AssemblyTron.Cloning.Setup_seppcr_gradient_96 module<a class="headerlink" href="#module-src.AssemblyTron.Cloning.Setup_seppcr_gradient_96" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for Homology Dependent Assembly with 96 tube capacity</p>
+<p>This script walks the user through setup of a homology dependent assembly with up to 96 combined primers and templates. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Cloning.Setup_seppcr_gradient_96</cite>.</p>
 </section>
-<section id="assemblytron-cloning-dilution-24-writer-module">
-<h2>AssemblyTron.Cloning.dilution_24_writer module<a class="headerlink" href="#assemblytron-cloning-dilution-24-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Cloning.dilution_24_writer">
+<span id="assemblytron-cloning-dilution-24-writer-module"></span><h2>AssemblyTron.Cloning.dilution_24_writer module<a class="headerlink" href="#module-src.AssemblyTron.Cloning.dilution_24_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script that creates a Dilution Script in OpenTrons API for up to 24 primers and templates</p>
+<p>This script contains a protocol for diluting up to 24 primers and templates to concentrations specified in the AssemblyTron.Cloning.Setup_seppcr_gradient_24 module.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-cloning-dilution-96-writer-module">
-<h2>AssemblyTron.Cloning.dilution_96_writer module<a class="headerlink" href="#assemblytron-cloning-dilution-96-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Cloning.dilution_96_writer">
+<span id="assemblytron-cloning-dilution-96-writer-module"></span><h2>AssemblyTron.Cloning.dilution_96_writer module<a class="headerlink" href="#module-src.AssemblyTron.Cloning.dilution_96_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script that creates a Dilution Script in OpenTrons API for up to 96 primers and templates</p>
+<p>This script contains a protocol for diluting up to 96 primers and templates to concentrations specified in the AssemblyTron.Cloning.Setup_seppcr_gradient_96 module.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Cloning">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.AssemblyTron.Cloning" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 

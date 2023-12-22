@@ -38,41 +38,82 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-1-setup-std-goldengate-pcr-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.1_Setup_STD_GoldenGate_PCR module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-1-setup-std-goldengate-pcr-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Error_prone_PCR_writer">
+<span id="assemblytron-error-prone-pcr-golden-gate-error-prone-pcr-writer-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Error_prone_PCR_writer module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Error_prone_PCR_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script for generating an Error prone PCR Protocol Script with separate PCRs in OpenTrons API.</p>
+<p>This script allows users to perform Error prone PCR where fragments for each assembly are amplified in separate tubes and uses a gradient thermocycler or the on deck thermocycler.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-1-setup-std-goldengate-digests-pcr-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.1_Setup_STD_GoldenGate_digests_PCR module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-1-setup-std-goldengate-digests-pcr-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer">
+<span id="assemblytron-error-prone-pcr-golden-gate-goldengate-digests-separatepcrruns-gradient-writer-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script for generating a Golden Gate assembly Protocol Script with separate PCRs and digested destination vectors in OpenTrons API.</p>
+<p>This script allows users to perform Golden Gate assembly where fragments for each assembly are amplified in separate tubes and backbone fragments are placed on the deck. It uses a gradient thermocycler or the on deck thermocycler.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-error-prone-pcr-writer-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Error_prone_PCR_writer module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-error-prone-pcr-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_separatepcrruns_gradient_writer">
+<span id="assemblytron-error-prone-pcr-golden-gate-goldengate-separatepcrruns-gradient-writer-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_separatepcrruns_gradient_writer module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_separatepcrruns_gradient_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script for generating a Golden Gate assembly Protocol Script with separate PCRs and NO digested destination vectors in OpenTrons API.</p>
+<p>This script allows users to perform Golden Gate assembly where fragments for each assembly are amplified in separate tubes. It uses a gradient thermocycler or the on deck thermocycler.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-goldengate-digests-separatepcrruns-gradient-writer-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_digests_separatepcrruns_gradient_writer module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-goldengate-digests-separatepcrruns-gradient-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR">
+<span id="assemblytron-error-prone-pcr-golden-gate-setup-error-prone-pcr-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for Error prone PCR. This variation of the writer is for when no entry plasmids are being used.</p>
+<p>This script walks the user through setup of Error prone PCR. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR</cite>.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-goldengate-separatepcrruns-gradient-writer-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.GoldenGate_separatepcrruns_gradient_writer module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-goldengate-separatepcrruns-gradient-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR_NOdigest">
+<span id="assemblytron-error-prone-pcr-golden-gate-setup-error-prone-pcr-nodigest-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR_NOdigest module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR_NOdigest" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for Error prone PCR. This variation of the writer is for when no entry plasmids are being used.</p>
+<p>This script walks the user through setup of Error prone PCR. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> , <a href="#id1"><span class="problematic" id="id2">`</span></a>tkinter to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR_NOdigest</cite>.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-setup-error-prone-pcr-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-setup-error-prone-pcr-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_Assembly">
+<span id="assemblytron-error-prone-pcr-golden-gate-setup-std-goldengate-assembly-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_Assembly module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_Assembly" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for stage 3 Golden Gate Assembly with with NO destination plasmid.</p>
+<p>This script walks the user through setup of a Golden Gate assembly. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> , <cite>tkinter</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_Assembly</cite>.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-setup-error-prone-pcr-nodigest-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR_NOdigest module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-setup-error-prone-pcr-nodigest-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_digests_Assembly">
+<span id="assemblytron-error-prone-pcr-golden-gate-setup-std-goldengate-digests-assembly-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_digests_Assembly module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_digests_Assembly" title="Permalink to this heading">¶</a></h2>
+<p>Setup script for stage 3 Golden Gate Assembly with with a destination plasmid with restriction sites</p>
+<p>This script walks the user through setup of a Golden Gate assembly with a destination plasmid with restriction sites. This script makes a dated directory in the wd, parses/transfers input files, allows users to customize parameters, runs the gradient PCR optimization algorithm, and performs calculation and tracking steps for parsed design files.</p>
+<p>This script requires no arguments, but instead obtains all necessary information and files by user-friendly tkinter pop-up windows.</p>
+<p>This script requires <cite>pandas</cite> , <cite>numpy</cite> , <cite>shutil</cite> , <cite>tkinter</cite> to be installed in the python environment where running.</p>
+<p>This script can also be called as a module by calling <cite>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_digests_Assembly</cite>.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-setup-std-goldengate-assembly-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_Assembly module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-setup-std-goldengate-assembly-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_24_digests_writer">
+<span id="assemblytron-error-prone-pcr-golden-gate-dilution-24-digests-writer-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_24_digests_writer module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_24_digests_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script that creates a Dilution Script in OpenTrons API for up to 24 primers and templates</p>
+<p>This script contains a protocol for diluting up to 24 primers and templates to concentrations specified in the AssemblyTron.Error_prone_pcr.1_Setup_STD_GoldenGate_digests_PCR module.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-setup-std-goldengate-digests-assembly-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_digests_Assembly module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-setup-std-goldengate-digests-assembly-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_Error_prone_PCR_writer">
+<span id="assemblytron-error-prone-pcr-golden-gate-dilution-error-prone-pcr-writer-module"></span><h2>AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_Error_prone_PCR_writer module<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_Error_prone_PCR_writer" title="Permalink to this heading">¶</a></h2>
+<p>A writer script that creates a Dilution Script in OpenTrons API for the error prone PCR fragments in stage 2.</p>
+<p>This script contains a protocol for diluting primers and templates to concentrations specified in the AssemblyTron.Error_prone_pcr.Setup_Error_prone_PCR module.</p>
+<p>This script generates a text file that runs on the OT-2 via the run app. It calls CSVs to make a customized protocol script. This script is designed to run on a personal computer on the command line.</p>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-dilution-24-digests-writer-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_24_digests_writer module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-dilution-24-digests-writer-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.AssemblyTron.Error_prone_PCR_Golden_Gate">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.AssemblyTron.Error_prone_PCR_Golden_Gate" title="Permalink to this heading">¶</a></h2>
+<section id="setup-nodigests-seppcr-gradient-24">
+<h3>Setup_nodigests_seppcr_gradient_24<a class="headerlink" href="#setup-nodigests-seppcr-gradient-24" title="Permalink to this heading">¶</a></h3>
+<p>This script walks the user through processing assembly design files and making a directory for perfoming Golden Gate Assembly with AssemblyTron.</p>
+<p>This script requires the user to have an assembly design built with j5. The main combinatorial design file required is a CSV.</p>
+<p>This script require <cite>pandas</cite>, <cite>numpy</cite>, to be installed in the python environment in which you are running this script.</p>
+<p>This file can also be imported as a module and cotains the following function:</p>
+<blockquote>
+<div><ul class="simple">
+<li></li>
+</ul>
+</div></blockquote>
 </section>
-<section id="assemblytron-error-prone-pcr-golden-gate-dilution-error-prone-pcr-writer-module">
-<h2>AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_Error_prone_PCR_writer module<a class="headerlink" href="#assemblytron-error-prone-pcr-golden-gate-dilution-error-prone-pcr-writer-module" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 

@@ -5,16 +5,15 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
-import src.AssemblyTron
+sys.path.insert(0, os.path.abspath('..')) 
 import src.AssemblyTron.j5_to_csvs
 import src.AssemblyTron.j5_to_csvs_digests
 import src.AssemblyTron.opentrons_demo_script
 import src.AssemblyTron.pathswriter
 import src.AssemblyTron.Update_Input
 import src.AssemblyTron.static_wired_IP_address
+import src.AssemblyTron
 
-import src.AssemblyTron.Golden_Gate
 import src.AssemblyTron.Golden_Gate.dilution_24_digests_writer
 import src.AssemblyTron.Golden_Gate.dilution_24_writer
 import src.AssemblyTron.Golden_Gate.dilution_96_writer
@@ -23,15 +22,15 @@ import src.AssemblyTron.Golden_Gate.GoldenGate_nodigests_separatepcrruns_gradien
 import src.AssemblyTron.Golden_Gate.Setup_digests_gradient
 import src.AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_24
 import src.AssemblyTron.Golden_Gate.Setup_nodigests_seppcr_gradient_96
+import src.AssemblyTron.Golden_Gate
 
-import src.AssemblyTron.Cloning
 import src.AssemblyTron.Cloning.dilution_24_writer
 import src.AssemblyTron.Cloning.dilution_96_writer
 import src.AssemblyTron.Cloning.IVA_separatepcrruns_gradient_writer
 import src.AssemblyTron.Cloning.Setup_seppcr_gradient_24
 import src.AssemblyTron.Cloning.Setup_seppcr_gradient_96
+import src.AssemblyTron.Cloning
 
-import src.AssemblyTron.Error_prone_PCR_Golden_Gate
 import src.AssemblyTron.Error_prone_PCR_Golden_Gate._1_Setup_STD_GoldenGate_digests_PCR
 import src.AssemblyTron.Error_prone_PCR_Golden_Gate._1_Setup_STD_GoldenGate_PCR
 import src.AssemblyTron.Error_prone_PCR_Golden_Gate.dilution_24_digests_writer
@@ -43,10 +42,11 @@ import src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR
 import src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_Error_prone_PCR_NOdigest
 import src.AssemblyTron.Error_prone_PCR_Golden_Gate.Setup_STD_GoldenGate_Assembly
 import src.AssemblyTron.Error_prone_PCR_Golden_Gate._1_Setup_STD_GoldenGate_digests_PCR
+import src.AssemblyTron.Error_prone_PCR_Golden_Gate
 
-import src.AssemblyTron.MoClo_builder
 import src.AssemblyTron.MoClo_builder.MoClo_writer
 import src.AssemblyTron.MoClo_builder.Setup_MoClo
+import src.AssemblyTron.MoClo_builder
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
